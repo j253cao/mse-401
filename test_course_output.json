@@ -1,0 +1,73 @@
+{
+  "course_code": "ACTSC231",
+  "course_info": {
+    "title": "Introductory Financial Mathematics",
+    "department": "ACTSC",
+    "pid": "B1xy6d47Y2"
+  },
+  "dependencies": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "MATH137",
+              "description": "MATH137 - Calculus 1 for Honours Mathematics (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "MATH147",
+              "description": "MATH147 - Calculus 1 (Advanced Level) (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "STAT220",
+              "description": "STAT220 - Probability (Non-Specialist Level) (0.50)",
+              "grade_requirement": "70%"
+            }
+          ]
+        },
+        {
+          "type": "program_requirement",
+          "description": "Students must be in level 2A or higher"
+        }
+      ]
+    },
+    "corequisite": {
+      "type": "one",
+      "rules": [
+        {
+          "type": "course_requirement",
+          "code": "STAT230",
+          "description": "STAT230 - Probability (0.50)"
+        },
+        {
+          "type": "course_requirement",
+          "code": "STAT240",
+          "description": "STAT240 - Probability (Advanced Level) (0.50)"
+        }
+      ]
+    },
+    "antirequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "course_requirement",
+          "code": "ACTSC232"
+        },
+        {
+          "type": "course_requirement",
+          "code": "ACTSC221"
+        }
+      ]
+    }
+  }
+}

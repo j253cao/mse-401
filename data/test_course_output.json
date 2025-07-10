@@ -1,0 +1,53 @@
+{
+  "course_code": "ENVS403A",
+  "course_info": {
+    "title": "Interdisciplinary Project",
+    "department": "ENVS",
+    "pid": "B10ZZGRoA"
+  },
+  "dependencies": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "requirement",
+          "description": "Students must be in level 4A or higher"
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "antirequisite",
+          "code": "ENBUS402A"
+        },
+        {
+          "type": "antirequisite",
+          "code": "ENVS474"
+        },
+        {
+          "type": "antirequisite",
+          "code": "ENBUS403A"
+        },
+        {
+          "type": "antirequisite",
+          "code": "ENVS405"
+        },
+        {
+          "type": "antirequisite",
+          "code": "ENBUS409A"
+        },
+        {
+          "type": "antirequisite",
+          "code": "ENBUS475"
+        },
+        {
+          "type": "antirequisite",
+          "code": "ENVS404"
+        }
+      ]
+    }
+  }
+}
