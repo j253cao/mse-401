@@ -1,9 +1,9 @@
 {
-  "course_code": "ACTSC231",
+  "course_code": "MSE436",
   "course_info": {
-    "title": "Introductory Financial Mathematics",
-    "department": "ACTSC",
-    "pid": "B1xy6d47Y2"
+    "title": "Decision Support Systems",
+    "department": "MSE",
+    "pid": "Syg_lp8stn"
   },
   "dependencies": {
     "prerequisite": {
@@ -14,13 +14,8 @@
           "rules": [
             {
               "type": "course_requirement",
-              "code": "MATH137",
-              "description": "MATH137 - Calculus 1 for Honours Mathematics (0.50)"
-            },
-            {
-              "type": "course_requirement",
-              "code": "MATH147",
-              "description": "MATH147 - Calculus 1 (Advanced Level) (0.50)"
+              "code": "MSE332",
+              "description": "MSE332 - Deterministic Optimization Models and Methods (0.50)"
             }
           ]
         },
@@ -29,45 +24,87 @@
           "rules": [
             {
               "type": "course_requirement",
-              "code": "STAT220",
-              "description": "STAT220 - Probability (Non-Specialist Level) (0.50)",
-              "grade_requirement": "70%"
+              "code": "CS348",
+              "description": "CS348 - Introduction to Database Management (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "MSE245",
+              "description": "MSE245 - Databases and Software Design (0.50)"
             }
           ]
         },
         {
-          "type": "program_requirement",
-          "description": "Students must be in level 2A or higher"
-        }
-      ]
-    },
-    "corequisite": {
-      "type": "one",
-      "rules": [
+          "type": "one",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "CS247",
+              "description": "CS247 - Software Engineering Principles (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "MSE342",
+              "description": "MSE342 - Principles of Software Engineering (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "SYDE322",
+              "description": "SYDE322 - Software Design (0.50)"
+            }
+          ]
+        },
         {
-          "type": "course_requirement",
-          "code": "STAT230",
-          "description": "STAT230 - Probability (0.50)"
+          "type": "one",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "CS449",
+              "description": "CS449 - Human-Computer Interaction (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "MSE343",
+              "description": "MSE343 - Human-Computer Interaction (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "SYDE548",
+              "description": "SYDE548 - User Centred Design Methods (0.50)"
+            }
+          ]
         },
         {
           "type": "course_requirement",
-          "code": "STAT240",
-          "description": "STAT240 - Probability (Advanced Level) (0.50)"
-        }
-      ]
-    },
-    "antirequisite": {
-      "type": "all",
-      "rules": [
-        {
-          "type": "course_requirement",
-          "code": "ACTSC232"
+          "code": "MSCI332",
+          "description": "Must have completed: MSCI332"
         },
         {
           "type": "course_requirement",
-          "code": "ACTSC221"
+          "code": "MSCI245",
+          "description": "Must have completed: MSCI245"
+        },
+        {
+          "type": "course_requirement",
+          "code": "MSCI342",
+          "description": "Must have completed: MSCI342"
+        },
+        {
+          "type": "one",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "MSCI343"
+            },
+            {
+              "type": "course_requirement",
+              "code": "SYDE348"
+            }
+          ]
         }
       ]
-    }
+    },
+    "corequisite": null,
+    "antirequisite": null
   }
 }
