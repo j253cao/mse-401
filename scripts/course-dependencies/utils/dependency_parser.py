@@ -7,19 +7,32 @@ def normalize_course_code(code):
         return "MSE" + code[4:]
     return code
 
-def parse_prerequisites(prerequisites_html, courses=None):
+def parse_prerequisites(prerequisites_html, is_top_level=True, extracted_codes=None):
     if not prerequisites_html:
         return None
     prerequisites_html = re.sub(r'<!--.*?-->', '', prerequisites_html)
     print("DEBUG: Parsing prerequisites...")
 
-    extracted_codes = set()
-    # Pattern for "Complete all of the following"
+    # Initialize extracted_codes on top-level calls
+    if extracted_codes is None:
+        extracted_codes = set()
+
+    # Patterns for different levels
     all_pattern = r'Complete\s+all\s+of\s+the\s+following'
-    # Pattern for "Must have completed the following"
     must_all_pattern = r'Must have completed the following'
-    # Pattern for "Enrolled in"
     enrolled_pattern = r'Enrolled in'
+
+    # Pattern for "Must have completed at least 1 of the following"
+    if is_top_level:
+        must_complete_pattern = r'Must have completed at least <span>1</span> of the following:(.*?)</div></div></li>'
+    else:
+        must_complete_pattern = r'Must have completed at least <span>1</span> of the following:(.*)'
+
+    # Pattern for "Complete 1 of the following"
+    if is_top_level:
+        complete_one_pattern = r'<span>Complete\s+1\s+of\s+the\s+following</span><ul>(.*?)</ul>'
+    else:
+        complete_one_pattern = r'<span>Complete\s+1\s+of\s+the\s+following</span><ul>(.*?)</ul>'
 
     # Check for "Complete all of the following"
     if re.search(all_pattern, prerequisites_html, re.IGNORECASE):
@@ -30,18 +43,109 @@ def parse_prerequisites(prerequisites_html, courses=None):
             print(f"DEBUG: All content length: {len(all_content)}")
             all_items = []
 
-            # First, find all nested "Complete 1 of the following" blocks
-            complete_one_pattern = r'<span>Complete\s+1\s+of\s+the\s+following</span><ul>(.*?)</ul>'
+            # Find all nested "Complete 1 of the following" blocks
             complete_one_matches = re.findall(complete_one_pattern, all_content, re.DOTALL)
             print(f"DEBUG: Found {len(complete_one_matches)} 'Complete 1 of the following' blocks")
 
             for i, one_content in enumerate(complete_one_matches):
                 print(f"DEBUG: Processing complete_one block {i+1}")
-                one_rules = extract_rules_from_html(one_content)
-                print(f"DEBUG: Extracted {len(one_rules)} rules from complete_one block")
-                for rule in one_rules:
-                    if rule.get('code'):
-                        print(f"DEBUG: Found course code: {rule['code']}")
+                li_pattern = r'<li>(.*?)</li>'
+                li_matches = re.findall(li_pattern, one_content, re.DOTALL)
+                one_rules = []
+                for li_html in li_matches:
+                    # Each <li> becomes a separate logical group
+                    li_rules = []
+                    li_codes = set()  # Deduplicate only within this <li>
+                    
+                    # Check if this <li> contains "Must have completed at least 1 of the following"
+                    must_complete_li_pattern = r'Must have completed at least 1 of the following:(.*?)</li>'
+                    must_complete_li_match = re.search(must_complete_li_pattern, li_html, re.DOTALL)
+                    if must_complete_li_match:
+                        print(f"DEBUG: Found 'Must have completed at least 1 of the following' in <li>")
+                        must_complete_content = must_complete_li_match.group(1)
+                        # Parse the content as a "one" block
+                        nested_li_pattern = r'<li>(.*?)</li>'
+                        nested_li_matches = re.findall(nested_li_pattern, must_complete_content, re.DOTALL)
+                        nested_rules = []
+                        for nested_li_html in nested_li_matches:
+                            # Parse anchor-based requirements
+                            parsed = parse_prerequisites(nested_li_html, is_top_level=False)
+                            if parsed:
+                                if isinstance(parsed, dict) and parsed.get('type') == 'course_requirement' and parsed.get('code'):
+                                    norm_code = normalize_course_code(parsed['code'])
+                                    if norm_code not in li_codes:
+                                        nested_rules.append(parsed)
+                                        li_codes.add(norm_code)
+                                elif isinstance(parsed, dict) and parsed.get('type') in ('one', 'all') and 'rules' in parsed:
+                                    for rule in parsed['rules']:
+                                        if rule.get('type') == 'course_requirement' and rule.get('code'):
+                                            norm_code = normalize_course_code(rule['code'])
+                                            if norm_code not in li_codes:
+                                                nested_rules.append(rule)
+                                                li_codes.add(norm_code)
+                                        else:
+                                            nested_rules.append(rule)
+                                else:
+                                    nested_rules.append(parsed)
+                            # Parse plain-text requirements in the nested <li>
+                            plain_text_pattern = r'Must have completed(?: at least <span>1</span>)? of the following: ([A-Z]{2,6}\d{3,4}(?:, *[A-Z]{2,6}\d{3,4})*)'
+                            plain_text_matches = re.findall(plain_text_pattern, nested_li_html)
+                            for match in plain_text_matches:
+                                codes = [normalize_course_code(code.strip()) for code in match.split(',')]
+                                for code in codes:
+                                    if code and code not in li_codes:
+                                        nested_rules.append({'type': 'course_requirement', 'code': code})
+                                        li_codes.add(code)
+                        # Add as a "one" block
+                        if nested_rules:
+                            li_rules.append({'type': 'one', 'rules': nested_rules})
+                    else:
+                        # Check if this <li> contains "Must have completed the following: course_code"
+                        plain_text_pattern = r'Must have completed the following:\s*([A-Z]{2,6}\s*\d{3,4}[A-Z]?)'
+                        plain_text_match = re.search(plain_text_pattern, li_html)
+                        if plain_text_match:
+                            print(f"DEBUG: Found 'Must have completed the following' in <li>")
+                            course_code = plain_text_match.group(1)
+                            clean_code = re.sub(r'\s+', '', course_code)
+                            norm_code = normalize_course_code(clean_code)
+                            if norm_code not in li_codes:
+                                li_rules.append({
+                                    'type': 'course_requirement', 
+                                    'code': norm_code,
+                                    'description': f"Must have completed: {clean_code}"
+                                })
+                                li_codes.add(norm_code)
+                        else:
+                            # Parse anchor-based and nested blocks recursively
+                            parsed = parse_prerequisites(li_html, is_top_level=False)
+                            if parsed:
+                                if isinstance(parsed, dict) and parsed.get('type') == 'course_requirement' and parsed.get('code'):
+                                    norm_code = normalize_course_code(parsed['code'])
+                                    if norm_code not in li_codes:
+                                        li_rules.append(parsed)
+                                        li_codes.add(norm_code)
+                                elif isinstance(parsed, dict) and parsed.get('type') in ('one', 'all') and 'rules' in parsed:
+                                    for rule in parsed['rules']:
+                                        if rule.get('type') == 'course_requirement' and rule.get('code'):
+                                            norm_code = normalize_course_code(rule['code'])
+                                            if norm_code not in li_codes:
+                                                li_rules.append(rule)
+                                                li_codes.add(norm_code)
+                                        else:
+                                            li_rules.append(rule)
+                                else:
+                                    li_rules.append(parsed)
+                    
+                    # Add the <li> rules to the parent "one" block
+                    if li_rules:
+                        if len(li_rules) == 1:
+                            # Single rule, add directly
+                            one_rules.append(li_rules[0])
+                        else:
+                            # Multiple rules, wrap in a "one" block
+                            one_rules.append({'type': 'one', 'rules': li_rules})
+                
+                print(f"DEBUG: Extracted {len(one_rules)} rules from complete_one block (preserving <li> grouping)")
                 all_items.append({'type': 'one', 'rules': one_rules})
 
             # Remove the "Complete 1 of the following" blocks from content to avoid double-counting
@@ -93,32 +197,110 @@ def parse_prerequisites(prerequisites_html, courses=None):
             all_content_cleaned = re.sub(enrolled_nested_pattern, '', all_content_cleaned, flags=re.DOTALL | re.IGNORECASE)
 
             # Look for "Must have completed at least 1 of the following" pattern
-            must_complete_match = re.search(r'Must have completed at least <span>1</span> of the following:(.*?)</div></div></li>', all_content_cleaned, re.DOTALL)
+            must_complete_match = re.search(must_complete_pattern, all_content_cleaned, re.DOTALL)
             if must_complete_match:
                 print("DEBUG: Found 'Must have completed at least 1 of the following' pattern")
                 must_complete_content = must_complete_match.group(1)
-                must_complete_rules = extract_rules_from_html(must_complete_content)
-                print(f"DEBUG: Extracted {len(must_complete_rules)} rules from must_complete block")
-                for rule in must_complete_rules:
-                    if rule.get('code'):
-                        print(f"DEBUG: Found course code: {rule['code']}")
+                li_pattern = r'<li>(.*?)</li>'
+                li_matches = re.findall(li_pattern, must_complete_content, re.DOTALL)
+                must_complete_rules = []
+                for li_html in li_matches:
+                    # Each <li> becomes a separate logical group
+                    li_rules = []
+                    li_codes = set()  # Deduplicate only within this <li>
+                    
+                    # Check if this <li> contains "Must have completed at least 1 of the following"
+                    must_complete_li_pattern = r'Must have completed at least 1 of the following:(.*?)</li>'
+                    must_complete_li_match = re.search(must_complete_li_pattern, li_html, re.DOTALL)
+                    if must_complete_li_match:
+                        print(f"DEBUG: Found 'Must have completed at least 1 of the following' in <li>")
+                        nested_content = must_complete_li_match.group(1)
+                        # Parse the content as a "one" block
+                        nested_li_pattern = r'<li>(.*?)</li>'
+                        nested_li_matches = re.findall(nested_li_pattern, nested_content, re.DOTALL)
+                        nested_rules = []
+                        for nested_li_html in nested_li_matches:
+                            # Parse anchor-based requirements
+                            parsed = parse_prerequisites(nested_li_html, is_top_level=False)
+                            if parsed:
+                                if isinstance(parsed, dict) and parsed.get('type') == 'course_requirement' and parsed.get('code'):
+                                    norm_code = normalize_course_code(parsed['code'])
+                                    if norm_code not in li_codes:
+                                        nested_rules.append(parsed)
+                                        li_codes.add(norm_code)
+                                elif isinstance(parsed, dict) and parsed.get('type') in ('one', 'all') and 'rules' in parsed:
+                                    for rule in parsed['rules']:
+                                        if rule.get('type') == 'course_requirement' and rule.get('code'):
+                                            norm_code = normalize_course_code(rule['code'])
+                                            if norm_code not in li_codes:
+                                                nested_rules.append(rule)
+                                                li_codes.add(norm_code)
+                                        else:
+                                            nested_rules.append(rule)
+                                else:
+                                    nested_rules.append(parsed)
+                            # Parse plain-text requirements in the nested <li>
+                            plain_text_pattern = r'Must have completed(?: at least <span>1</span>)? of the following: ([A-Z]{2,6}\d{3,4}(?:, *[A-Z]{2,6}\d{3,4})*)'
+                            plain_text_matches = re.findall(plain_text_pattern, nested_li_html)
+                            for match in plain_text_matches:
+                                codes = [normalize_course_code(code.strip()) for code in match.split(',')]
+                                for code in codes:
+                                    if code and code not in li_codes:
+                                        nested_rules.append({'type': 'course_requirement', 'code': code})
+                                        li_codes.add(code)
+                        # Add as a "one" block
+                        if nested_rules:
+                            li_rules.append({'type': 'one', 'rules': nested_rules})
+                    else:
+                        # Check if this <li> contains "Must have completed the following: course_code"
+                        plain_text_pattern = r'Must have completed the following:\s*([A-Z]{2,6}\s*\d{3,4}[A-Z]?)'
+                        plain_text_match = re.search(plain_text_pattern, li_html)
+                        if plain_text_match:
+                            print(f"DEBUG: Found 'Must have completed the following' in <li>")
+                            course_code = plain_text_match.group(1)
+                            clean_code = re.sub(r'\s+', '', course_code)
+                            norm_code = normalize_course_code(clean_code)
+                            if norm_code not in li_codes:
+                                li_rules.append({
+                                    'type': 'course_requirement', 
+                                    'code': norm_code,
+                                    'description': f"Must have completed: {clean_code}"
+                                })
+                                li_codes.add(norm_code)
+                        else:
+                            # Parse anchor-based and nested blocks recursively
+                            parsed = parse_prerequisites(li_html, is_top_level=False)
+                            if parsed:
+                                if isinstance(parsed, dict) and parsed.get('type') == 'course_requirement' and parsed.get('code'):
+                                    norm_code = normalize_course_code(parsed['code'])
+                                    if norm_code not in li_codes:
+                                        li_rules.append(parsed)
+                                        li_codes.add(norm_code)
+                                elif isinstance(parsed, dict) and parsed.get('type') in ('one', 'all') and 'rules' in parsed:
+                                    for rule in parsed['rules']:
+                                        if rule.get('type') == 'course_requirement' and rule.get('code'):
+                                            norm_code = normalize_course_code(rule['code'])
+                                            if norm_code not in li_codes:
+                                                li_rules.append(rule)
+                                                li_codes.add(norm_code)
+                                        else:
+                                            li_rules.append(rule)
+                                else:
+                                    li_rules.append(parsed)
+                    
+                    # Add the <li> rules to the parent "one" block
+                    if li_rules:
+                        if len(li_rules) == 1:
+                            # Single rule, add directly
+                            must_complete_rules.append(li_rules[0])
+                        else:
+                            # Multiple rules, wrap in a "one" block
+                            must_complete_rules.append({'type': 'one', 'rules': li_rules})
+                
+                print(f"DEBUG: Extracted {len(must_complete_rules)} rules from must_complete block (preserving <li> grouping)")
                 all_items.append({'type': 'one', 'rules': must_complete_rules})
 
-            # Look for any remaining "Must have completed the following:" patterns (individual course requirements)
-            remaining_must_complete_pattern = r'Must have completed the following:\s*([A-Z]{2,6}\s*\d{3,4}[A-Z]?)'
-            remaining_must_complete_matches = re.findall(remaining_must_complete_pattern, all_content_cleaned)
-            print(f"DEBUG: Found {len(remaining_must_complete_matches)} remaining 'Must have completed the following' individual courses")
-            for i, course_code in enumerate(remaining_must_complete_matches):
-                clean_code = re.sub(r'\s+', '', course_code)
-                norm_code = normalize_course_code(clean_code)
-                print(f"DEBUG: Found individual course: {norm_code}")
-                if norm_code not in extracted_codes:
-                    all_items.append({
-                        'type': 'course_requirement',
-                        'code': norm_code,
-                        'description': f"Must have completed: {clean_code}"
-                    })
-                    extracted_codes.add(norm_code)
+
 
             # Look for level requirements
             level_requirement_match = re.search(r'Students must be in level <span>(\d+[A-Z])</span> or higher', all_content_cleaned)

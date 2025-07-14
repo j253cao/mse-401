@@ -1,0 +1,283 @@
+{
+  "CHEM121L": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM123": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 120",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHE 102",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM123L": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 120L",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM125": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 121",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM125L": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 121L",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM212": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 120",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 123",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "AND",
+        "quantity": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 121",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 125",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "AND",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": null,
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "OR"
+  },
+  "CHEM220": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 123",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 125",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": null,
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHEM220L": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 123L",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "125L",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Biochemistry",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Chemistry",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Materials and Nanosciences",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Medicinal Chemistry",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Science and Business",
+        "program_type": "specialization",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHEM221": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "MNS 211",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM224L": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 220",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 220L",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "AND",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Biochemistry",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Chemistry",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Medicinal Chemistry",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  }
+}

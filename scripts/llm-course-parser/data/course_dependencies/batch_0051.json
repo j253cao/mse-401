@@ -1,0 +1,237 @@
+{
+  "CHE524": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Chemical Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHE562": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Chemical Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHE564": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Chemical Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHE572": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Chemical Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Environmental Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHE574": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Chemical Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Environmental Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHEM262": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BME 186",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHE 102",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "NE 121",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": null,
+        "program_type": null,
+        "faculty": "Engineering",
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHEM262L": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 262",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM120": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM120L": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 120",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM121": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Biochemistry",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "1A",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Chemistry",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "1A",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Medicinal Chemistry",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "1A",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Materials and Nanosciences",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "1A",
+          "comparison": "exactly"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  }
+}

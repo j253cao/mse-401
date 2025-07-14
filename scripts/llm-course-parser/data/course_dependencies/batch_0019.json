@@ -1,0 +1,372 @@
+{
+  "AMATH331": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 237",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 247",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "PMATH331": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 237",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 247",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "AMATH332": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 237",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 247",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "PMATH332": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 237",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 247",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "PMATH365": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 235",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 245",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 237",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 247",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "AMATH343": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 128",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 138",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 148",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "AMATH351": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AMATH 250",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "AMATH 251",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "AMATH 350",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 237",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 247",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": null,
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "AMATH353": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "AMATH 231",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AMATH 250",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "AMATH 251",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 211",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "ECE 205",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 218",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 228",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "AMATH361": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "AMATH 231",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AMATH 271",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "PHYS 263",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "AMATH373": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "AMATH 231",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AMATH 271",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "PHYS 263",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      },
+      {
+        "type": "course",
+        "code": "PHYS 234",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  }
+}

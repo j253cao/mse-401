@@ -1,0 +1,141 @@
+{
+  "ECE653": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "ECE 650",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "ECE 750",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      },
+      {
+        "type": "course",
+        "code": "Tpc 26",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "OR"
+  },
+  "ECE761": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ECE762": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ECE666": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ECE763": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ECE715": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ECE 316",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "ECE 610",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "ECE 604",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ECE752": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH612": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "EARTH 333",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "EARTH 433",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH621": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "EARTH 421",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH638": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "EARTH 437",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  }
+}

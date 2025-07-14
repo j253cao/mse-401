@@ -1,0 +1,241 @@
+{
+  "EARTH650": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "MATH 213A",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "EARTH 359",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "EARTH 458",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR"
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH651": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "EARTH 456",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "EARTH 650",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR"
+      },
+      {
+        "type": "course",
+        "code": "EARTH 656",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH654": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "EARTH 458",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "EARTH 650",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH656": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CS 102",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "EARTH 359",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "EARTH 650",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH657": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "EARTH 459",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "EARTH 650",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH658": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "EARTH 458",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "EARTH 459",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "EARTH659": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "EARTH 458",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "EARTH 221",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "AND"
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "EARTH 231",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CIV E 375",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "AND"
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "OR"
+  },
+  "EARTH671": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "EARTH 458",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "EARTH 650",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR"
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ECON721": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ECON 621",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ENGL700": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "ENGL",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "ANTH322": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "ANTH 201",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CLAS 221",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ANTH330": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ANTH 202",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ANTH345": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Anthropology",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "ANTH350": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ANTH 202",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "PHIL350": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "PHIL 250B",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "PHIL 251",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "PHIL 255",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "PHIL 284",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ANTH365": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ANTH 204",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ANTH391": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Anthropology",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "ANTH489": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": null,
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "ANTH499A": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Anthropology",
+        "program_type": "major",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND",
+    "grade_requirement": {
+      "type": "grade_requirement",
+      "value": 80,
+      "operator": "minimum",
+      "unit": "%"
+    }
+  },
+  "ANTH499B": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Anthropology",
+        "program_type": "major",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND",
+    "grade_requirement": {
+      "type": "grade_requirement",
+      "value": 80,
+      "operator": "minimum",
+      "unit": "%"
+    }
+  }
+}

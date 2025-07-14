@@ -1,9 +1,9 @@
 {
-  "course_code": "MSE436",
+  "course_code": "CS246",
   "course_info": {
-    "title": "Decision Support Systems",
-    "department": "MSE",
-    "pid": "Syg_lp8stn"
+    "title": "Object-Oriented Software Development",
+    "department": "CS",
+    "pid": "H1fa6uV7t3"
   },
   "dependencies": {
     "prerequisite": {
@@ -14,8 +14,21 @@
           "rules": [
             {
               "type": "course_requirement",
-              "code": "MSE332",
-              "description": "MSE332 - Deterministic Optimization Models and Methods (0.50)"
+              "code": "CS136L"
+            },
+            {
+              "type": "course_requirement",
+              "code": "CS146"
+            }
+          ]
+        },
+        {
+          "type": "all",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "CS136L",
+              "description": "CS136L - Tools and Techniques for Software Development (0.25)"
             }
           ]
         },
@@ -24,87 +37,37 @@
           "rules": [
             {
               "type": "course_requirement",
-              "code": "CS348",
-              "description": "CS348 - Introduction to Database Management (0.50)"
+              "code": "CS138"
             },
             {
               "type": "course_requirement",
-              "code": "MSE245",
-              "description": "MSE245 - Databases and Software Design (0.50)"
-            }
-          ]
-        },
-        {
-          "type": "one",
-          "rules": [
-            {
-              "type": "course_requirement",
-              "code": "CS247",
-              "description": "CS247 - Software Engineering Principles (0.50)"
-            },
-            {
-              "type": "course_requirement",
-              "code": "MSE342",
-              "description": "MSE342 - Principles of Software Engineering (0.50)"
-            },
-            {
-              "type": "course_requirement",
-              "code": "SYDE322",
-              "description": "SYDE322 - Software Design (0.50)"
-            }
-          ]
-        },
-        {
-          "type": "one",
-          "rules": [
-            {
-              "type": "course_requirement",
-              "code": "CS449",
-              "description": "CS449 - Human-Computer Interaction (0.50)"
-            },
-            {
-              "type": "course_requirement",
-              "code": "MSE343",
-              "description": "MSE343 - Human-Computer Interaction (0.50)"
-            },
-            {
-              "type": "course_requirement",
-              "code": "SYDE548",
-              "description": "SYDE548 - User Centred Design Methods (0.50)"
-            }
-          ]
-        },
-        {
-          "type": "course_requirement",
-          "code": "MSE332",
-          "description": "Must have completed: MSCI332"
-        },
-        {
-          "type": "course_requirement",
-          "code": "MSE245",
-          "description": "Must have completed: MSCI245"
-        },
-        {
-          "type": "course_requirement",
-          "code": "MSE342",
-          "description": "Must have completed: MSCI342"
-        },
-        {
-          "type": "one",
-          "rules": [
-            {
-              "type": "course_requirement",
-              "code": "MSE343"
-            },
-            {
-              "type": "course_requirement",
-              "code": "SYDE348"
+              "code": "CS136"
             }
           ]
         }
       ]
     },
     "corequisite": null,
-    "antirequisite": null
+    "antirequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "course_requirement",
+          "code": "SYDE322"
+        },
+        {
+          "type": "course_requirement",
+          "code": "CS247"
+        },
+        {
+          "type": "course_requirement",
+          "code": "MSE342"
+        },
+        {
+          "type": "course_requirement",
+          "code": "CS246E"
+        }
+      ]
+    }
   }
 }

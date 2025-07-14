@@ -1,0 +1,520 @@
+{
+  "CS462": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CS 360",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CS 365",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCS",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCFM",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BSE",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CS466": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CS 341",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCS",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCFM",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BSE",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CS490": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CS 350",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "SE 350",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCS",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCFM",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BSE",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CS482": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CS 341",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "STAT 206",
+            "name": null,
+            "grade_requirement": {
+              "type": "grade_requirement",
+              "value": 70,
+              "operator": ">=",
+              "unit": "%"
+            }
+          },
+          {
+            "type": "course",
+            "code": "STAT 231",
+            "name": null,
+            "grade_requirement": {
+              "type": "grade_requirement",
+              "value": 60,
+              "operator": ">=",
+              "unit": "%"
+            }
+          },
+          {
+            "type": "course",
+            "code": "STAT 241",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CS486": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CS 341",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BMath",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CS487": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CS 231",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CS 234",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CS 240",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CS 240E",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Mathematics",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CS488": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CS 341",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CS 350",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "SE 350",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CS 370",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CS 371",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCS",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCFM",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BSE",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CS492": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CS 240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "CS 240E",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCS",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCFM",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BSE",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CS499R": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCS",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCFM",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BSE",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "DRAMA221": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "THPERF 100",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "THPERF 102",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "COMMST 102",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  }
+}

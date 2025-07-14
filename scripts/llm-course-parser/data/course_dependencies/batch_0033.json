@@ -1,0 +1,348 @@
+{
+  "BIOL241": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 140",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 240",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 140",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 240L",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL150": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL273": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 130",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL302": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 130",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 273",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL303": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 130",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 139",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 239",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL310": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 110",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 165",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL323": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 120",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 220",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      },
+      {
+        "type": "course",
+        "code": "BIOL 130",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL331": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "prerequisite_group",
+            "courses": [
+              {
+                "type": "course",
+                "code": "BIOL 235",
+                "name": null,
+                "grade_requirement": null
+              },
+              {
+                "type": "course",
+                "code": "BIOL 308",
+                "name": null,
+                "grade_requirement": null
+              },
+              {
+                "type": "course",
+                "code": "BIOL 309",
+                "name": null,
+                "grade_requirement": null
+              }
+            ],
+            "operator": "OR",
+            "quantity": 1
+          },
+          {
+            "type": "prerequisite_group",
+            "courses": [
+              {
+                "type": "course",
+                "code": "CHEM 233",
+                "name": null,
+                "grade_requirement": null
+              },
+              {
+                "type": "course",
+                "code": "CHEM 237",
+                "name": null,
+                "grade_requirement": null
+              }
+            ],
+            "operator": "OR",
+            "quantity": null
+          }
+        ],
+        "operator": "AND",
+        "quantity": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "prerequisite_group",
+            "courses": [
+              {
+                "type": "course",
+                "code": "BIOL 235",
+                "name": null,
+                "grade_requirement": null
+              },
+              {
+                "type": "course",
+                "code": "BIOL 308",
+                "name": null,
+                "grade_requirement": null
+              },
+              {
+                "type": "course",
+                "code": "BIOL 309",
+                "name": null,
+                "grade_requirement": null
+              }
+            ],
+            "operator": "OR",
+            "quantity": null
+          }
+        ],
+        "operator": "AND",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "OR"
+  },
+  "BIOL342": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 235",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 309",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL354": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 100",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 200",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHE 102",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 120",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 121",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  }
+}

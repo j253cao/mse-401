@@ -1,0 +1,192 @@
+{
+  "ARCH446": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ARCH 492",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architecture",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "ARCH428": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ARCH 492",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architecture",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "ARCH449": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ARCH 492",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architecture",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "ARCH485": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architecture",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "ARCH492": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ARCH 393",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ARCH493": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "ARCH 492",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "ARTSDEAN301": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "ARBUS 101",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "AFM 132",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Arts and Business",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "BIOL201": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 130",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL110": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Environment",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "BIOL220": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  }
+}

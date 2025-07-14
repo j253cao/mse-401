@@ -1,0 +1,334 @@
+{
+  "BIOL438": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 308",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 235",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 309",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 303",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 403",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL439": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 233",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 237",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CHEM 264",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CHEM 266",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": 1
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL441": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 308",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 341",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL442": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 140/240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 140/240L",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 241",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 308",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 341",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL443": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 140/240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 140L/240L",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 241",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL444": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 140/240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 140L/240L",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 241",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 341",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL345": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "BIOL 240",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 240L",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "BIOL 241",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "AND"
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Biochemistry",
+        "program_type": "major",
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "OR"
+  },
+  "BIOL346": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 140/240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 140L/240L",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 241",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL447": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 140/240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 140L/240L",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 241",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "BIOL448": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "BIOL 140/240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 140/240L",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 241",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "BIOL 308",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  }
+}

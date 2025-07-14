@@ -1,0 +1,481 @@
+{
+  "CIVE505": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AE 303",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CIVE 303",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AE 223",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CIVE 222",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architectural Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CIVE507": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architectural Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Environmental Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Geological Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CIVE413": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AE 310",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CIVE 310",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architectural Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CIVE414": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AE 310",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CIVE 310",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architectural Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4A",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CIVE415": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AE 310",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CIVE 310",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      },
+      {
+        "type": "course",
+        "code": "CIVE 413",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "CIVE 414",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architectural Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CIVE422": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "AE 223",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "CIVE 222",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "ENVE 223",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "GEOE 223",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Architectural Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Environmental Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Geological Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "4B",
+          "comparison": "exactly"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CIVE440": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CIVE 241",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "PLAN478": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CIVE 342",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "ENVS 278",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR",
+        "quantity": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CIVE542": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CIVE 353",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Geological Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CIVE343": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CIVE 224",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "CIVE 341",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Civil Engineering",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": {
+          "type": "level_requirement",
+          "level": "3B",
+          "comparison": "at_least"
+        }
+      }
+    ],
+    "root_operator": "AND"
+  }
+}

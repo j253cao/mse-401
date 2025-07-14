@@ -100,7 +100,7 @@ def test_single_course(course_code="ACTSC231"):
 
 if __name__ == "__main__":
     # You can change the course code here to test different courses
-    test_single_course("MSE436")
+    test_single_course("CS246")
     
     # Uncomment the line below to test a different course
     # test_single_course("CS135") 

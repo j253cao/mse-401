@@ -1,0 +1,107 @@
+{
+  "CHE740": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "CHE",
+        "program_type": "grad",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHE750": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "CHE",
+        "program_type": "grad",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHE760": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "CHE",
+        "program_type": "grad",
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "root_operator": "AND"
+  },
+  "CHEM765": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 764",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM771": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 770",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CHEM772": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "course",
+        "code": "CHEM 770",
+        "name": null,
+        "grade_requirement": null
+      }
+    ],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CS654": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CS656": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CS742": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  },
+  "CS762": {
+    "type": "prerequisites",
+    "groups": [],
+    "program_requirements": [],
+    "root_operator": "AND"
+  }
+}
