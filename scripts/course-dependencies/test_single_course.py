@@ -48,10 +48,17 @@ def test_single_course(course_code="ACTSC231"):
     print(f"  Department: {target_course.get('department', 'N/A')}")
     print(f"  PID: {target_course.get('pid', 'N/A')}")
     
+    # Load course-api-data.json once
+    from utils.data_loader import get_data_path
+    with open(get_data_path('course-api-data.json'), 'r') as f:
+        course_api_data = json.load(f)
+    
+    print("MSE436" in course_api_data.keys())
+
     # Fetch course data from API
     print(f"\nFetching course data from API...")
     try:
-        raw_data = get_course_data(target_course['pid'])
+        raw_data = get_course_data(target_course['courseCode'], course_api_data)
         print("✓ Successfully fetched course data from API")
     except Exception as e:
         print(f"❌ ERROR: Failed to fetch course data: {str(e)}")

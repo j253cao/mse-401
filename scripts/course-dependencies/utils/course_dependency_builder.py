@@ -1,11 +1,11 @@
 import requests
+import json
+import os
 
-API = "https://uwaterloocm.kuali.co/api/v1/catalog/course/663290e835aff7001cc62323/{pid}"
 
-def get_api_url(pid):
-    return API.format(pid=pid)
-
-def get_course_data(pid):
-    url = get_api_url(pid)
-    response = requests.get(url)
-    return response.json() 
+def get_course_data(course_code, course_api_data):
+    # Special rule: map MSCIxxxx to MSExxxx
+    if course_code.startswith("MSCI"):
+        mapped_code = "MSE" + course_code[4:]
+        course_code = mapped_code
+    return course_api_data[course_code].get('api_data')
