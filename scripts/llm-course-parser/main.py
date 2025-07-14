@@ -54,15 +54,15 @@ class CourseProcessor:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.checkpoint_file = self.output_dir / 'checkpoint.json'
-        self.merged_output_file = self.output_dir / 'all_course_dependencies.json'
+        self.output_file = self.output_dir / 'course_dependencies.json'
         self.error_log_file = self.output_dir / 'error_log.json'
         self.llm_client = RateLimitedLLMClient(requests_per_minute=30, batch_size=10)
         
         # Initialize or load checkpoint
         self.checkpoint = self._load_checkpoint()
         
-        # Load or initialize merged results
-        self.merged_results = self._load_merged_results()
+        # Load or initialize results
+        self.results = self._load_results()
         
         # Initialize error log
         self.error_log = {
@@ -86,10 +86,10 @@ class CourseProcessor:
             'total_courses': 0
         }
     
-    def _load_merged_results(self):
-        """Load or initialize merged results"""
-        if self.merged_output_file.exists():
-            with open(self.merged_output_file, 'r') as f:
+    def _load_results(self):
+        """Load or initialize results"""
+        if self.output_file.exists():
+            with open(self.output_file, 'r') as f:
                 return json.load(f)
         return {}
     
@@ -98,17 +98,11 @@ class CourseProcessor:
         with open(self.checkpoint_file, 'w') as f:
             json.dump(self.checkpoint, f, indent=2)
     
-    def _save_batch_results(self, batch_num, results):
-        """Save results for a single batch"""
-        batch_file = self.output_dir / f'batch_{batch_num:04d}.json'
-        with open(batch_file, 'w') as f:
-            json.dump(results, f, indent=2)
-    
-    def _update_merged_results(self, new_results):
-        """Update merged results file with new batch results"""
-        self.merged_results.update(new_results)
-        with open(self.merged_output_file, 'w') as f:
-            json.dump(self.merged_results, f, indent=2)
+    def _update_results(self, new_results):
+        """Update results file with new results"""
+        self.results.update(new_results)
+        with open(self.output_file, 'w') as f:
+            json.dump(self.results, f, indent=2)
     
     def _log_error(self, batch_num, error_type, error_details, affected_courses):
         """Log error details to error log file"""
@@ -258,9 +252,8 @@ class CourseProcessor:
                 print("\n⚠️  Critical error - stopping processing")
                 return
             
-            # Save batch results and update checkpoint
-            self._save_batch_results(current_batch_num, batch_results)
-            self._update_merged_results(batch_results)
+            # Update results and checkpoint
+            self._update_results(batch_results)
             
             # Update checkpoint
             self.checkpoint['last_processed_index'] += len(batch)
@@ -276,8 +269,7 @@ class CourseProcessor:
         print(f"Total courses processed: {self.checkpoint['total_courses']}")
         print(f"Final successful: {self.checkpoint['successful']}")
         print(f"Final failed: {self.checkpoint['failed']}")
-        print(f"Results directory: {self.output_dir}")
-        print(f"Merged results file: {self.merged_output_file}")
+        print(f"Results file: {self.output_file}")
 
 async def test_three_batches(processor):
     """Test function to process exactly 3 batches (30 courses)"""
@@ -410,9 +402,8 @@ async def test_three_batches(processor):
             print("\n⚠️  Critical error - stopping processing")
             return
         
-        # Save batch results and update checkpoint
-        processor._save_batch_results(current_batch_num, batch_results)
-        processor._update_merged_results(batch_results)
+        # Update results and checkpoint
+        processor._update_results(batch_results)
         
         # Update checkpoint
         processor.checkpoint['last_processed_index'] += len(batch)
@@ -429,7 +420,7 @@ async def test_three_batches(processor):
     print(f"Final successful: {processor.checkpoint['successful']}")
     print(f"Final failed: {processor.checkpoint['failed']}")
     print(f"Results directory: {processor.output_dir}")
-    print(f"Merged results file: {processor.merged_output_file}")
+    print(f"Merged results file: {processor.output_file}")
 
 async def main():
     """Main entry point"""
