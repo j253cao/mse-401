@@ -18,7 +18,7 @@ You will receive a JSON object containing multiple course prerequisite informati
 Each course's prerequisite string may include:
 - Course codes (e.g., "CS 146", "MATH 135", "STAT 230")
 - Grade requirements (e.g., "minimum grade of 60%", "grade of 65% or higher")
-- Logical operators (e.g., "and", "or", "one of", "two of")
+- Logical operators (e.g., "and", "or", "one of", "two of", "/")
 - Program restrictions (e.g., "Honours Mathematics students only", "Not open to Software Engineering students")
 - Academic level requirements (e.g., "Level at least 2A", "3B or higher")
 - Faculty specifications (e.g., "Engineering", "Mathematics")
@@ -100,19 +100,32 @@ You must output a JSON object with course codes as keys and their parsed prerequ
 
 ### 1. Logical Operators
 - "and", "&" → AND operator
-- "or", "|" → OR operator  
+- "or", "|", "/" → OR operator  
 - "one of", "any of" → OR operator with quantity: 1
 - "two of", "any two of" → OR operator with quantity: 2
 - Parentheses indicate grouping
 
-### 2. Grade Requirements
+### 2. Comma Separation
+- Commas (,) separate different prerequisite groups
+- Each comma-separated section becomes a separate prerequisite group
+- All prerequisite groups are combined with AND at the root level
+- Example: "CS 135, MATH 135/137" creates two groups:
+  - Group 1: CS 135
+  - Group 2: MATH 135 OR MATH 137
+
+### 3. Slash Operator
+- "/" indicates OR relationship between courses
+- Example: "MATH 135/137/147" means MATH 135 OR MATH 137 OR MATH 147
+- "/" has higher precedence than commas but lower than explicit parentheses
+
+### 4. Grade Requirements
 - "minimum grade of X%" → operator: "minimum", value: X
 - "grade of X% or higher" → operator: ">=", value: X
 - "grade of X% or better" → operator: ">=", value: X
 - "at least X%" → operator: ">=", value: X
 - "grade above X%" → operator: ">", value: X
 
-### 3. Program Types
+### 5. Program Types
 - "Honours" → "honours"
 - "Regular" → "regular"
 - "Minor" → "minor"
@@ -120,19 +133,19 @@ You must output a JSON object with course codes as keys and their parsed prerequ
 - "Option" → "option"
 - "Specialization" → "specialization"
 
-### 4. Level Requirements
+### 6. Level Requirements
 - "Level at least 2A" → level: "2A", comparison: "at_least"
 - "2A or higher" → level: "2A", comparison: "at_least"
 - "exactly 3B" → level: "3B", comparison: "exactly"
 - "before 4A" → level: "4A", comparison: "before"
 
-### 5. Program Restrictions (Negative)
+### 7. Program Restrictions (Negative)
 - "Not open to X students" → restriction_type: "not_open"
 - "Antirequisite: X" → restriction_type: "antirequisite"
 - "Not available/offered to X" → restriction_type: "not_open"
 - "Restricted from X" → restriction_type: "restricted"
 
-### 6. Default Values
+### 8. Default Values
 - If no grade requirement specified, omit `grade_requirement`
 - If no program restrictions, use empty array `[]`
 - Default `root_operator` is "AND"
@@ -144,11 +157,19 @@ You must output a JSON object with course codes as keys and their parsed prerequ
   "courses": [
     {
       "code": "CS 348",
-      "requirements": "CS 240, 241; Level at least 3A Computer Science students only. Not open to Software Engineering students."
+      "requirements": "Prereq: CS 240, CS 241; Level at least 3A Computer Science students only. Not open to Software Engineering students."
     },
     {
       "code": "MATH 239",
-      "requirements": "One of MATH 128, 138, 148; Not available to General Mathematics students."
+      "requirements": "Prereq: One of MATH 128/138/148; Not available to General Mathematics students. Antireq: MATH 249"
+    },
+    {
+      "code": "STAT 230",
+      "requirements": "MATH 135/137, MATH 136/146 with minimum grade of 60%. Coreq: STAT 231"
+    },
+    {
+      "code": "CS 241",
+      "requirements": "Prereq: CS 138 or (CS 246/246E and CS 136L) or (CS 136L and a grade of 85% or higher in one of CS 136 or 146); Honours Computer Science, Honours Data Science (BCS, BMath), BCFM, BSE students only. Antireq: CS 230, CS 241E, ECE 351"
     }
   ]
 }
@@ -159,22 +180,16 @@ You must output a JSON object with course codes as keys and their parsed prerequ
     "type": "prerequisites",
     "groups": [
       {
-        "type": "prerequisite_group",
-        "courses": [
-          {
-            "type": "course",
-            "code": "CS 240",
-            "name": null,
-            "grade_requirement": null
-          },
-          {
-            "type": "course",
-            "code": "CS 241",
-            "name": null,
-            "grade_requirement": null
-          }
-        ],
-        "operator": "AND"
+        "type": "course",
+        "code": "CS 240",
+        "name": null,
+        "grade_requirement": null
+      },
+      {
+        "type": "course",
+        "code": "CS 241",
+        "name": null,
+        "grade_requirement": null
       }
     ],
     "program_requirements": [
@@ -241,6 +256,218 @@ You must output a JSON object with course codes as keys and their parsed prerequ
       }
     ],
     "root_operator": "AND"
+  },
+  "STAT 230": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 135",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "course",
+            "code": "MATH 137",
+            "name": null,
+            "grade_requirement": null
+          }
+        ],
+        "operator": "OR"
+      },
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "MATH 136",
+            "name": null,
+            "grade_requirement": {
+              "type": "grade_requirement",
+              "value": 60,
+              "operator": "minimum",
+              "unit": "%"
+            }
+          },
+          {
+            "type": "course",
+            "code": "MATH 146",
+            "name": null,
+            "grade_requirement": {
+              "type": "grade_requirement",
+              "value": 60,
+              "operator": "minimum",
+              "unit": "%"
+            }
+          }
+        ],
+        "operator": "OR"
+      }
+    ],
+    "program_requirements": [],
+    "program_restrictions": [],
+    "root_operator": "AND"
+  },
+  "CS 241": {
+    "type": "prerequisites",
+    "groups": [
+      {
+        "type": "prerequisite_group",
+        "courses": [
+          {
+            "type": "course",
+            "code": "CS 138",
+            "name": null,
+            "grade_requirement": null
+          },
+          {
+            "type": "prerequisite_group",
+            "courses": [
+              {
+                "type": "prerequisite_group",
+                "courses": [
+                  {
+                    "type": "course",
+                    "code": "CS 246",
+                    "name": null,
+                    "grade_requirement": null
+                  },
+                  {
+                    "type": "course",
+                    "code": "CS 246E",
+                    "name": null,
+                    "grade_requirement": null
+                  }
+                ],
+                "operator": "OR"
+              },
+              {
+                "type": "course",
+                "code": "CS 136L",
+                "name": null,
+                "grade_requirement": null
+              }
+            ],
+            "operator": "AND"
+          },
+          {
+            "type": "prerequisite_group",
+            "courses": [
+              {
+                "type": "course",
+                "code": "CS 136L",
+                "name": null,
+                "grade_requirement": null
+              },
+              {
+                "type": "prerequisite_group",
+                "courses": [
+                  {
+                    "type": "course",
+                    "code": "CS 136",
+                    "name": null,
+                    "grade_requirement": {
+                      "type": "grade_requirement",
+                      "value": 85,
+                      "operator": ">=",
+                      "unit": "%"
+                    }
+                  },
+                  {
+                    "type": "course",
+                    "code": "CS 146",
+                    "name": null,
+                    "grade_requirement": {
+                      "type": "grade_requirement",
+                      "value": 85,
+                      "operator": ">=",
+                      "unit": "%"
+                    }
+                  }
+                ],
+                "operator": "OR",
+                "quantity": 1
+              }
+            ],
+            "operator": "AND"
+          }
+        ],
+        "operator": "OR"
+      }
+    ],
+    "program_requirements": [
+      {
+        "type": "program_requirement",
+        "program_name": "Computer Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "Data Science",
+        "program_type": "honours",
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BCFM",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      },
+      {
+        "type": "program_requirement",
+        "program_name": "BSE",
+        "program_type": null,
+        "faculty": null,
+        "level_requirement": null
+      }
+    ],
+    "program_restrictions": [],
+    "root_operator": "AND"
   }
 }
+
+## Section Identification and Parsing
+The input string may contain multiple sections separated by semicolons or periods:
+- **Prereq/Prerequisite**: Contains prerequisite courses (PARSE THIS SECTION)
+- **Antireq/Antirequisite**: Contains antirequisite courses (IGNORE)
+- **Coreq/Corequisite**: Contains corequisite courses (IGNORE)
+- **Program requirements**: Contains program/level restrictions (PARSE THIS SECTION)
+
+### Section Parsing Rules:
+1. **Identify sections** by looking for keywords: "Prereq:", "Prerequisite:", "Antireq:", "Antirequisite:", "Coreq:", "Corequisite:"
+2. **Only parse prerequisites** - extract course requirements from the Prereq/Prerequisite section
+3. **Ignore antirequisites and corequisites** - do not include these in the output structure
+4. **Parse program requirements** - extract program restrictions from text after prerequisite section
+5. **Section boundaries** are typically marked by semicolons (;) or periods (.)
+
+### Example Section Identification:
+Input: "Prereq: CS 138 or (CS 246/246E and CS 136L); Honours Computer Science students only. Antireq: CS 230, CS 241E, ECE 351"
+
+Sections identified:
+- **Prerequisite section**: "CS 138 or (CS 246/246E and CS 136L)" → PARSE
+- **Program requirement section**: "Honours Computer Science students only" → PARSE
+- **Antirequisite section**: "CS 230, CS 241E, ECE 351" → IGNORE
+
+## Parsing Priority Order
+1. **Section identification** (highest priority)
+2. Parentheses for grouping
+3. Slash operator (/) for OR relationships
+4. Explicit logical operators (and, or, one of, etc.)
+5. Comma separation for different prerequisite groups
+6. Semicolon/period separation for section boundaries
+
+## Special Cases
+- When grade requirements are specified, they apply to all courses in the same group unless otherwise specified
+- If no explicit "Prereq:" label exists, assume the first section (before semicolon) contains prerequisites
+- Semicolons (;) and periods (.) typically separate prerequisite courses from program requirements/restrictions and antirequisites
+- If a course appears in multiple formats (e.g., "MATH 135" and "MATH135"), normalize to the standard spaced format
+- Handle edge cases like "CS 135 and one of MATH 135/137" by creating appropriate nested groups
+- **Never include antirequisites or corequisites in the prerequisite groups** - only parse actual prerequisites
 """

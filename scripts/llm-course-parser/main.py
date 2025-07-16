@@ -6,12 +6,35 @@ from pathlib import Path
 from dotenv import load_dotenv
 from util.llm_client import LLMClient
 from datetime import datetime
+import re # Added for regex in clean_json_response
 
 # Load environment variables from .env file
 load_dotenv()
 
+# Priority departments for processing
+PRIORITY_DEPARTMENTS = ['MSE', 'ECE']
+
+def get_department_from_code(code):
+    """Extract department from course code."""
+    for i, char in enumerate(code):
+        if char.isdigit():
+            return code[:i]
+    return code
+
+def get_course_priority(course_tuple):
+    """Get priority level for sorting courses."""
+    code = course_tuple[0]
+    dept = get_department_from_code(code)
+    try:
+        # Priority departments get their index as priority (0 is highest)
+        priority = PRIORITY_DEPARTMENTS.index(dept)
+        return (priority, dept)
+    except ValueError:
+        # Non-priority departments get a higher number
+        return (len(PRIORITY_DEPARTMENTS), dept)
+
 class RateLimitedLLMClient:
-    def __init__(self, requests_per_minute=30, batch_size=10):
+    def __init__(self, requests_per_minute=30, batch_size=10):  # Changed from 50 to 25
         self.llm_client = LLMClient()
         self.requests_per_minute = requests_per_minute
         self.min_interval = 60.0 / requests_per_minute  # seconds between requests
@@ -38,25 +61,54 @@ def clean_json_response(response):
     if not response:
         return None
     
+    # Remove all instances of ```json or ``` markers
     cleaned_response = response.strip()
-    if cleaned_response.startswith('```json'):
-        cleaned_response = cleaned_response[7:]  # Remove ```json
-    if cleaned_response.startswith('```'):
-        cleaned_response = cleaned_response[3:]  # Remove ```
-    if cleaned_response.endswith('```'):
-        cleaned_response = cleaned_response[:-3]  # Remove trailing ```
     
-    return cleaned_response.strip()
+    # First try to find content between ```json and ``` markers
+    json_pattern = r'```json\s*(.*?)\s*```'
+    matches = re.findall(json_pattern, cleaned_response, re.DOTALL)
+    if matches:
+        # Take the first valid JSON block
+        for match in matches:
+            try:
+                # Verify it's valid JSON
+                json.loads(match.strip())
+                return match.strip()
+            except json.JSONDecodeError:
+                continue
+    
+    # If no valid JSON found between ```json markers, try between ``` markers
+    code_pattern = r'```\s*(.*?)\s*```'
+    matches = re.findall(code_pattern, cleaned_response, re.DOTALL)
+    if matches:
+        # Take the first valid JSON block
+        for match in matches:
+            try:
+                # Verify it's valid JSON
+                json.loads(match.strip())
+                return match.strip()
+            except json.JSONDecodeError:
+                continue
+    
+    # If no markers found or no valid JSON in code blocks,
+    # try to parse the entire response as JSON
+    try:
+        json.loads(cleaned_response)
+        return cleaned_response
+    except json.JSONDecodeError:
+        pass
+    
+    return None
 
 class CourseProcessor:
-    def __init__(self, api_data_path, output_dir='data/course_dependencies'):
+    def __init__(self, api_data_path, output_dir='data/course_dependencies', batch_size=12):
         self.api_data_path = Path(api_data_path)
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.checkpoint_file = self.output_dir / 'checkpoint.json'
         self.output_file = self.output_dir / 'course_dependencies.json'
         self.error_log_file = self.output_dir / 'error_log.json'
-        self.llm_client = RateLimitedLLMClient(requests_per_minute=30, batch_size=10)
+        self.llm_client = RateLimitedLLMClient(requests_per_minute=30, batch_size=batch_size)
         
         # Initialize or load checkpoint
         self.checkpoint = self._load_checkpoint()
@@ -145,6 +197,12 @@ class CourseProcessor:
         if not courses_with_requirements:
             print("No courses found with requirements description")
             return
+        
+        # Sort courses by department priority
+        courses_with_requirements.sort(key=get_course_priority)
+        print("First 10 courses:", [code for code, _ in courses_with_requirements[:10]])
+        print(list(map(lambda x: x[0], courses_with_requirements)))
+        print("\nSorted courses by department priority:")
         
         # Update total courses count if starting fresh
         if self.checkpoint['total_courses'] == 0:
@@ -433,19 +491,20 @@ async def main():
     print(f"Project root: {project_root}")
     print(f"Using API data from: {api_data_path}")
     
-    # For testing 3 batches
-    processor = CourseProcessor(
-        api_data_path=api_data_path,
-        output_dir=project_root / 'data' / 'course_dependencies_test'
-    )
-    await test_three_batches(processor)
-    
-    # For processing all courses, uncomment this:
+    # # For testing 3 batches
     # processor = CourseProcessor(
     #     api_data_path=api_data_path,
-    #     output_dir=project_root / 'data' / 'course_dependencies'
+    #     output_dir=project_root / 'data' / 'course_dependencies_test'
     # )
-    # await processor.process_courses()
+    # await test_three_batches(processor)
+    
+    # For processing all courses, uncomment this:
+    processor = CourseProcessor(
+        api_data_path=api_data_path,
+        output_dir=project_root / 'data' / 'course_dependencies',
+        batch_size=20
+    )
+    await processor.process_courses()
 
 if __name__ == "__main__":
     asyncio.run(main())
