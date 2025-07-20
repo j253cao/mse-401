@@ -1,0 +1,34 @@
+{
+  "last_error_timestamp": "2025-07-16T14:46:36.625910",
+  "last_error_batch": 29,
+  "error_type": "LLM_NO_RESPONSE",
+  "error_details": "No response from LLM",
+  "failed_courses": [
+    "ACC244",
+    "ACC324",
+    "ACC334",
+    "ACC113",
+    "ACC326",
+    "ACC426",
+    "ACC470",
+    "ACC182",
+    "ACC191",
+    "ACC347",
+    "ACC345",
+    "ACC346",
+    "ACC335",
+    "ACC480",
+    "ACC485",
+    "ACC427",
+    "ACC446",
+    "ACC447",
+    "ACC445",
+    "ACC448"
+  ],
+  "checkpoint_state": {
+    "last_processed_index": 280,
+    "successful": 280,
+    "failed": 0,
+    "total_courses": 3759
+  }
+}
