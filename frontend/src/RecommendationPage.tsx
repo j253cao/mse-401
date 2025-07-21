@@ -6,15 +6,14 @@ const PLACEHOLDER_COURSES: Course[] = [
   { code: "CS 136", title: "Elementary Algorithm Design and Data Abstraction" },
   { code: "MSE 100", title: "Management Engineering Concepts" },
   { code: "PHYS 121", title: "Mechanics" },
-];
-
-const SUGGESTIONS = [
-  "CS 135",
-  "CS 136",
-  "MATH 135",
-  "MATH 137",
-  "MSE 101",
-  "PHYS 121",
+  { code: "MSE 446", title: "Introduction to Machine Learning" },
+  { code: "CS 240", title: "Introduction to Computer Systems" },
+  { code: "CS 241", title: "Programming Languages and Paradigms" },
+  { code: "CS 242", title: "Software Tools and Systems Programming" },
+  { code: "CS 243", title: "Introduction to Computer Organization" },
+  { code: "CS 244", title: "Introduction to Computer Networks" },
+  { code: "CS 245", title: "Introduction to Computer Security" },
+  { code: "CS 246", title: "Introduction to Computer Graphics" },
 ];
 
 export type Course = { code: string; title: string };
@@ -22,10 +21,25 @@ export type Course = { code: string; title: string };
 export default function RecommendationPage() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [randomCourse, setRandomCourse] = useState<Course | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [mode, setMode] = useState<"search" | "recommended">("search");
+  const [filteredCourses, setFilteredCourses] = useState(PLACEHOLDER_COURSES);
+
+  function handleSearchSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!search.trim()) {
+      setFilteredCourses(PLACEHOLDER_COURSES);
+      return;
+    }
+    setFilteredCourses(
+      PLACEHOLDER_COURSES.filter(
+        (c) =>
+          c.code.toLowerCase().includes(search.toLowerCase()) ||
+          c.title.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }
 
   function handleRandomCourse() {
     const course =
@@ -34,15 +48,6 @@ export default function RecommendationPage() {
       ];
     setRandomCourse(course);
   }
-
-  // Filtered courses for search (placeholder logic)
-  const filteredCourses = search
-    ? PLACEHOLDER_COURSES.filter(
-        (c) =>
-          c.code.toLowerCase().includes(search.toLowerCase()) ||
-          c.title.toLowerCase().includes(search.toLowerCase())
-      )
-    : PLACEHOLDER_COURSES;
 
   return (
     <>
@@ -78,7 +83,11 @@ export default function RecommendationPage() {
           {mode === "search" ? (
             <>
               {/* Search Bar */}
-              <div className="search-bar-enhanced">
+              <form
+                className="search-bar-enhanced"
+                onSubmit={handleSearchSubmit}
+                autoComplete="off"
+              >
                 <svg
                   width="24"
                   height="24"
@@ -94,43 +103,31 @@ export default function RecommendationPage() {
                 </svg>
                 <input
                   type="text"
-                  placeholder="Search for a course..."
+                  placeholder="Describe the course you're looking for…"
                   value={search}
-                  onChange={(e) => {
-                    setSearch(e.target.value);
-                    setShowSuggestions(true);
-                  }}
-                  onFocus={() => setShowSuggestions(true)}
-                  onBlur={() =>
-                    setTimeout(() => setShowSuggestions(false), 150)
-                  }
+                  onChange={(e) => setSearch(e.target.value)}
                   className="search-input-enhanced"
                 />
-                {showSuggestions && search && (
-                  <ul className="suggestions-list">
-                    {SUGGESTIONS.filter((s) =>
-                      s.toLowerCase().includes(search.toLowerCase())
-                    ).length === 0 ? (
-                      <li className="suggestion-empty">No suggestions</li>
-                    ) : (
-                      SUGGESTIONS.filter((s) =>
-                        s.toLowerCase().includes(search.toLowerCase())
-                      ).map((s) => (
-                        <li
-                          key={s}
-                          className="suggestion-item"
-                          onMouseDown={() => {
-                            setSearch(s);
-                            setShowSuggestions(false);
-                          }}
-                        >
-                          {s}
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                )}
-              </div>
+                <button
+                  type="submit"
+                  className="search-submit-btn"
+                  aria-label="Search"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </form>
               {/* Filter Buttons */}
               <div className="filter-buttons">
                 <button className="filter-btn">Filter 1</button>
@@ -142,7 +139,7 @@ export default function RecommendationPage() {
                 {filteredCourses.length === 0 ? (
                   <div className="no-results">No courses found.</div>
                 ) : (
-                  filteredCourses.slice(0, 8).map((course) => (
+                  filteredCourses.slice(0, 12).map((course) => (
                     <div className="course-card" key={course.code}>
                       <div className="course-code">{course.code}</div>
                       <div className="course-title">{course.title}</div>

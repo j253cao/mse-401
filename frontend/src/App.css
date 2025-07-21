@@ -74,12 +74,10 @@
 
 /* Main background */
 .main-bg {
-  min-height: 100vh;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  color: #222;
-  overflow-x: hidden;
+  min-height: 100vh;
+  background: #e3e8f2;
 }
 
 /* Header */
@@ -180,20 +178,24 @@
   margin-bottom: 1.5em;
 }
 .cta-btn {
-  background: linear-gradient(90deg, #646cff 60%, #535bf2 100%);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.9em 2em;
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.8em 2em;
   font-size: 1.1em;
   font-weight: 600;
+  border-radius: 6px;
+  background: transparent;
+  color: #646cff;
+  border: 2px dashed #646cff;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(100, 108, 255, 0.12);
-  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(100,108,255,0.08);
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  text-decoration: none;
 }
 .cta-btn:hover {
-  background: linear-gradient(90deg, #535bf2 60%, #646cff 100%);
-  box-shadow: 0 4px 16px rgba(100, 108, 255, 0.18);
+  background: #646cff;
+  color: #fff;
+  border-color: #646cff;
 }
 .hero-illustration {
   display: flex;
@@ -401,6 +403,7 @@
   padding: 1.5em 0 1em 0;
   font-size: 1em;
   box-shadow: 0 -2px 8px rgba(100, 108, 255, 0.06);
+  margin-top: auto;
 }
 .footer a {
   color: #646cff;
@@ -414,12 +417,12 @@
 
 .split-layout {
   display: flex;
-  flex-direction: row;
-  width: 100vw;
-  min-height: 0;
-  flex: 1 1 auto;
-  max-width: none;
-  margin: 0;
+  height: 100vh;
+}
+.left-panel, .right-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .left-panel {
@@ -705,6 +708,9 @@
 }
 
 .course-results-grid {
+  flex: 1 1 0;
+  height: 100%;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.2rem;
@@ -835,4 +841,116 @@
   justify-content: center;
   height: 100%;
   min-height: 400px;
+}
+
+.search-submit-btn {
+  background: transparent;
+  border: none;
+  padding: 0.2em 0.4em;
+  margin-left: 0.2em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  font-weight: normal;
+  transition: background 0.15s, color 0.15s;
+}
+.search-submit-btn:hover, .search-submit-btn:focus {
+  background: #f0f2ff;
+  color: #646cff;
+  outline: none;
+}
+
+body {
+  background: #e3e8f2;
+}
+
+/* Profile Page Two-Column Layout */
+.profile-split-layout {
+  display: flex;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 2.5rem auto 1.5rem auto;
+  padding: 0 1rem;
+  min-height: 60vh;
+  align-items: flex-start;
+}
+.profile-left-panel {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  color: #222831;
+  justify-content: flex-start;
+}
+.profile-right-panel {
+  flex: 1;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(100, 108, 255, 0.10);
+  padding: 2em 2em 1.5em 2em;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: fit-content;
+  color: #222831;
+}
+.profile-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0 0 0;
+  width: 100%;
+  color: #222831;
+}
+.profile-info-list li {
+  margin-bottom: 0.7em;
+  font-size: 1.08em;
+  color: #222831;
+}
+@media (max-width: 900px) {
+  .profile-split-layout {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .profile-right-panel {
+    margin-top: 0;
+    padding: 1.2em 1em 1em 1em;
+  }
+}
+
+.profile-avatar-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+.profile-avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1.5em;
+}
+.profile-avatar-svg {
+  color: #646cff;
+  background: #f8faff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(100, 108, 255, 0.10);
+  padding: 0.5em;
+}
+
+.profile-upload-heading {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #222831;
 }

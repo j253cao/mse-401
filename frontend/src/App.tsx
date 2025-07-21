@@ -68,12 +68,6 @@ function AppContent() {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
-      <footer className="footer">
-        <div>
-          UW Guide &copy; {new Date().getFullYear()} | <a href="#">Contact</a> |{" "}
-          <a href="#">GitHub</a> | <a href="#">Privacy Policy</a>
-        </div>
-      </footer>
     </div>
   );
 }
