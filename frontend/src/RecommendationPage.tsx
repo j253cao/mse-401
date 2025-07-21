@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const PLACEHOLDER_COURSES: Course[] = [
   { code: "MATH 135", title: "Algebra for Honours Mathematics" },
   { code: "CS 136", title: "Elementary Algorithm Design and Data Abstraction" },
-  { code: "MSE 101", title: "Introduction to Materials Science" },
+  { code: "MSE 100", title: "Management Engineering Concepts" },
   { code: "PHYS 121", title: "Mechanics" },
 ];
 
