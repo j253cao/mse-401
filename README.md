@@ -69,3 +69,17 @@ python main.py
 ## Output
 
 The system generates `course-dependencies.json` in the `data/` directory containing structured dependency information for all courses.
+
+## Running the Backend (FastAPI)
+
+1. Open a terminal in the project root.
+2. Run the following commands:
+
+```sh
+cd scripts
+cd llm-course-parser
+uvicorn vectorizer.api_backend:app --reload --host 0.0.0.0 --port 8000
+```
+
+- The backend will be available at http://localhost:8000
+- Make sure you have all dependencies installed (see requirements.txt).

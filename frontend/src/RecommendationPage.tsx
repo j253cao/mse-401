@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { RecommendationsContext } from "./RecommendationsContext";
 
 export type Course = { code: string; title: string; description?: string };
 
@@ -12,6 +13,9 @@ export default function RecommendationPage() {
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { recommendedCourses } = useContext(RecommendationsContext) as {
+    recommendedCourses: Course[];
+  };
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,13 +35,15 @@ export default function RecommendationPage() {
       const data = await res.json();
       const results = data.results[search] || [];
       setFilteredCourses(
-        results.map((r: any) => ({
-          code: r.course_code,
-          title: r.title,
-          description: r.description,
-        }))
+        results.map(
+          (r: { course_code: string; title: string; description: string }) => ({
+            code: r.course_code,
+            title: r.title,
+            description: r.description,
+          })
+        )
       );
-    } catch (err) {
+    } catch {
       setFilteredCourses([]);
       setError("Could not fetch recommendations.");
     } finally {
@@ -57,7 +63,7 @@ export default function RecommendationPage() {
         title: data.title,
         description: data.description,
       });
-    } catch (err) {
+    } catch {
       setRandomCourse(null);
       setError("Could not fetch random course.");
     } finally {
@@ -159,7 +165,7 @@ export default function RecommendationPage() {
                 ) : filteredCourses.length === 0 ? (
                   <div className="no-results">No courses found.</div>
                 ) : (
-                  filteredCourses.slice(0, 12).map((course) => (
+                  filteredCourses.slice(0, 12).map((course: Course) => (
                     <div className="course-card" key={course.code}>
                       <div className="course-code">{course.code}</div>
                       <div className="course-title">{course.title}</div>
@@ -180,73 +186,95 @@ export default function RecommendationPage() {
               <div className="recommended-courses-title">
                 Recommended Courses
               </div>
-              <div className="empty-recommendation-state modern-empty-state center-empty-state">
-                <div className="empty-state-card">
-                  <div className="empty-state-icon">
-                    <svg width="56" height="56" fill="none" viewBox="0 0 56 56">
-                      <rect
-                        x="8"
-                        y="8"
-                        width="40"
-                        height="40"
-                        rx="8"
-                        fill="#f3f4f6"
-                      />
-                      <path
-                        d="M20 28h16M20 34h10"
-                        stroke="#646cff"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                      <rect
-                        x="20"
-                        y="18"
-                        width="16"
-                        height="4"
-                        rx="2"
-                        fill="#646cff"
-                      />
-                    </svg>
-                  </div>
-                  <div className="empty-state-texts">
-                    <div
-                      className="empty-state-title"
-                      style={{
-                        fontWeight: 700,
-                        fontSize: "1.2em",
-                        marginBottom: "0.3em",
-                        color: "#222",
-                      }}
-                    >
-                      No recommendations yet
+              {recommendedCourses && recommendedCourses.length > 0 ? (
+                <div className="course-results-grid">
+                  {recommendedCourses.slice(0, 12).map((course: Course) => (
+                    <div className="course-card" key={course.code}>
+                      <div className="course-code">{course.code}</div>
+                      <div className="course-title">{course.title}</div>
+                      <button
+                        className="details-btn"
+                        onClick={() => setSelectedCourse(course)}
+                      >
+                        Details
+                      </button>
                     </div>
-                    <div
-                      className="empty-state-desc"
-                      style={{ color: "#666", marginBottom: "1em" }}
-                    >
-                      Add your resume to see personalized course
-                      recommendations.
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-recommendation-state modern-empty-state center-empty-state">
+                  <div className="empty-state-card">
+                    <div className="empty-state-icon">
+                      <svg
+                        width="56"
+                        height="56"
+                        fill="none"
+                        viewBox="0 0 56 56"
+                      >
+                        <rect
+                          x="8"
+                          y="8"
+                          width="40"
+                          height="40"
+                          rx="8"
+                          fill="#f3f4f6"
+                        />
+                        <path
+                          d="M20 28h16M20 34h10"
+                          stroke="#646cff"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <rect
+                          x="20"
+                          y="18"
+                          width="16"
+                          height="4"
+                          rx="2"
+                          fill="#646cff"
+                        />
+                      </svg>
                     </div>
-                    <button
-                      className="resume-upload-btn"
-                      style={{
-                        background: "#646cff",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "6px",
-                        padding: "0.6em 1.4em",
-                        fontWeight: 600,
-                        fontSize: "1em",
-                        cursor: "pointer",
-                        boxShadow: "0 2px 8px rgba(100,108,255,0.08)",
-                      }}
-                      onClick={() => navigate("/profile")}
-                    >
-                      Upload Resume
-                    </button>
+                    <div className="empty-state-texts">
+                      <div
+                        className="empty-state-title"
+                        style={{
+                          fontWeight: 700,
+                          fontSize: "1.2em",
+                          marginBottom: "0.3em",
+                          color: "#222",
+                        }}
+                      >
+                        No recommendations yet
+                      </div>
+                      <div
+                        className="empty-state-desc"
+                        style={{ color: "#666", marginBottom: "1em" }}
+                      >
+                        Add your resume to see personalized course
+                        recommendations.
+                      </div>
+                      <button
+                        className="resume-upload-btn"
+                        style={{
+                          background: "#646cff",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "6px",
+                          padding: "0.6em 1.4em",
+                          fontWeight: 600,
+                          fontSize: "1em",
+                          cursor: "pointer",
+                          boxShadow: "0 2px 8px rgba(100,108,255,0.08)",
+                        }}
+                        onClick={() => navigate("/profile")}
+                      >
+                        Upload Resume
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
         </div>
@@ -315,10 +343,18 @@ export default function RecommendationPage() {
             >
               {selectedCourse.code}: {selectedCourse.title}
             </h3>
-            <p>
-              {selectedCourse.description ||
-                "Course details go here. (Add real details as needed.)"}
-            </p>
+            {selectedCourse.description ? (
+              <div className="details-modal-description">
+                {selectedCourse.description}
+              </div>
+            ) : (
+              <div
+                className="details-modal-description"
+                style={{ color: "#888" }}
+              >
+                No description available.
+              </div>
+            )}
           </div>
         </div>
       )}
