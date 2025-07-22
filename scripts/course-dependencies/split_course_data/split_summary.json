@@ -1,0 +1,18 @@
+{
+  "total_courses": 4332,
+  "files_created": 10,
+  "courses_per_file": 433,
+  "extra_courses": 2,
+  "file_list": [
+    "course_data_part_01.json",
+    "course_data_part_02.json",
+    "course_data_part_03.json",
+    "course_data_part_04.json",
+    "course_data_part_05.json",
+    "course_data_part_06.json",
+    "course_data_part_07.json",
+    "course_data_part_08.json",
+    "course_data_part_09.json",
+    "course_data_part_10.json"
+  ]
+}

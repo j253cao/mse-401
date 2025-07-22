@@ -1,0 +1,386 @@
+{
+  "ACTSC127": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "CS115",
+              "description": "CS115 - Introduction to Computer Science 1 (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "CS135",
+              "description": "CS135 - Designing Functional Programs (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "program_requirement",
+              "description": "H-Accounting & Financial Management"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Biotechnology/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Mathematics/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Sustainability & Financial Management"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC221": {
+    "prerequisite": {
+      "type": "one_of",
+      "rules": [
+        {
+          "type": "program_requirement",
+          "description": "2A"
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC231": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "MATH137",
+              "description": "MATH137 - Calculus 1 for Honours Mathematics (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "MATH147",
+              "description": "MATH147 - Calculus 1 (Advanced Level) (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "STAT220",
+              "description": "STAT220 - Probability (Non-Specialist Level) (0.50)",
+              "grade_requirement": "70%"
+            },
+            {
+              "type": "corequisite_requirement",
+              "description": "Corequisite required"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "program_requirement",
+              "description": "2A"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC232": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "STAT230",
+              "description": "STAT230 - Probability (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "STAT240",
+              "description": "STAT240 - Probability (Advanced Level) (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "ACTSC231",
+              "description": "ACTSC231 - Introductory Financial Mathematics (0.50)",
+              "grade_requirement": "60%"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC291": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "ACTSC127",
+              "description": "ACTSC127 - Introduction to Global Capital Markets and Financial Analytics (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "AFM127",
+              "description": "AFM127 - Introduction to Global Capital Markets and Financial Analytics (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "CFM101",
+              "description": "CFM101 - Introduction to Financial Markets and Data Analytics (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "program_requirement",
+              "description": "H-Accounting & Financial Management"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Biotechnology/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Computing & Financial Management"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Mathematics/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Sustainability & Financial Management"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC331": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "ACTSC232",
+              "description": "ACTSC232 - Life Contingencies 1 (0.50)",
+              "grade_requirement": "60%"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "program_requirement",
+              "description": "H-Actuarial Science"
+            },
+            {
+              "type": "program_requirement",
+              "description": "JH-Actuarial Science"
+            },
+            {
+              "type": "program_requirement",
+              "description": "Actuarial Science Minor"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC362": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "ACTSC231",
+              "description": "ACTSC231 - Introductory Financial Mathematics (0.50)",
+              "grade_requirement": "60%"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "program_requirement",
+              "description": "H-Actuarial Science"
+            },
+            {
+              "type": "program_requirement",
+              "description": "JH-Actuarial Science"
+            },
+            {
+              "type": "program_requirement",
+              "description": "Actuarial Science Minor"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC363": {
+    "prerequisite": {
+      "type": "one_of",
+      "rules": [
+        {
+          "type": "program_requirement",
+          "description": "H-Actuarial Science"
+        },
+        {
+          "type": "program_requirement",
+          "description": "JH-Actuarial Science"
+        },
+        {
+          "type": "program_requirement",
+          "description": "Actuarial Science Minor"
+        },
+        {
+          "type": "program_requirement",
+          "description": "H-Mathematical Finance"
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC372": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "ACTSC231",
+              "description": "ACTSC231 - Introductory Financial Mathematics (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "MATH235",
+              "description": "MATH235 - Linear Algebra 2 for Honours Mathematics (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "MATH245",
+              "description": "MATH245 - Linear Algebra 2 (Advanced Level) (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "MATH237",
+              "description": "MATH237 - Calculus 3 for Honours Mathematics (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "MATH247",
+              "description": "MATH247 - Calculus 3 (Advanced Level) (0.50)"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  },
+  "ACTSC391": {
+    "prerequisite": {
+      "type": "all",
+      "rules": [
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "course_requirement",
+              "code": "ACTSC291",
+              "description": "ACTSC291 - Global Capital Markets and Financial Analytics (0.50)"
+            },
+            {
+              "type": "course_requirement",
+              "code": "AFM272",
+              "description": "AFM272 - Global Capital Markets and Financial Analytics (0.50)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "rules": [
+            {
+              "type": "program_requirement",
+              "description": "H-Computing & Financial Management"
+            },
+            {
+              "type": "program_requirement",
+              "description": "H-Mathematics/Chartered Professional Accountancy"
+            }
+          ]
+        }
+      ]
+    },
+    "corequisite": null,
+    "antirequisite": null
+  }
+}
