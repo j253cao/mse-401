@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
+import Select from "react-select";
 
 export type Course = { code: string; title: string; description?: string };
 
@@ -13,9 +14,20 @@ export default function RecommendationPage() {
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [includeUndergrad, setIncludeUndergrad] = useState(true);
+  const [includeGrad, setIncludeGrad] = useState(true);
+  const [departments, setDepartments] = useState<{ [key: string]: boolean }>({
+    MSE: true,
+    ECE: true,
+  });
   const { recommendedCourses } = useContext(RecommendationsContext) as {
     recommendedCourses: Course[];
   };
+
+  const departmentOptions = [
+    { value: "MSE", label: "MSE" },
+    { value: "ECE", label: "ECE" },
+  ];
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,10 +38,15 @@ export default function RecommendationPage() {
     setLoading(true);
     setError(null);
     try {
+      const filters = {
+        include_undergrad: includeUndergrad,
+        include_grad: includeGrad,
+        department: Object.keys(departments).filter((k) => departments[k]),
+      };
       const res = await fetch("http://localhost:8000/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ queries: [search] }),
+        body: JSON.stringify({ queries: [search], filters }),
       });
       if (!res.ok) throw new Error("Failed to fetch recommendations");
       const data = await res.json();
@@ -150,6 +167,66 @@ export default function RecommendationPage() {
                   </svg>
                 </button>
               </form>
+              {/* Filter UI */}
+              <div className="filter-section" style={{ margin: "1em 0" }}>
+                <div
+                  style={{ display: "flex", gap: "1em", alignItems: "center" }}
+                >
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={includeUndergrad}
+                      onChange={() => setIncludeUndergrad((v) => !v)}
+                    />
+                    Undergrad
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={includeGrad}
+                      onChange={() => setIncludeGrad((v) => !v)}
+                    />
+                    Grad
+                  </label>
+                  <label style={{ marginLeft: "1em" }}>Department:</label>
+                  <div style={{ minWidth: 180, width: 180 }}>
+                    <Select
+                      isMulti
+                      options={departmentOptions}
+                      value={departmentOptions.filter(
+                        (opt) => departments[opt.value]
+                      )}
+                      onChange={(selected) => {
+                        const selectedValues = Array.isArray(selected)
+                          ? selected.map((opt) => opt.value)
+                          : [];
+                        setDepartments({
+                          MSE: selectedValues.includes("MSE"),
+                          ECE: selectedValues.includes("ECE"),
+                        });
+                      }}
+                      closeMenuOnSelect={false}
+                      placeholder="Select departments..."
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          minHeight: 36,
+                          fontSize: "1em",
+                        }),
+                        multiValue: (base) => ({
+                          ...base,
+                          background: "#646cff22",
+                        }),
+                        option: (base, state) => ({
+                          ...base,
+                          color: "#222",
+                          background: state.isSelected ? "#646cff22" : "#fff",
+                        }),
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
               {/* Filter Buttons */}
               <div className="filter-buttons">
                 <button className="filter-btn">Filter 1</button>
