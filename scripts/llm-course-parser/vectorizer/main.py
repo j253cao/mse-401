@@ -2,6 +2,7 @@ import os
 import pickle
 import numpy as np
 import pandas as pd
+from typing import List, Dict, Any, Optional
 from vectorizer.data_loader import load_course_data, save_embeddings, load_embeddings, embedding_file_exists
 from vectorizer.embedding_generators import generate_tfidf_svd_embeddings, generate_bert_embeddings
 from vectorizer.recommenders import (
@@ -74,8 +75,32 @@ def _load_all(data_file):
         _cached['model'] = SentenceTransformer('all-MiniLM-L6-v2')
     return _cached['df'], _cached['embeddings'], _cached['tfidf'], _cached['svd'], _cached['model'], _cached['bert_embeddings']
 
-def get_recommendations(search_queries, data_file='course-api-data.json', method=None):
+def get_recommendations(
+    search_queries: List[str],
+    data_file: str = 'course-api-data.json',
+    method: Optional[str] = None,
+    filters: Optional[Dict[str, Any]] = None
+) -> List[List[Dict[str, Any]]]:
+    """
+    Get course recommendations based on search queries and optional filters.
+    
+    Args:
+        search_queries: List of search query strings
+        data_file: Name of the data file to use
+        method: Specific recommendation method to use (if None, uses all methods)
+        filters: Optional dictionary of filters to apply to the results
+            Example: {
+                "include_undergrad": bool,
+                "include_grad": bool,
+                "department": str,
+                ... other filters as needed ...
+            }
+    
+    Returns:
+        List of results for each query, where each result is a list of course recommendations
+    """
     df, embeddings, tfidf, svd, model, bert_embeddings = _load_all(data_file)
+    
     all_methods = [
         ("cosine", lambda q: recommend_cosine(q, tfidf, svd, embeddings, df)),
         ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, df)),
@@ -86,25 +111,31 @@ def get_recommendations(search_queries, data_file='course-api-data.json', method
         ("bert", lambda q: recommend_bert(q, model, bert_embeddings, df)),
         ("hybrid_ensemble", lambda q: recommend_hybrid_ensemble(q, df, tfidf, svd, embeddings, embeddings, model, bert_embeddings)),
     ]
+    
     if method is not None:
         methods = [m for m in all_methods if m[0] == method]
         if not methods:
             raise ValueError(f"Unknown method: {method}")
     else:
         methods = all_methods
+    
     all_results = []
     for search_query in search_queries:
         query_results = []
         for method_name, method_func in methods:
             try:
+                # Get recommendations using the method
                 results = method_func(search_query)
+                
+                # Convert results to list format
                 for rank, (_, row) in enumerate(results.iterrows(), 1):
                     score_col = None
                     for col in ['similarity', 'fuzzy_score', 'keyword_score', 'bert_score', 'hybrid_score', 'score']:
                         if col in row.index:
                             score_col = col
                             break
-                    query_results.append({
+                    
+                    result = {
                         "search_query": search_query,
                         "method": method_name,
                         "rank": rank,
@@ -112,11 +143,21 @@ def get_recommendations(search_queries, data_file='course-api-data.json', method
                         "title": row['title'],
                         "description": row['description'],
                         "score": row[score_col] if score_col else 0
-                    })
+                    }
+                    
+                    # Add any additional fields from the DataFrame that might be needed for filtering
+                    for col in row.index:
+                        if col not in result and col not in ['similarity', 'fuzzy_score', 'keyword_score', 'bert_score', 'hybrid_score', 'score']:
+                            result[col] = row[col]
+                    
+                    query_results.append(result)
+                    
             except Exception as e:
                 print(f"Error with method {method_name} on query '{search_query}': {e}")
                 continue
+        
         all_results.append(query_results)
+    
     return all_results
 
 def main():
