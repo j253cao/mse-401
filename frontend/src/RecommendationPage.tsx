@@ -1,22 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PLACEHOLDER_COURSES: Course[] = [
-  { code: "MATH 135", title: "Algebra for Honours Mathematics" },
-  { code: "CS 136", title: "Elementary Algorithm Design and Data Abstraction" },
-  { code: "MSE 100", title: "Management Engineering Concepts" },
-  { code: "PHYS 121", title: "Mechanics" },
-  { code: "MSE 446", title: "Introduction to Machine Learning" },
-  { code: "CS 240", title: "Introduction to Computer Systems" },
-  { code: "CS 241", title: "Programming Languages and Paradigms" },
-  { code: "CS 242", title: "Software Tools and Systems Programming" },
-  { code: "CS 243", title: "Introduction to Computer Organization" },
-  { code: "CS 244", title: "Introduction to Computer Networks" },
-  { code: "CS 245", title: "Introduction to Computer Security" },
-  { code: "CS 246", title: "Introduction to Computer Graphics" },
-];
-
-export type Course = { code: string; title: string };
+export type Course = { code: string; title: string; description?: string };
 
 export default function RecommendationPage() {
   const navigate = useNavigate();
@@ -24,29 +9,60 @@ export default function RecommendationPage() {
   const [randomCourse, setRandomCourse] = useState<Course | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [mode, setMode] = useState<"search" | "recommended">("search");
-  const [filteredCourses, setFilteredCourses] = useState(PLACEHOLDER_COURSES);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSearchSubmit(e: React.FormEvent) {
+  async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!search.trim()) {
-      setFilteredCourses(PLACEHOLDER_COURSES);
+      setFilteredCourses([]);
       return;
     }
-    setFilteredCourses(
-      PLACEHOLDER_COURSES.filter(
-        (c) =>
-          c.code.toLowerCase().includes(search.toLowerCase()) ||
-          c.title.toLowerCase().includes(search.toLowerCase())
-      )
-    );
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("http://localhost:8000/recommend", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ queries: [search] }),
+      });
+      if (!res.ok) throw new Error("Failed to fetch recommendations");
+      const data = await res.json();
+      const results = data.results[search] || [];
+      setFilteredCourses(
+        results.map((r: any) => ({
+          code: r.course_code,
+          title: r.title,
+          description: r.description,
+        }))
+      );
+    } catch (err) {
+      setFilteredCourses([]);
+      setError("Could not fetch recommendations.");
+    } finally {
+      setLoading(false);
+    }
   }
 
-  function handleRandomCourse() {
-    const course =
-      PLACEHOLDER_COURSES[
-        Math.floor(Math.random() * PLACEHOLDER_COURSES.length)
-      ];
-    setRandomCourse(course);
+  async function handleRandomCourse() {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("http://localhost:8000/random-course");
+      if (!res.ok) throw new Error("Failed to fetch random course");
+      const data = await res.json();
+      setRandomCourse({
+        code: data.course_code,
+        title: data.title,
+        description: data.description,
+      });
+    } catch (err) {
+      setRandomCourse(null);
+      setError("Could not fetch random course.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -136,7 +152,11 @@ export default function RecommendationPage() {
               </div>
               {/* Course Results */}
               <div className="course-results-grid">
-                {filteredCourses.length === 0 ? (
+                {loading ? (
+                  <div className="no-results">Loading...</div>
+                ) : error ? (
+                  <div className="no-results">{error}</div>
+                ) : filteredCourses.length === 0 ? (
                   <div className="no-results">No courses found.</div>
                 ) : (
                   filteredCourses.slice(0, 12).map((course) => (
@@ -252,15 +272,21 @@ export default function RecommendationPage() {
               </svg>
             </div>
             <h2>Random Course Generator</h2>
-            <button className="random-btn" onClick={handleRandomCourse}>
+            <button
+              className="random-btn"
+              onClick={handleRandomCourse}
+              disabled={loading}
+            >
               Generate Random Course
             </button>
             {randomCourse && (
               <div className="random-course-result">
                 <h3>{randomCourse.code}</h3>
                 <p>{randomCourse.title}</p>
+                {randomCourse.description && <p>{randomCourse.description}</p>}
               </div>
             )}
+            {error && <div className="no-results">{error}</div>}
           </div>
         </div>
       </div>
@@ -289,7 +315,10 @@ export default function RecommendationPage() {
             >
               {selectedCourse.code}: {selectedCourse.title}
             </h3>
-            <p>Course details go here. (Add real details as needed.)</p>
+            <p>
+              {selectedCourse.description ||
+                "Course details go here. (Add real details as needed.)"}
+            </p>
           </div>
         </div>
       )}
