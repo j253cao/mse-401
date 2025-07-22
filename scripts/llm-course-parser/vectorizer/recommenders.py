@@ -5,17 +5,18 @@ from difflib import SequenceMatcher
 import faiss
 import networkx as nx
 import time
-from data_loader import load_undergrad_courses, load_grad_courses
+from .data_loader import load_course_data, load_undergrad_courses, load_grad_courses
 
-def recommend_cosine(query, tfidf, svd, emb, df, top_k=10, filters = {}):
+def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     filters_applied = set()
-    if filters.get('include_undergrad'):
+    if filters and filters.get('include_undergrad'):
         filters_applied.update(load_undergrad_courses())
     if filters.get('include_grad'):
         filters_applied.update(load_grad_courses())
     if filters.get('department'):
-        filters_applied = {s for s in filters_applied if s.startswith(filters['department'])}
-
+        departments = tuple(filters['department'])
+        filters_applied = {s for s in filters_applied if s.startswith(departments)}
+    
     t0 = time.time()
     # Vectorize query
     q_vec = svd.transform(tfidf.transform([query]))
@@ -55,7 +56,22 @@ def recommend_cosine(query, tfidf, svd, emb, df, top_k=10, filters = {}):
     result = df.iloc[idxs][['courseCode', 'title', 'description']].copy()
     result['similarity'] = sims[idxs]
     result['similarity'] = np.nan_to_num(result['similarity'], nan=0.0, posinf=0.0, neginf=0.0)
+    
+    # Filter out courses with specific descriptions
+    def has_excluded_description(row):
+        description = row['description'].lower() if isinstance(row['description'], str) else ""
+        return (
+            description.startswith("Work-Term Report") or
+            description.startswith("General seminar") or
+            "seminar" in description or
+            "work term" in description or
+            "coop" in description or
+            "co-op" in description
+        )
+    
+    result = result[~result.apply(has_excluded_description, axis=1)]
     print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
+    print(len(result))
     return result
 
 def recommend_faiss(query, tfidf, svd, emb, df, top_k=10):
