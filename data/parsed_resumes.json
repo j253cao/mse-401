@@ -1,0 +1,93 @@
+[
+  {
+    "core_interests": {
+      "primary_field": "Data Science and Analytics",
+      "subfields": [
+        "Data Visualization",
+        "Data Engineering",
+        "Business Intelligence"
+      ],
+      "explanation": "The candidate consistently works with data analysis tools (Python, SQL, Power BI) and focuses on extracting insights from datasets. Their projects and work experience emphasize data manipulation, cleaning, and presentation."
+    },
+    "learning_patterns": {
+      "theoretical_vs_practical": "Balanced",
+      "preferred_domains": [
+        "Business Operations",
+        "Financial Planning",
+        "Geospatial Analysis"
+      ]
+    },
+    "suggested_directions": [
+      {
+        "field": "Management Science",
+        "why": "Their current program and experience in process optimization and data-driven decision-making align well with this field."
+      },
+      {
+        "field": "Business Analytics",
+        "why": "The combination of data analysis skills and business acumen makes this a natural fit."
+      }
+    ],
+    "file_name": "Matthew_Ho_Resume_3A.pdf",
+    "file_path": "/Users/johhnycao/Documents/Personal Code/MSE-401/src/Matthew_Ho_Resume_3A.pdf"
+  },
+  {
+    "core_interests": {
+      "primary_field": "Software Engineering",
+      "subfields": [
+        "Full-Stack Development",
+        "Backend Systems",
+        "Application Architecture"
+      ],
+      "explanation": "Extensive experience with various frameworks, languages, and technologies related to building web applications and backend systems indicates a strong interest in software development. The projects and internships showcase a pattern of building end-to-end solutions."
+    },
+    "learning_patterns": {
+      "theoretical_vs_practical": "Practical",
+      "preferred_domains": [
+        "Web Applications",
+        "Data Management",
+        "Cloud Services"
+      ]
+    },
+    "suggested_directions": [
+      {
+        "field": "Computer Science",
+        "why": "Provides a strong theoretical foundation for the practical skills already demonstrated."
+      },
+      {
+        "field": "Data Engineering",
+        "why": "Experience with databases, data processing, and analytics dashboards suggests an interest in managing and utilizing data at scale."
+      }
+    ],
+    "file_name": "Resume 6 E.pdf",
+    "file_path": "/Users/johhnycao/Documents/Personal Code/MSE-401/src/Resume 6 E.pdf"
+  },
+  {
+    "core_interests": {
+      "primary_field": "Finance",
+      "subfields": [
+        "Corporate Finance",
+        "Financial Analysis"
+      ],
+      "explanation": "The resume explicitly states a major in Finance and internship experience in finance departments. The tasks performed, such as preparing reports and auditing expenses, align with these subfields."
+    },
+    "learning_patterns": {
+      "theoretical_vs_practical": "Balanced",
+      "preferred_domains": [
+        "Business Operations",
+        "Financial Services"
+      ]
+    },
+    "suggested_directions": [
+      {
+        "field": "Economics",
+        "why": "The volunteer experience as a financial coach and participation in case competitions suggests an interest in broader economic principles."
+      },
+      {
+        "field": "Data Analytics",
+        "why": "Experience with Excel and Bloomberg, along with improving efficiency through formulas, hints at an aptitude for data analysis within a financial context."
+      }
+    ],
+    "file_name": "Finance Sample Resume.pdf",
+    "file_path": "/Users/johhnycao/Documents/Personal Code/MSE-401/src/Finance Sample Resume.pdf"
+  }
+]

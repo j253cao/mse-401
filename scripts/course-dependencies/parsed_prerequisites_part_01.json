@@ -1,0 +1,3198 @@
+{
+  "ACTSC127": {
+    "courseCode": "ACTSC127",
+    "title": "Introduction to Global Capital Markets and Financial Analytics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "CS115",
+              "title": "Introduction to Computer Science 1"
+            },
+            {
+              "type": "course",
+              "course_code": "CS135",
+              "title": "Designing Functional Programs"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Accounting & Financial Management"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Biotechnology/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematics/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Sustainability & Financial Management"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC221": {
+    "courseCode": "ACTSC221",
+    "title": "Introductory Financial Mathematics (Non-Specialist Level)",
+    "prerequisites": {
+      "type": "level_requirement",
+      "level": "2A"
+    }
+  },
+  "ACTSC231": {
+    "courseCode": "ACTSC231",
+    "title": "Introductory Financial Mathematics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "MATH137",
+              "title": "Calculus 1 for Honours Mathematics"
+            },
+            {
+              "type": "course",
+              "course_code": "MATH147",
+              "title": "Calculus 1 (Advanced Level)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "grade_requirement",
+              "min_grade": 70,
+              "children": [
+                {
+                  "type": "course",
+                  "course_code": "STAT220",
+                  "title": "Probability (Non-Specialist Level)"
+                }
+              ]
+            },
+            {
+              "type": "corequisite",
+              "note": "See corequisites section"
+            }
+          ]
+        },
+        {
+          "type": "level_requirement",
+          "level": "2A"
+        }
+      ]
+    }
+  },
+  "ACTSC232": {
+    "courseCode": "ACTSC232",
+    "title": "Life Contingencies 1",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "STAT230",
+              "title": "Probability"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT240",
+              "title": "Probability (Advanced Level)"
+            }
+          ]
+        },
+        {
+          "type": "grade_requirement",
+          "min_grade": 60,
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC231",
+              "title": "Introductory Financial Mathematics"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC291": {
+    "courseCode": "ACTSC291",
+    "title": "Global Capital Markets and Financial Analytics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC127",
+              "title": "Introduction to Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM127",
+              "title": "Introduction to Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "CFM101",
+              "title": "Introduction to Financial Markets and Data Analytics"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Accounting & Financial Management"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Biotechnology/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Computing & Financial Management"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematics/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Sustainability & Financial Management"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC331": {
+    "courseCode": "ACTSC331",
+    "title": "Life Contingencies 2",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "grade_requirement",
+          "min_grade": 60,
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC232",
+              "title": "Life Contingencies 1"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "Actuarial Science Minor"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC362": {
+    "courseCode": "ACTSC362",
+    "title": "Introduction to Property and Casualty Practice",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "grade_requirement",
+          "min_grade": 60,
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC231",
+              "title": "Introductory Financial Mathematics"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "Actuarial Science Minor"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC363": {
+    "courseCode": "ACTSC363",
+    "title": "Casualty and Health Insurance Mathematics 1",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "program",
+          "program_name": "H-Actuarial Science"
+        },
+        {
+          "type": "program",
+          "program_name": "JH-Actuarial Science"
+        },
+        {
+          "type": "program",
+          "program_name": "Actuarial Science Minor"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Mathematical Finance"
+        }
+      ]
+    }
+  },
+  "ACTSC372": {
+    "courseCode": "ACTSC372",
+    "title": "Investment Science and Corporate Finance",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "ACTSC231",
+          "title": "Introductory Financial Mathematics"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "MATH235",
+              "title": "Linear Algebra 2 for Honours Mathematics"
+            },
+            {
+              "type": "course",
+              "course_code": "MATH245",
+              "title": "Linear Algebra 2 (Advanced Level)"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "MATH237",
+              "title": "Calculus 3 for Honours Mathematics"
+            },
+            {
+              "type": "course",
+              "course_code": "MATH247",
+              "title": "Calculus 3 (Advanced Level)"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC391": {
+    "courseCode": "ACTSC391",
+    "title": "Corporate Finance",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC291",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Computing & Financial Management"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematics/Chartered Professional Accountancy"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC423": {
+    "courseCode": "ACTSC423",
+    "title": "Topics in Financial Econometrics",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM323",
+          "title": "Quantitative Foundations for Finance"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT331",
+          "title": "Applied Linear Models"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT371",
+          "title": "Applied Linear Models and Process Improvement for Business"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT373",
+          "title": "Regression and Forecasting Methods in Finance"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT374",
+          "title": "Quantitative Foundations for Finance"
+        }
+      ]
+    }
+  },
+  "ACTSC431": {
+    "courseCode": "ACTSC431",
+    "title": "Casualty and Health Insurance Mathematics 2",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "STAT330",
+          "title": "Mathematical Statistics"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "STAT331",
+              "title": "Applied Linear Models"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT371",
+              "title": "Applied Linear Models and Process Improvement for Business"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT373",
+              "title": "Regression and Forecasting Methods in Finance"
+            }
+          ]
+        },
+        {
+          "type": "grade_requirement",
+          "min_grade": 60,
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC363",
+              "title": "Casualty and Health Insurance Mathematics 1"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "Actuarial Science Minor"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC432": {
+    "courseCode": "ACTSC432",
+    "title": "Credibility and Risk Theory",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "all",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC363",
+              "title": "Casualty and Health Insurance Mathematics 1"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT330",
+              "title": "Mathematical Statistics"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT333",
+              "title": "Stochastic Processes 1"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC445": {
+    "courseCode": "ACTSC445",
+    "title": "Quantitative Enterprise Risk Management",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC372",
+              "title": "Investment Science and Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "BUS393W",
+              "title": "BUS393W"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "course",
+                  "course_code": "STAT330",
+                  "title": "Mathematical Statistics"
+                },
+                {
+                  "type": "course",
+                  "course_code": "STAT333",
+                  "title": "Stochastic Processes 1"
+                }
+              ]
+            },
+            {
+              "type": "course",
+              "course_code": "STAT334",
+              "title": "Probability Models for Business and Accounting"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Math/FARM - Chartered Financial Analyst Spec"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Math/FARM - Professional Risk Management Spec"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC446": {
+    "courseCode": "ACTSC446",
+    "title": "Mathematics of Financial Markets",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC372",
+              "title": "Investment Science and Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "BUS393W",
+              "title": "BUS393W"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "STAT333",
+              "title": "Stochastic Processes 1"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT334",
+              "title": "Probability Models for Business and Accounting"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Biostatistics"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Math/FARM - Chartered Financial Analyst Spec"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Math/FARM - Professional Risk Management Spec"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Statistics"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Statistics"
+            },
+            {
+              "type": "program",
+              "program_name": "Statistics Minor"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC447": {
+    "courseCode": "ACTSC447",
+    "title": "Numerical Computation for Financial Modelling",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AMATH242",
+              "title": "Introduction to Computational Mathematics"
+            },
+            {
+              "type": "course",
+              "course_code": "CS370",
+              "title": "Numerical Computation"
+            },
+            {
+              "type": "course",
+              "course_code": "CS371",
+              "title": "Introduction to Computational Mathematics"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "one_of",
+              "children": [
+                {
+                  "type": "course",
+                  "course_code": "STAT231",
+                  "title": "Statistics"
+                },
+                {
+                  "type": "course",
+                  "course_code": "STAT241",
+                  "title": "Statistics (Advanced Level)"
+                }
+              ]
+            },
+            {
+              "type": "grade_requirement",
+              "min_grade": 60,
+              "children": [
+                {
+                  "type": "course",
+                  "course_code": "STAT206",
+                  "title": "Statistics for Software Engineering"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC453": {
+    "courseCode": "ACTSC453",
+    "title": "Basic Pension Mathematics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "ACTSC331",
+          "title": "Life Contingencies 2"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC454": {
+    "courseCode": "ACTSC454",
+    "title": "Longevity and Mortality Using Predictive Analytics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "all",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC331",
+              "title": "Life Contingencies 2"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT330",
+              "title": "Mathematical Statistics"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC455": {
+    "courseCode": "ACTSC455",
+    "title": "Life Contingencies 3",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "grade_requirement",
+          "min_grade": 60,
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC331",
+              "title": "Life Contingencies 2"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ACTSC468": {
+    "courseCode": "ACTSC468",
+    "title": "Readings in Actuarial Science 1",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "program",
+          "program_name": "H-Actuarial Science"
+        },
+        {
+          "type": "program",
+          "program_name": "JH-Actuarial Science"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Mathematical Finance"
+        }
+      ]
+    }
+  },
+  "ACTSC469": {
+    "courseCode": "ACTSC469",
+    "title": "Readings in Actuarial Science 2",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "program",
+          "program_name": "H-Actuarial Science"
+        },
+        {
+          "type": "program",
+          "program_name": "JH-Actuarial Science"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Mathematical Finance"
+        }
+      ]
+    }
+  },
+  "ACTSC489": {
+    "courseCode": "ACTSC489",
+    "title": "Advanced Topics in Actuarial Science",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "3B"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "JH-Actuarial Science"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematical Finance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE100": {
+    "courseCode": "AE100",
+    "title": "Concepts Studio",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "1A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE101": {
+    "courseCode": "AE101",
+    "title": "History of the Built Environment",
+    "prerequisites": null
+  },
+  "AE104": {
+    "courseCode": "AE104",
+    "title": "Mechanics 1",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "1A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE105": {
+    "courseCode": "AE105",
+    "title": "Mechanics 2",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE104",
+          "title": "Mechanics 1"
+        },
+        {
+          "type": "level_requirement",
+          "level": "1B"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE115": {
+    "courseCode": "AE115",
+    "title": "Linear Algebra",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "1A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE121": {
+    "courseCode": "AE121",
+    "title": "Computational Methods",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "1B"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE123": {
+    "courseCode": "AE123",
+    "title": "Electrical Circuits and Instrumentation",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "1B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE125": {
+    "courseCode": "AE125",
+    "title": "Structural Design Studio",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE100",
+          "title": "Concepts Studio"
+        },
+        {
+          "type": "level_requirement",
+          "level": "1B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE199": {
+    "courseCode": "AE199",
+    "title": "Seminar",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "1B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE200": {
+    "courseCode": "AE200",
+    "title": "Enclosure Design Studio",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE125",
+          "title": "Structural Design Studio"
+        },
+        {
+          "type": "level_requirement",
+          "level": "2A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE204": {
+    "courseCode": "AE204",
+    "title": "Solid Mechanics 1",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE105",
+          "title": "Mechanics 2"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "level_requirement",
+                  "level": "2A"
+                },
+                {
+                  "type": "one_of",
+                  "children": [
+                    {
+                      "type": "program",
+                      "program_name": "H-Architectural Engineering"
+                    },
+                    {
+                      "type": "program",
+                      "program_name": "H-Civil Engineering"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "level_requirement",
+                  "level": "2B"
+                },
+                {
+                  "type": "program",
+                  "program_name": "H-Geological Engineering"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE205": {
+    "courseCode": "AE205",
+    "title": "Solid Mechanics 2",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "all",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AE204",
+              "title": "Solid Mechanics 1"
+            },
+            {
+              "type": "course",
+              "course_code": "AE221",
+              "title": "Advanced Calculus"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "level_requirement",
+                  "level": "2B"
+                },
+                {
+                  "type": "one_of",
+                  "children": [
+                    {
+                      "type": "program",
+                      "program_name": "H-Architectural Engineering"
+                    },
+                    {
+                      "type": "program",
+                      "program_name": "H-Civil Engineering"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "level_requirement",
+                  "level": "3A"
+                },
+                {
+                  "type": "program",
+                  "program_name": "H-Geological Engineering"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE221": {
+    "courseCode": "AE221",
+    "title": "Advanced Calculus",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "MATH118",
+          "title": "Calculus 2 for Engineering"
+        },
+        {
+          "type": "level_requirement",
+          "level": "2A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE223": {
+    "courseCode": "AE223",
+    "title": "Differential Equations and Balance Laws",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE221",
+          "title": "Advanced Calculus"
+        },
+        {
+          "type": "level_requirement",
+          "level": "2A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE224": {
+    "courseCode": "AE224",
+    "title": "Probability and Statistics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "MATH116",
+          "title": "Calculus 1 for Engineering"
+        },
+        {
+          "type": "level_requirement",
+          "level": "2A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE225": {
+    "courseCode": "AE225",
+    "title": "Environmental Building Systems Studio",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE200",
+          "title": "Enclosure Design Studio"
+        },
+        {
+          "type": "level_requirement",
+          "level": "2B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE265": {
+    "courseCode": "AE265",
+    "title": "Structure and Properties of Materials",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "all",
+          "children": [
+            {
+              "type": "level_requirement",
+              "level": "2A"
+            },
+            {
+              "type": "one_of",
+              "children": [
+                {
+                  "type": "program",
+                  "program_name": "H-Civil Engineering"
+                },
+                {
+                  "type": "program",
+                  "program_name": "H-Environmental Engineering"
+                },
+                {
+                  "type": "program",
+                  "program_name": "H-Geological Engineering"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "all",
+          "children": [
+            {
+              "type": "level_requirement",
+              "level": "2B"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE279": {
+    "courseCode": "AE279",
+    "title": "Energy and the Environment",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "2B"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE280": {
+    "courseCode": "AE280",
+    "title": "Fluid Mechanics and Thermal Sciences",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "all",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "CIVE105",
+              "title": "Mechanics 2"
+            },
+            {
+              "type": "course",
+              "course_code": "CIVE221",
+              "title": "Advanced Calculus"
+            }
+          ]
+        },
+        {
+          "type": "level_requirement",
+          "level": "2A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE298": {
+    "courseCode": "AE298",
+    "title": "Seminar",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "2A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE299": {
+    "courseCode": "AE299",
+    "title": "Seminar",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "2B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE300": {
+    "courseCode": "AE300",
+    "title": "Architectural Engineering Studio 1",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE225",
+          "title": "Environmental Building Systems Studio"
+        },
+        {
+          "type": "level_requirement",
+          "level": "3A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE301": {
+    "courseCode": "AE301",
+    "title": "Building Enclosure Systems",
+    "prerequisites": {
+      "type": "course",
+      "course_code": "AE300",
+      "title": "Architectural Engineering Studio 1"
+    }
+  },
+  "AE303": {
+    "courseCode": "AE303",
+    "title": "Structural Analysis",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE205",
+          "title": "Solid Mechanics 2"
+        },
+        {
+          "type": "level_requirement",
+          "level": "3A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE310": {
+    "courseCode": "AE310",
+    "title": "Introduction to Structural Design",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE303",
+          "title": "Structural Analysis"
+        },
+        {
+          "type": "level_requirement",
+          "level": "3B"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE315": {
+    "courseCode": "AE315",
+    "title": "Building Structural Systems",
+    "prerequisites": {
+      "type": "course",
+      "course_code": "AE200",
+      "title": "Enclosure Design Studio"
+    }
+  },
+  "AE325": {
+    "courseCode": "AE325",
+    "title": "Architectural Engineering Studio 2",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE300",
+          "title": "Architectural Engineering Studio 1"
+        },
+        {
+          "type": "level_requirement",
+          "level": "3B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE353": {
+    "courseCode": "AE353",
+    "title": "Soil Mechanics and Foundations",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "3A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE377": {
+    "courseCode": "AE377",
+    "title": "Structural Timber Design",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "2B"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Architectural Studies"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE392": {
+    "courseCode": "AE392",
+    "title": "Economics and Life Cycle Cost Analysis",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "MATH116",
+          "title": "Calculus 1 for Engineering"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "level_requirement",
+                  "level": "3B"
+                },
+                {
+                  "type": "program",
+                  "program_name": "H-Architectural Engineering"
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "level_requirement",
+                  "level": "2B"
+                },
+                {
+                  "type": "program",
+                  "program_name": "H-Civil Engineering"
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "children": [
+                {
+                  "type": "level_requirement",
+                  "level": "3A"
+                },
+                {
+                  "type": "one_of",
+                  "children": [
+                    {
+                      "type": "program",
+                      "program_name": "H-Environmental Engineering"
+                    },
+                    {
+                      "type": "program",
+                      "program_name": "H-Geological Engineering"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE398": {
+    "courseCode": "AE398",
+    "title": "Seminar",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "3A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE399": {
+    "courseCode": "AE399",
+    "title": "Seminar",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "3B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE400": {
+    "courseCode": "AE400",
+    "title": "Project Studio 1",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE325",
+          "title": "Architectural Engineering Studio 2"
+        },
+        {
+          "type": "level_requirement",
+          "level": "4A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE405": {
+    "courseCode": "AE405",
+    "title": "Building Performance Measurement Lab",
+    "prerequisites": {
+      "type": "course",
+      "course_code": "AE280",
+      "title": "Fluid Mechanics and Thermal Sciences"
+    }
+  },
+  "AE425": {
+    "courseCode": "AE425",
+    "title": "Project Studio 2",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AE400",
+          "title": "Project Studio 1"
+        },
+        {
+          "type": "level_requirement",
+          "level": "4B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE450": {
+    "courseCode": "AE450",
+    "title": "Building Service Systems",
+    "prerequisites": {
+      "type": "course",
+      "course_code": "AE279",
+      "title": "Energy and the Environment"
+    }
+  },
+  "AE491": {
+    "courseCode": "AE491",
+    "title": "Engineering Law and Ethics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "4A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE495": {
+    "courseCode": "AE495",
+    "title": "Design Intensive Special Topics in Architectural Engineering",
+    "prerequisites": null
+  },
+  "AE497": {
+    "courseCode": "AE497",
+    "title": "Special Topics in Architectural Engineering",
+    "prerequisites": null
+  },
+  "AE498": {
+    "courseCode": "AE498",
+    "title": "Seminar",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "4A"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE499": {
+    "courseCode": "AE499",
+    "title": "Seminar",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "4B"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Architectural Engineering"
+        }
+      ]
+    }
+  },
+  "AE572": {
+    "courseCode": "AE572",
+    "title": "Building Energy Analysis",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "4A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE573": {
+    "courseCode": "AE573",
+    "title": "HVAC Systems, Equipment, and Energy Efficiency",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "4A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AE585": {
+    "courseCode": "AE585",
+    "title": "Air Quality Engineering and Impacts",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "4A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Architectural Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Chemical Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Civil Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Environmental Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Geological Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mechanical Engineering"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Systems Design Engineering"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AFM100": {
+    "courseCode": "AFM100",
+    "title": "Introduction to Experiential Learning",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "level_requirement",
+              "level": "1A"
+            },
+            {
+              "type": "level_requirement",
+              "level": "1B"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Accounting & Financial Management"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Biotechnology/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematics/Chartered Professional Accountancy"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AFM101": {
+    "courseCode": "AFM101",
+    "title": "Introduction to Financial Accounting",
+    "prerequisites": null
+  },
+  "AFM102": {
+    "courseCode": "AFM102",
+    "title": "Introduction to Managerial Accounting",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM101",
+              "title": "Introduction to Financial Accounting"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM191",
+              "title": "Introduction to Financial Reporting and Managerial Decision Making 1"
+            }
+          ]
+        },
+        {
+          "type": "course",
+          "course_code": "BUS127W",
+          "title": "BUS127W"
+        },
+        {
+          "type": "course",
+          "course_code": "BUS227W",
+          "title": "BUS227W"
+        }
+      ]
+    }
+  },
+  "AFM111": {
+    "courseCode": "AFM111",
+    "title": "Professional Pathways and Problem-Solving",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "level_requirement",
+          "level": "1A"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "program",
+              "program_name": "H-Accounting & Financial Management"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Computing & Financial Management"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Mathematics/Chartered Professional Accountancy"
+            },
+            {
+              "type": "program",
+              "program_name": "H-Sustainability & Financial Management"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "AFM212": {
+    "courseCode": "AFM212",
+    "title": "Financial Analysis and Planning",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM101",
+          "title": "Introduction to Financial Accounting"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM191",
+          "title": "Introduction to Financial Reporting and Managerial Decision Making 1"
+        }
+      ]
+    }
+  },
+  "AFM231": {
+    "courseCode": "AFM231",
+    "title": "Business Law",
+    "prerequisites": null
+  },
+  "AFM241": {
+    "courseCode": "AFM241",
+    "title": "Impact of Technology on Business",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM102",
+              "title": "Introduction to Managerial Accounting"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM182",
+              "title": "Introduction to Financial Reporting and Managerial Decision Making 2"
+            }
+          ]
+        },
+        { "type": "level_requirement", "level": "2B" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM244": {
+    "courseCode": "AFM244",
+    "title": "Analytic Methods for Business 3",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM113",
+              "title": "Analytic Methods for Business 2"
+            },
+            {
+              "type": "course",
+              "course_code": "ECON221",
+              "title": "Statistics for Economists"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT211",
+              "title": "Introductory Statistics and Sampling for Accounting"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT231",
+              "title": "Statistics"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT241",
+              "title": "Statistics (Advanced Level)"
+            }
+          ]
+        },
+        { "type": "level_requirement", "level": "2B" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM272": {
+    "courseCode": "AFM272",
+    "title": "Global Capital Markets and Financial Analytics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC127",
+              "title": "Introduction to Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM127",
+              "title": "Introduction to Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "CFM101",
+              "title": "Introduction to Financial Markets and Data Analytics"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM273": {
+    "courseCode": "AFM273",
+    "title": "Financial Instruments and Capital Markets",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC127",
+              "title": "Introduction to Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM121",
+              "title": "Introduction to Global Financial Markets"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM127",
+              "title": "Introduction to Global Capital Markets and Financial Analytics"
+            }
+          ]
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM113",
+              "title": "Analytic Methods for Business 2"
+            },
+            {
+              "type": "course",
+              "course_code": "STAT211",
+              "title": "Introductory Statistics and Sampling for Accounting"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM274": {
+    "courseCode": "AFM274",
+    "title": "Introduction to Corporate Finance",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM273",
+              "title": "Financial Instruments and Capital Markets"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM275": {
+    "courseCode": "AFM275",
+    "title": "Corporate Finance",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC291",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Computing & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM276": {
+    "courseCode": "AFM276",
+    "title": "Financial Statement Analysis",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM191",
+              "title": "Introduction to Financial Reporting and Managerial Decision Making 1"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM273",
+              "title": "Financial Instruments and Capital Markets"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM280": {
+    "courseCode": "AFM280",
+    "title": "Introduction to Organizational Behaviour",
+    "prerequisites": {
+      "type": "program",
+      "program_name": "H-Accounting & Financial Management"
+    }
+  },
+  "AFM285": {
+    "courseCode": "AFM285",
+    "title": "Introduction to Sustainability and Sustainable Business",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        { "type": "level_requirement", "level": "2A" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM291": {
+    "courseCode": "AFM291",
+    "title": "Intermediate Financial Accounting 1",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM101",
+              "title": "Introduction to Financial Accounting"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM191",
+              "title": "Introduction to Financial Reporting and Managerial Decision Making 1"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM311": {
+    "courseCode": "AFM311",
+    "title": "Connections to Ethical Context",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM182",
+          "title": "Introduction to Financial Reporting and Managerial Decision Making 2"
+        },
+        { "type": "level_requirement", "level": "3B" }
+      ]
+    }
+  },
+  "AFM321": {
+    "courseCode": "AFM321",
+    "title": "Personal Financial Planning and Taxation",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        { "type": "level_requirement", "level": "3A" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM322": {
+    "courseCode": "AFM322",
+    "title": "Derivative Securities",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC291",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM273",
+              "title": "Financial Instruments and Capital Markets"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM323": {
+    "courseCode": "AFM323",
+    "title": "Quantitative Foundations for Finance",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC291",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM273",
+              "title": "Financial Instruments and Capital Markets"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM324": {
+    "courseCode": "AFM324",
+    "title": "Wealth Management",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC291",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM273",
+              "title": "Financial Instruments and Capital Markets"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM326": {
+    "courseCode": "AFM326",
+    "title": "Student Venture Fund - Analyst",
+    "prerequisites": {
+      "type": "program",
+      "program_name": "H-Accounting & Financial Management"
+    }
+  },
+  "AFM328": {
+    "courseCode": "AFM328",
+    "title": "Investment Management - Junior Analyst",
+    "prerequisites": {
+      "type": "program",
+      "program_name": "H-Accounting & Financial Management"
+    }
+  },
+  "AFM329": {
+    "courseCode": "AFM329",
+    "title": "Investment Management - Senior Analyst",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC391",
+              "title": "Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM274",
+              "title": "Introduction to Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM275",
+              "title": "Corporate Finance"
+            }
+          ]
+        },
+        { "type": "course", "course_code": "AFM372", "title": "AFM372" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM333": {
+    "courseCode": "AFM333",
+    "title": "International Business",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM131",
+              "title": "Introduction to Business in North America"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM132",
+              "title": "Introduction to Business Stages"
+            },
+            {
+              "type": "course",
+              "course_code": "ARBUS101",
+              "title": "Introduction to Business in North America"
+            }
+          ]
+        },
+        { "type": "level_requirement", "level": "3A" }
+      ]
+    }
+  },
+  "AFM334": {
+    "courseCode": "AFM334",
+    "title": "International Study Experience",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        { "type": "level_requirement", "level": "2B" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM335": {
+    "courseCode": "AFM335",
+    "title": "Business Law for Financial Managers",
+    "prerequisites": {
+      "type": "program",
+      "program_name": "H-Accounting & Financial Management"
+    }
+  },
+  "AFM341": {
+    "courseCode": "AFM341",
+    "title": "Accounting Information Systems",
+    "prerequisites": {
+      "type": "program",
+      "program_name": "H-Accounting & Financial Management"
+    }
+  },
+  "AFM345": {
+    "courseCode": "AFM345",
+    "title": "Business Applications of Social Media Analytics",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM244",
+          "title": "Analytic Methods for Business 3"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM346": {
+    "courseCode": "AFM346",
+    "title": "Applications of Predictive Analytics in Accounting and Finance",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM244",
+          "title": "Analytic Methods for Business 3"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM347": {
+    "courseCode": "AFM347",
+    "title": "Cybersecurity",
+    "prerequisites": {
+      "type": "program",
+      "program_name": "H-Accounting & Financial Management"
+    }
+  },
+  "AFM362": {
+    "courseCode": "AFM362",
+    "title": "Corporate Taxation",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM321",
+          "title": "Personal Financial Planning and Taxation"
+        },
+        { "type": "level_requirement", "level": "3A" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM373": {
+    "courseCode": "AFM373",
+    "title": "Cases and Applications in Corporate Finance",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC391",
+              "title": "Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM274",
+              "title": "Introduction to Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM275",
+              "title": "Corporate Finance"
+            }
+          ]
+        },
+        { "type": "course", "course_code": "AFM372", "title": "AFM372" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM377": {
+    "courseCode": "AFM377",
+    "title": "Private Equity and Venture Capital",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM274",
+              "title": "Introduction to Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM275",
+              "title": "Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM391",
+              "title": "Intermediate Financial Accounting 2"
+            }
+          ]
+        },
+        { "type": "course", "course_code": "AFM372", "title": "AFM372" }
+      ]
+    }
+  },
+  "AFM382": {
+    "courseCode": "AFM382",
+    "title": "Cost Management Systems",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM102",
+          "title": "Introduction to Managerial Accounting"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM191",
+          "title": "Introduction to Financial Reporting and Managerial Decision Making 1"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM391": {
+    "courseCode": "AFM391",
+    "title": "Intermediate Financial Accounting 2",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM291",
+          "title": "Intermediate Financial Accounting 1"
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM401": {
+    "courseCode": "AFM401",
+    "title": "Accounting Theory",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM391",
+              "title": "Intermediate Financial Accounting 2"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM491",
+              "title": "Advanced Financial Accounting"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM415": {
+    "courseCode": "AFM415",
+    "title": "Special Topics",
+    "prerequisites": null
+  },
+  "AFM416": {
+    "courseCode": "AFM416",
+    "title": "Special Topics in Finance",
+    "prerequisites": null
+  },
+  "AFM417": {
+    "courseCode": "AFM417",
+    "title": "Special Topics in Accounting",
+    "prerequisites": null
+  },
+  "AFM418": {
+    "courseCode": "AFM418",
+    "title": "Special Topics in Finance or Accounting",
+    "prerequisites": {
+      "type": "program",
+      "program_name": "H-Accounting & Financial Management"
+    }
+  },
+  "AFM422": {
+    "courseCode": "AFM422",
+    "title": "Management of Financial Institutions",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "ACTSC291",
+          "title": "Global Capital Markets and Financial Analytics"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM272",
+          "title": "Global Capital Markets and Financial Analytics"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM273",
+          "title": "Financial Instruments and Capital Markets"
+        }
+      ]
+    }
+  },
+  "AFM423": {
+    "courseCode": "AFM423",
+    "title": "Topics in Financial Econometrics",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM323",
+          "title": "Quantitative Foundations for Finance"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT331",
+          "title": "Applied Linear Models"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT371",
+          "title": "Applied Linear Models and Process Improvement for Business"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT373",
+          "title": "Regression and Forecasting Methods in Finance"
+        },
+        {
+          "type": "course",
+          "course_code": "STAT374",
+          "title": "Quantitative Foundations for Finance"
+        }
+      ]
+    }
+  },
+  "AFM424": {
+    "courseCode": "AFM424",
+    "title": "Equity Investments",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "ACTSC291",
+          "title": "Global Capital Markets and Financial Analytics"
+        },
+        {
+          "type": "course",
+          "course_code": "ACTSC372",
+          "title": "Investment Science and Corporate Finance"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM272",
+          "title": "Global Capital Markets and Financial Analytics"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM273",
+          "title": "Financial Instruments and Capital Markets"
+        },
+        {
+          "type": "course",
+          "course_code": "ECON371",
+          "title": "Business Finance 1"
+        }
+      ]
+    }
+  },
+  "AFM425": {
+    "courseCode": "AFM425",
+    "title": "Fixed Income Securities",
+    "prerequisites": {
+      "type": "one_of",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "ACTSC291",
+          "title": "Global Capital Markets and Financial Analytics"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM272",
+          "title": "Global Capital Markets and Financial Analytics"
+        },
+        {
+          "type": "course",
+          "course_code": "AFM273",
+          "title": "Financial Instruments and Capital Markets"
+        }
+      ]
+    }
+  },
+  "AFM426": {
+    "courseCode": "AFM426",
+    "title": "Student Venture Fund-Associate",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC391",
+              "title": "Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM274",
+              "title": "Introduction to Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM275",
+              "title": "Corporate Finance"
+            }
+          ]
+        },
+        { "type": "course", "course_code": "AFM372", "title": "AFM372" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM427": {
+    "courseCode": "AFM427",
+    "title": "Intermediate Portfolio Management",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "course",
+          "course_code": "AFM244",
+          "title": "Analytic Methods for Business 3"
+        },
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "AFM272",
+              "title": "Global Capital Markets and Financial Analytics"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM273",
+              "title": "Financial Instruments and Capital Markets"
+            }
+          ]
+        },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM428": {
+    "courseCode": "AFM428",
+    "title": "Investment Management - Junior Portfolio Manager",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC391",
+              "title": "Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM274",
+              "title": "Introduction to Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM275",
+              "title": "Corporate Finance"
+            }
+          ]
+        },
+        { "type": "course", "course_code": "AFM372", "title": "AFM372" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  },
+  "AFM429": {
+    "courseCode": "AFM429",
+    "title": "Investment Management - Senior Portfolio Manager",
+    "prerequisites": {
+      "type": "all",
+      "children": [
+        {
+          "type": "one_of",
+          "children": [
+            {
+              "type": "course",
+              "course_code": "ACTSC391",
+              "title": "Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM274",
+              "title": "Introduction to Corporate Finance"
+            },
+            {
+              "type": "course",
+              "course_code": "AFM275",
+              "title": "Corporate Finance"
+            }
+          ]
+        },
+        { "type": "course", "course_code": "AFM372", "title": "AFM372" },
+        {
+          "type": "program",
+          "program_name": "H-Accounting & Financial Management"
+        }
+      ]
+    }
+  }
+}
