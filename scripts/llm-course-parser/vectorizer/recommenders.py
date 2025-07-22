@@ -5,8 +5,17 @@ from difflib import SequenceMatcher
 import faiss
 import networkx as nx
 import time
+from data_loader import load_undergrad_courses, load_grad_courses
 
-def recommend_cosine(query, tfidf, svd, emb, df, top_k=10):
+def recommend_cosine(query, tfidf, svd, emb, df, top_k=10, filters = {}):
+    filters_applied = set()
+    if filters.get('include_undergrad'):
+        filters_applied.update(load_undergrad_courses())
+    if filters.get('include_grad'):
+        filters_applied.update(load_grad_courses())
+    if filters.get('department'):
+        filters_applied = {s for s in filters_applied if s.startswith(filters['department'])}
+
     t0 = time.time()
     # Vectorize query
     q_vec = svd.transform(tfidf.transform([query]))
@@ -22,12 +31,25 @@ def recommend_cosine(query, tfidf, svd, emb, df, top_k=10):
     # Replace NaN and inf with 0
     sims = np.nan_to_num(sims, nan=0.0, posinf=0.0, neginf=0.0)
     t2 = time.time()
-    # Get top_k indices using argpartition (O(N))
-    if top_k < len(sims):
-        idxs = np.argpartition(-sims, top_k)[:top_k]
-        idxs = idxs[np.argsort(-sims[idxs])]
+
+    # Filter by filters_applied if not empty
+    if filters_applied:
+        mask = df['courseCode'].isin(filters_applied)
+        filtered_idxs = np.where(mask)[0]
+        sims_filtered = sims[filtered_idxs]
+        if top_k < len(sims_filtered):
+            idxs_in_filtered = np.argpartition(-sims_filtered, top_k)[:top_k]
+            idxs_in_filtered = idxs_in_filtered[np.argsort(-sims_filtered[idxs_in_filtered])]
+        else:
+            idxs_in_filtered = np.argsort(-sims_filtered)
+        idxs = filtered_idxs[idxs_in_filtered]
     else:
-        idxs = np.argsort(-sims)
+        # Get top_k indices using argpartition (O(N))
+        if top_k < len(sims):
+            idxs = np.argpartition(-sims, top_k)[:top_k]
+            idxs = idxs[np.argsort(-sims[idxs])]
+        else:
+            idxs = np.argsort(-sims)
     t3 = time.time()
     # Build result DataFrame
     result = df.iloc[idxs][['courseCode', 'title', 'description']].copy()

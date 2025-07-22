@@ -28,3 +28,13 @@ def load_embeddings(pkl_path, npy_path):
 
 def embedding_file_exists(path):
     return os.path.exists(path) 
+
+def load_undergrad_courses():
+    with open('data\undergrad-courses.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    return set(data)
+
+def load_grad_courses():
+    with open('data\grad-courses.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    return set(data)
