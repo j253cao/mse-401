@@ -27,14 +27,28 @@ def load_embeddings(pkl_path, npy_path):
     return df, embeddings
 
 def embedding_file_exists(path):
-    return os.path.exists(path) 
+    return os.path.exists(path)
+
+def find_project_root(marker='requirements.txt'):
+    current = os.path.abspath(os.getcwd())
+    while True:
+        if os.path.exists(os.path.join(current, marker)):
+            return current
+        parent = os.path.dirname(current)
+        if parent == current:
+            raise RuntimeError("Project root not found")
+        current = parent
 
 def load_undergrad_courses():
-    with open('data\undergrad-courses.json', 'r', encoding='utf-8') as f:
+    project_root = find_project_root()
+    data_path = os.path.join(project_root, 'data/undergrad-courses.json')
+    with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     return set(data)
 
 def load_grad_courses():
-    with open('data\grad-courses.json', 'r', encoding='utf-8') as f:
+    project_root = find_project_root()
+    data_path = os.path.join(project_root, 'data/grad-courses.json')
+    with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     return set(data)

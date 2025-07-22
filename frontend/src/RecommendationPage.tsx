@@ -242,7 +242,7 @@ export default function RecommendationPage() {
                 ) : filteredCourses.length === 0 ? (
                   <div className="no-results">No courses found.</div>
                 ) : (
-                  filteredCourses.slice(0, 12).map((course: Course) => (
+                  filteredCourses.map((course: Course) => (
                     <div className="course-card" key={course.code}>
                       <div className="course-code">{course.code}</div>
                       <div className="course-title">{course.title}</div>
@@ -265,7 +265,7 @@ export default function RecommendationPage() {
               </div>
               {recommendedCourses && recommendedCourses.length > 0 ? (
                 <div className="course-results-grid">
-                  {recommendedCourses.slice(0, 12).map((course: Course) => (
+                  {recommendedCourses.map((course: Course) => (
                     <div className="course-card" key={course.code}>
                       <div className="course-code">{course.code}</div>
                       <div className="course-title">{course.title}</div>

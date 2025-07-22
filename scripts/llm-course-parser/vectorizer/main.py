@@ -42,16 +42,41 @@ def _load_all(data_file):
     emb_pkl = get_abs_path('data', 'course_embeddings.pkl')
     emb_npy = get_abs_path('data', 'course_embeddings.npy')
     bert_npy = get_abs_path('data', 'course_bert_embeddings.npy')
+    
+    # Filter function for work terms and seminars
+    def is_regular_course(row):
+        title = row['title'].lower() if isinstance(row['title'], str) else ""
+        code = row['courseCode'].lower() if isinstance(row['courseCode'], str) else ""
+        description = row['description'].lower() if isinstance(row['description'], str) else ""
+        return not (
+            "seminar" in title or "seminar" in code or
+            "work term" in title or "work term" in code or
+            "coop" in title or "coop" in code or
+            "co-op" in title or "co-op" in code or
+            description.startswith("Work-term report") or
+            description.startswith("General seminar") or
+            "seminar" in description or
+            "work term" in description or
+            "coop" in description or
+            "co-op" in description
+        )
+    
     # DataFrame and embeddings
     if _cached['df'] is None or _cached['embeddings'] is None:
         if not os.path.exists(emb_pkl):
             df = load_course_data(data_json)
+            # Apply initial filtering
+            df = df[df.apply(is_regular_course, axis=1)].reset_index(drop=True)
             tfidf, svd, embeddings = generate_tfidf_svd_embeddings(df['description'])
             save_embeddings(df, embeddings, emb_pkl, emb_npy)
             with open(tfidf_pkl, 'wb') as f: pickle.dump(tfidf, f)
             with open(svd_pkl, 'wb') as f: pickle.dump(svd, f)
         else:
             df, embeddings = load_embeddings(emb_pkl, emb_npy)
+            # Apply filtering to loaded data as well
+            df = df[df.apply(is_regular_course, axis=1)].reset_index(drop=True)
+            # Filter embeddings to match filtered dataframe
+            embeddings = embeddings[:len(df)]
         _cached['df'] = df
         _cached['embeddings'] = embeddings
     # TFIDF and SVD
@@ -100,9 +125,8 @@ def get_recommendations(
         List of results for each query, where each result is a list of course recommendations
     """
     df, embeddings, tfidf, svd, model, bert_embeddings = _load_all(data_file)
-    
     all_methods = [
-        ("cosine", lambda q: recommend_cosine(q, tfidf, svd, embeddings, df)),
+        ("cosine", lambda q: recommend_cosine(q, tfidf, svd, embeddings, df, filters=filters)),
         ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, df)),
         ("mmr", lambda q: recommend_mmr(q, tfidf, svd, embeddings, df)),
         ("graph", lambda q: recommend_graph(q, tfidf, svd, embeddings, df)),
