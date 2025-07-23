@@ -57,19 +57,6 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     result['similarity'] = sims[idxs]
     result['similarity'] = np.nan_to_num(result['similarity'], nan=0.0, posinf=0.0, neginf=0.0)
     
-    # Filter out courses with specific descriptions
-    def has_excluded_description(row):
-        description = row['description'].lower() if isinstance(row['description'], str) else ""
-        return (
-            description.startswith("Work-Term Report") or
-            description.startswith("General seminar") or
-            "seminar" in description or
-            "work term" in description or
-            "coop" in description or
-            "co-op" in description
-        )
-    
-    result = result[~result.apply(has_excluded_description, axis=1)]
     print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
     print(len(result))
     return result

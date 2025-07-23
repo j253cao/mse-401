@@ -60,7 +60,7 @@ def _load_all(data_file):
             "coop" in description or
             "co-op" in description
         )
-    
+    print(_cached)
     # DataFrame and embeddings
     if _cached['df'] is None or _cached['embeddings'] is None:
         if not os.path.exists(emb_pkl):

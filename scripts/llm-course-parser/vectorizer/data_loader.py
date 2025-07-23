@@ -7,12 +7,19 @@ def load_course_data(json_path):
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     rows = []
+
     for code, info in data.items():
-        api = info.get('api_data', {})
+        title = info.get('title', '')
+        description = info.get('description', '')
+
+        # If description is empty, use the title instead
+        if not description or description.strip() == '':
+            description = title
+
         rows.append({
             'courseCode': code,
-            'title': api.get('title', info.get('title', '')),
-            'description': api.get('description', '')
+            'title': title,
+            'description': description
         })
     return pd.DataFrame(rows)
 
