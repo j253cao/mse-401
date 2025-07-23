@@ -29,6 +29,11 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     q_norm = q_vec / np.linalg.norm(q_vec)
     # Compute cosine similarity (vectorized)
     sims = np.dot(emb_norm, q_norm.flatten())
+        # 2) phrase‑boost step
+    title_lower  = df['title'].str.lower()
+    phrase_mask  = title_lower.str.contains(query.lower(), regex=False)
+    boost_factor = 0.3
+    sims = sims + boost_factor * phrase_mask.astype(float)
     # Replace NaN and inf with 0
     sims = np.nan_to_num(sims, nan=0.0, posinf=0.0, neginf=0.0)
     t2 = time.time()
