@@ -20,6 +20,7 @@ export default function RecommendationPage() {
     MSE: true,
     ECE: true,
   });
+  const [completedCourses, setCompletedCourses] = useState("");
   const { recommendedCourses } = useContext(RecommendationsContext) as {
     recommendedCourses: Course[];
   };
@@ -42,11 +43,22 @@ export default function RecommendationPage() {
         include_undergrad: includeUndergrad,
         include_grad: includeGrad,
         department: Object.keys(departments).filter((k) => departments[k]),
+        completed_courses: completedCourses
+          ? completedCourses
+              .split(",")
+              .map((c) => c.trim())
+              .filter((c) => c)
+          : [],
       };
+      const requestBody = {
+        queries: [search],
+        filters,
+      };
+
       const res = await fetch("http://localhost:8000/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ queries: [search], filters }),
+        body: JSON.stringify(requestBody),
       });
       if (!res.ok) throw new Error("Failed to fetch recommendations");
       const data = await res.json();
@@ -170,25 +182,57 @@ export default function RecommendationPage() {
               {/* Filter UI */}
               <div className="filter-section" style={{ margin: "1em 0" }}>
                 <div
-                  style={{ display: "flex", gap: "1em", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    gap: "1em",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                  }}
                 >
-                  <label>
+                  <label
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      fontSize: "1em",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                    }}
+                  >
                     <input
                       type="checkbox"
                       checked={includeUndergrad}
                       onChange={() => setIncludeUndergrad((v) => !v)}
+                      style={{ marginRight: "0.5em" }}
                     />
                     Undergrad
                   </label>
-                  <label>
+                  <label
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      fontSize: "1em",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                    }}
+                  >
                     <input
                       type="checkbox"
                       checked={includeGrad}
                       onChange={() => setIncludeGrad((v) => !v)}
+                      style={{ marginRight: "0.5em" }}
                     />
                     Grad
                   </label>
-                  <label style={{ marginLeft: "1em" }}>Department:</label>
+                  <label
+                    style={{
+                      marginLeft: "1em",
+                      fontSize: "1em",
+                      fontWeight: "500",
+                      color: "#333",
+                    }}
+                  >
+                    Department:
+                  </label>
                   <div style={{ minWidth: 180, width: 180 }}>
                     <Select
                       isMulti
@@ -226,13 +270,52 @@ export default function RecommendationPage() {
                     />
                   </div>
                 </div>
+
+                {/* Completed Courses Input */}
+                <div style={{ marginTop: "1em" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: "0.5em",
+                      fontWeight: "500",
+                      fontSize: "1em",
+                      color: "#333",
+                    }}
+                  >
+                    Completed Courses (optional):
+                  </label>
+                  <input
+                    type="text"
+                    value={completedCourses}
+                    onChange={(e) => setCompletedCourses(e.target.value)}
+                    placeholder="e.g., CS343, ECE124, MATH117"
+                    style={{
+                      width: "100%",
+                      padding: "0.5em",
+                      border: "1px solid #ccc",
+                      borderRadius: "4px",
+                      fontSize: "1em",
+                    }}
+                  />
+                  <div
+                    style={{
+                      fontSize: "0.85em",
+                      color: "#666",
+                      marginTop: "0.4em",
+                      lineHeight: "1.3",
+                    }}
+                  >
+                    Enter course codes separated by commas to exclude them from
+                    recommendations
+                  </div>
+                </div>
               </div>
               {/* Filter Buttons */}
-              <div className="filter-buttons">
+              {/* <div className="filter-buttons">
                 <button className="filter-btn">Filter 1</button>
                 <button className="filter-btn">Filter 2</button>
                 <button className="filter-btn">Filter 3</button>
-              </div>
+              </div> */}
               {/* Course Results */}
               <div className="course-results-grid">
                 {loading ? (

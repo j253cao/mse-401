@@ -11,7 +11,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE605",
+        "code": "MSCI 605",
         "name": null,
         "grade_requirement": null
       }
@@ -25,7 +25,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE605",
+        "code": "MSCI 605",
         "name": null,
         "grade_requirement": null
       }
@@ -39,7 +39,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE603",
+        "code": "MSCI 603",
         "name": null,
         "grade_requirement": null
       }
@@ -105,7 +105,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE607",
+        "code": "MSCI 607",
         "name": null,
         "grade_requirement": null
       }
@@ -951,7 +951,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE121",
+        "code": "MSE 121",
         "name": null,
         "grade_requirement": null
       }
@@ -984,7 +984,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MATH118",
+        "code": "MATH 118",
         "name": null,
         "grade_requirement": null
       }
@@ -1136,7 +1136,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE245",
+        "code": "MSE 245",
         "name": null,
         "grade_requirement": null
       }
@@ -1162,7 +1162,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE342",
+        "code": "MSE 342",
         "name": null,
         "grade_requirement": null
       }
@@ -1226,7 +1226,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE302",
+        "code": "MSE 302",
         "name": null,
         "grade_requirement": null
       }
@@ -1252,7 +1252,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE401",
+        "code": "MSE 401",
         "name": null,
         "grade_requirement": null
       }
@@ -1278,19 +1278,19 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE332",
+        "code": "MSE 332",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "MSE333",
+        "code": "MSE 333",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "MSE431",
+        "code": "MSE 431",
         "name": null,
         "grade_requirement": null
       },
@@ -1360,7 +1360,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE332",
+        "code": "MSE 332",
         "name": null,
         "grade_requirement": null
       }
@@ -1374,7 +1374,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE332",
+        "code": "MSE 332",
         "name": null,
         "grade_requirement": null
       },
@@ -1667,7 +1667,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE131",
+        "code": "MSE 131",
         "name": null,
         "grade_requirement": null
       },
@@ -1766,7 +1766,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE431",
+        "code": "MSE 431",
         "name": null,
         "grade_requirement": null
       }
@@ -2257,7 +2257,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE240",
+        "code": "MSE 240",
         "name": null,
         "grade_requirement": null
       }
@@ -2283,7 +2283,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE251",
+        "code": "MSCI 251",
         "name": null,
         "grade_requirement": null
       }
@@ -2394,7 +2394,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE332",
+        "code": "MSE 332",
         "name": null,
         "grade_requirement": null
       },
@@ -2439,7 +2439,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "MSE332",
+        "code": "MSE 332",
         "name": null,
         "grade_requirement": null
       }
@@ -2549,19 +2549,19 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE316",
+        "code": "ECE 316",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE610",
+        "code": "ECE 610",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE604",
+        "code": "ECE 604",
         "name": null,
         "grade_requirement": null
       }
@@ -3027,13 +3027,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE203",
+        "code": "ECE 203",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE207",
+        "code": "ECE 207",
         "name": null,
         "grade_requirement": null
       },
@@ -3225,13 +3225,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE307",
+        "code": "ECE 307",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE318",
+        "code": "ECE 318",
         "name": null,
         "grade_requirement": null
       }
@@ -3381,7 +3381,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE358",
+        "code": "ECE 358",
         "name": null,
         "grade_requirement": null
       },
@@ -3537,7 +3537,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE375",
+        "code": "ECE 375",
         "name": null,
         "grade_requirement": null
       },
@@ -4171,7 +4171,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE358",
+        "code": "ECE 358",
         "name": null,
         "grade_requirement": null
       }
@@ -4278,7 +4278,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE375",
+        "code": "ECE 375",
         "name": null,
         "grade_requirement": null
       },
@@ -4780,7 +4780,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE105",
+        "code": "ECE 105",
         "name": null,
         "grade_requirement": null
       }
@@ -5030,7 +5030,7 @@
       },
       {
         "type": "course",
-        "code": "ECE222",
+        "code": "ECE 222",
         "name": null,
         "grade_requirement": null
       }
@@ -5067,19 +5067,19 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE106",
+        "code": "ECE 106",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE140",
+        "code": "ECE 140",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "MATH119",
+        "code": "MATH 119",
         "name": null,
         "grade_requirement": null
       }
@@ -5127,7 +5127,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE109",
+        "code": "ECE 109",
         "name": null,
         "grade_requirement": null
       }
@@ -5219,13 +5219,13 @@
       },
       {
         "type": "course",
-        "code": "ECE208",
+        "code": "ECE 208",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "SE212",
+        "code": "SE 212",
         "name": null,
         "grade_requirement": null
       }
@@ -5294,13 +5294,13 @@
       },
       {
         "type": "course",
-        "code": "ECE208",
+        "code": "ECE 208",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "SE212",
+        "code": "SE 212",
         "name": null,
         "grade_requirement": null
       }
@@ -5395,7 +5395,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE498A",
+        "code": "ECE 498A",
         "name": null,
         "grade_requirement": null
       }
@@ -5432,7 +5432,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE106",
+        "code": "ECE 106",
         "name": null,
         "grade_requirement": null
       },
@@ -5487,7 +5487,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE375",
+        "code": "ECE 375",
         "name": null,
         "grade_requirement": null
       },
@@ -5632,7 +5632,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE358",
+        "code": "ECE 358",
         "name": null,
         "grade_requirement": null
       }
@@ -5839,7 +5839,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE109",
+        "code": "ECE 109",
         "name": null,
         "grade_requirement": null
       }
@@ -6192,13 +6192,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE207",
+        "code": "ECE 207",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE357",
+        "code": "ECE 357",
         "name": null,
         "grade_requirement": null
       }
@@ -6313,13 +6313,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE150",
+        "code": "ECE 150",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "MATH117",
+        "code": "MATH 117",
         "name": null,
         "grade_requirement": null
       }
@@ -6427,7 +6427,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE103",
+        "code": "ECE 103",
         "name": null,
         "grade_requirement": null
       },
@@ -6451,7 +6451,7 @@
       },
       {
         "type": "course",
-        "code": "MATH119",
+        "code": "MATH 119",
         "name": null,
         "grade_requirement": null
       }
@@ -6488,13 +6488,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE222",
+        "code": "ECE 222",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE327",
+        "code": "ECE 327",
         "name": null,
         "grade_requirement": null
       }
@@ -6583,7 +6583,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE252",
+        "code": "ECE 252",
         "name": null,
         "grade_requirement": null
       }
@@ -6639,7 +6639,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE375",
+        "code": "ECE 375",
         "name": null,
         "grade_requirement": null
       },
@@ -6694,7 +6694,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE108",
+        "code": "ECE 108",
         "name": null,
         "grade_requirement": null
       }
@@ -6799,7 +6799,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE106",
+        "code": "ECE 106",
         "name": null,
         "grade_requirement": null
       }
@@ -7082,7 +7082,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE108",
+        "code": "ECE 108",
         "name": null,
         "grade_requirement": null
       },
@@ -7106,7 +7106,7 @@
       },
       {
         "type": "course",
-        "code": "MATH119",
+        "code": "MATH 119",
         "name": null,
         "grade_requirement": null
       }
@@ -7143,7 +7143,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE203",
+        "code": "ECE 203",
         "name": null,
         "grade_requirement": null
       }
@@ -7452,13 +7452,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE106",
+        "code": "ECE 106",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "ECE109",
+        "code": "ECE 109",
         "name": null,
         "grade_requirement": null
       }
@@ -7815,7 +7815,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "ECE699A",
+        "code": "ECE 699A",
         "name": null,
         "grade_requirement": null
       }
@@ -8264,7 +8264,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM291",
+        "code": "AFM 291",
         "name": null,
         "grade_requirement": null
       }
@@ -8491,13 +8491,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM291",
+        "code": "AFM 291",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "AFM341",
+        "code": "AFM 341",
         "name": null,
         "grade_requirement": null
       }
@@ -8598,7 +8598,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM391",
+        "code": "AFM 391",
         "name": null,
         "grade_requirement": null
       }
@@ -8976,7 +8976,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM433",
+        "code": "AFM 433",
         "name": null,
         "grade_requirement": null
       },
@@ -9100,7 +9100,7 @@
       },
       {
         "type": "course",
-        "code": "AFM273",
+        "code": "AFM 273",
         "name": null,
         "grade_requirement": null
       }
@@ -9132,7 +9132,7 @@
       },
       {
         "type": "course",
-        "code": "AFM273",
+        "code": "AFM 273",
         "name": null,
         "grade_requirement": null
       }
@@ -9146,19 +9146,19 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM191",
+        "code": "AFM 191",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "AFM272",
+        "code": "AFM 272",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "AFM273",
+        "code": "AFM 273",
         "name": null,
         "grade_requirement": null
       }
@@ -9208,7 +9208,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "CFM101",
+        "code": "CFM 101",
         "name": null,
         "grade_requirement": null
       },
@@ -9341,7 +9341,7 @@
       },
       {
         "type": "course",
-        "code": "ACTSC372",
+        "code": "ACTSC 372",
         "name": null,
         "grade_requirement": null
       }
@@ -9409,7 +9409,7 @@
       },
       {
         "type": "course",
-        "code": "AFM132",
+        "code": "AFM 132",
         "name": null,
         "grade_requirement": null
       }
@@ -9508,7 +9508,7 @@
       },
       {
         "type": "course",
-        "code": "AFM273",
+        "code": "AFM 273",
         "name": null,
         "grade_requirement": null
       }
@@ -9544,7 +9544,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM274",
+        "code": "AFM 274",
         "name": null,
         "grade_requirement": null
       },
@@ -9600,7 +9600,7 @@
       },
       {
         "type": "course",
-        "code": "AFM273",
+        "code": "AFM 273",
         "name": null,
         "grade_requirement": null
       }
@@ -9643,7 +9643,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM182",
+        "code": "AFM 182",
         "name": null,
         "grade_requirement": null
       }
@@ -9669,7 +9669,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM321",
+        "code": "AFM 321",
         "name": null,
         "grade_requirement": null
       }
@@ -9784,7 +9784,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM274",
+        "code": "AFM 274",
         "name": null,
         "grade_requirement": null
       },
@@ -9822,7 +9822,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM362",
+        "code": "AFM 362",
         "name": null,
         "grade_requirement": null
       }
@@ -9865,7 +9865,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM362",
+        "code": "AFM 362",
         "name": null,
         "grade_requirement": null
       }
@@ -10476,13 +10476,13 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM362",
+        "code": "AFM 362",
         "name": null,
         "grade_requirement": null
       },
       {
         "type": "course",
-        "code": "AFM363",
+        "code": "AFM 363",
         "name": null,
         "grade_requirement": null
       }
@@ -10496,7 +10496,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM244",
+        "code": "AFM 244",
         "name": null,
         "grade_requirement": null
       }
@@ -10624,7 +10624,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM100",
+        "code": "AFM 100",
         "name": null,
         "grade_requirement": null
       }
@@ -10865,7 +10865,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM191",
+        "code": "AFM 191",
         "name": null,
         "grade_requirement": null
       }
@@ -10992,7 +10992,7 @@
     "groups": [
       {
         "type": "course",
-        "code": "AFM191",
+        "code": "AFM 191",
         "name": null,
         "grade_requirement": null
       }
