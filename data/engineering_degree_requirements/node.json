@@ -1,0 +1,4799 @@
+[
+  {
+    "NodeID": "2025_CHE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_CHE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_CHE_CSE3",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_CSE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_CHE_TE",
+    "NodeType": "group",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_TE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_TE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_CHE_TE_LIST1"
+  },
+  {
+    "NodeID": "2025_CHE_Ethics",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_CHE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_CHE_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_1B",
+    "NodeType": "group",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_1B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_1B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_1B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_2A",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_4A",
+    "NodeType": "group",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_4A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_4B",
+    "NodeType": "group",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_4B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_SPE_CPMOC",
+    "NodeType": "specialization",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_SPE_CPMOC_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_SPE_CPMOC",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_SPE_EESP",
+    "NodeType": "specialization",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_SPE_EESP_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_SPE_EESP",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_SPE_MMP",
+    "NodeType": "specialization",
+    "ParentID": "2025_CHE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CHE_SPE_MMP_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_CHE_SPE_MMP",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_1_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_1_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_TE",
+    "RequiredCount": "8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_TE",
+    "RequiredCount": "0",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_TE",
+    "RequiredCount": "0",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_1_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_1_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_1_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_1_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_2_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_2_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_TE",
+    "RequiredCount": "7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_TE",
+    "RequiredCount": "0",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_2_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_2_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_2_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_2_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_3_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_3_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_TE",
+    "RequiredCount": "7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_TE",
+    "RequiredCount": "0",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_3_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_3_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_3_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_3_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_4_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_4_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_TE",
+    "RequiredCount": "6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_TE",
+    "RequiredCount": "0",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_TE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_4_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_4_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_4_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_4_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_5_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_5_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_TE",
+    "RequiredCount": "6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_5_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_5_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_5_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_5_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_6_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_6_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_TE",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_TE",
+    "RequiredCount": "0",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_TE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_6_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_6_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_6_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_6_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_7_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_7_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_TE",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_TE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_7_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_7_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_7",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_7_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_7_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_8_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_8_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_TE",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_TE",
+    "RequiredCount": "0",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_TE",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_8_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_8_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_8",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_8_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_8_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_NE_9_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_NE_9_TE",
+    "NodeType": "group",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_TE",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_TE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_PD",
+    "NodeType": "group",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_NE_9_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_NE_9_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_2A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_4A",
+    "NodeType": "group",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_4A",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_4B",
+    "NodeType": "group",
+    "ParentID": "2025_NE_9",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_9_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_9_4B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NBIO",
+    "NodeType": "specialization",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NBIO_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NBIO",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NBIO_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NBIO",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NBIO_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NBIO",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_NE_SPE_NBIO_LIST1"
+  },
+  {
+    "NodeID": "2025_NE_SPE_NELE",
+    "NodeType": "specialization",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NELE_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NELE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NELE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NELE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NELE",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_NE_SPE_NELE_LIST1"
+  },
+  {
+    "NodeID": "2025_NE_SPE_NFAB",
+    "NodeType": "specialization",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NFAB_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NFAB",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NFAB_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NFAB",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NFAB_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NFAB",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_NE_SPE_NFAB_LIST1"
+  },
+  {
+    "NodeID": "2025_NE_SPE_NMAT",
+    "NodeType": "specialization",
+    "ParentID": "2025_NE_1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NMAT_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NMAT",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NMAT_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NMAT",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_NE_SPE_NMAT_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_NE_SPE_NMAT",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_NE_SPE_NMAT_LIST1"
+  },
+  {
+    "NodeID": "2025_ELE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_CSE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_ELE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_ELE_NS",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_TE",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_TE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ELE_TE_LIST1"
+  },
+  {
+    "NodeID": "2025_ELE_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_TE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_TE_LIST4",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_TE_LIST5",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ELE_TE_LIST1, 2025_ELE_TE_LIST2, 2025_ELE_TE_LIST3, 2025_ELE_TE_LIST4"
+  },
+  {
+    "NodeID": "2025_ELE_Ethics",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_ELE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_ELE_1A",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_1A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_1A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_1A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_2A",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_2B",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_2B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_2B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_2B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_2B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_4A",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_4A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_4B",
+    "NodeType": "group",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_4B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_SPE_CSP",
+    "NodeType": "specialization",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_SPE_CSP_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_SPE_CSP",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_SPE_QE",
+    "NodeType": "specialization",
+    "ParentID": "2025_ELE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ELE_SPE_QE_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_ELE_SPE_QE",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_CSE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_COMPE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_COMPE_NS",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_TE",
+    "NodeType": "group",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_TE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_COMPE_TE_LIST1"
+  },
+  {
+    "NodeID": "2025_COMPE_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_TE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_TE_LIST4",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_TE_LIST5",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_COMPE_TE_LIST1, 2025_COMPE_TE_LIST2, 2025_COMPE_TE_LIST3, 2025_COMPE_TE_LIST4"
+  },
+  {
+    "NodeID": "2025_COMPE_Ethics",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_COMPE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_COMPE_1A",
+    "NodeType": "group",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_1A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_1A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_1A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_2A",
+    "NodeType": "group",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_4A",
+    "NodeType": "group",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_4A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_4B",
+    "NodeType": "group",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_4B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_SPE_CSP",
+    "NodeType": "specialization",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_SPE_CSP_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_SPE_CSP",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_SPE_QE",
+    "NodeType": "specialization",
+    "ParentID": "2025_COMPE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_COMPE_SPE_QE_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_COMPE_SPE_QE",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_ME_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_ME_CSE3",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_CSE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_ME_TE",
+    "NodeType": "group",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_TE",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_TE",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ME_TE_LIST1"
+  },
+  {
+    "NodeID": "2025_ME_Ethics",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_PD",
+    "NodeType": "group",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_ME_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_ME_WKRPT",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_2A",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_4A",
+    "NodeType": "group",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_4A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_4B",
+    "NodeType": "group",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_4B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_SPE_WJ",
+    "NodeType": "specialization",
+    "ParentID": "2025_ME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ME_SPE_WJ_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_ME_SPE_WJ",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_MTE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_MTE_CSE3",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE_CSE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_MTE_TE",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_Ethics",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_MTE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_MTE_WKRPT",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_2A",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_4A",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MTE_4B",
+    "NodeType": "choice",
+    "ParentID": "2025_MTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_BME_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_CSE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_BME_TE",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "RequiredCount": "6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_PD",
+    "NodeType": "group",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_BME_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_BME_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_2A",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_4A",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_4B",
+    "NodeType": "choice",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_BT",
+    "NodeType": "specialization",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_BT_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_BT",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_BT_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_BT",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_BT_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_BT",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_BT_LIST4",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_BT",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MAI",
+    "NodeType": "specialization",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MAI_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MAI",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MAI_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MAI",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MAI_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MAI",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MAI_PRJ",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MAI",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MD",
+    "NodeType": "specialization",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MD_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MD",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MD_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MD",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_MD_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_BME_SPE_MD_LIST1, 2025_BME_SPE_MD_LIST2"
+  },
+  {
+    "NodeID": "2025_BME_SPE_MD_PRJ",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_MD",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_NE",
+    "NodeType": "specialization",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_NE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_NE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_NE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_NE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_NE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_NE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_NE_LIST4",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_NE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_BME_SPE_NE_LIST1, 2025_BME_SPE_NE_LIST2, 2025_BME_SPE_NE_LIST3"
+  },
+  {
+    "NodeID": "2025_BME_SPE_NE_PRJ",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_NE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_SE",
+    "NodeType": "specialization",
+    "ParentID": "2025_BME",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_SE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_SE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_SE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_SE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_BME_SPE_SE_PRJ",
+    "NodeType": "choice",
+    "ParentID": "2025_BME_SPE_SE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_SYDE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_CSE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_B, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_SYDE_TE",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "RequiredCount": "6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_TE2",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_B, 2025_ENG_CSE_C, 2025_ENG_CSE_D, 2025_SYDE_TE"
+  },
+  {
+    "NodeID": "2025_SYDE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_PD",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_SYDE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_SYDE_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_2A",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_4A",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_4B",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_HFI",
+    "NodeType": "specialization",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_HFI_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_HFI",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_HFI_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_HFI",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_HFI_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_HFI",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_IAS",
+    "NodeType": "specialization",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_IAS_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_IAS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_IAS_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_IAS",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_IAS_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_IAS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_PMS",
+    "NodeType": "specialization",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_PMS_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_PMS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_PMS_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_PMS",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_PMS_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_PMS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_SES",
+    "NodeType": "specialization",
+    "ParentID": "2025_SYDE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_SES_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_SES",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_SES_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_SES",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SYDE_SPE_SES_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SYDE_SPE_SES",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_CSE",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_MGTE_NS",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_TE",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "RequiredCount": "6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_PD",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_MGTE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_MGTE_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_1B",
+    "NodeType": "group",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_1B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_1B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_1B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_2A",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_4A",
+    "NodeType": "group",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_4A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_4B",
+    "NodeType": "group",
+    "ParentID": "2025_MGTE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_4B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_MGTE_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_MGTE_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_AE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_AE_TE",
+    "NodeType": "group",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_TE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_TE",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_TE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_AE_TE_LIST1, 2025_AE_TE_LIST2"
+  },
+  {
+    "NodeID": "2025_AE_NS",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_AE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_AE_WKRPT",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_1B",
+    "NodeType": "group",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_1B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_1B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_1B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_2A",
+    "NodeType": "group",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_3B",
+    "NodeType": "group",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_3B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_3B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_3B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_3B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_4A",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_4B",
+    "NodeType": "choice",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_SPE_BSTR",
+    "NodeType": "specialization",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_SPE_BSTR_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_SPE_BSTR",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_SPE_BSTR_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_SPE_BSTR",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_SPE_BSYS",
+    "NodeType": "specialization",
+    "ParentID": "2025_AE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_AE_SPE_BSYS_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_AE_SPE_BSYS",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_CIVE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_CIVE_CSE3",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_CIVE_TE",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_TE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_TE",
+    "RequiredCount": "4",
+    "InheritedLists": "2025_CIVE_TE_LIST1"
+  },
+  {
+    "NodeID": "2025_CIVE_NS",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_CIVE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_CIVE_WKRPT",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1A",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_1A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1B",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_1B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1B_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1B_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_1B_ADD3",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_2A",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_2B",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_2B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_2B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_2B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_2B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_3A",
+    "NodeType": "group",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_3A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_3A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_3A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_3A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_3A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_3A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_3B",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_4A",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_4B",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_BS",
+    "NodeType": "specialization",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_BS_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_BS",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_GS",
+    "NodeType": "specialization",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_GS_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_GS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_GS_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_GS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_GS_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_GS",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_SS",
+    "NodeType": "specialization",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_SS_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_SS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_SS_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_SS",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_TS",
+    "NodeType": "specialization",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_TS_LIST",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_TS",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_WRS",
+    "NodeType": "specialization",
+    "ParentID": "2025_CIVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_WRS_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_WRS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_CIVE_SPE_WRS_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_CIVE_SPE_WRS",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_ENVE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_ENVE_CSE3",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_B, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_ENVE_TE",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_TE",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_TE",
+    "RequiredCount": "4",
+    "InheritedLists": "2025_ENVE_TE_LIST1"
+  },
+  {
+    "NodeID": "2025_ENVE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_ENVE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_ENVE_WKRPT",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1A",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1A_ADD3",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1B",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1B_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1B_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_1B_ADD3",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2A",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2A_ADD3",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2B",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_2B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_2B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_2B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_3A",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_3A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_3A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_3A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_3A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_3A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_3A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_3B",
+    "NodeType": "group",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_3B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_3B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_3B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_3B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_4A",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_4B",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_ECC",
+    "NodeType": "specialization",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_ECC_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_ECC",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_ECC_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_ECC",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENVE_SPE_ECC_LIST1"
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_MDA",
+    "NodeType": "specialization",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_MDA_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_MDA",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_MDA_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_MDA",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENVE_SPE_MDA_LIST1"
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_PR",
+    "NodeType": "specialization",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_PR_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_PR",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_PR_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_PR",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENVE_SPE_PR_LIST1"
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_SC",
+    "NodeType": "specialization",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_SC_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_SC",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_SC_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_SC",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENVE_SPE_SC_LIST1"
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_WR",
+    "NodeType": "specialization",
+    "ParentID": "2025_ENVE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_WR_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_WR",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_ENVE_SPE_WR_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_ENVE_SPE_WR",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENVE_SPE_WR_LIST1"
+  },
+  {
+    "NodeID": "2025_GEOE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_GEOE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_GEOE_CSE3",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_GEOE_TE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE",
+    "RequiredCount": "6",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_PD",
+    "RequiredCount": "3",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_GEOE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_GEOE_WKRPT",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1A",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1A_ADD3",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1B",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1B_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1B_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_1B_ADD3",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_1B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2A",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2A_ADD3",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2B",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_2B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_2B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_2B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_3A",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_3A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_3A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_3A_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_3A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_3A_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_3A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_3B",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_3B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_3B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_3B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_3B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_4A",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_4A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_4B",
+    "NodeType": "group",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_4B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_4B_ADD1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_4B_ADD2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_G",
+    "NodeType": "specialization",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_G_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_SPE_G",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_G_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_SPE_G",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_H",
+    "NodeType": "specialization",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_H_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_SPE_H",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_H_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_SPE_H",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_SRS",
+    "NodeType": "specialization",
+    "ParentID": "2025_GEOE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_SRS_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_SPE_SRS",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_GEOE_SPE_SRS_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_GEOE_SPE_SRS",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE",
+    "NodeType": "program",
+    "ParentID": "",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_CSE",
+    "NodeType": "group",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_CSE1",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A"
+  },
+  {
+    "NodeID": "2025_SE_CSE2",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_C"
+  },
+  {
+    "NodeID": "2025_SE_CSE3",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_CSE",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_CSE_A, 2025_ENG_CSE_B, 2025_ENG_CSE_C, 2025_ENG_CSE_D"
+  },
+  {
+    "NodeID": "2025_SE_NS",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "RequiredCount": "3",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_TE",
+    "NodeType": "group",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_TE_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_TE_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_TE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_TE_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_TE",
+    "RequiredCount": "2",
+    "InheritedLists": "2025_SE_TE_LIST1, 2025_SE_TE_LIST2"
+  },
+  {
+    "NodeID": "2025_SE_COMM",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SUST",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_PD",
+    "NodeType": "group",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_PD_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_PD",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_PD_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_PD",
+    "RequiredCount": "1",
+    "InheritedLists": "2025_ENG_PD"
+  },
+  {
+    "NodeID": "2025_SE_COOP",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "InheritedLists": "2025_ENG_COOP"
+  },
+  {
+    "NodeID": "2025_SE_1A",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_1B",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_2A",
+    "NodeType": "group",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_2A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_2A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_2A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_2A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_2B",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_3A",
+    "NodeType": "choice",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_3B",
+    "NodeType": "group",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_3B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_3B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_3B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_3B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_4A",
+    "NodeType": "group",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_4A_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_4A",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_4A_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_4A",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_4B",
+    "NodeType": "group",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_4B_CORE",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_4B",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_4B_ADD",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_4B",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_AI",
+    "NodeType": "specialization",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_AI_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_AI",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_AI_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_AI",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_AI_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_AI",
+    "RequiredCount": "4",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_B",
+    "NodeType": "specialization",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_B_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_B",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_B_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_B",
+    "RequiredCount": "5",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_CFA",
+    "NodeType": "specialization",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_CFA_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_CFA",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_CFA_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_CFA",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_CFA_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_CFA",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_CFA_LIST4",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_CFA",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_CFA_LIST5",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_CFA",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_HCI",
+    "NodeType": "specialization",
+    "ParentID": "2025_SE",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_HCI_LIST1",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_HCI",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_HCI_LIST2",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_HCI",
+    "RequiredCount": "1",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_HCI_LIST3",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_HCI",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  },
+  {
+    "NodeID": "2025_SE_SPE_HCI_LIST4",
+    "NodeType": "choice",
+    "ParentID": "2025_SE_SPE_HCI",
+    "RequiredCount": "2",
+    "InheritedLists": ""
+  }
+]

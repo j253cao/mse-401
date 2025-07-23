@@ -5,7 +5,113 @@ from difflib import SequenceMatcher
 import faiss
 import networkx as nx
 import time
+import json
+import os
 from .data_loader import load_course_data, load_undergrad_courses, load_grad_courses
+
+def get_valid_course_set(completed_courses, available_courses):
+    """
+    Given a list of completed courses and available courses, return a set of courses 
+    from the available courses that are eligible to take based on their prerequisites 
+    being satisfied.
+    
+    Args:
+        completed_courses: List of course codes that have been completed (e.g., ['CS135', 'MATH137'])
+        available_courses: List/set of course codes to filter from (e.g., course dataframe's courseCode column)
+        
+    Returns:
+        set: Set of course codes from available_courses that are eligible to take
+    """
+    # Load course dependencies
+    dependencies_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'data', 'course_dependencies', 'course_dependencies.json')
+    try:
+        with open(dependencies_path, 'r', encoding='utf-8') as f:
+            dependencies = json.load(f)
+    except FileNotFoundError:
+        print(f"Warning: Course dependencies file not found at {dependencies_path}")
+        return set()
+    
+    # Convert completed courses to a set for faster lookup
+    completed_set = set(completed_courses) if completed_courses else set()
+    # Convert available courses to a set for faster lookup
+    available_set = set(available_courses) if available_courses else set()
+    eligible_courses = set()
+    
+    def check_prerequisite_group(group, completed_courses_set):
+        """Check if a prerequisite group is satisfied by completed courses"""
+        if group.get('type') == 'course':
+            # Single course requirement
+            course_code = group.get('code', '').strip()
+            return course_code in completed_courses_set
+        
+        elif group.get('type') == 'prerequisite_group':
+            # Group of courses with AND/OR logic
+            courses = group.get('courses', [])
+            operator = group.get('operator', 'AND')
+            quantity = group.get('quantity')
+            
+            satisfied_count = 0
+            for course in courses:
+                if course.get('type') == 'course':
+                    course_code = course.get('code', '').strip()
+                    if course_code in completed_courses_set:
+                        satisfied_count += 1
+                elif course.get('type') == 'prerequisite_group':
+                    # Nested group - recursively check
+                    if check_prerequisite_group(course, completed_courses_set):
+                        satisfied_count += 1
+            
+            if operator == 'OR':
+                # For OR, we need at least one (or the specified quantity)
+                required = quantity if quantity is not None else 1
+                return satisfied_count >= required
+            else:  # AND
+                # For AND, we need all courses
+                return satisfied_count == len(courses)
+        
+        return False
+    
+    def is_course_eligible(course_code, course_data, completed_courses_set):
+        """Check if a course is eligible based on its prerequisites"""
+        groups = course_data.get('groups', [])
+        root_operator = course_data.get('root_operator', 'AND')
+        
+        # If no prerequisites, course is eligible
+        if not groups:
+            return True
+        
+        satisfied_groups = 0
+        for group in groups:
+            if check_prerequisite_group(group, completed_courses_set):
+                satisfied_groups += 1
+        
+        if root_operator == 'OR':
+            # Need at least one group to be satisfied
+            return satisfied_groups > 0
+        else:  # AND
+            # Need all groups to be satisfied
+            return satisfied_groups == len(groups)
+    
+    # Check each course in the available courses
+    for course_code in available_set:
+        # Skip if this course is already completed
+        if course_code in completed_set:
+            continue
+            
+        # Check if we have dependency data for this course
+        if course_code not in dependencies:
+            # If no dependency data, assume no prerequisites (eligible)
+            eligible_courses.add(course_code)
+            continue
+            
+        course_data = dependencies[course_code]
+        
+        # Check if prerequisites are satisfied
+        print(course_code, is_course_eligible(course_code, course_data, completed_set))
+        if is_course_eligible(course_code, course_data, completed_set):
+            eligible_courses.add(course_code)
+    
+    return eligible_courses
 
 def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     filters_applied = set()
@@ -16,6 +122,13 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     if filters.get('department'):
         departments = tuple(filters['department'])
         filters_applied = {s for s in filters_applied if s.startswith(departments)}
+    
+    # Apply prerequisite filter last
+    if filters and filters.get('completed_courses'):
+        # If we have other filters, apply them first, otherwise use all courses
+        courses_to_check = filters_applied if filters_applied else df['courseCode']
+        eligible_courses = get_valid_course_set(filters['completed_courses'], courses_to_check)
+        filters_applied = eligible_courses
     
     t0 = time.time()
     # Vectorize query
@@ -61,6 +174,9 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     result = df.iloc[idxs][['courseCode', 'title', 'description']].copy()
     result['similarity'] = sims[idxs]
     result['similarity'] = np.nan_to_num(result['similarity'], nan=0.0, posinf=0.0, neginf=0.0)
+    
+    # Final filter: only keep results with similarity > 0.55
+    result = result[result['similarity'] > 0.35]
     
     print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
     print(len(result))
