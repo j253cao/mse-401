@@ -31,17 +31,17 @@ def get_valid_course_set(completed_courses, available_courses):
         print(f"Warning: Course dependencies file not found at {dependencies_path}")
         return set()
     
-    # Convert completed courses to a set for faster lookup
-    completed_set = set(completed_courses) if completed_courses else set()
-    # Convert available courses to a set for faster lookup
-    available_set = set(available_courses) if available_courses else set()
+    # Convert completed courses to a set for faster lookup (normalize to uppercase, no spaces)
+    completed_set = {c.upper().replace(' ', '') for c in completed_courses} if completed_courses else set()
+    # Convert available courses to a set for faster lookup (normalize to uppercase, no spaces)
+    available_set = {c.upper().replace(' ', '') for c in available_courses} if available_courses else set()
     eligible_courses = set()
     
     def check_prerequisite_group(group, completed_courses_set):
         """Check if a prerequisite group is satisfied by completed courses"""
         if group.get('type') == 'course':
-            # Single course requirement
-            course_code = group.get('code', '').strip()
+            # Single course requirement (normalize to uppercase, no spaces)
+            course_code = group.get('code', '').strip().upper().replace(' ', '')
             return course_code in completed_courses_set
         
         elif group.get('type') == 'prerequisite_group':
@@ -53,7 +53,8 @@ def get_valid_course_set(completed_courses, available_courses):
             satisfied_count = 0
             for course in courses:
                 if course.get('type') == 'course':
-                    course_code = course.get('code', '').strip()
+                    # Normalize to uppercase, no spaces
+                    course_code = course.get('code', '').strip().upper().replace(' ', '')
                     if course_code in completed_courses_set:
                         satisfied_count += 1
                 elif course.get('type') == 'prerequisite_group':
@@ -92,25 +93,30 @@ def get_valid_course_set(completed_courses, available_courses):
             # Need all groups to be satisfied
             return satisfied_groups == len(groups)
     
+    # Build a normalized lookup for dependencies (keys may have spaces)
+    dependencies_normalized = {k.upper().replace(' ', ''): v for k, v in dependencies.items()}
+    
     # Check each course in the available courses
     for course_code in available_set:
         # Skip if this course is already completed
         if course_code in completed_set:
             continue
             
-        # Check if we have dependency data for this course
-        if course_code not in dependencies:
+        # Check if we have dependency data for this course (using normalized key)
+        if course_code not in dependencies_normalized:
             # If no dependency data, assume no prerequisites (eligible)
             eligible_courses.add(course_code)
             continue
             
-        course_data = dependencies[course_code]
-        
+        course_data = dependencies_normalized[course_code]
+        if course_code == 'MSE546':
+            print("course_data", course_data)
+            print("is_course_eligible", is_course_eligible(course_code, course_data, completed_set))
         # Check if prerequisites are satisfied
-        print(course_code, is_course_eligible(course_code, course_data, completed_set))
         if is_course_eligible(course_code, course_data, completed_set):
             eligible_courses.add(course_code)
-    
+    print(eligible_courses)
+    print(available_set)
     return eligible_courses
 
 def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):

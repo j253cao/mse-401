@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
 import Select from "react-select";
@@ -20,10 +20,22 @@ export default function RecommendationPage() {
     MSE: true,
     ECE: true,
   });
-  const [completedCourses, setCompletedCourses] = useState("");
-  const { recommendedCourses } = useContext(RecommendationsContext) as {
-    recommendedCourses: Course[];
-  };
+  const { recommendedCourses, completedCourses: contextCompletedCourses } =
+    useContext(RecommendationsContext);
+
+  // Local state for the text input
+  const [completedCoursesInput, setCompletedCoursesInput] = useState("");
+
+  // Track if we've synced from context (only sync once when transcript is uploaded)
+  const [hasSyncedFromContext, setHasSyncedFromContext] = useState(false);
+
+  // Update input when context changes from empty to non-empty (transcript upload)
+  useEffect(() => {
+    if (contextCompletedCourses.length > 0 && !hasSyncedFromContext) {
+      setCompletedCoursesInput(contextCompletedCourses.join(", "));
+      setHasSyncedFromContext(true);
+    }
+  }, [contextCompletedCourses, hasSyncedFromContext]);
 
   const departmentOptions = [
     { value: "MSE", label: "MSE" },
@@ -39,16 +51,19 @@ export default function RecommendationPage() {
     setLoading(true);
     setError(null);
     try {
+      // Use the input field as the source of truth for completed courses
+      const completedCoursesList = completedCoursesInput
+        ? completedCoursesInput
+            .split(",")
+            .map((c) => c.trim())
+            .filter((c) => c)
+        : [];
+
       const filters = {
         include_undergrad: includeUndergrad,
         include_grad: includeGrad,
         department: Object.keys(departments).filter((k) => departments[k]),
-        completed_courses: completedCourses
-          ? completedCourses
-              .split(",")
-              .map((c) => c.trim())
-              .filter((c) => c)
-          : [],
+        completed_courses: completedCoursesList,
       };
       const requestBody = {
         queries: [search],
@@ -286,8 +301,8 @@ export default function RecommendationPage() {
                   </label>
                   <input
                     type="text"
-                    value={completedCourses}
-                    onChange={(e) => setCompletedCourses(e.target.value)}
+                    value={completedCoursesInput}
+                    onChange={(e) => setCompletedCoursesInput(e.target.value)}
                     placeholder="e.g., CS343, ECE124, MATH117"
                     style={{
                       width: "100%",
