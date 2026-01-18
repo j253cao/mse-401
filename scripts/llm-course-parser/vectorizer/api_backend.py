@@ -13,6 +13,7 @@ import json
 from enum import Enum
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../src')))
 from resume_parser import ResumeParser
+from transcript.main import parse_transcript_bytes, term_id_to_name, get_all_courses
 
 app = FastAPI()
 
@@ -129,4 +130,66 @@ def random_course():
         "course_code": row["courseCode"],
         "title": row["title"],
         "description": row["description"]
-    } 
+    }
+
+
+@app.post("/transcript-parse")
+def transcript_parse(file: UploadFile = File(...)):
+    """
+    Parse an uploaded transcript PDF and return course history.
+    
+    Returns:
+        - courses: List of all course codes taken
+        - latest_term: The most recent term info
+        - program: Student's program name
+        - student_number: Student ID
+        - term_summaries: Full term-by-term breakdown
+    """
+    t0 = time.time()
+    
+    try:
+        # Read the PDF bytes
+        pdf_bytes = file.file.read()
+        
+        # Parse the transcript
+        result = parse_transcript_bytes(pdf_bytes)
+        
+        # Get all courses as a flat list
+        all_courses = get_all_courses(result)
+        
+        # Get the latest term
+        latest_term = None
+        if result.term_summaries:
+            last = result.term_summaries[-1]
+            latest_term = {
+                "term_id": last.term_id,
+                "term_name": term_id_to_name(last.term_id),
+                "level": last.level,
+                "courses": last.courses
+            }
+        
+        # Build term summaries for full response
+        term_summaries = [
+            {
+                "term_id": term.term_id,
+                "term_name": term_id_to_name(term.term_id),
+                "level": term.level,
+                "courses": term.courses
+            }
+            for term in result.term_summaries
+        ]
+        
+        t1 = time.time()
+        print(f"[transcript-parse] Total endpoint time: {t1-t0:.4f}s")
+        
+        return {
+            "courses": all_courses,
+            "latest_term": latest_term,
+            "program": result.program_name,
+            "student_number": result.student_number,
+            "term_summaries": term_summaries
+        }
+        
+    except Exception as e:
+        print(f"[transcript-parse] Error: {e}")
+        return {"error": str(e)} 
