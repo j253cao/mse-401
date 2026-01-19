@@ -174,7 +174,7 @@ export default function ProfilePage() {
       ];
 
   return (
-    <div className="min-h-[calc(100vh-4rem)]">
+    <div className="min-h-main">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -376,7 +376,7 @@ export default function ProfilePage() {
 
           {/* Right Column - Profile Card */}
           <div>
-            <Card className="glass-card sticky top-24">
+            <Card className="glass-card sticky-below-header">
               <CardContent className="pt-6">
                 {/* Avatar */}
                 <div className="flex flex-col items-center space-y-4 mb-6">
@@ -487,18 +487,14 @@ export default function ProfilePage() {
               <CheckCircle2 className="w-8 h-8 text-green-500" />
             </div>
             <DialogTitle>Transcript Parsed Successfully!</DialogTitle>
-            <DialogDescription asChild>
-              <div className="space-y-2">
-                <p>
-                  <strong>{completedCourses.length}</strong> courses loaded from your transcript.
-                </p>
-                {studentProfile && (
-                  <p className="text-muted-foreground">
-                    {studentProfile.program} • Level {studentProfile.latestTerm?.level}
-                  </p>
-                )}
-              </div>
+            <DialogDescription>
+              <strong>{completedCourses.length}</strong> courses loaded from your transcript.
             </DialogDescription>
+            {studentProfile && (
+              <p className="text-sm text-muted-foreground text-center sm:text-left">
+                {studentProfile.program} • Level {studentProfile.latestTerm?.level}
+              </p>
+            )}
           </DialogHeader>
           <DialogFooter className="flex-col sm:flex-row gap-2">
             <Button

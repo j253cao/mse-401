@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,8 +30,11 @@ import { cn } from "@/lib/utils";
 
 export type Course = { code: string; title: string; description?: string };
 
+const DEPARTMENT_OPTIONS = ["MSE", "ECE"] as const;
+type Department = (typeof DEPARTMENT_OPTIONS)[number];
+type DepartmentFilters = Record<Department, boolean>;
+
 export default function RecommendationPage() {
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [randomCourse, setRandomCourse] = useState<Course | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -41,7 +44,7 @@ export default function RecommendationPage() {
   const [error, setError] = useState<string | null>(null);
   const [includeUndergrad, setIncludeUndergrad] = useState(true);
   const [includeGrad, setIncludeGrad] = useState(true);
-  const [departments, setDepartments] = useState<{ [key: string]: boolean }>({
+  const [departments, setDepartments] = useState<DepartmentFilters>({
     MSE: true,
     ECE: true,
   });
@@ -64,7 +67,6 @@ export default function RecommendationPage() {
     }
   }, [contextCompletedCourses, hasSyncedFromContext]);
 
-  const departmentOptions = ["MSE", "ECE"];
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -148,7 +150,7 @@ export default function RecommendationPage() {
   ].filter(Boolean).length;
 
   return (
-    <div className="min-h-[calc(100vh-4rem)]">
+    <div className="min-h-main">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-[1fr,320px] gap-8">
           {/* Main Content */}
@@ -295,7 +297,7 @@ export default function RecommendationPage() {
                             Departments
                           </Label>
                           <div className="flex gap-6">
-                            {departmentOptions.map((dept) => (
+                            {DEPARTMENT_OPTIONS.map((dept) => (
                               <div
                                 key={dept}
                                 className="flex items-center gap-2"
@@ -423,9 +425,11 @@ export default function RecommendationPage() {
                           recommendations based on your skills and experience.
                         </p>
                       </div>
-                      <Button onClick={() => navigate("/profile")} className="gap-2">
-                        <FileText className="w-4 h-4" />
-                        Upload Resume
+                      <Button asChild className="gap-2">
+                        <Link to="/profile">
+                          <FileText className="w-4 h-4" />
+                          Upload Resume
+                        </Link>
                       </Button>
                     </CardContent>
                   </Card>
@@ -435,7 +439,7 @@ export default function RecommendationPage() {
           </div>
 
           {/* Sidebar - Random Course Generator */}
-          <div className="lg:sticky lg:top-24 space-y-4">
+          <div className="lg:sticky-below-header space-y-4">
             <Card className="glass-card overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
               <CardHeader className="relative">
@@ -527,19 +531,15 @@ export default function RecommendationPage() {
               {selectedCourse?.title}
             </DialogTitle>
           </DialogHeader>
-          <DialogDescription asChild>
-            <div className="space-y-4">
-              {selectedCourse?.description ? (
-                <p className="text-foreground leading-relaxed">
-                  {selectedCourse.description}
-                </p>
-              ) : (
-                <p className="text-muted-foreground italic">
-                  No description available for this course.
-                </p>
-              )}
-            </div>
-          </DialogDescription>
+          {selectedCourse?.description ? (
+            <DialogDescription className="text-foreground leading-relaxed">
+              {selectedCourse.description}
+            </DialogDescription>
+          ) : (
+            <DialogDescription className="text-muted-foreground italic">
+              No description available for this course.
+            </DialogDescription>
+          )}
         </DialogContent>
       </Dialog>
     </div>

@@ -34,7 +34,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-[calc(100vh-4rem)]">
+    <div className="min-h-main">
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,22 +58,18 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/recommendation">
-                  <Button size="lg" className="w-full sm:w-auto gap-2 group">
+                <Button asChild size="lg" className="w-full sm:w-auto gap-2 group">
+                  <Link to="/recommendation">
                     Explore Courses
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link to="/profile">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto gap-2"
-                  >
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto gap-2">
+                  <Link to="/profile">
                     <FileText className="w-4 h-4" />
                     Upload Resume
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
 
               {/* Stats */}
@@ -223,12 +219,12 @@ export default function HomePage() {
                   Start exploring personalized course recommendations today and
                   take your academic journey to the next level.
                 </p>
-                <Link to="/recommendation">
-                  <Button size="lg" className="gap-2 group">
+                <Button asChild size="lg" className="gap-2 group">
+                  <Link to="/recommendation">
                     Get Started
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </Card>

@@ -7,6 +7,10 @@
   --font-display: "DM Sans", system-ui, sans-serif;
   --font-body: "DM Sans", system-ui, sans-serif;
 
+  /* Layout */
+  --header-height: 4rem;
+  --sticky-offset: 6rem;
+
   --color-background: oklch(0.145 0 0);
   --color-foreground: oklch(0.985 0 0);
   --color-card: oklch(0.18 0.01 250);
@@ -48,6 +52,16 @@
 }
 
 @layer utilities {
+  /* Layout utilities using CSS variables */
+  .min-h-main {
+    min-height: calc(100vh - var(--header-height));
+  }
+
+  .sticky-below-header {
+    position: sticky;
+    top: var(--sticky-offset);
+  }
+
   .glass {
     background: rgba(25, 28, 42, 0.8);
     backdrop-filter: blur(16px);
