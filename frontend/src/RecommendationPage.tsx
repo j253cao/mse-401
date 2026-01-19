@@ -1,25 +1,55 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
-import Select from "react-select";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Search,
+  Dice5,
+  FileText,
+  Loader2,
+  BookOpen,
+  GraduationCap,
+  Filter,
+  X,
+  Sparkles,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type Course = { code: string; title: string; description?: string };
 
+const DEPARTMENT_OPTIONS = ["MSE", "ECE"] as const;
+type Department = (typeof DEPARTMENT_OPTIONS)[number];
+type DepartmentFilters = Record<Department, boolean>;
+
 export default function RecommendationPage() {
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [randomCourse, setRandomCourse] = useState<Course | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const [mode, setMode] = useState<"search" | "recommended">("search");
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
+  const [randomLoading, setRandomLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [includeUndergrad, setIncludeUndergrad] = useState(true);
   const [includeGrad, setIncludeGrad] = useState(true);
-  const [departments, setDepartments] = useState<{ [key: string]: boolean }>({
+  const [departments, setDepartments] = useState<DepartmentFilters>({
     MSE: true,
     ECE: true,
   });
+  const [showFilters, setShowFilters] = useState(false);
+
   const { recommendedCourses, completedCourses: contextCompletedCourses } =
     useContext(RecommendationsContext);
 
@@ -37,10 +67,6 @@ export default function RecommendationPage() {
     }
   }, [contextCompletedCourses, hasSyncedFromContext]);
 
-  const departmentOptions = [
-    { value: "MSE", label: "MSE" },
-    { value: "ECE", label: "ECE" },
-  ];
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -96,7 +122,7 @@ export default function RecommendationPage() {
   }
 
   async function handleRandomCourse() {
-    setLoading(true);
+    setRandomLoading(true);
     setError(null);
     try {
       const res = await fetch("http://localhost:8000/random-course");
@@ -111,428 +137,457 @@ export default function RecommendationPage() {
       setRandomCourse(null);
       setError("Could not fetch random course.");
     } finally {
-      setLoading(false);
+      setRandomLoading(false);
     }
   }
 
-  return (
-    <>
-      <div className={"split-layout" + (selectedCourse ? " blurred" : "")}>
-        {/* BLUR WHEN MODAL OPEN */}
-        {/* Left: Search, Filters, Results */}
-        <div className="left-panel">
-          {/* Toggle Buttons */}
-          <div className="toggle-btn-group pill-toggle">
-            <div
-              className={
-                "toggle-indicator" + (mode === "recommended" ? " right" : "")
-              }
-            ></div>
-            <button
-              className={"toggle-btn" + (mode === "search" ? " active" : "")}
-              onClick={() => setMode("search")}
-              type="button"
-            >
-              Search
-            </button>
-            <button
-              className={
-                "toggle-btn" + (mode === "recommended" ? " active" : "")
-              }
-              onClick={() => setMode("recommended")}
-              type="button"
-            >
-              Recommended
-            </button>
-          </div>
-          {/* Conditionally render left panel content */}
-          {mode === "search" ? (
-            <>
-              {/* Search Bar */}
-              <form
-                className="search-bar-enhanced"
-                onSubmit={handleSearchSubmit}
-                autoComplete="off"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  viewBox="0 0 24 24"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Describe the course you're looking for…"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="search-input-enhanced"
-                />
-                <button
-                  type="submit"
-                  className="search-submit-btn"
-                  aria-label="Search"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M5 12h14" />
-                    <path d="M12 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </form>
-              {/* Filter UI */}
-              <div className="filter-section" style={{ margin: "1em 0" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "1em",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <label
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "1em",
-                      fontWeight: "500",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={includeUndergrad}
-                      onChange={() => setIncludeUndergrad((v) => !v)}
-                      style={{ marginRight: "0.5em" }}
-                    />
-                    Undergrad
-                  </label>
-                  <label
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "1em",
-                      fontWeight: "500",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={includeGrad}
-                      onChange={() => setIncludeGrad((v) => !v)}
-                      style={{ marginRight: "0.5em" }}
-                    />
-                    Grad
-                  </label>
-                  <label
-                    style={{
-                      marginLeft: "1em",
-                      fontSize: "1em",
-                      fontWeight: "500",
-                      color: "#333",
-                    }}
-                  >
-                    Department:
-                  </label>
-                  <div style={{ minWidth: 180, width: 180 }}>
-                    <Select
-                      isMulti
-                      options={departmentOptions}
-                      value={departmentOptions.filter(
-                        (opt) => departments[opt.value]
-                      )}
-                      onChange={(selected) => {
-                        const selectedValues = Array.isArray(selected)
-                          ? selected.map((opt) => opt.value)
-                          : [];
-                        setDepartments({
-                          MSE: selectedValues.includes("MSE"),
-                          ECE: selectedValues.includes("ECE"),
-                        });
-                      }}
-                      closeMenuOnSelect={false}
-                      placeholder="Select departments..."
-                      styles={{
-                        control: (base) => ({
-                          ...base,
-                          minHeight: 36,
-                          fontSize: "1em",
-                        }),
-                        multiValue: (base) => ({
-                          ...base,
-                          background: "#646cff22",
-                        }),
-                        option: (base, state) => ({
-                          ...base,
-                          color: "#222",
-                          background: state.isSelected ? "#646cff22" : "#fff",
-                        }),
-                      }}
-                    />
-                  </div>
-                </div>
+  const activeFiltersCount = [
+    !includeUndergrad,
+    !includeGrad,
+    !departments.MSE,
+    !departments.ECE,
+    completedCoursesInput.length > 0,
+  ].filter(Boolean).length;
 
-                {/* Completed Courses Input */}
-                <div style={{ marginTop: "1em" }}>
-                  <label
-                    style={{
-                      display: "block",
-                      marginBottom: "0.5em",
-                      fontWeight: "500",
-                      fontSize: "1em",
-                      color: "#333",
-                    }}
-                  >
-                    Completed Courses (optional):
-                  </label>
-                  <input
-                    type="text"
-                    value={completedCoursesInput}
-                    onChange={(e) => setCompletedCoursesInput(e.target.value)}
-                    placeholder="e.g., CS343, ECE124, MATH117"
-                    style={{
-                      width: "100%",
-                      padding: "0.5em",
-                      border: "1px solid #ccc",
-                      borderRadius: "4px",
-                      fontSize: "1em",
-                    }}
-                  />
-                  <div
-                    style={{
-                      fontSize: "0.85em",
-                      color: "#666",
-                      marginTop: "0.4em",
-                      lineHeight: "1.3",
-                    }}
-                  >
-                    Enter course codes separated by commas to exclude them from
-                    recommendations
+  return (
+    <div className="min-h-main">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid lg:grid-cols-[1fr,320px] gap-8">
+          {/* Main Content */}
+          <div className="space-y-6">
+            <Tabs defaultValue="search" className="w-full">
+              <TabsList className="w-full sm:w-auto grid grid-cols-2 sm:inline-flex h-11 bg-card border border-border">
+                <TabsTrigger
+                  value="search"
+                  className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                >
+                  <Search className="w-4 h-4" />
+                  Search
+                </TabsTrigger>
+                <TabsTrigger
+                  value="recommended"
+                  className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Recommended
+                  {recommendedCourses.length > 0 && (
+                    <Badge variant="secondary" className="ml-1 h-5 px-1.5">
+                      {recommendedCourses.length}
+                    </Badge>
+                  )}
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Search Tab */}
+              <TabsContent value="search" className="mt-6 space-y-6">
+                {/* Search Bar */}
+                <form onSubmit={handleSearchSubmit} className="space-y-4">
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Input
+                      type="text"
+                      placeholder="Describe the course you're looking for..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      className="h-12 pl-12 pr-24 text-base bg-card border-border focus:border-primary"
+                    />
+                    <Button
+                      type="submit"
+                      size="sm"
+                      className="absolute right-2 top-1/2 -translate-y-1/2"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        "Search"
+                      )}
+                    </Button>
                   </div>
+
+                  {/* Filter Toggle */}
+                  <div className="flex items-center gap-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowFilters(!showFilters)}
+                      className="gap-2"
+                    >
+                      <Filter className="w-4 h-4" />
+                      Filters
+                      {activeFiltersCount > 0 && (
+                        <Badge variant="default" className="h-5 px-1.5">
+                          {activeFiltersCount}
+                        </Badge>
+                      )}
+                    </Button>
+
+                    {/* Active filter badges */}
+                    <div className="flex flex-wrap gap-2">
+                      {!includeUndergrad && (
+                        <Badge
+                          variant="secondary"
+                          className="gap-1 cursor-pointer hover:bg-destructive/20"
+                          onClick={() => setIncludeUndergrad(true)}
+                        >
+                          No Undergrad
+                          <X className="w-3 h-3" />
+                        </Badge>
+                      )}
+                      {!includeGrad && (
+                        <Badge
+                          variant="secondary"
+                          className="gap-1 cursor-pointer hover:bg-destructive/20"
+                          onClick={() => setIncludeGrad(true)}
+                        >
+                          No Grad
+                          <X className="w-3 h-3" />
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Filters Panel */}
+                  {showFilters && (
+                    <Card className="glass-card">
+                      <CardContent className="pt-6 space-y-6">
+                        {/* Level Filters */}
+                        <div className="space-y-3">
+                          <Label className="text-sm font-medium">
+                            Course Level
+                          </Label>
+                          <div className="flex gap-6">
+                            <div className="flex items-center gap-2">
+                              <Checkbox
+                                id="undergrad"
+                                checked={includeUndergrad}
+                                onCheckedChange={(checked) =>
+                                  setIncludeUndergrad(checked as boolean)
+                                }
+                              />
+                              <Label
+                                htmlFor="undergrad"
+                                className="text-sm cursor-pointer"
+                              >
+                                Undergraduate
+                              </Label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Checkbox
+                                id="grad"
+                                checked={includeGrad}
+                                onCheckedChange={(checked) =>
+                                  setIncludeGrad(checked as boolean)
+                                }
+                              />
+                              <Label
+                                htmlFor="grad"
+                                className="text-sm cursor-pointer"
+                              >
+                                Graduate
+                              </Label>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Department Filters */}
+                        <div className="space-y-3">
+                          <Label className="text-sm font-medium">
+                            Departments
+                          </Label>
+                          <div className="flex gap-6">
+                            {DEPARTMENT_OPTIONS.map((dept) => (
+                              <div
+                                key={dept}
+                                className="flex items-center gap-2"
+                              >
+                                <Checkbox
+                                  id={dept}
+                                  checked={departments[dept]}
+                                  onCheckedChange={(checked) =>
+                                    setDepartments({
+                                      ...departments,
+                                      [dept]: checked as boolean,
+                                    })
+                                  }
+                                />
+                                <Label
+                                  htmlFor={dept}
+                                  className="text-sm cursor-pointer"
+                                >
+                                  {dept}
+                                </Label>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Completed Courses */}
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="completed"
+                            className="text-sm font-medium"
+                          >
+                            Completed Courses (optional)
+                          </Label>
+                          <Input
+                            id="completed"
+                            type="text"
+                            value={completedCoursesInput}
+                            onChange={(e) =>
+                              setCompletedCoursesInput(e.target.value)
+                            }
+                            placeholder="e.g., CS343, ECE124, MATH117"
+                            className="bg-background"
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            Enter course codes separated by commas to exclude
+                            them from recommendations
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </form>
+
+                {/* Results */}
+                <div className="space-y-4">
+                  {loading ? (
+                    <div className="flex items-center justify-center py-16">
+                      <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                    </div>
+                  ) : error ? (
+                    <Card className="glass-card">
+                      <CardContent className="py-8 text-center">
+                        <p className="text-destructive">{error}</p>
+                      </CardContent>
+                    </Card>
+                  ) : filteredCourses.length === 0 ? (
+                    <Card className="glass-card">
+                      <CardContent className="py-16 text-center space-y-4">
+                        <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto">
+                          <Search className="w-8 h-8 text-muted-foreground" />
+                        </div>
+                        <div>
+                          <p className="font-medium">No courses found</p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Try searching for topics like "machine learning" or
+                            "data science"
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {filteredCourses.map((course) => (
+                        <CourseCard
+                          key={course.code}
+                          course={course}
+                          onClick={() => setSelectedCourse(course)}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </div>
-              {/* Filter Buttons */}
-              {/* <div className="filter-buttons">
-                <button className="filter-btn">Filter 1</button>
-                <button className="filter-btn">Filter 2</button>
-                <button className="filter-btn">Filter 3</button>
-              </div> */}
-              {/* Course Results */}
-              <div className="course-results-grid">
-                {loading ? (
-                  <div className="no-results">Loading...</div>
-                ) : error ? (
-                  <div className="no-results">{error}</div>
-                ) : filteredCourses.length === 0 ? (
-                  <div className="no-results">No courses found.</div>
+              </TabsContent>
+
+              {/* Recommended Tab */}
+              <TabsContent value="recommended" className="mt-6">
+                {recommendedCourses && recommendedCourses.length > 0 ? (
+                  <div className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      Based on your resume, here are courses that match your
+                      background:
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {recommendedCourses.map((course) => (
+                        <CourseCard
+                          key={course.code}
+                          course={course}
+                          onClick={() => setSelectedCourse(course)}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 ) : (
-                  filteredCourses.map((course: Course) => (
-                    <div className="course-card" key={course.code}>
-                      <div className="course-code">{course.code}</div>
-                      <div className="course-title">{course.title}</div>
-                      <button
-                        className="details-btn"
-                        onClick={() => setSelectedCourse(course)}
-                      >
-                        Details
-                      </button>
-                    </div>
-                  ))
+                  <Card className="glass-card">
+                    <CardContent className="py-16 text-center space-y-6">
+                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                        <FileText className="w-10 h-10 text-primary" />
+                      </div>
+                      <div className="space-y-2">
+                        <h3 className="text-xl font-semibold">
+                          No Recommendations Yet
+                        </h3>
+                        <p className="text-muted-foreground max-w-sm mx-auto">
+                          Upload your resume to get personalized course
+                          recommendations based on your skills and experience.
+                        </p>
+                      </div>
+                      <Button asChild className="gap-2">
+                        <Link to="/profile">
+                          <FileText className="w-4 h-4" />
+                          Upload Resume
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
                 )}
-              </div>
-            </>
-          ) : (
-            <div className="recommended-panel">
-              {/* Recommended Courses */}
-              <div className="recommended-courses-title">
-                Recommended Courses
-              </div>
-              {recommendedCourses && recommendedCourses.length > 0 ? (
-                <div className="course-results-grid">
-                  {recommendedCourses.map((course: Course) => (
-                    <div className="course-card" key={course.code}>
-                      <div className="course-code">{course.code}</div>
-                      <div className="course-title">{course.title}</div>
-                      <button
-                        className="details-btn"
-                        onClick={() => setSelectedCourse(course)}
-                      >
-                        Details
-                      </button>
-                    </div>
-                  ))}
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          {/* Sidebar - Random Course Generator */}
+          <div className="lg:sticky-below-header space-y-4">
+            <Card className="glass-card overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
+              <CardHeader className="relative">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                    <Dice5 className="w-5 h-5 text-primary" />
+                  </div>
+                  <CardTitle className="text-lg">Random Course</CardTitle>
                 </div>
-              ) : (
-                <div className="empty-recommendation-state modern-empty-state center-empty-state">
-                  <div className="empty-state-card">
-                    <div className="empty-state-icon">
-                      <svg
-                        width="56"
-                        height="56"
-                        fill="none"
-                        viewBox="0 0 56 56"
-                      >
-                        <rect
-                          x="8"
-                          y="8"
-                          width="40"
-                          height="40"
-                          rx="8"
-                          fill="#f3f4f6"
-                        />
-                        <path
-                          d="M20 28h16M20 34h10"
-                          stroke="#646cff"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                        <rect
-                          x="20"
-                          y="18"
-                          width="16"
-                          height="4"
-                          rx="2"
-                          fill="#646cff"
-                        />
-                      </svg>
-                    </div>
-                    <div className="empty-state-texts">
-                      <div
-                        className="empty-state-title"
-                        style={{
-                          fontWeight: 700,
-                          fontSize: "1.2em",
-                          marginBottom: "0.3em",
-                          color: "#222",
-                        }}
-                      >
-                        No recommendations yet
+              </CardHeader>
+              <CardContent className="relative space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Feeling adventurous? Discover a random course that might spark
+                  your interest.
+                </p>
+                <Button
+                  onClick={handleRandomCourse}
+                  disabled={randomLoading}
+                  className="w-full gap-2"
+                  variant="secondary"
+                >
+                  {randomLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Dice5 className="w-4 h-4" />
+                  )}
+                  Generate Random Course
+                </Button>
+
+                {randomCourse && (
+                  <Card
+                    className="bg-background/50 cursor-pointer hover:bg-background/80 transition-colors"
+                    onClick={() => setSelectedCourse(randomCourse)}
+                  >
+                    <CardContent className="p-4 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="secondary">{randomCourse.code}</Badge>
                       </div>
-                      <div
-                        className="empty-state-desc"
-                        style={{ color: "#666", marginBottom: "1em" }}
-                      >
-                        Add your resume to see personalized course
-                        recommendations.
-                      </div>
-                      <button
-                        className="resume-upload-btn"
-                        style={{
-                          background: "#646cff",
-                          color: "white",
-                          border: "none",
-                          borderRadius: "6px",
-                          padding: "0.6em 1.4em",
-                          fontWeight: 600,
-                          fontSize: "1em",
-                          cursor: "pointer",
-                          boxShadow: "0 2px 8px rgba(100,108,255,0.08)",
-                        }}
-                        onClick={() => navigate("/profile")}
-                      >
-                        Upload Resume
-                      </button>
+                      <p className="font-medium text-sm">{randomCourse.title}</p>
+                      {randomCourse.description && (
+                        <p className="text-xs text-muted-foreground line-clamp-2">
+                          {randomCourse.description}
+                        </p>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Quick Stats */}
+            <Card className="glass-card">
+              <CardContent className="p-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-3 rounded-lg bg-background/50">
+                    <GraduationCap className="w-5 h-5 text-primary mx-auto mb-1" />
+                    <div className="text-lg font-bold">
+                      {filteredCourses.length || recommendedCourses.length}
                     </div>
+                    <div className="text-xs text-muted-foreground">Results</div>
+                  </div>
+                  <div className="text-center p-3 rounded-lg bg-background/50">
+                    <BookOpen className="w-5 h-5 text-accent mx-auto mb-1" />
+                    <div className="text-lg font-bold">
+                      {Object.values(departments).filter(Boolean).length}
+                    </div>
+                    <div className="text-xs text-muted-foreground">Depts</div>
                   </div>
                 </div>
-              )}
-            </div>
-          )}
-        </div>
-        {/* Right: Random Course Generator */}
-        <div className="right-panel stretch-column">
-          <div className="random-generator-column">
-            <div className="icon-container">
-              <svg
-                width="24"
-                height="24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                viewBox="0 0 24 24"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <circle cx="15.5" cy="8.5" r="1.5" />
-                <circle cx="8.5" cy="15.5" r="1.5" />
-                <circle cx="15.5" cy="15.5" r="1.5" />
-              </svg>
-            </div>
-            <h2>Random Course Generator</h2>
-            <button
-              className="random-btn"
-              onClick={handleRandomCourse}
-              disabled={loading}
-            >
-              Generate Random Course
-            </button>
-            {randomCourse && (
-              <div className="random-course-result">
-                <h3>{randomCourse.code}</h3>
-                <p>{randomCourse.title}</p>
-                {randomCourse.description && <p>{randomCourse.description}</p>}
-              </div>
-            )}
-            {error && <div className="no-results">{error}</div>}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
+
       {/* Course Details Modal */}
-      {selectedCourse && (
-        <div className="modal-overlay" onClick={() => setSelectedCourse(null)}>
-          <div
-            className="modal details-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="modal-close-btn"
-              onClick={() => setSelectedCourse(null)}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-            <h3
-              style={{
-                fontWeight: 700,
-                color: "#646cff",
-                fontSize: "1.3em",
-                marginBottom: "0.5em",
-                textAlign: "center",
-              }}
-            >
-              {selectedCourse.code}: {selectedCourse.title}
-            </h3>
-            {selectedCourse.description ? (
-              <div className="details-modal-description">
-                {selectedCourse.description}
-              </div>
-            ) : (
-              <div
-                className="details-modal-description"
-                style={{ color: "#888" }}
-              >
-                No description available.
-              </div>
-            )}
-          </div>
-        </div>
+      <Dialog
+        open={!!selectedCourse}
+        onOpenChange={() => setSelectedCourse(null)}
+      >
+        <DialogContent className="glass-card sm:max-w-lg">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <Badge variant="default" className="text-sm">
+                {selectedCourse?.code}
+              </Badge>
+            </div>
+            <DialogTitle className="text-xl">
+              {selectedCourse?.title}
+            </DialogTitle>
+          </DialogHeader>
+          {selectedCourse?.description ? (
+            <DialogDescription className="text-foreground leading-relaxed">
+              {selectedCourse.description}
+            </DialogDescription>
+          ) : (
+            <DialogDescription className="text-muted-foreground italic">
+              No description available for this course.
+            </DialogDescription>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+function CourseCard({
+  course,
+  onClick,
+}: {
+  course: Course;
+  onClick: () => void;
+}) {
+  return (
+    <Card
+      className={cn(
+        "glass-card cursor-pointer group transition-all duration-300",
+        "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5",
+        "hover:-translate-y-0.5"
       )}
-    </>
+      onClick={onClick}
+    >
+      <CardContent className="p-4 space-y-3">
+        <div className="flex items-start justify-between">
+          <Badge
+            variant="outline"
+            className="bg-primary/10 text-primary border-primary/30"
+          >
+            {course.code}
+          </Badge>
+          <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+        </div>
+        <h3 className="font-semibold text-sm leading-tight group-hover:text-primary transition-colors">
+          {course.title}
+        </h3>
+        {course.description && (
+          <p className="text-xs text-muted-foreground line-clamp-2">
+            {course.description}
+          </p>
+        )}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="w-full mt-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          View Details
+        </Button>
+      </CardContent>
+    </Card>
   );
 }
