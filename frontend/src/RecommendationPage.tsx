@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
 import { Button } from "@/components/ui/button";
@@ -45,11 +45,24 @@ export default function RecommendationPage() {
     MSE: true,
     ECE: true,
   });
-  const [completedCourses, setCompletedCourses] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-  const { recommendedCourses } = useContext(RecommendationsContext) as {
-    recommendedCourses: Course[];
-  };
+
+  const { recommendedCourses, completedCourses: contextCompletedCourses } =
+    useContext(RecommendationsContext);
+
+  // Local state for the text input
+  const [completedCoursesInput, setCompletedCoursesInput] = useState("");
+
+  // Track if we've synced from context (only sync once when transcript is uploaded)
+  const [hasSyncedFromContext, setHasSyncedFromContext] = useState(false);
+
+  // Update input when context changes from empty to non-empty (transcript upload)
+  useEffect(() => {
+    if (contextCompletedCourses.length > 0 && !hasSyncedFromContext) {
+      setCompletedCoursesInput(contextCompletedCourses.join(", "));
+      setHasSyncedFromContext(true);
+    }
+  }, [contextCompletedCourses, hasSyncedFromContext]);
 
   const departmentOptions = ["MSE", "ECE"];
 
@@ -62,16 +75,19 @@ export default function RecommendationPage() {
     setLoading(true);
     setError(null);
     try {
+      // Use the input field as the source of truth for completed courses
+      const completedCoursesList = completedCoursesInput
+        ? completedCoursesInput
+            .split(",")
+            .map((c) => c.trim())
+            .filter((c) => c)
+        : [];
+
       const filters = {
         include_undergrad: includeUndergrad,
         include_grad: includeGrad,
         department: Object.keys(departments).filter((k) => departments[k]),
-        completed_courses: completedCourses
-          ? completedCourses
-              .split(",")
-              .map((c) => c.trim())
-              .filter((c) => c)
-          : [],
+        completed_courses: completedCoursesList,
       };
       const requestBody = {
         queries: [search],
@@ -128,7 +144,7 @@ export default function RecommendationPage() {
     !includeGrad,
     !departments.MSE,
     !departments.ECE,
-    completedCourses.length > 0,
+    completedCoursesInput.length > 0,
   ].filter(Boolean).length;
 
   return (
@@ -316,9 +332,9 @@ export default function RecommendationPage() {
                           <Input
                             id="completed"
                             type="text"
-                            value={completedCourses}
+                            value={completedCoursesInput}
                             onChange={(e) =>
-                              setCompletedCourses(e.target.value)
+                              setCompletedCoursesInput(e.target.value)
                             }
                             placeholder="e.g., CS343, ECE124, MATH117"
                             className="bg-background"

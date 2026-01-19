@@ -16,7 +16,6 @@ import {
   Upload,
   FileText,
   User,
-  Mail,
   GraduationCap,
   Calendar,
   Loader2,
@@ -27,18 +26,26 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function ProfilePage() {
-  const { setRecommendedCourses } = useContext(RecommendationsContext) as {
-    setRecommendedCourses: React.Dispatch<
-      React.SetStateAction<
-        { code: string; title: string; description?: string }[]
-      >
-    >;
-  };
+  const {
+    setRecommendedCourses,
+    setCompletedCourses,
+    setStudentProfile,
+    setTermSummaries,
+    studentProfile,
+    completedCourses,
+  } = useContext(RecommendationsContext);
+
   const [loading, setLoading] = useState(false);
+  const [transcriptLoading, setTranscriptLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [transcriptError, setTranscriptError] = useState<string | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showTranscriptConfirmation, setShowTranscriptConfirmation] =
+    useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const [transcriptDragActive, setTranscriptDragActive] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const [uploadedTranscriptName, setUploadedTranscriptName] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -48,6 +55,16 @@ export default function ProfilePage() {
       setDragActive(true);
     } else if (e.type === "dragleave") {
       setDragActive(false);
+    }
+  }, []);
+
+  const handleTranscriptDrag = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setTranscriptDragActive(true);
+    } else if (e.type === "dragleave") {
+      setTranscriptDragActive(false);
     }
   }, []);
 
@@ -82,21 +99,79 @@ export default function ProfilePage() {
     }
   }
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
+  async function handleTranscriptUpload(file: File) {
+    setTranscriptLoading(true);
+    setTranscriptError(null);
+    setUploadedTranscriptName(file.name);
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("http://localhost:8000/transcript-parse", {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) throw new Error("Failed to parse transcript");
+      const data = await res.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // Update completed courses
+      setCompletedCourses(data.courses || []);
+
+      // Update term summaries
+      setTermSummaries(data.term_summaries || []);
+
+      // Update student profile
+      setStudentProfile({
+        program: data.program,
+        studentNumber: data.student_number,
+        latestTerm: data.latest_term,
+      });
+
+      setShowTranscriptConfirmation(true);
+    } catch (err) {
+      setTranscriptError(
+        err instanceof Error ? err.message : "Could not parse transcript."
+      );
+      setUploadedTranscriptName(null);
+    } finally {
+      setTranscriptLoading(false);
+    }
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleResumeUpload(e.dataTransfer.files[0]);
     }
-  }, []);
+  };
 
-  const profileInfo = [
-    { icon: User, label: "Name", value: "John Doe" },
-    { icon: Mail, label: "Email", value: "johndoe@email.com" },
-    { icon: GraduationCap, label: "Program", value: "Management Engineering" },
-    { icon: Calendar, label: "Year", value: "3" },
-  ];
+  const handleTranscriptDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTranscriptDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleTranscriptUpload(e.dataTransfer.files[0]);
+    }
+  };
+
+  const profileInfo = studentProfile
+    ? [
+        { icon: User, label: "Student ID", value: studentProfile.studentNumber?.toString() || "—" },
+        { icon: GraduationCap, label: "Program", value: studentProfile.program || "—" },
+        { icon: Calendar, label: "Current Term", value: studentProfile.latestTerm?.term_name || "—" },
+        { icon: FileText, label: "Level", value: studentProfile.latestTerm?.level || "—" },
+      ]
+    : [
+        { icon: User, label: "Student ID", value: "Upload transcript" },
+        { icon: GraduationCap, label: "Program", value: "—" },
+        { icon: Calendar, label: "Current Term", value: "—" },
+        { icon: FileText, label: "Level", value: "—" },
+      ];
 
   return (
     <div className="min-h-[calc(100vh-4rem)]">
@@ -208,26 +283,92 @@ export default function ProfilePage() {
                 <CardTitle className="flex items-center gap-2">
                   <GraduationCap className="w-5 h-5 text-accent" />
                   Transcript Upload
-                  <Badge variant="secondary" className="ml-2">
-                    Coming Soon
-                  </Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="relative border-2 border-dashed border-border/50 rounded-xl p-8 text-center opacity-60">
+              <CardContent className="space-y-4">
+                <div
+                  className={cn(
+                    "relative border-2 border-dashed rounded-xl p-8 transition-all duration-200 text-center",
+                    transcriptDragActive
+                      ? "border-accent bg-accent/5"
+                      : "border-border hover:border-accent/50 hover:bg-card/50",
+                    transcriptLoading && "pointer-events-none opacity-50"
+                  )}
+                  onDragEnter={handleTranscriptDrag}
+                  onDragLeave={handleTranscriptDrag}
+                  onDragOver={handleTranscriptDrag}
+                  onDrop={handleTranscriptDrop}
+                >
+                  <input
+                    type="file"
+                    accept=".pdf"
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        handleTranscriptUpload(e.target.files[0]);
+                      }
+                    }}
+                  />
                   <div className="space-y-4">
-                    <div className="w-16 h-16 rounded-full bg-muted/50 mx-auto flex items-center justify-center">
-                      <Upload className="w-8 h-8 text-muted-foreground" />
+                    <div
+                      className={cn(
+                        "w-16 h-16 rounded-full mx-auto flex items-center justify-center transition-colors",
+                        transcriptDragActive ? "bg-accent/20" : "bg-muted"
+                      )}
+                    >
+                      {transcriptLoading ? (
+                        <Loader2 className="w-8 h-8 text-accent animate-spin" />
+                      ) : uploadedTranscriptName ? (
+                        <CheckCircle2 className="w-8 h-8 text-green-500" />
+                      ) : (
+                        <Upload className="w-8 h-8 text-muted-foreground" />
+                      )}
                     </div>
                     <div>
-                      <p className="font-medium text-muted-foreground">
-                        Transcript upload coming soon
-                      </p>
-                      <p className="text-sm text-muted-foreground/70 mt-1">
-                        Track your completed courses automatically
-                      </p>
+                      {transcriptLoading ? (
+                        <p className="font-medium">Parsing your transcript...</p>
+                      ) : uploadedTranscriptName ? (
+                        <>
+                          <p className="font-medium text-green-500">
+                            Transcript parsed!
+                          </p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {uploadedTranscriptName}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-medium">
+                            Drop your transcript here or click to browse
+                          </p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Supports PDF
+                          </p>
+                        </>
+                      )}
                     </div>
                   </div>
+                </div>
+
+                {transcriptError && (
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 text-destructive">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    <p className="text-sm">{transcriptError}</p>
+                  </div>
+                )}
+
+                {completedCourses.length > 0 && (
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 text-green-500">
+                    <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                    <p className="text-sm">{completedCourses.length} courses loaded from transcript</p>
+                  </div>
+                )}
+
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-accent/5">
+                  <GraduationCap className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-muted-foreground">
+                    Upload your transcript to track completed courses and get better recommendations.
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -245,14 +386,18 @@ export default function ProfilePage() {
                         <User className="w-12 h-12 text-primary" />
                       </div>
                     </div>
-                    <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-green-500 border-4 border-card flex items-center justify-center">
-                      <CheckCircle2 className="w-4 h-4 text-white" />
-                    </div>
+                    {studentProfile && (
+                      <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-green-500 border-4 border-card flex items-center justify-center">
+                        <CheckCircle2 className="w-4 h-4 text-white" />
+                      </div>
+                    )}
                   </div>
                   <div className="text-center">
-                    <h3 className="font-semibold text-lg">John Doe</h3>
+                    <h3 className="font-semibold text-lg">
+                      {studentProfile ? `Student #${studentProfile.studentNumber}` : "Student Profile"}
+                    </h3>
                     <p className="text-sm text-muted-foreground">
-                      Management Engineering
+                      {studentProfile?.program || "Upload transcript to see details"}
                     </p>
                   </div>
                 </div>
@@ -273,6 +418,20 @@ export default function ProfilePage() {
                       </div>
                     </div>
                   ))}
+                  {/* Courses Completed */}
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50">
+                    <div className="w-8 h-8 rounded-md bg-accent/10 flex items-center justify-center">
+                      <Badge variant="secondary" className="text-xs px-1.5">
+                        {completedCourses.length}
+                      </Badge>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-muted-foreground">Courses Completed</p>
+                      <p className="text-sm font-medium truncate">
+                        {completedCourses.length > 0 ? `${completedCourses.length} courses` : "None loaded"}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Edit Button */}
@@ -285,7 +444,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Success Modal */}
+      {/* Resume Success Modal */}
       <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
         <DialogContent className="glass-card sm:max-w-md">
           <DialogHeader className="text-center sm:text-center">
@@ -315,6 +474,49 @@ export default function ProfilePage() {
             >
               <Sparkles className="w-4 h-4" />
               View Recommendations
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Transcript Success Modal */}
+      <Dialog open={showTranscriptConfirmation} onOpenChange={setShowTranscriptConfirmation}>
+        <DialogContent className="glass-card sm:max-w-md">
+          <DialogHeader className="text-center sm:text-center">
+            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="w-8 h-8 text-green-500" />
+            </div>
+            <DialogTitle>Transcript Parsed Successfully!</DialogTitle>
+            <DialogDescription asChild>
+              <div className="space-y-2">
+                <p>
+                  <strong>{completedCourses.length}</strong> courses loaded from your transcript.
+                </p>
+                {studentProfile && (
+                  <p className="text-muted-foreground">
+                    {studentProfile.program} • Level {studentProfile.latestTerm?.level}
+                  </p>
+                )}
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setShowTranscriptConfirmation(false)}
+              className="w-full sm:w-auto"
+            >
+              Stay Here
+            </Button>
+            <Button
+              onClick={() => {
+                setShowTranscriptConfirmation(false);
+                navigate("/recommendation");
+              }}
+              className="w-full sm:w-auto gap-2"
+            >
+              <Sparkles className="w-4 h-4" />
+              Get Recommendations
             </Button>
           </DialogFooter>
         </DialogContent>
