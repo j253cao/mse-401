@@ -1,14 +1,44 @@
-.env
-.DS_Store
-/venv/
-.venv/
-/venv/
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pyw
-*.pyz
-*.pywz
-*.pyzw
-*.pyzwz
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+ENV/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node.js (frontend)
+node_modules/
+dist/
+.cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Test artifacts
+*.log
+*.tmp
+
+# Build artifacts
+build/
+*.egg-info/
+
+# Large model files (optional - uncomment if you don't want to track these)
+# data/embeddings/*.npy
+# data/embeddings/*.pkl

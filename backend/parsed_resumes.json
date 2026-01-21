@@ -1,0 +1,72 @@
+[
+  {
+    "core_interests": {
+      "primary_field": "Finance",
+      "subfields": [
+        "Corporate Finance",
+        "Financial Analysis",
+        "Business Process Optimization"
+      ],
+      "explanation": "The individual consistently engages with financial data, reporting, and process improvement, demonstrating a strong interest in the practical application of financial principles and ensuring operational efficiency."
+    },
+    "learning_patterns": {
+      "theoretical_vs_practical": "Practical, hands-on application of concepts, particularly in data analysis and process improvement.",
+      "preferred_domains": [
+        "Financial Management",
+        "Business Operations",
+        "Data-driven Decision Making"
+      ]
+    },
+    "suggested_directions": [
+      {
+        "field": "Finance and Business Analytics",
+        "why": "Strong academic foundation in finance combined with practical experience in data analysis, reporting, and process improvement using tools like Excel and Bloomberg."
+      },
+      {
+        "field": "Management Information Systems / Business Technology",
+        "why": "The minor in MIS and experience in improving efficiency through technology (Excel templates) indicate an interest in the intersection of business and information systems."
+      },
+      {
+        "field": "Financial Risk Management and Compliance",
+        "why": "Experience in compliance auditing and monitoring expenses suggests an interest in ensuring financial integrity and adherence to regulations."
+      }
+    ],
+    "file_name": "Finance Sample Resume.pdf",
+    "file_path": "C:\\Users\\johnn\\Documents\\coding-projects\\mse-401\\backend\\..\\tests\\test_data\\resumes\\Finance Sample Resume.pdf"
+  },
+  {
+    "core_interests": {
+      "primary_field": "Software Engineering",
+      "subfields": [
+        "Application Architecture",
+        "Full-stack Development",
+        "Mobile Application Development"
+      ],
+      "explanation": "The individual consistently demonstrates a strong interest in designing, building, and optimizing software applications across various platforms, with a clear emphasis on both web and mobile development."
+    },
+    "learning_patterns": {
+      "theoretical_vs_practical": "Strongly leans towards practical, hands-on application development. They enjoy applying theoretical concepts to build tangible products and solve real-world problems.",
+      "preferred_domains": [
+        "Application Development",
+        "System Design",
+        "User-facing Technologies"
+      ]
+    },
+    "suggested_directions": [
+      {
+        "field": "Computer Science (Applied Focus)",
+        "why": "Provides a deeper understanding of algorithms, data structures, and system design principles that underpin their practical software development work."
+      },
+      {
+        "field": "Software Engineering",
+        "why": "Directly aligns with their demonstrated passion for building, testing, and deploying robust and scalable software solutions."
+      },
+      {
+        "field": "Information Systems",
+        "why": "Their work with databases, APIs, and system integration suggests an interest in how information systems are structured and managed to meet functional requirements."
+      }
+    ],
+    "file_name": "tmpr93rfm9f.pdf",
+    "file_path": "C:\\Users\\johnn\\AppData\\Local\\Temp\\tmpr93rfm9f.pdf"
+  }
+]

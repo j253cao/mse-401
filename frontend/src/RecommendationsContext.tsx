@@ -1,19 +1,7 @@
 import React, { createContext, useState } from "react";
+import type { Course, TermSummary, StudentProfile } from "@/types/api";
 
-export type Course = { code: string; title: string; description?: string };
-
-export type TermSummary = {
-  term_id: number;
-  term_name: string;
-  level: string;
-  courses: string[];
-};
-
-export type StudentProfile = {
-  program: string;
-  studentNumber: number;
-  latestTerm: TermSummary | null;
-};
+export type { Course, TermSummary, StudentProfile };
 
 export const RecommendationsContext = createContext<{
   recommendedCourses: Course[];
