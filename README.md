@@ -1,85 +1,158 @@
-# MSE-401 Course Dependency System
+# UW Course Recommendation System
 
-A system for parsing and managing course dependencies from the University of Waterloo course catalog.
+A course recommendation system for University of Waterloo students. Features text-based search, resume analysis, and transcript parsing to suggest relevant courses.
 
 ## Project Structure
 
 ```
-MSE-401/
-├── data/                          # Data files
-│   ├── courses.json              # All courses with PIDs
-│   ├── departments.json          # List of departments
-│   ├── course-database.json      # Full course database
-│   ├── raw-course-data.json      # Raw API data
-│   └── course-dependencies.json  # Generated dependencies (output)
-├── scripts/
-│   └── course-dependencies/      # Course dependency processing scripts
-│       ├── main.py               # Main batch processing script
-│       ├── test_single_course.py # Single course test script
-│       └── utils/                # Utility modules
-│           ├── data_loader.py        # Data loading utilities
-│           ├── dependency_parser.py  # Dependency parsing logic
-│           ├── html_extractors.py    # HTML content extraction
-│           ├── validators.py         # Course code validation
-│           ├── interfaces.py         # Type definitions
-│           └── course_dependency_builder.py # API utilities
-├── course-parser.py              # Course data parser
-└── requirements.txt              # Python dependencies
+mse-401/
+├── backend/                    # Python backend (FastAPI)
+│   ├── api/                    # API endpoints
+│   │   └── main.py            # FastAPI application
+│   ├── parsers/               # Document parsers
+│   │   ├── resume_parser.py   # Resume PDF parsing + LLM analysis
+│   │   ├── resume_llm_client.py # Google Gemini LLM client
+│   │   └── transcript_parser.py # UW transcript parsing
+│   └── recommender/           # Course recommendation engine
+│       ├── main.py            # Main recommendation logic
+│       ├── data_loader.py     # Data loading utilities
+│       ├── embedding_generators.py # TF-IDF, SVD, BERT embeddings
+│       ├── recommenders.py    # Various recommendation algorithms
+│       └── utils.py           # Helper utilities
+│
+├── frontend/                   # React + TypeScript frontend (Vite)
+│   ├── src/
+│   │   ├── App.tsx            # Main app component
+│   │   ├── HomePage.tsx       # Landing page
+│   │   ├── RecommendationPage.tsx # Course recommendations
+│   │   ├── CalendarPage.tsx   # Calendar view
+│   │   ├── ProfilePage.tsx    # User profile
+│   │   └── components/        # Reusable UI components
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── data/                       # All data files
+│   ├── courses/               # Course catalog data
+│   │   ├── waterloo-open-api-data.json # Main course data
+│   │   ├── courses.json       # Course list with PIDs
+│   │   ├── departments.json   # Department list
+│   │   ├── undergrad-courses.json
+│   │   └── grad-courses.json
+│   ├── embeddings/            # ML model embeddings
+│   │   ├── course_embeddings.npy
+│   │   ├── course_bert_embeddings.npy
+│   │   ├── tfidf_vectorizer.pkl
+│   │   └── svd_model.pkl
+│   ├── dependencies/          # Course prerequisites data
+│   │   └── course_dependencies.json
+│   └── degree_requirements/   # Degree requirement data
+│
+├── notebooks/                  # Jupyter notebooks for exploration
+│
+├── tests/                      # Test files
+│   └── test_data/
+│       ├── resumes/           # Sample resume PDFs
+│       └── transcripts/       # Sample transcript PDFs
+│
+├── .env.example               # Environment variables template
+├── requirements.txt           # Python dependencies
+└── README.md
 ```
 
 ## Setup
 
-1. Install dependencies:
+### Backend Setup
+
+1. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   
+   # Windows
+   .\venv\Scripts\activate
+   
+   # macOS/Linux
+   source venv/bin/activate
+   ```
+
+2. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Copy `.env.example` to `.env` and add your API keys:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Run the backend server:
+   ```bash
+   cd backend
+   uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+   The API will be available at http://localhost:8000
+
+### Frontend Setup
+
+1. Install Node.js dependencies:
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+   The frontend will be available at http://localhost:5173
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Health check |
+| `/recommend` | POST | Get course recommendations from text queries |
+| `/resume-recommend` | POST | Get recommendations from uploaded resume PDF |
+| `/transcript-parse` | POST | Parse uploaded transcript PDF |
+| `/random-course` | GET | Get a random course |
+
+### Example Request
 
 ```bash
-pip install -r requirements.txt
-```
-
-2. Parse course data (if needed):
-
-```bash
-python course-parser.py
-```
-
-## Usage
-
-### Test a single course:
-
-```bash
-cd scripts/course-dependencies
-python test_single_course.py
-```
-
-### Process all courses:
-
-```bash
-cd scripts/course-dependencies
-python main.py
+curl -X POST "http://localhost:8000/recommend" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "queries": ["machine learning and data science"],
+    "filters": {
+      "include_undergrad": true,
+      "include_grad": false
+    }
+  }'
 ```
 
 ## Features
 
-- **Rate Limiting**: 1 request every 1.5 seconds to respect API limits
-- **Checkpoint System**: Resume processing from where you left off
-- **Comprehensive Parsing**: Handles prerequisites, corequisites, and antirequisites
-- **Multiple Formats**: Supports course codes with letter suffixes (W, L, R, etc.)
-- **Validation**: Validates course codes against known course database
-- **Error Handling**: Continues processing even if individual courses fail
+- **Text-based Search**: Find courses using natural language queries
+- **Resume Analysis**: Upload a resume to get personalized course recommendations
+- **Transcript Parsing**: Parse UW transcripts to track completed courses
+- **Multiple Algorithms**: Cosine similarity, FAISS, BERT, and ensemble methods
+- **Filtering**: Filter by undergraduate/graduate level, department, prerequisites
 
-## Output
+## Tech Stack
 
-The system generates `course-dependencies.json` in the `data/` directory containing structured dependency information for all courses.
+### Backend
+- Python 3.10+
+- FastAPI
+- scikit-learn (TF-IDF, SVD)
+- sentence-transformers (BERT embeddings)
+- FAISS (similarity search)
+- pdfplumber (PDF parsing)
+- Google Gemini (resume analysis)
 
-## Running the Backend (FastAPI)
-
-1. Open a terminal in the project root.
-2. Run the following commands:
-
-```sh
-cd scripts
-cd llm-course-parser
-uvicorn vectorizer.api_backend:app --reload --host 0.0.0.0 --port 8000
-```
-
-- The backend will be available at http://localhost:8000
-- Make sure you have all dependencies installed (see requirements.txt).
+### Frontend
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Radix UI
