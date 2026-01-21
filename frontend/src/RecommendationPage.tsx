@@ -27,8 +27,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-export type Course = { code: string; title: string; description?: string };
+import { api } from "@/services/api";
+import type { Course } from "@/types/api";
 
 const DEPARTMENT_OPTIONS = ["MSE", "ECE"] as const;
 type Department = (typeof DEPARTMENT_OPTIONS)[number];
@@ -88,31 +88,12 @@ export default function RecommendationPage() {
       const filters = {
         include_undergrad: includeUndergrad,
         include_grad: includeGrad,
-        department: Object.keys(departments).filter((k) => departments[k]),
+        department: Object.keys(departments).filter((k) => departments[k as keyof typeof departments]),
         completed_courses: completedCoursesList,
       };
-      const requestBody = {
-        queries: [search],
-        filters,
-      };
 
-      const res = await fetch("http://localhost:8000/recommend", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
-      });
-      if (!res.ok) throw new Error("Failed to fetch recommendations");
-      const data = await res.json();
-      const results = data.results[search] || [];
-      setFilteredCourses(
-        results.map(
-          (r: { course_code: string; title: string; description: string }) => ({
-            code: r.course_code,
-            title: r.title,
-            description: r.description,
-          })
-        )
-      );
+      const courses = await api.recommend([search], filters);
+      setFilteredCourses(courses);
     } catch {
       setFilteredCourses([]);
       setError("Could not fetch recommendations.");
@@ -125,14 +106,8 @@ export default function RecommendationPage() {
     setRandomLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:8000/random-course");
-      if (!res.ok) throw new Error("Failed to fetch random course");
-      const data = await res.json();
-      setRandomCourse({
-        code: data.course_code,
-        title: data.title,
-        description: data.description,
-      });
+      const course = await api.getRandomCourse();
+      setRandomCourse(course);
     } catch {
       setRandomCourse(null);
       setError("Could not fetch random course.");

@@ -24,6 +24,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { api, ApiError } from "@/services/api";
 
 export default function ProfilePage() {
   const {
@@ -72,27 +73,13 @@ export default function ProfilePage() {
     setLoading(true);
     setError(null);
     setUploadedFileName(file.name);
-    const formData = new FormData();
-    formData.append("file", file);
     try {
-      const res = await fetch("http://localhost:8000/resume-recommend", {
-        method: "POST",
-        body: formData,
-      });
-      if (!res.ok) throw new Error("Failed to get recommendations");
-      const data = await res.json();
-      setRecommendedCourses(
-        data.map(
-          (r: { course_code: string; title: string; description: string }) => ({
-            code: r.course_code,
-            title: r.title,
-            description: r.description,
-          })
-        )
-      );
+      const courses = await api.uploadResume(file);
+      setRecommendedCourses(courses);
       setShowConfirmation(true);
-    } catch {
-      setError("Could not get recommendations. Please try again.");
+    } catch (err) {
+      const message = err instanceof ApiError ? err.message : "Could not get recommendations. Please try again.";
+      setError(message);
       setUploadedFileName(null);
     } finally {
       setLoading(false);
@@ -103,19 +90,8 @@ export default function ProfilePage() {
     setTranscriptLoading(true);
     setTranscriptError(null);
     setUploadedTranscriptName(file.name);
-    const formData = new FormData();
-    formData.append("file", file);
     try {
-      const res = await fetch("http://localhost:8000/transcript-parse", {
-        method: "POST",
-        body: formData,
-      });
-      if (!res.ok) throw new Error("Failed to parse transcript");
-      const data = await res.json();
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
+      const data = await api.parseTranscript(file);
 
       // Update completed courses
       setCompletedCourses(data.courses || []);
@@ -132,9 +108,8 @@ export default function ProfilePage() {
 
       setShowTranscriptConfirmation(true);
     } catch (err) {
-      setTranscriptError(
-        err instanceof Error ? err.message : "Could not parse transcript."
-      );
+      const message = err instanceof ApiError ? err.message : "Could not parse transcript.";
+      setTranscriptError(message);
       setUploadedTranscriptName(null);
     } finally {
       setTranscriptLoading(false);

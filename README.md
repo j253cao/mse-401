@@ -79,12 +79,7 @@ mse-401/
    pip install -r requirements.txt
    ```
 
-3. Copy `.env.example` to `.env` and add your API keys:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Run the backend server:
+3. Run the backend server:
    ```bash
    cd backend
    uvicorn api.main:app --reload --host 0.0.0.0 --port 8000

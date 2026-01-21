@@ -11,14 +11,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum
-import random
 import time
 import os
 import tempfile
 import sys
+from dotenv import load_dotenv
 
 # Add backend to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Load environment variables from project root .env file
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
 from recommender.main import get_recommendations, get_abs_path
 from recommender.data_loader import load_course_data

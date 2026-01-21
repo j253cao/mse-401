@@ -6,15 +6,16 @@ import json
 from typing import Dict, Optional, Any
 from dotenv import load_dotenv
 
+# Load environment variables from project root .env file
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
+
 
 class ResumeLLMClient:
     """Client for analyzing resumes using Google's Gemini LLM."""
     
     def __init__(self):
-        # Load environment variables from .env file
-        load_dotenv()
-        
-        # Configure the API key
+        # Configure the API key (already loaded at module level)
         api_key = os.getenv('GEMINI_API_KEY')
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in .env file")
@@ -55,7 +56,7 @@ class ResumeLLMClient:
         """
         
         self.model = genai.GenerativeModel(
-            'gemini-2.0-flash-exp',
+            'gemini-2.5-flash',
             system_instruction=self.system_context
         )
         
@@ -64,7 +65,7 @@ class ResumeLLMClient:
         try:
             generation_config = {
                 "temperature": 0.2,
-                "max_output_tokens": 1024,
+                "max_output_tokens": 2048,
                 "top_p": 0.8
             }
             
