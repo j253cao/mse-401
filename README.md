@@ -28,6 +28,7 @@ mse-401/
 │   │   ├── CalendarPage.tsx   # Calendar view
 │   │   ├── ProfilePage.tsx    # User profile
 │   │   └── components/        # Reusable UI components
+│   ├── .env.example           # Frontend environment variables template
 │   ├── package.json
 │   └── vite.config.ts
 │
@@ -54,7 +55,7 @@ mse-401/
 │       ├── resumes/           # Sample resume PDFs
 │       └── transcripts/       # Sample transcript PDFs
 │
-├── .env                       # Environment variables (create this file, see Setup section)
+├── .env.example               # Environment variables template (copy to .env)
 ├── backend/requirements.txt   # Python dependencies
 └── README.md
 ```
@@ -65,19 +66,23 @@ mse-401/
 
 Before running the application, you need to set up environment variables:
 
-1. **Create a `.env` file** in the project root directory (`mse-401/.env`)
-
-2. **Required environment variables:**
-   - `GEMINI_API_KEY`: Your Google Gemini API key (required for resume analysis)
+1. **Backend environment variables** (project root):
+   - Copy `.env.example` to `.env` in the project root:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` and add your `GEMINI_API_KEY`:
      - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-     - Example: `GEMINI_API_KEY="your-api-key-here"`
+     - Replace `your-gemini-api-key-here` with your actual API key
 
-3. **Optional environment variables:**
-   - `VITE_API_URL`: Backend API URL for the frontend (defaults to `http://localhost:8000`)
-     - Add this to `frontend/.env` if your backend runs on a different URL
-     - Example: `VITE_API_URL="http://localhost:8000"`
+2. **Frontend environment variables** (optional):
+   - Copy `frontend/.env.example` to `frontend/.env`:
+     ```bash
+     cp frontend/.env.example frontend/.env
+     ```
+   - Edit `frontend/.env` if your backend runs on a different URL (defaults to `http://localhost:8000`)
 
-**Note:** `.env` files are gitignored and should not be committed to the repository. Make sure to create your own `.env` file based on your needs.
+**Note:** `.env` files are gitignored and should not be committed to the repository. The `.env.example` files serve as templates showing what variables are needed.
 
 ### Backend Setup
 
