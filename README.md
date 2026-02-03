@@ -28,6 +28,7 @@ mse-401/
 │   │   ├── CalendarPage.tsx   # Calendar view
 │   │   ├── ProfilePage.tsx    # User profile
 │   │   └── components/        # Reusable UI components
+│   ├── .env.example           # Frontend environment variables template
 │   ├── package.json
 │   └── vite.config.ts
 │
@@ -54,12 +55,34 @@ mse-401/
 │       ├── resumes/           # Sample resume PDFs
 │       └── transcripts/       # Sample transcript PDFs
 │
-├── .env.example               # Environment variables template
-├── requirements.txt           # Python dependencies
+├── .env.example               # Environment variables template (copy to .env)
+├── backend/requirements.txt   # Python dependencies
 └── README.md
 ```
 
 ## Setup
+
+### Environment Variables
+
+Before running the application, you need to set up environment variables:
+
+1. **Backend environment variables** (project root):
+   - Copy `.env.example` to `.env` in the project root:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` and add your `GEMINI_API_KEY`:
+     - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+     - Replace `your-gemini-api-key-here` with your actual API key
+
+2. **Frontend environment variables** (optional):
+   - Copy `frontend/.env.example` to `frontend/.env`:
+     ```bash
+     cp frontend/.env.example frontend/.env
+     ```
+   - Edit `frontend/.env` if your backend runs on a different URL (defaults to `http://localhost:8000`)
+
+**Note:** `.env` files are gitignored and should not be committed to the repository. The `.env.example` files serve as templates showing what variables are needed.
 
 ### Backend Setup
 
@@ -76,10 +99,13 @@ mse-401/
 
 2. Install Python dependencies:
    ```bash
+   cd backend
    pip install -r requirements.txt
    ```
 
-3. Run the backend server:
+3. Ensure your `.env` file is set up in the project root with `GEMINI_API_KEY` (see Environment Variables section above)
+
+4. Run the backend server:
    ```bash
    cd backend
    uvicorn api.main:app --reload --host 0.0.0.0 --port 8000

@@ -47,16 +47,29 @@ def embedding_file_exists(path):
     return os.path.exists(path)
 
 
-def find_project_root(marker='requirements.txt'):
-    """Find project root by looking for marker file."""
-    current = os.path.abspath(os.getcwd())
+def find_project_root(marker='README.md'):
+    """
+    Find project root by looking for marker file.
+    Uses the file's location rather than current working directory for reliability.
+    """
+    # Start from this file's directory and go up
+    current = os.path.abspath(os.path.dirname(__file__))
+    # Go up from recommender/ to backend/ to project root
+    current = os.path.dirname(os.path.dirname(current))
+    
+    # Verify by checking for marker file
+    if os.path.exists(os.path.join(current, marker)):
+        return current
+    
+    # Fallback: search upward from current directory
+    search_current = current
     while True:
-        if os.path.exists(os.path.join(current, marker)):
-            return current
-        parent = os.path.dirname(current)
-        if parent == current:
-            raise RuntimeError("Project root not found")
-        current = parent
+        if os.path.exists(os.path.join(search_current, marker)):
+            return search_current
+        parent = os.path.dirname(search_current)
+        if parent == search_current:
+            raise RuntimeError(f"Project root not found (looking for {marker})")
+        search_current = parent
 
 
 def load_undergrad_courses():
