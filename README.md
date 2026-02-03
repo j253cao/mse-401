@@ -54,12 +54,30 @@ mse-401/
 │       ├── resumes/           # Sample resume PDFs
 │       └── transcripts/       # Sample transcript PDFs
 │
-├── .env.example               # Environment variables template
-├── requirements.txt           # Python dependencies
+├── .env                       # Environment variables (create this file, see Setup section)
+├── backend/requirements.txt   # Python dependencies
 └── README.md
 ```
 
 ## Setup
+
+### Environment Variables
+
+Before running the application, you need to set up environment variables:
+
+1. **Create a `.env` file** in the project root directory (`mse-401/.env`)
+
+2. **Required environment variables:**
+   - `GEMINI_API_KEY`: Your Google Gemini API key (required for resume analysis)
+     - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+     - Example: `GEMINI_API_KEY="your-api-key-here"`
+
+3. **Optional environment variables:**
+   - `VITE_API_URL`: Backend API URL for the frontend (defaults to `http://localhost:8000`)
+     - Add this to `frontend/.env` if your backend runs on a different URL
+     - Example: `VITE_API_URL="http://localhost:8000"`
+
+**Note:** `.env` files are gitignored and should not be committed to the repository. Make sure to create your own `.env` file based on your needs.
 
 ### Backend Setup
 
@@ -76,10 +94,13 @@ mse-401/
 
 2. Install Python dependencies:
    ```bash
+   cd backend
    pip install -r requirements.txt
    ```
 
-3. Run the backend server:
+3. Ensure your `.env` file is set up in the project root with `GEMINI_API_KEY` (see Environment Variables section above)
+
+4. Run the backend server:
    ```bash
    cd backend
    uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
