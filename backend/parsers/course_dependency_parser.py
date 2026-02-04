@@ -1,8 +1,12 @@
 """
-Parse course prerequisites from course-api-data.json and generate structured course dependencies.
+Parse course prerequisites from course-api-new-data.json and generate structured course dependencies.
 
 Ported from Go: flow/importer/uw/parts/course/convert.go
 Output matches Go's ConvertResult structure with separate courses[], prereqs[], antireqs[] lists.
+
+Supports two data formats:
+1. Old format: Nested structure with api_data containing separate HTML fields for prerequisites, corequisites, antirequisites
+2. New format: Flat structure with combined plain text requirementsDescription field
 """
 
 import json
@@ -75,10 +79,86 @@ class CourseDependencyParser:
     Parser for extracting structured prerequisite data from course HTML/text.
     
     Ported from Go: flow/importer/uw/parts/course/convert.go
+    
+    Supports two data formats:
+    1. Old format: Nested structure with api_data containing separate HTML fields
+    2. New format: Flat structure with combined plain text requirementsDescription field
     """
     
     def __init__(self):
         pass
+    
+    def _parse_course_requirements(self, requirements: Optional[str]) -> Tuple[str, str, str]:
+        """
+        Parse course requirements description to separate prereqs, coreqs, antireqs.
+        
+        Ported from Go: parseCourseRequirements function in convert.go
+        
+        Args:
+            requirements: Combined requirements string like "Prereq: CS115. Antireq: CS135"
+            
+        Returns:
+            Tuple of (prereqs, coreqs, antireqs) strings
+        """
+        if not requirements or requirements.strip() == '':
+            return "", "", ""
+        
+        prereqs = ""
+        coreqs = ""
+        antireqs = ""
+        reqs = requirements
+        
+        # Find all occurrences of ":" to find where to split the string
+        # For each colon, find start index immediately preceding word to determine
+        # type such as prereq, coreq, antireq. There are some special cases where
+        # multiple show up, such as "prereq/coreq:" where we default to prereq
+        start_indices = []
+        end_indices = []
+        
+        for i, c in enumerate(reqs):
+            if c == ':':
+                cur_idx = i - 1
+                preceding_word = ""
+                
+                # Walk backwards to find the preceding word
+                while cur_idx >= 0 and reqs[cur_idx] != ' ':
+                    preceding_word = reqs[cur_idx] + preceding_word
+                    cur_idx -= 1
+                
+                # Adjust cur_idx to point to start of word (after the space)
+                if cur_idx < 0:
+                    cur_idx = 0
+                else:
+                    cur_idx += 1  # Move past the space to the start of the word
+                
+                preceding_word_lower = preceding_word.lower()
+                if ('prereq' in preceding_word_lower or 
+                    'coreq' in preceding_word_lower or 
+                    'antireq' in preceding_word_lower):
+                    start_indices.append(cur_idx)
+                    end_indices.append(i)
+        
+        # Parse out required substrings without the prefix and trim whitespace
+        for i in range(len(start_indices)):
+            if i == len(start_indices) - 1:
+                next_start_idx = len(reqs)
+            else:
+                next_start_idx = start_indices[i + 1]
+            
+            req_type_string = reqs[start_indices[i]:end_indices[i] + 1].lower()
+            req_string = reqs[end_indices[i] + 1:next_start_idx].strip()
+            
+            # Remove trailing periods or semicolons
+            req_string = req_string.rstrip('.;')
+            
+            if 'prereq' in req_type_string:
+                prereqs = req_string
+            elif 'coreq' in req_type_string:
+                coreqs = req_string
+            else:  # antireq
+                antireqs = req_string
+        
+        return prereqs, coreqs, antireqs
     
     def _extract_text_from_html(self, html_content: str) -> str:
         """Extract readable text from HTML prerequisite content."""
@@ -228,6 +308,22 @@ class CourseDependencyParser:
         
         return result
     
+    def _detect_data_format(self, course_info: Dict[str, Any]) -> str:
+        """
+        Detect whether course data is in old or new format.
+        
+        Args:
+            course_info: Course info dictionary
+            
+        Returns:
+            'old' for nested api_data format, 'new' for flat format
+        """
+        if 'api_data' in course_info:
+            return 'old'
+        elif 'requirementsDescription' in course_info or 'subjectCode' in course_info:
+            return 'new'
+        return 'old'  # Default to old format
+    
     def convert_course(self, result: ConvertResult, course_code: str, 
                        course_info: Dict[str, Any]) -> None:
         """
@@ -235,15 +331,99 @@ class CourseDependencyParser:
         
         Ported from Go's convertCourse function.
         
+        Supports both old format (nested api_data with HTML fields) and 
+        new format (flat structure with requirementsDescription).
+        
         Args:
             result: ConvertResult to append to
             course_code: Course code (e.g., "CS135")
+            course_info: Course info dict from course-api-data.json or course-api-new-data.json
+        """
+        # Create course code in lowercase (matching Go behavior)
+        code = course_code.lower()
+        
+        # Detect data format and process accordingly
+        data_format = self._detect_data_format(course_info)
+        
+        if data_format == 'new':
+            # New format: flat structure with requirementsDescription
+            self._convert_course_new_format(result, code, course_info)
+        else:
+            # Old format: nested api_data with HTML fields
+            self._convert_course_old_format(result, code, course_info)
+    
+    def _convert_course_new_format(self, result: ConvertResult, code: str,
+                                    course_info: Dict[str, Any]) -> None:
+        """
+        Convert a course from the new API format (flat structure with requirementsDescription).
+        
+        Args:
+            result: ConvertResult to append to
+            code: Course code in lowercase (e.g., "cs135")
+            course_info: Course info dict from course-api-new-data.json
+        """
+        # Create new course record
+        new_course = Course(
+            code=code,
+            name=course_info.get('title', ''),
+            description=course_info.get('description'),
+        )
+        
+        # Parse the combined requirements description
+        requirements_desc = course_info.get('requirementsDescription', '')
+        prereqs_text, coreqs_text, antireqs_text = self._parse_course_requirements(requirements_desc)
+        
+        # Process prerequisites
+        if prereqs_text:
+            prereq_expanded, prereq_codes = self._expand_course_codes(prereqs_text)
+            new_course.prereqs = prereq_expanded if prereq_expanded else None
+            
+            # Create Prereq records for each extracted code
+            for prereq_code in prereq_codes:
+                result.prereqs.append(Prereq(
+                    course_code=code,
+                    prereq_code=prereq_code,
+                    is_coreq=False
+                ))
+        
+        # Process corequisites
+        if coreqs_text:
+            coreq_expanded, coreq_codes = self._expand_course_codes(coreqs_text)
+            new_course.coreqs = coreq_expanded if coreq_expanded else None
+            
+            # Create Prereq records with is_coreq=True (matching Go behavior)
+            for coreq_code in coreq_codes:
+                result.prereqs.append(Prereq(
+                    course_code=code,
+                    prereq_code=coreq_code,
+                    is_coreq=True
+                ))
+        
+        # Process antirequisites
+        if antireqs_text:
+            antireq_expanded, antireq_codes = self._expand_course_codes(antireqs_text)
+            new_course.antireqs = antireq_expanded if antireq_expanded else None
+            
+            # Create Antireq records
+            for antireq_code in antireq_codes:
+                result.antireqs.append(Antireq(
+                    course_code=code,
+                    antireq_code=antireq_code
+                ))
+        
+        result.courses.append(new_course)
+    
+    def _convert_course_old_format(self, result: ConvertResult, code: str,
+                                    course_info: Dict[str, Any]) -> None:
+        """
+        Convert a course from the old API format (nested api_data with HTML fields).
+        
+        Args:
+            result: ConvertResult to append to
+            code: Course code in lowercase (e.g., "cs135")
             course_info: Course info dict from course-api-data.json
         """
         api_data = course_info.get('api_data', {})
-        
-        # Create course code in lowercase (matching Go behavior)
-        code = course_code.lower()
         
         # Create new course record
         new_course = Course(
@@ -305,11 +485,35 @@ def main():
     """
     Main function to parse course dependencies.
     
-    Converts course-api-data.json to ConvertResult with separate courses[], prereqs[], antireqs[] lists.
+    Converts course API data to ConvertResult with separate courses[], prereqs[], antireqs[] lists.
+    
+    Supports both old format (course-api-data.json) and new format (course-api-new-data.json).
     """
+    import argparse
+    
+    # Parse command line arguments
+    arg_parser = argparse.ArgumentParser(description='Parse course dependencies from API data.')
+    arg_parser.add_argument(
+        '--input', '-i',
+        choices=['old', 'new'],
+        default='new',
+        help='Input data format: "old" for course-api-data.json, "new" for course-api-new-data.json (default: new)'
+    )
+    arg_parser.add_argument(
+        '--all-departments', '-a',
+        action='store_true',
+        help='Process all departments instead of just engineering departments'
+    )
+    args = arg_parser.parse_args()
+    
     # Paths
     project_root = PROJECT_ROOT
-    course_data_path = os.path.join(project_root, 'data', 'courses', 'course-api-data.json')
+    
+    if args.input == 'new':
+        course_data_path = os.path.join(project_root, 'data', 'courses', 'course-api-new-data.json')
+    else:
+        course_data_path = os.path.join(project_root, 'data', 'courses', 'course-api-data.json')
+    
     output_path = os.path.join(project_root, 'data', 'dependencies', 'course_expanded.json')
     
     # Load course data
@@ -323,31 +527,42 @@ def main():
     parser = CourseDependencyParser()
     
     # Engineering departments at University of Waterloo
-    departments = [
-        'BME',   # Biomedical Engineering
-        'CHE',   # Chemical Engineering
-        'CIVE',  # Civil Engineering
-        'ECE',   # Electrical and Computer Engineering
-        'ENVE',  # Environmental Engineering
-        'GEOE',  # Geological Engineering
-        'ME',    # Mechanical Engineering
-        'MTE',   # Mechatronics Engineering
-        'MSE',   # Management Science and Engineering
-        'NE',    # Nanotechnology Engineering
-        'SE',    # Software Engineering
-        'SYDE',  # Systems Design Engineering
-    ]
+    departments = None
+    if not args.all_departments:
+        departments = [
+            'AE',    # Architectural Engineering
+            'BME',   # Biomedical Engineering
+            'CHE',   # Chemical Engineering
+            'CIVE',  # Civil Engineering
+            'ECE',   # Electrical and Computer Engineering
+            'ENVE',  # Environmental Engineering
+            'GENE',  # General Engineering
+            'GEOE',  # Geological Engineering
+            'ME',    # Mechanical Engineering
+            'MTE',   # Mechatronics Engineering
+            'MSE',   # Management Science and Engineering
+            'NE',    # Nanotechnology Engineering
+            'SE',    # Software Engineering
+            'SYDE',  # Systems Design Engineering
+        ]
     
     # Convert all courses
     print(f"\nConverting courses...")
     if departments:
         print(f"Filtering by departments: {departments}")
+    else:
+        print("Processing all departments")
     
     result = parser.convert_all(course_data, departments=departments)
     
+    # Count corequisites separately
+    coreq_count = sum(1 for p in result.prereqs if p.is_coreq)
+    prereq_count = len(result.prereqs) - coreq_count
+    
     print(f"\nConversion complete:")
     print(f"  - Courses: {len(result.courses)}")
-    print(f"  - Prerequisites: {len(result.prereqs)}")
+    print(f"  - Prerequisites: {prereq_count}")
+    print(f"  - Corequisites: {coreq_count}")
     print(f"  - Antirequisites: {len(result.antireqs)}")
     
     # Save results as JSON
