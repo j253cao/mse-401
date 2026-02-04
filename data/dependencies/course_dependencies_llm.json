@@ -1,0 +1,1549 @@
+{
+  "MSE731": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "MSCI700",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE744": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "MSCI760",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE623": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "CS680",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "ECE657A",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "MSE446",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "MSCI723",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE634": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        "MSCI603",
+        "MSCI760"
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE724": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        "MSCI760",
+        "MSCI700"
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE630": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSCI605",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "AND",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        "MSCI730",
+        "CS649"
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE620": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSCI605",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "AND",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE741": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSCI607",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "AND",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE651": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "BE605",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE719": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSCI603",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI634",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR"
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE703": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSCI603",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI634",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR"
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE702": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSCI603",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "AND"
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE606": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [
+        {
+          "type": "program_requirement",
+          "program_name": "MOT",
+          "program_type": "graduate",
+          "faculty": null,
+          "level_requirement": null
+        }
+      ],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE734": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSCI603",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI634",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "MSCI700",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE603": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "MSCI634",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE331": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "BME411",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "CHE521",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "CIVE332",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "CO250",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "ENVE320",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "ENVE335",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "MSCI232",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "SYDE411",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": [
+        {
+          "type": "program_restriction",
+          "program_name": "Management Engineering",
+          "program_type": null,
+          "faculty": null,
+          "restriction_type": "not_open"
+        },
+        {
+          "type": "program_restriction",
+          "program_name": null,
+          "program_type": null,
+          "faculty": "Mathematics",
+          "restriction_type": "not_open"
+        }
+      ]
+    }
+  },
+  "MSE433": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSE332",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI332",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        },
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSE333",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI333",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        },
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSE431",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI431",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        },
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSE334",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI334",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE432",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI432",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE211": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "AFM280",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "BUS288W",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "PSYCH238",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "SCBUS225",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": [
+        {
+          "type": "program_restriction",
+          "program_name": "Accounting and Financial Management",
+          "program_type": null,
+          "faculty": null,
+          "restriction_type": "not_open"
+        }
+      ]
+    }
+  },
+  "MSE452": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "AE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "BME213",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CHE220",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CIVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE203",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE306",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ENVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI251",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI252",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ME202",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MTE201",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "NE215",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT206",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT211",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT231",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT241",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE212",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE432": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "AE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "BME213",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CHE220",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CIVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE203",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE306",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECON221",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ENVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ME202",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MTE201",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "NE215",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT206",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT211",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT231",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT241",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE212",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [
+        {
+          "type": "program_restriction",
+          "program_name": "Management Engineering",
+          "program_type": null,
+          "faculty": null,
+          "restriction_type": "not_open"
+        }
+      ],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "MSE334",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE446": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "BME122",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CS240",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CS240E",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE250",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE240",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MTE140",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE223",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI240",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        },
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "AE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "BME213",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CHE220",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CIVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE307",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ENVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ME202",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE253",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MTE201",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "NE215",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT206",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT231",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT241",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE212",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI252",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI253",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [
+        {
+          "type": "program_requirement",
+          "program_name": null,
+          "program_type": null,
+          "faculty": null,
+          "level_requirement": {
+            "type": "level_requirement",
+            "level": "3A",
+            "comparison": "at_least"
+          }
+        }
+      ],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [
+        {
+          "type": "course",
+          "code": "CS480",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "ECE457B",
+          "name": null,
+          "grade_requirement": null
+        },
+        {
+          "type": "course",
+          "code": "SYDE522",
+          "name": null,
+          "grade_requirement": null
+        }
+      ],
+      "program_restrictions": []
+    }
+  },
+  "MSE435": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "MSE332",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI332",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE422": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "AE392",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "BME364",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CIVE392",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ENVE392",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "GEOE392",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECON101",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE261",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI261",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE262",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        },
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "AE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "BME213",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CHE220",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CIVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE203",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE306",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECON221",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ENVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ENVS278",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ME202",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE251",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI251",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE252",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI252",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MTE201",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "NE215",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "PSCI314",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "PSYCH292",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "REC371",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SDS250R",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SOC280",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT202",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT206",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT211",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT221",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT231",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT241",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE212",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  },
+  "MSE543": {
+    "prerequisites": {
+      "groups": [
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "AE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "BME213",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CHE220",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "CIVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ECE307",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ENVE224",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "ME202",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE253",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI253",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MTE201",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "NE215",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT206",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT231",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "STAT241",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE212",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        },
+        {
+          "type": "prerequisite_group",
+          "courses": [
+            {
+              "type": "course",
+              "code": "CS449",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSE343",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "MSCI343",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE348",
+              "name": null,
+              "grade_requirement": null
+            },
+            {
+              "type": "course",
+              "code": "SYDE548",
+              "name": null,
+              "grade_requirement": null
+            }
+          ],
+          "operator": "OR",
+          "quantity": 1
+        }
+      ],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  }
+}
