@@ -1,0 +1,32 @@
+{
+  "program_name": "Anthropology Programs & Plans>Anthropology Minor",
+  "course_lists": [
+    {
+      "list_description": "Complete all the following",
+      "required_count": 1,
+      "courses": [
+        "ANTH204"
+      ]
+    },
+    {
+      "list_description": "Complete 1 of the following",
+      "required_count": 1,
+      "courses": [
+        "ANTH201",
+        "CLAS221"
+      ]
+    },
+    {
+      "list_description": "Complete 1 of the following",
+      "required_count": 1,
+      "courses": [
+        "ANTH202",
+        "ANTH221",
+        "ANTH241",
+        "ANTH245",
+        "ANTH251",
+        "ANTH290"
+      ]
+    }
+  ]
+}

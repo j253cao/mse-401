@@ -1,0 +1,2892 @@
+[
+  {
+    "program_name": "Parks Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "ENVS444",
+          "ERS431",
+          "ERS454"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PLAN240",
+          "PLAN340"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "BIOL312",
+          "BIOL350",
+          "BIOL351",
+          "BIOL383",
+          "BIOL450",
+          "BIOL455",
+          "BIOL456",
+          "BIOL457",
+          "BIOL458",
+          "BIOL485",
+          "BIOL489",
+          "ERS234",
+          "ERS283",
+          "ERS321",
+          "ERS337",
+          "ERS340",
+          "ERS346",
+          "ERS382",
+          "ERS383",
+          "ERS422",
+          "ERS443",
+          "ERS446",
+          "GEOG368",
+          "PLAN341",
+          "REC230"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Music Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "MUSIC110",
+          "MUSIC270"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MUSIC222",
+          "MUSIC233",
+          "MUSIC111"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "German Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 14,
+        "courses": [
+          "GER101",
+          "GER102",
+          "GER201",
+          "GER202",
+          "GER211",
+          "GER250",
+          "GER303",
+          "GER304",
+          "GER307",
+          "GER308",
+          "GER331",
+          "GER350",
+          "GER407",
+          "GER431"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "French Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 8,
+        "courses": [
+          "FR276",
+          "FR296",
+          "FR297",
+          "FR101",
+          "FR151",
+          "FR152",
+          "FR291",
+          "FR292"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Biology Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Tourism Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "GEOG233",
+          "REC280"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "GEOG323",
+          "REC383"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PLAN414",
+          "REC425",
+          "REC433",
+          "REC475",
+          "REC480"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "ANTH348",
+          "GEOG423",
+          "HRM200",
+          "MGMT220",
+          "PLAN414",
+          "REC215",
+          "REC218",
+          "REC219",
+          "REC230",
+          "REC312",
+          "REC319",
+          "REC419",
+          "REC422",
+          "REC425",
+          "REC433",
+          "REC480"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Physics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "PHYS121",
+          "PHYS122",
+          "PHYS124"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "PHYS234",
+          "PHYS242",
+          "PHYS249",
+          "PHYS256",
+          "PHYS263",
+          "PHYS267",
+          "PHYS334",
+          "PHYS342",
+          "PHYS358",
+          "PHYS359",
+          "PHYS363",
+          "PHYS364",
+          "PHYS365"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Spanish Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "History Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "HIST250"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Economics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "ECON101",
+          "ECON102",
+          "ECON201"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECON206",
+          "ECON207"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Computing Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "CS115",
+          "CS135",
+          "CS145"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CS114",
+          "CS116"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "CS136"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "CS146"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "COMM432",
+          "CS399"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Sociology Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "SOC101"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Chemistry Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "CHEM120",
+          "CHEM121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM123",
+          "CHEM125"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Statistics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "MATH237",
+          "MATH247"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "STAT330",
+          "STAT331",
+          "STAT332",
+          "STAT333"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Philosophy Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Biophysics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 5,
+        "courses": [
+          "BIOL130",
+          "BIOL239",
+          "BIOL308",
+          "PHYS121",
+          "PHYS122"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "BIOL280",
+          "PHYS280",
+          "PHYS380",
+          "PHYS383",
+          "PHYS395",
+          "PHYS396",
+          "PHYS483"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PHYS225",
+          "PHYS233",
+          "PHYS234",
+          "PHYS242",
+          "PHYS256",
+          "PHYS263",
+          "PHYS358",
+          "PHYS359",
+          "STAT202"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Psychology Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "PSYCH101"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PSYCH207",
+          "PSYCH261"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "PSYCH207",
+          "PSYCH211",
+          "PSYCH238",
+          "PSYCH253",
+          "PSYCH257",
+          "PSYCH261"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Gerontology Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "GERON201",
+          "HLTH201"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "GERON400",
+          "HLTH400",
+          "BIOL355",
+          "GEOG432",
+          "GERON218",
+          "GERON220",
+          "GERON245",
+          "GERON310",
+          "GERON352",
+          "GERON355",
+          "GSJ380",
+          "HLTH218",
+          "HLTH220",
+          "HLTH245",
+          "HLTH253",
+          "HLTH310",
+          "HLTH352",
+          "HLTH380",
+          "HLTH420",
+          "HLTH427",
+          "HLTH430",
+          "HLTH451",
+          "KIN310",
+          "KIN342",
+          "KIN343",
+          "KIN352",
+          "KIN359",
+          "KIN406",
+          "KIN407",
+          "KIN418",
+          "KIN422",
+          "KIN429",
+          "PHIL226",
+          "PLAN432",
+          "PSYCH218",
+          "PSYCH398",
+          "RCS266",
+          "RCS387",
+          "REC361",
+          "REC362",
+          "SOC248",
+          "SOC253",
+          "SOC352",
+          "ARTS280",
+          "HLTH204",
+          "KIN232",
+          "LS280",
+          "PSYCH292",
+          "REC371",
+          "SOC280",
+          "STAT202",
+          "STAT221",
+          "STAT231"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Mathematics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "CS115",
+          "CS135",
+          "CS145"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CS114",
+          "CS116",
+          "CS136",
+          "CS146"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH106",
+          "MATH114",
+          "MATH115"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH116",
+          "MATH117",
+          "MATH127"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH118",
+          "MATH119",
+          "MATH128"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "STAT220",
+          "STAT221",
+          "STAT321",
+          "STAT322"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Neuroscience Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete 5 of the following",
+        "required_count": 5,
+        "courses": [
+          "BIOL371",
+          "BIOL373",
+          "BIOL376",
+          "HLTH290",
+          "KIN255",
+          "KIN301",
+          "KIN312",
+          "PSYCH261",
+          "PSYCH306",
+          "PSYCH307",
+          "PSYCH335"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Biochemistry Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 6,
+        "courses": [
+          "BIOL130",
+          "BIOL240",
+          "CHEM233",
+          "CHEM264",
+          "CHEM265",
+          "CHEM331"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "BIOL331",
+          "BIOL354",
+          "BIOL431",
+          "BIOL434",
+          "BIOL439",
+          "BIOL448"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "CHEM357",
+          "CHEM430",
+          "CHEM432",
+          "CHEM433"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Human Rights Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "HRTS101",
+          "HRTS201",
+          "HRTS203",
+          "HRTS204"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 25,
+        "courses": [
+          "CDNST201",
+          "CI250",
+          "GSJ102",
+          "GSJ206",
+          "HIST221",
+          "HIST271",
+          "HIST314",
+          "HIST321",
+          "INDG201",
+          "INDG305",
+          "LS201",
+          "LS273",
+          "LS331",
+          "LS352",
+          "LS463",
+          "LS464",
+          "PACS318",
+          "PACS324",
+          "PACS325",
+          "PHIL328",
+          "PSCI352",
+          "PSCI421",
+          "PSCI463",
+          "SOC388",
+          "SPAN400"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Anthropology Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "ANTH204"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ANTH201",
+          "CLAS221"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ANTH202",
+          "ANTH221",
+          "ANTH241",
+          "ANTH245",
+          "ANTH251",
+          "ANTH290"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Astrophysics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "PHYS121",
+          "PHYS122"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "AMATH475",
+          "PHYS175",
+          "PHYS267",
+          "PHYS275",
+          "PHYS375",
+          "PHYS474",
+          "PHYS475",
+          "PHYS476"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Urban Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "ECON101",
+          "PLAN100",
+          "PLAN233"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ENVS195",
+          "GEOG101"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "ECON201"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "AE392",
+          "CIVE392",
+          "ECON241",
+          "ECON351",
+          "ECON361",
+          "ECON437",
+          "ECON441",
+          "ECON451",
+          "ENBUS204",
+          "ENBUS405",
+          "ENVE392",
+          "ERS320",
+          "GEOE392",
+          "GEOG302",
+          "GEOG311",
+          "GEOG319",
+          "MSE261",
+          "PLAN103",
+          "PLAN320",
+          "PLAN416",
+          "PLAN483"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "ENVS200"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "BIOL225",
+          "BIOL350",
+          "BIOL455",
+          "BIOL457",
+          "CIVE440",
+          "CIVE484",
+          "EARTH270",
+          "EARTH281",
+          "EARTH358",
+          "ECON255",
+          "ENVS469",
+          "ERS316",
+          "GEOG306",
+          "GEOG349",
+          "GEOG351",
+          "GEOG368",
+          "GEOG453",
+          "PLAN341",
+          "PLAN349",
+          "PLAN416",
+          "PLAN451",
+          "PLAN453",
+          "PLAN478",
+          "PLAN483",
+          "PLAN484"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "ERS253"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "ANTH272",
+          "ECON363",
+          "ECON437",
+          "GEOG325",
+          "GEOG432",
+          "GSJ302",
+          "HIST260",
+          "HIST374",
+          "HLTH420",
+          "INDG272"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Legal Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "LS101"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "SOC101"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Global Affairs Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "GA200",
+          "GA400"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PSCI281",
+          "PSCI282",
+          "PSCI283"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Human Sciences Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "HUMSC101",
+          "HUMSC102"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "HUMSC201",
+          "HUMSC301"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "HUMSC401"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Jewish Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 32,
+        "courses": [
+          "GER283",
+          "JS203",
+          "JS209",
+          "JS212",
+          "JS215",
+          "JS217",
+          "JS218",
+          "JS228",
+          "JS231",
+          "JS233",
+          "JS234",
+          "JS235",
+          "JS236",
+          "JS237",
+          "JS314",
+          "JS350",
+          "JS364",
+          "RCS209",
+          "RCS210",
+          "RCS211",
+          "RCS212",
+          "RCS218",
+          "RCS228",
+          "RCS230",
+          "RCS231",
+          "RCS234",
+          "RCS235",
+          "RCS236",
+          "RCS237",
+          "RCS272",
+          "RCS314",
+          "RCS364"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "CLAS210",
+          "CLAS237",
+          "CLAS325",
+          "CLAS361",
+          "GSJ261",
+          "HIST210",
+          "HIST223",
+          "HIST237",
+          "HIST263",
+          "HIST341",
+          "LS235",
+          "PHIL380",
+          "RCS110",
+          "RCS121",
+          "RCS258",
+          "RCS260",
+          "RCS284",
+          "RCS315"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Earth Sciences Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "EARTH121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "EARTH122",
+          "ENVS195"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Italian Studies Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Human Nutrition Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "BIOL373",
+          "KIN146"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM233",
+          "CHEM237",
+          "HLTH217",
+          "KIN217"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "KIN343",
+          "KIN346"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Economic Theory Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 8,
+        "courses": [
+          "ECON101",
+          "ECON102",
+          "ECON211",
+          "ECON221",
+          "ECON290",
+          "ECON391",
+          "ECON392",
+          "ECON393"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Event Management Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "REC215",
+          "REC219",
+          "REC319",
+          "REC419"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "AFM123",
+          "ARBUS102",
+          "ARBUS202",
+          "ENGL295",
+          "ENVS105",
+          "HRM200",
+          "LS271",
+          "MSE211",
+          "PACS202",
+          "PHIL215",
+          "PSCI100",
+          "PSCI231",
+          "PSYCH238",
+          "PSYCH340",
+          "REC218",
+          "REC356"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Fine Arts Studio Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "FINE100",
+          "VCULT101"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "INDG216",
+          "VCULT100",
+          "VCULT200",
+          "VCULT209",
+          "VCULT216",
+          "VCULT257",
+          "VCULT293"
+        ]
+      },
+      {
+        "list_description": "Complete 5 of the following",
+        "required_count": 5,
+        "courses": [
+          "FINE130",
+          "FINE202",
+          "FINE204",
+          "FINE220",
+          "FINE221",
+          "FINE222",
+          "FINE223",
+          "FINE224",
+          "FINE225",
+          "FINE226",
+          "FINE227",
+          "FINE228",
+          "FINE230",
+          "FINE231",
+          "FINE232",
+          "FINE246",
+          "FINE247",
+          "FINE271",
+          "FINE272",
+          "VCULT293"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Entrepreneurship Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "BET100",
+          "BET320",
+          "BET340"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Medieval Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "CLAS105",
+          "HIST115",
+          "MEDVL105",
+          "MEDVL115"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CLAS205",
+          "HIST260",
+          "MEDVL205",
+          "MEDVL252",
+          "MEDVL260"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Computer Science Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "CS115",
+          "CS135",
+          "CS145"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CS136"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "CS146"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH239",
+          "MATH249",
+          "CS340",
+          "CS398",
+          "CS440",
+          "CS498",
+          "CS240",
+          "CS299"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Catholic Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "RCS110",
+          "RCS150",
+          "RCS225"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "RCS348",
+          "RCS354"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "HIST234",
+          "HIST235",
+          "RCS240",
+          "RCS245",
+          "RCS251",
+          "RCS283"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "HIST115",
+          "HIST235",
+          "HIST236",
+          "HIST304",
+          "HUMSC101",
+          "HUMSC102",
+          "HUMSC201",
+          "HUMSC301",
+          "HUMSC401",
+          "HUMSC490",
+          "JS228",
+          "LS236",
+          "MEDVL115",
+          "MEDVL304",
+          "PHIL382",
+          "PHIL384",
+          "RCS228",
+          "RCS240",
+          "RCS253",
+          "RCS342"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Canadian Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "CDNST101"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CDNST201",
+          "INDG201"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CDNST211",
+          "CDNST212"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "HIST253",
+          "HIST254"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "ANTH272",
+          "CDNST244",
+          "ENGL313",
+          "ENGL315",
+          "ENGL316",
+          "ENGL318",
+          "FR276",
+          "HIST103",
+          "HIST113",
+          "HIST221",
+          "HIST226",
+          "HIST305",
+          "HIST351",
+          "HIST388",
+          "INDG216",
+          "INDG272",
+          "LS206",
+          "PSCI260",
+          "PSCI360",
+          "PSCI461",
+          "VCULT216"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Pure Mathematics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 6,
+        "courses": [
+          "MATH103",
+          "MATH106",
+          "MATH114",
+          "MATH115",
+          "MATH136",
+          "MATH146"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH104",
+          "MATH116",
+          "MATH117",
+          "MATH127",
+          "MATH137",
+          "MATH147"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH118",
+          "MATH119",
+          "MATH128",
+          "MATH138",
+          "MATH148"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE206",
+          "MATH212",
+          "MATH217",
+          "MATH227",
+          "MATH237",
+          "MATH247"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Mennonite Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "HIST247",
+          "MENN125",
+          "SOC275"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "HIST348",
+          "RCS344"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "CMW363",
+          "CMW364",
+          "HIST232",
+          "HIST235",
+          "HIST379",
+          "JS235",
+          "JS236",
+          "MENN390",
+          "MENN397",
+          "MUSIC363",
+          "MUSIC364",
+          "PACS201",
+          "PACS203",
+          "PACS320",
+          "PACS330",
+          "RCS235",
+          "RCS236",
+          "RCS240",
+          "RCS250",
+          "RCS253",
+          "RCS320",
+          "RCS343",
+          "RCS353",
+          "RCS357",
+          "RCS358"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Cognitive Science Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PHIL256",
+          "PSYCH256"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "BIOL487",
+          "CS486",
+          "PHIL356",
+          "PSYCH420",
+          "SYDE522",
+          "SYDE552",
+          "SYDE556"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "FR303"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PHIL447",
+          "PSYCH447"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PSYCH207",
+          "PSYCH261",
+          "AMATH449",
+          "ANTH204",
+          "CS349",
+          "CS449",
+          "CS479",
+          "CS480",
+          "CS484",
+          "CS485",
+          "ECE486",
+          "INTEG220",
+          "INTEG251",
+          "KIN255",
+          "KIN354",
+          "KIN356",
+          "KIN357",
+          "KIN359",
+          "KIN459",
+          "MSE343",
+          "MSE446",
+          "MSE452",
+          "PHIL255",
+          "PHIL290",
+          "PHIL363",
+          "PSYCH101",
+          "PSYCH306",
+          "PSYCH307",
+          "PSYCH314",
+          "PSYCH320",
+          "PSYCH335",
+          "PSYCH353",
+          "PSYCH458",
+          "PSYCH461",
+          "SYDE533",
+          "SYDE543",
+          "SYDE548",
+          "SYDE572"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Political Science Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Actuarial Science Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 6,
+        "courses": [
+          "ACTSC231",
+          "ACTSC232",
+          "AFM101",
+          "MTHEL131",
+          "STAT330",
+          "STAT333"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH237",
+          "MATH247"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ACTSC331",
+          "ACTSC363",
+          "ACTSC372"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Classical Studies Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Management Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "ARBUS200",
+          "ARBUS300",
+          "ARBUS400",
+          "ECON101"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AFM101",
+          "AFM102"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AFM123",
+          "ARBUS102"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ARBUS302",
+          "MGMT244"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ARTS280",
+          "ECON221",
+          "ENVS278",
+          "GBDA205",
+          "HLTH204",
+          "KIN232",
+          "LS280",
+          "PSCI314",
+          "PSYCH292",
+          "REC371",
+          "SRF230",
+          "SOC280",
+          "STAT202",
+          "STAT206",
+          "STAT211",
+          "STAT221",
+          "STAT231",
+          "STAT241"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "HRM200",
+          "MSE211",
+          "PSYCH238"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "East Asian Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 19,
+        "courses": [
+          "ANTH382",
+          "GEOG215",
+          "GSJ301",
+          "HIST239",
+          "PSCI259",
+          "PSCI277",
+          "PSCI310",
+          "PSCI358",
+          "PSCI385",
+          "PSCI405",
+          "PSCI479",
+          "PSCI480",
+          "RCS100",
+          "RCS123",
+          "RCS201",
+          "RCS204",
+          "RCS206",
+          "RCS301",
+          "RCS307"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Indigenous Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "INDG301"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ANTH272",
+          "INDG272"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CDNST201",
+          "INDG201"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 12,
+        "courses": [
+          "ANTH233",
+          "ENGL211",
+          "ENVS401",
+          "GSJ211",
+          "HIST269",
+          "HIST271",
+          "HIST380",
+          "LS373",
+          "LS462",
+          "PSCI326",
+          "PSCI362",
+          "PSCI462"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Medical Physiology Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "BIOL239",
+          "BIOL373",
+          "KIN308",
+          "KIN404"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "BIOL341",
+          "BIOL354",
+          "BIOL355",
+          "BIOL376",
+          "BIOL444",
+          "BIOL472",
+          "BIOL473",
+          "BIOL476",
+          "GERON355"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "GERON310",
+          "HLTH310",
+          "KIN301",
+          "KIN310",
+          "KIN312",
+          "KIN343",
+          "KIN356",
+          "KIN402",
+          "KIN406",
+          "KIN407",
+          "KIN416",
+          "KIN429"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "GSJ380",
+          "HLTH380",
+          "PHIL226"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PSYCH207",
+          "PSYCH261",
+          "PSYCH307",
+          "PSYCH335"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Cultural Identities Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "CI100"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ANTH233",
+          "ANTH272",
+          "ENGL211",
+          "ENGL318",
+          "FR276",
+          "FR375",
+          "GSJ211",
+          "HIST221",
+          "HIST247",
+          "HIST269",
+          "HIST351",
+          "HIST374",
+          "INDG216",
+          "INDG272",
+          "INDG318",
+          "MENN125",
+          "RCS318",
+          "SOC256",
+          "SOC270",
+          "VCULT216"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CI200",
+          "GER200",
+          "ANTH202",
+          "ANTH221",
+          "ENGL280",
+          "ENGL291",
+          "ENGL322",
+          "ENGL463",
+          "GSJ221",
+          "GSJ261",
+          "GSJ262",
+          "GSJ463",
+          "HIST201",
+          "HIST224",
+          "HIST234",
+          "HIST271",
+          "HIST305",
+          "INDEV100",
+          "INDEV300",
+          "LS344",
+          "MUSIC110",
+          "MUSIC232",
+          "MUSIC355",
+          "PACS327",
+          "PACS328",
+          "PACS329",
+          "PHIL227",
+          "RCS245",
+          "RCS284",
+          "VCULT262"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Applied Mathematics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 6,
+        "courses": [
+          "MATH103",
+          "MATH106",
+          "MATH114",
+          "MATH115",
+          "MATH136",
+          "MATH146"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH104",
+          "MATH116",
+          "MATH117",
+          "MATH127",
+          "MATH137",
+          "MATH147"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH118",
+          "MATH119",
+          "MATH128",
+          "MATH138",
+          "MATH148"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE206",
+          "MATH212",
+          "MATH217",
+          "MATH227",
+          "MATH237",
+          "MATH247"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AMATH250",
+          "AMATH251",
+          "ECE205",
+          "MATH211",
+          "MATH213",
+          "MATH218",
+          "MATH228"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "International Trade Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "ECON102",
+          "ECON231",
+          "PSCI283",
+          "PSCI380"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "COMM103",
+          "ECON100",
+          "ECON101",
+          "ECON201",
+          "ECON290"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "INTST101",
+          "PSCI150"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Politics and Business Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "PSCI231",
+          "PSCI283",
+          "PSCI300"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "ECON101",
+          "ECON102",
+          "ECON201",
+          "ECON206",
+          "ECON207",
+          "ECON231",
+          "ECON290",
+          "ECON351",
+          "ECON371"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ERS462",
+          "GEOG462",
+          "PSCI244",
+          "PSCI252",
+          "PSCI254",
+          "PSCI255",
+          "PSCI301",
+          "PSCI303",
+          "PSCI387",
+          "PSCI403",
+          "PSCI404",
+          "PSCI405",
+          "PSCI428",
+          "PSCI455",
+          "PSCI479",
+          "PSCI485",
+          "PSCI488"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Performance Creation Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "DAC246",
+          "DAC248"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Knowledge Integration Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "INTEG120",
+          "INTEG121",
+          "INTEG340"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "INTEG220",
+          "PHIL290"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "INTEG221",
+          "PHIL291"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "INTEG230",
+          "INTEG320",
+          "INTEG321"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Communication Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "BLKST224"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Church Music and Worship Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "CMW363",
+          "MUSIC363",
+          "RCS357"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CMW364",
+          "MUSIC364",
+          "RCS358"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CMW201",
+          "CMW202"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "MUSIC116",
+          "MUSIC117"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "HIST235",
+          "HIST348",
+          "HIST379",
+          "JS228",
+          "JS235",
+          "JS236",
+          "PACS336",
+          "RCS110",
+          "RCS228",
+          "RCS235",
+          "RCS236",
+          "RCS240",
+          "RCS253",
+          "RCS255",
+          "RCS335",
+          "RCS343",
+          "RCS344",
+          "RCS300",
+          "MUSIC216",
+          "MUSIC217",
+          "MUSIC316",
+          "MUSIC317",
+          "MUSIC416",
+          "MUSIC417"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Gender and Social Justice Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Applied Language Studies Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Peace and Conflict Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "PACS201",
+          "PACS202",
+          "PACS203"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "International Development Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 7,
+        "courses": [
+          "ERS215",
+          "GEOG101",
+          "GEOG203",
+          "INDEV100",
+          "INDEV101",
+          "INDEV200",
+          "INDEV300"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "INDEV302",
+          "INDEV308"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Computational Mathematics Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "AMATH242",
+          "CS370",
+          "CS371"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 12,
+        "courses": [
+          "AMATH342",
+          "CS475",
+          "CO250",
+          "CO255",
+          "CS245",
+          "PMATH330",
+          "PMATH432",
+          "SE212",
+          "CS246",
+          "CS247",
+          "STAT340",
+          "STAT341"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "ACTSC447",
+          "AMATH343",
+          "AMATH382",
+          "AMATH383",
+          "AMATH391",
+          "AMATH449",
+          "AMATH455",
+          "AMATH477",
+          "BIOL382",
+          "CO351",
+          "CO353",
+          "CO367",
+          "CO370",
+          "CO372",
+          "CO450",
+          "CO452",
+          "CO454",
+          "CO456",
+          "CO463",
+          "CO466",
+          "CO471",
+          "CO485",
+          "CO487",
+          "CS341",
+          "CS431",
+          "CS451",
+          "CS466",
+          "CS476",
+          "CS479",
+          "CS480",
+          "CS482",
+          "CS485",
+          "CS487",
+          "PMATH370",
+          "STAT440",
+          "STAT441",
+          "STAT442",
+          "STAT444"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Human Resources Management Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "HRM200"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AFM102",
+          "AFM123",
+          "ARBUS102"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "HRM301",
+          "HRM303",
+          "HRM305",
+          "HRM307"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "PSYCH238",
+          "PSYCH339",
+          "PSYCH340"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 6,
+        "courses": [
+          "HRM400",
+          "LS271",
+          "MSE311",
+          "PACS202",
+          "PSYCH439",
+          "PSYCH467"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Digital Arts Communication Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 8,
+        "courses": [
+          "DAC246",
+          "DAC248",
+          "DAC278",
+          "ERS318",
+          "FINE130",
+          "FINE228",
+          "FINE232",
+          "MUSIC275"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Social Development Studies Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Social Innovation and Impact Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 6,
+        "courses": [
+          "INNOV200",
+          "INNOV201",
+          "INNOV300",
+          "INNOV302",
+          "INNOV311",
+          "INNOV411"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BET100",
+          "BET300",
+          "BET360",
+          "BET420"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ENBUS203",
+          "ENBUS211",
+          "ENBUS309"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "INDG201",
+          "INDG272",
+          "INDG305",
+          "INDG318"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "REC201",
+          "REC218",
+          "REC356",
+          "REC361"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Indigenous Entrepreneurship Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ANTH272",
+          "CDNST201",
+          "ENVS401",
+          "ERS200",
+          "ERS372",
+          "HIST269",
+          "HIST271",
+          "INDG201",
+          "INDG272",
+          "INDG301",
+          "INDG318",
+          "RCS318"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "COMM103",
+          "ECON100",
+          "ECON101"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Combinatorics and Optimization Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "CO250",
+          "CO255"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "CO330",
+          "CO331",
+          "CO342",
+          "CO351",
+          "CO353",
+          "CO367",
+          "CO370",
+          "CO372",
+          "CO430",
+          "CO431",
+          "CO432",
+          "CO434",
+          "CO439",
+          "CO440",
+          "CO442",
+          "CO444",
+          "CO446",
+          "CO450",
+          "CO452",
+          "CO454",
+          "CO456",
+          "CO459",
+          "CO463",
+          "CO466",
+          "CO471",
+          "CO481",
+          "CO485",
+          "CO486",
+          "CO487",
+          "CS467",
+          "PHYS467"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH103",
+          "MATH106",
+          "MATH114",
+          "MATH115",
+          "MATH136",
+          "MATH146"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH104",
+          "MATH116",
+          "MATH117",
+          "MATH127",
+          "MATH137",
+          "MATH147"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH135",
+          "MATH145"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "MATH239",
+          "MATH249"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Ergonomics and Injury Prevention Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "KIN221",
+          "KIN320",
+          "KIN420"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "KIN326",
+          "KIN327",
+          "KIN427",
+          "KIN428"
+        ]
+      },
+      {
+        "list_description": "Complete 6 of the following",
+        "required_count": 6,
+        "courses": [
+          "HLTH340",
+          "HLTH350",
+          "HRM200",
+          "KIN326",
+          "KIN327",
+          "KIN340",
+          "KIN403",
+          "KIN427",
+          "KIN428",
+          "KIN431",
+          "KIN432",
+          "KIN433",
+          "KIN472",
+          "MSE211",
+          "STV202",
+          "STV302",
+          "SYDE542",
+          "SYDE543",
+          "SYDE548"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "English Language and Literature Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "ENGL251"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "LS291"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Russian and East European Studies Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "RUSS101",
+          "RUSS102"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 7,
+        "courses": [
+          "HIST263",
+          "HIST265",
+          "HIST278",
+          "HIST316",
+          "HIST356",
+          "PSCI353",
+          "PSCI355"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Technical and Professional Writing Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "ENGL292"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ENGL109",
+          "ENGL191",
+          "ENGL192",
+          "ENGL193",
+          "LS291"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ENGL293",
+          "ENGL335",
+          "ENGL371",
+          "ENGL472",
+          "ENGL493"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Canadian Politics and Public Policy Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "PSCI100"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "LS206",
+          "PSCI260"
+        ]
+      },
+      {
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
+        "courses": [
+          "LS363",
+          "LS462",
+          "LS463",
+          "PSCI301",
+          "PSCI302",
+          "PSCI303",
+          "PSCI331",
+          "PSCI334",
+          "PSCI360",
+          "PSCI362",
+          "PSCI363",
+          "PSCI373",
+          "PSCI431",
+          "PSCI433",
+          "PSCI461",
+          "PSCI462",
+          "PSCI463",
+          "PSCI472",
+          "SOC334"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ECON241",
+          "ECON256",
+          "ECON361",
+          "ECON363",
+          "ECON366",
+          "ECON441",
+          "ECON457",
+          "LS273",
+          "LS373"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Religion, Culture, and Spirituality Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "RCS260"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Visual Culture in a Global Context Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "VCULT200",
+          "VCULT300"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "VCULT100",
+          "VCULT101"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Studies in Islamic and Arab Cultures Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Addictions, Mental Health, and Policy Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "HLTH290",
+          "HLTH358",
+          "HLTH392"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "GSJ260",
+          "HLTH260"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PSYCH257"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BIOL361",
+          "HLTH205",
+          "HLTH333",
+          "LS221",
+          "PSYCH291",
+          "REC373",
+          "SOC221"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ARTS280",
+          "HLTH204",
+          "KIN232",
+          "LS280",
+          "PSYCH292",
+          "REC371",
+          "SOC280",
+          "STAT202",
+          "STAT221",
+          "STAT231"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "BIOL476",
+          "HLTH373",
+          "HLTH410",
+          "HLTH427",
+          "HLTH448",
+          "HLTH449",
+          "HLTH458",
+          "HLTH461",
+          "HLTH465",
+          "HLTH471",
+          "HLTH472",
+          "HLTH473",
+          "HLTH479",
+          "KIN431",
+          "KIN432",
+          "KIN433",
+          "KIN472",
+          "LS226",
+          "PSYCH317",
+          "PSYCH335",
+          "PSYCH451",
+          "PSYCH483",
+          "PSYCH484",
+          "REC251",
+          "REC455",
+          "REC472",
+          "SOC249",
+          "SOC498"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Geography and Environmental Management Minor",
+    "course_lists": []
+  },
+  {
+    "program_name": "Sexualities, Relationships, and Families Minor",
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "SRF101",
+          "SRF207",
+          "SRF310"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PSYCH236",
+          "SRF204"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PSYCH354",
+          "SRF304",
+          "SRF305",
+          "SRF306",
+          "SRF307",
+          "SRF365",
+          "SRF366"
+        ]
+      }
+    ]
+  },
+  {
+    "program_name": "Environment, Resources and Sustainability Minor",
+    "course_lists": []
+  }
+]

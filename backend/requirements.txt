@@ -19,3 +19,4 @@ python-dotenv>=1.0.0
 google-generativeai>=0.3.0
 python-multipart
 beautifulsoup4>=4.12.0
+playwright>=1.40.0
