@@ -1,0 +1,70 @@
+{
+  "links": [
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/Hye0Jk00ih?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Artificial%20Intelligence%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/Hye0Jk00ih?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Artificial%20Intelligence%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Artificial Intelligence"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SkWRJkR0sh?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Biomechanics%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SkWRJkR0sh?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Biomechanics%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Biomechanics"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/ByCkJ0Ain?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Computer%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/ByCkJ0Ain?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Computer%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Computer Engineering"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/HklAkk00j2?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Computing%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/HklAkk00j2?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Computing%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Computing"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/rJl0Jy0Aj2?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Entrepreneurship%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/rJl0Jy0Aj2?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Entrepreneurship%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Entrepreneurship"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/ryAJy0Co3?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Environmental%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/ryAJy0Co3?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Environmental%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Environmental Engineering"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/S1ak10Aih?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Life%20Sciences%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/S1ak10Aih?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Life%20Sciences%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Life Sciences"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SyAJ1A0sn?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Management%20Science%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SyAJ1A0sn?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Management%20Science%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Management Science"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/HJRJ1AAi3?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Mechatronics%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/HJRJ1AAi3?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Mechatronics%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Mechatronics"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/Bk0J1RRjn?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Physical%20Sciences%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/Bk0J1RRjn?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Physical%20Sciences%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Physical Sciences"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SykqVPcop?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs&bc=true&bcCurrent=Quantum%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SykqVPcop?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs&bc=true&bcCurrent=Quantum%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Quantum Engineering"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/H1eRkJ0Cjh?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Software%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/H1eRkJ0Cjh?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Software%20Engineering%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Software Engineering"
+    },
+    {
+      "url": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SJRJyAAih?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Statistics%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "href": "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/SJRJyAAih?group=Options%3A%20Faculty%20of%20Engineering&bc=true&bcCurrent=Statistics%20Option&bcGroup=Options%3A%20Faculty%20of%20Engineering&bcItemType=programs",
+      "name": "Statistics"
+    }
+  ],
+  "count": 13
+}

@@ -27,6 +27,9 @@ PROGRAMS_INDEX_HASH = "#/programs?expanded="
 # Search URL: shows only programs matching "minor" (no accordion expansion needed)
 PROGRAMS_SEARCH_MINOR_HASH = "#/programs?searchTerm=minor"
 
+# Engineering Options page: table of options with links to catalog
+ENGINEERING_OPTIONS_URL = "https://uwaterloo.ca/engineering/undergraduate-students/degree-enhancement/options"
+
 # Fallback: known minor URLs when the catalog SPA doesn't expose links (e.g. slow render, different DOM).
 # Format: (url, display_name). Add more from the calendar as needed.
 KNOWN_MINOR_URLS: List[tuple[str, str]] = [
@@ -299,6 +302,42 @@ class CalendarCatalogScraper:
         except Exception:
             pass
         time.sleep(1.5)
+
+    def _collect_options_links(self, page: Page) -> List[Dict[str, str]]:
+        """
+        Load the Engineering Options page and collect all links to the academic calendar
+        catalog (#/programs/...). Returns list of {url, href, name} for each option.
+        """
+        page.goto(ENGINEERING_OPTIONS_URL, wait_until="domcontentloaded", timeout=60000)
+        time.sleep(2)
+        links: List[Dict[str, str]] = []
+        seen: set[str] = set()
+        # Links to catalog: full URL or path containing catalog#/programs/
+        for el in page.locator("a[href*='catalog'][href*='#/programs/'], a[href*='academic-calendar'][href*='programs']").all():
+            try:
+                href = (el.get_attribute("href") or "").strip()
+                if not href or href in seen:
+                    continue
+                # Normalize to full catalog URL
+                if href.startswith("http"):
+                    url = href
+                elif href.startswith("#"):
+                    url = f"{CATALOG_BASE}{href}"
+                else:
+                    url = urljoin(ENGINEERING_OPTIONS_URL, href)
+                if "#/programs/" not in url:
+                    continue
+                rest = url.split("#/programs/")[-1].split("?")[0].strip("/")
+                if not rest or rest == "programs":
+                    continue
+                name = (el.inner_text() or "").strip()
+                if not name or len(name) > 150:
+                    name = ""
+                seen.add(href)
+                links.append({"url": url, "href": href, "name": name or rest})
+            except Exception:
+                continue
+        return links
 
     def _collect_program_links(self, page: Page, minors_only: bool = False) -> List[Dict[str, str]]:
         """Load the programs index and return list of {url, name} for each program/minor link.
@@ -606,12 +645,14 @@ class CalendarCatalogScraper:
         program_filter: Optional[List[str]] = None,
         limit: Optional[int] = None,
         minors_only: bool = False,
+        options_only: bool = False,
     ) -> List[Dict[str, Any]]:
         """
         Run the full scrape: index -> all program links -> scrape each -> save to output_dir.
-        If minors_only is True, expand all accordion sections, collect all links, then keep only those whose name or URL contains "Minor" and scrape them.
+        If options_only is True: load Engineering Options page, collect catalog links, scrape each -> all_options.json.
+        If minors_only is True: load catalog search ?searchTerm=minor, collect links, scrape each -> all_programs.json.
         If program_filter is set, only scrape links whose name or url contains any of the strings.
-        If limit is set, only scrape the first N matching links (e.g. limit=5 for top 5 minors).
+        If limit is set, only scrape the first N matching links.
         """
         self._ensure_playwright()
         results: List[Dict[str, Any]] = []
@@ -624,23 +665,27 @@ class CalendarCatalogScraper:
             page = context.new_page()
 
             try:
-                links = self._collect_program_links(page, minors_only=bool(minors_only))
+                if options_only:
+                    print("Loading Engineering Options page...")
+                    links = self._collect_options_links(page)
+                else:
+                    links = self._collect_program_links(page, minors_only=bool(minors_only))
             finally:
                 context.close()
                 self._browser.close()
 
-        if not links and minors_only and KNOWN_MINOR_URLS:
+        if not links and not options_only and minors_only and KNOWN_MINOR_URLS:
             # Fallback: use known minor URLs when catalog didn't expose links
             links = [{"url": url, "href": url, "name": name} for url, name in KNOWN_MINOR_URLS]
             print(f"Using {len(links)} known minor URL(s) (catalog links not found).")
 
         if not links:
             # Save empty index and return
-            index_path = self.output_dir / "programs_index.json"
-            index_path.write_text(json.dumps({"links": [], "note": "No links found; expand accordions or check page structure."}, indent=2), encoding="utf-8")
+            index_path = self.output_dir / ("options_index.json" if options_only else "programs_index.json")
+            index_path.write_text(json.dumps({"links": [], "note": "No links found."}, indent=2), encoding="utf-8")
             return results
 
-        # Filter and optionally limit (program_filter is applied on top of minors_only when set)
+        # Filter and optionally limit
         filtered = []
         for item in links:
             name = item.get("name") or "unknown"
@@ -653,7 +698,7 @@ class CalendarCatalogScraper:
                 break
 
         # Save index of links (filtered set we will scrape)
-        index_path = self.output_dir / "programs_index.json"
+        index_path = self.output_dir / ("options_index.json" if options_only else "programs_index.json")
         index_path.write_text(json.dumps({"links": filtered, "count": len(filtered)}, indent=2), encoding="utf-8")
 
         for i, item in enumerate(filtered):
@@ -670,17 +715,21 @@ class CalendarCatalogScraper:
                     raw_data = self._extract_program_page(page, url)
                     raw_data["index_name"] = name
                     program_data = raw_to_program_output(raw_data)
+                    if options_only:
+                        program_data["option_name"] = program_data.pop("program_name", program_data.get("program_name", ""))
                     results.append(program_data)
                 except Exception as e:
                     print(f"  Error: {e}")
-                    results.append({"program_name": name, "course_lists": [], "error": str(e)})
+                    results.append(
+                        {"option_name" if options_only else "program_name": name, "course_lists": [], "error": str(e)}
+                    )
                 finally:
                     context.close()
                     self._browser.close()
             time.sleep(self.delay_between_pages)
 
         # Combined output
-        combined_path = self.output_dir / "all_programs.json"
+        combined_path = self.output_dir / ("all_options.json" if options_only else "all_programs.json")
         combined_path.write_text(json.dumps(results, indent=2), encoding="utf-8")
         return results
 
@@ -720,7 +769,8 @@ def main():
     parser.add_argument("--delay", type=float, default=1.0, help="Seconds between page requests")
     parser.add_argument("--filter", nargs="*", help="Only scrape programs whose name/url contains any of these strings")
     parser.add_argument("--limit", type=int, default=None, help="Only scrape the first N matching links (e.g. 5 for top 5 minors)")
-    parser.add_argument("--minors-only", action="store_true", help="Expand accordions, collect all links, scrape only those whose name or URL contains 'Minor'")
+    parser.add_argument("--minors-only", action="store_true", help="Use catalog search ?searchTerm=minor and scrape all minors -> all_programs.json")
+    parser.add_argument("--options-only", action="store_true", help="Scrape Engineering Options from degree-enhancement/options -> all_options.json")
     parser.add_argument("--single-url", metavar="URL", help="Scrape only this one page and save to data/programs/single_program.json")
     args = parser.parse_args()
     scraper = CalendarCatalogScraper(
@@ -733,8 +783,14 @@ def main():
         out_file = scraper.output_dir / "single_program.json"
         print(f"Done. Saved 1 program to {out_file}")
     else:
-        results = scraper.run(program_filter=args.filter, limit=args.limit, minors_only=args.minors_only)
-        print(f"Done. Scraped {len(results)} programs to {scraper.output_dir}")
+        results = scraper.run(
+            program_filter=args.filter,
+            limit=args.limit,
+            minors_only=args.minors_only,
+            options_only=args.options_only,
+        )
+        out_name = "options" if args.options_only else "programs"
+        print(f"Done. Scraped {len(results)} {out_name} to {scraper.output_dir}")
 
 
 if __name__ == "__main__":

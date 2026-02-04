@@ -23,16 +23,17 @@ Options:
 - `--output-dir PATH` – Write JSON files here (default: `data/programs`)
 - `--no-headless` – Show the browser window
 - `--delay SECONDS` – Pause between pages (default: 1.0)
-- `--minors-only` – **Scrape all minors:** load the catalog search `?searchTerm=minor` (https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs?searchTerm=minor), collect all program links from the results, and scrape each one. No accordion expansion needed.
-- `--filter WORD ...` – Only scrape programs whose name or URL contains any of these words (e.g. `--filter "Minor" "Accounting"`)
-- `--limit N` – Scrape only the first N matching links (e.g. `--minors-only --limit 5` for the first 5 minors)
+- `--minors-only` – **Scrape all minors:** load catalog search `?searchTerm=minor`, collect links, scrape each → `all_programs.json`.
+- `--options-only` – **Scrape Engineering Options:** load [Engineering Options](https://uwaterloo.ca/engineering/undergraduate-students/degree-enhancement/options), collect catalog links, scrape each → `all_options.json`.
+- `--filter WORD ...` – Only scrape programs whose name or URL contains any of these words.
+- `--limit N` – Scrape only the first N matching links (e.g. `--options-only --limit 3`).
 
 ## Output files
 
 After a run you should see:
 
-- **`programs_index.json`** – List of all program/minor links found on the index/search page.
-- **`all_programs.json`** – Single array of every scraped program object (program_name + course_lists). No per-program JSON files are written.
+- **`programs_index.json`** or **`options_index.json`** – List of links found (minors search or Engineering Options page).
+- **`all_programs.json`** (minors) or **`all_options.json`** (options) – Single array of scraped programs. Minors use `program_name`; options use `option_name`. Both include `course_lists`. No per-program files are written.
 
 ## Per-program JSON shape
 
