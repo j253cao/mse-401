@@ -62,7 +62,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Artificial Intelligence"
   },
   {
     "course_lists": [
@@ -231,7 +231,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Biomechanics"
   },
   {
     "course_lists": [
@@ -246,7 +246,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Computer Engineering"
   },
   {
     "course_lists": [
@@ -333,7 +333,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Computing"
   },
   {
     "course_lists": [
@@ -347,7 +347,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Entrepreneurship"
   },
   {
     "course_lists": [
@@ -414,7 +414,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Environmental Engineering"
   },
   {
     "course_lists": [
@@ -582,7 +582,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Life Sciences"
   },
   {
     "course_lists": [
@@ -655,7 +655,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Management Science"
   },
   {
     "course_lists": [
@@ -771,7 +771,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Mechatronics"
   },
   {
     "course_lists": [
@@ -937,7 +937,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Physical Sciences"
   },
   {
     "course_lists": [
@@ -1001,7 +1001,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Quantum Engineering"
   },
   {
     "course_lists": [
@@ -1033,7 +1033,7 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Software Engineering"
   },
   {
     "course_lists": [
@@ -1106,6 +1106,6 @@
         ]
       }
     ],
-    "option_name": "Bachelor of Applied Science"
+    "option_name": "Statistics"
   }
 ]

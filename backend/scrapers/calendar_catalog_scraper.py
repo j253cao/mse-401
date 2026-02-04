@@ -716,7 +716,9 @@ class CalendarCatalogScraper:
                     raw_data["index_name"] = name
                     program_data = raw_to_program_output(raw_data)
                     if options_only:
-                        program_data["option_name"] = program_data.pop("program_name", program_data.get("program_name", ""))
+                        # Use the name from the options index (link text on Engineering Options page), not the catalog page
+                        program_data["option_name"] = name
+                        program_data.pop("program_name", None)
                     results.append(program_data)
                 except Exception as e:
                     print(f"  Error: {e}")
