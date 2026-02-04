@@ -1,0 +1,39 @@
+{
+  "program_name": "Biochemistry Programs & Plans>Biochemistry Minor",
+  "course_lists": [
+    {
+      "list_description": "Complete all the following",
+      "required_count": 6,
+      "courses": [
+        "BIOL130",
+        "BIOL240",
+        "CHEM233",
+        "CHEM264",
+        "CHEM265",
+        "CHEM331"
+      ]
+    },
+    {
+      "list_description": "Complete 2 of the following",
+      "required_count": 2,
+      "courses": [
+        "BIOL331",
+        "BIOL354",
+        "BIOL431",
+        "BIOL434",
+        "BIOL439",
+        "BIOL448"
+      ]
+    },
+    {
+      "list_description": "Complete 2 of the following",
+      "required_count": 2,
+      "courses": [
+        "CHEM357",
+        "CHEM430",
+        "CHEM432",
+        "CHEM433"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1111 @@
+[
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "HIST212",
+          "MSE442",
+          "STV205",
+          "STV208",
+          "STV210",
+          "STV302"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "CS480",
+          "CS485",
+          "CS486",
+          "MSE435",
+          "MSE446",
+          "SYDE522"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 30,
+        "courses": [
+          "AMATH449",
+          "BIOL487",
+          "CHE521",
+          "CHE522",
+          "CHE524",
+          "CO367",
+          "CO456",
+          "CO463",
+          "CO466",
+          "CS452",
+          "CS479",
+          "CS484",
+          "ECE423",
+          "ECE455",
+          "ECE481",
+          "ECE484",
+          "ECE486",
+          "ECE488",
+          "ECE495",
+          "MSE546",
+          "MTE544",
+          "MTE546",
+          "STAT341",
+          "STAT440",
+          "STAT441",
+          "STAT444",
+          "SYDE552",
+          "SYDE556",
+          "SYDE572",
+          "SYDE577"
+        ]
+      }
+    ],
+    "option_name": "Artificial Intelligence"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "BME588",
+          "CIVE460",
+          "ME574"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BIOL201",
+          "BIOL273",
+          "BME284",
+          "SYDE584"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "KIN100"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "KIN320",
+          "KIN420",
+          "SYDE162",
+          "SYDE543",
+          "SYDE548"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "KIN121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHE341",
+          "CIVE306",
+          "CIVE422",
+          "ECE380",
+          "ECE486",
+          "ME322",
+          "ME360",
+          "ME423",
+          "ME547",
+          "ME555",
+          "ME559",
+          "ME566",
+          "MTE360",
+          "NE336",
+          "PHYS395",
+          "SYDE352",
+          "SYDE543",
+          "SYDE544",
+          "SYDE553",
+          "SYDE572",
+          "SYDE575"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME551",
+          "KIN312",
+          "KIN340",
+          "KIN356",
+          "KIN416",
+          "KIN420",
+          "KIN422",
+          "KIN425",
+          "KIN472"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "KIN221"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "KIN255"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHE482",
+          "CHE483"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "CIVE400",
+          "CIVE401"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "ENVE400",
+          "ENVE401"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "GENE403",
+          "GENE404"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "ME481",
+          "ME482"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "MTE481",
+          "MTE482"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "NE408",
+          "NE409"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "SYDE461",
+          "SYDE462"
+        ]
+      }
+    ],
+    "option_name": "Biomechanics"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ECE320",
+          "ECE327",
+          "ECE423",
+          "ECE455"
+        ]
+      }
+    ],
+    "option_name": "Computer Engineering"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AE121",
+          "BME121",
+          "CHE120",
+          "CIVE121",
+          "CS115",
+          "CS116",
+          "CS135",
+          "CS137",
+          "CS145",
+          "ECE150",
+          "ENVE121",
+          "GEOE121",
+          "ME101",
+          "MSE121",
+          "MTE121",
+          "NE111",
+          "SYDE121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME122",
+          "CS136",
+          "CS138",
+          "CS146",
+          "CS231",
+          "ECE250",
+          "MSE240",
+          "MTE140",
+          "SYDE223"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 38,
+        "courses": [
+          "BIOL487",
+          "BME393",
+          "BME411",
+          "CHE322",
+          "CIVE422",
+          "EARTH456",
+          "ENVE225",
+          "NE336",
+          "CS230",
+          "CS234",
+          "CS245",
+          "CS338",
+          "CS445",
+          "CS446",
+          "CS447",
+          "ECE124",
+          "ECE204",
+          "ECE208",
+          "ECE222",
+          "ECE224",
+          "ECE252",
+          "ECE320",
+          "ECE327",
+          "ECE350",
+          "ECE351",
+          "ECE356",
+          "ECE358",
+          "ECE406",
+          "ECE409",
+          "ECE417",
+          "ECE423",
+          "ECE451",
+          "ECE452",
+          "ECE453",
+          "ECE454",
+          "ECE455",
+          "ECE458",
+          "ECE459"
+        ]
+      }
+    ],
+    "option_name": "Computing"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "BET100",
+          "BET320",
+          "BET340"
+        ]
+      }
+    ],
+    "option_name": "Entrepreneurship"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "ENVE391",
+          "ERS215",
+          "ERS270",
+          "ERS315",
+          "ERS370",
+          "ERS372",
+          "ERS404",
+          "GEOE391",
+          "PSCI432"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BIOL150",
+          "BIOL240",
+          "BIOL354",
+          "BIOL383",
+          "EARTH221",
+          "ENVE275",
+          "ENVS200",
+          "ERS383",
+          "GEOG432",
+          "HLTH420",
+          "PLAN432"
+        ]
+      },
+      {
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
+        "courses": [
+          "CHE571",
+          "CHE572",
+          "CHE574",
+          "CIVE375",
+          "ENVE375",
+          "ENVE376",
+          "ENVE577",
+          "ME452",
+          "ME459"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CIVE230",
+          "EARTH456",
+          "EARTH458",
+          "ENVE335",
+          "ENVE573",
+          "ME571",
+          "MSE452",
+          "SYDE532",
+          "SYDE533"
+        ]
+      }
+    ],
+    "option_name": "Environmental Engineering"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "BIOL130",
+          "BIOL239",
+          "BIOL240"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM262",
+          "CHEM266",
+          "NE222"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "AMATH382",
+          "BIOL266",
+          "BIOL308",
+          "BIOL331",
+          "BIOL342",
+          "BIOL349",
+          "BIOL382",
+          "BIOL434",
+          "CHE565"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "BIOL239",
+          "BIOL240"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME285",
+          "CHE161"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME186",
+          "CHE102",
+          "CHEM123",
+          "NE121"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "BIOL150",
+          "BIOL241",
+          "BIOL349",
+          "BIOL350",
+          "BIOL351",
+          "BIOL354",
+          "BIOL462",
+          "CHE565",
+          "EARTH444"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "ECE105",
+          "PHYS380"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BIOL280",
+          "PHYS280"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME186",
+          "CHE102",
+          "CHEM123",
+          "NE121"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "BIOL349",
+          "CHE565",
+          "CHEM233",
+          "CHEM237",
+          "CHEM262",
+          "CHEM266",
+          "CHEM357",
+          "NE222",
+          "PHYS395",
+          "PHYS396"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM267"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME186",
+          "CHE102",
+          "CHEM123",
+          "NE121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME285",
+          "CHE161"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM262",
+          "CHEM266",
+          "NE222"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "CHEM220",
+          "CHEM233",
+          "CHEM237",
+          "CHEM333",
+          "CHEM357",
+          "CHEM430",
+          "CHEM432"
+        ]
+      }
+    ],
+    "option_name": "Life Sciences"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "MSE211",
+          "MSE311",
+          "PSYCH238"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME411",
+          "CHE521",
+          "CIVE332",
+          "CO250",
+          "ENVE335",
+          "MSE331",
+          "SYDE411"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 40,
+        "courses": [
+          "CIVE343",
+          "ECON371",
+          "HRM200",
+          "MSE311",
+          "MSE332",
+          "MSE343",
+          "MSE422",
+          "MSE431",
+          "MSE432",
+          "MSE433",
+          "MSE435",
+          "MSE442",
+          "MSE452",
+          "MSE454",
+          "MSE531",
+          "MSE541",
+          "MSE543",
+          "MSE546",
+          "MSE551",
+          "MSE555",
+          "MSE597",
+          "MSE598",
+          "SYDE531",
+          "SYDE533",
+          "AE392",
+          "BME364",
+          "CIVE392",
+          "ENVE392",
+          "GEOE392",
+          "MSE261",
+          "SYDE262",
+          "BET450",
+          "MSE411",
+          "CS480",
+          "MSE446",
+          "SYDE522",
+          "ECON201",
+          "MSE263",
+          "MSE211",
+          "PSYCH238"
+        ]
+      }
+    ],
+    "option_name": "Management Science"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "BME294",
+          "ECE240",
+          "MTE220",
+          "SYDE292"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE224",
+          "MTE325"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE260",
+          "ME269",
+          "MTE320"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ME321",
+          "MTE321"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE481",
+          "ECE484",
+          "ECE488",
+          "MTE460"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE486",
+          "ME547",
+          "MTE544"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ME322",
+          "ME524",
+          "MTE322",
+          "SYDE553"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE356",
+          "ECE454",
+          "ECE455",
+          "ECE459",
+          "ECE463",
+          "ME561",
+          "SYDE522",
+          "SYDE572",
+          "SYDE575"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "BME461",
+          "BME462"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "GENE403",
+          "GENE404"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "ME481",
+          "ME482"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "SYDE461",
+          "SYDE462"
+        ]
+      }
+    ],
+    "option_name": "Mechatronics"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 4,
+        "courses": [
+          "ECE105",
+          "NE131",
+          "PHYS115",
+          "PHYS121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE106",
+          "NE241",
+          "PHYS122",
+          "SYDE283"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE140",
+          "PHYS242",
+          "PHYS263",
+          "PHYS334",
+          "PHYS358"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "NE332",
+          "PHYS234"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "AMATH473",
+          "CO481",
+          "CS467",
+          "NE334",
+          "PHYS275",
+          "PHYS334",
+          "PHYS335",
+          "PHYS342",
+          "PHYS359",
+          "PHYS364",
+          "PHYS365",
+          "PHYS375",
+          "PHYS434",
+          "PHYS435",
+          "PHYS442",
+          "PHYS454",
+          "PHYS467",
+          "PHYS475"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM209"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHE102",
+          "CHEM123",
+          "NE121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM212",
+          "NE225"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHEM262",
+          "CHEM264",
+          "NE222"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 18,
+        "courses": [
+          "CHEM220",
+          "CHEM221",
+          "CHEM265",
+          "CHEM310",
+          "CHEM313",
+          "CHEM323",
+          "CHEM340",
+          "CHEM350",
+          "CHEM360",
+          "CHE230",
+          "CHEM254",
+          "ME250",
+          "SYDE381",
+          "CHEM356",
+          "NE332",
+          "PHYS234",
+          "CHEM370",
+          "NE333"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "CHE102",
+          "CHEM123",
+          "NE121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE105",
+          "NE131",
+          "PHYS115",
+          "PHYS121"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "ECE106",
+          "PHYS122"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "EARTH121"
+        ]
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "EARTH122"
+        ]
+      }
+    ],
+    "option_name": "Physical Sciences"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AMATH373",
+          "CHEM356",
+          "ECE305",
+          "NE332",
+          "PHYS233",
+          "PHYS234"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PHYS468"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AE223",
+          "CIVE222",
+          "ECE205",
+          "ENVE223",
+          "GEOE223",
+          "MATH211",
+          "MATH213",
+          "MATH217",
+          "MATH218",
+          "ME203",
+          "MSE271",
+          "MTE202",
+          "NE216",
+          "SYDE211"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "AE123",
+          "BME294",
+          "CIVE123",
+          "ECE106",
+          "ECE140",
+          "ECE375",
+          "ENVE123",
+          "GENE123",
+          "GEOE123",
+          "ME123",
+          "MTE120",
+          "NE241",
+          "PHYS342",
+          "SYDE292"
+        ]
+      }
+    ],
+    "option_name": "Quantum Engineering"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 3,
+        "courses": [
+          "CS445",
+          "ECE451",
+          "SE463"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CS446",
+          "ECE452",
+          "SE464"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CS447",
+          "ECE453",
+          "SE465"
+        ]
+      }
+    ],
+    "option_name": "Software Engineering"
+  },
+  {
+    "course_lists": [
+      {
+        "list_description": "Complete all the following",
+        "required_count": 1,
+        "courses": [
+          "STAT435"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHE220",
+          "CIVE224",
+          "ENVE224",
+          "GEOE224",
+          "ME202",
+          "MSE251",
+          "MTE201",
+          "NE215",
+          "STAT231",
+          "SYDE212"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "CHE225",
+          "CHE425",
+          "MSE253",
+          "STAT332"
+        ]
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "STAT331",
+          "SYDE334"
+        ]
+      },
+      {
+        "list_description": "Complete 3 of the following",
+        "required_count": 3,
+        "courses": [
+          "CHE341",
+          "CHE522",
+          "CHE524",
+          "CIVE343",
+          "CIVE375",
+          "CIVE440",
+          "ENVE573",
+          "ME340",
+          "MSE431",
+          "MSE432",
+          "MSE452",
+          "PLAN478",
+          "STAT230",
+          "STAT333",
+          "STAT430",
+          "STAT431",
+          "STAT433",
+          "STAT443",
+          "SYDE531",
+          "SYDE533",
+          "SYDE572"
+        ]
+      }
+    ],
+    "option_name": "Statistics"
+  }
+]
