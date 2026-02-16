@@ -58,13 +58,22 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="w-full sm:w-auto gap-2 group">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full sm:w-auto gap-2 group"
+                >
                   <Link to="/recommendation">
                     Explore Courses
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto gap-2">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto gap-2"
+                >
                   <Link to="/profile">
                     <FileText className="w-4 h-4" />
                     Upload Resume
@@ -111,7 +120,7 @@ export default function HomePage() {
                       <div>
                         <div className="font-semibold text-sm">MSE 343</div>
                         <div className="text-xs text-muted-foreground">
-                          Machine Learning
+                          Human-Computer Interaction
                         </div>
                       </div>
                     </div>
@@ -128,7 +137,7 @@ export default function HomePage() {
                         <Zap className="w-5 h-5 text-accent" />
                       </div>
                       <div>
-                        <div className="font-semibold text-sm">ECE 457B</div>
+                        <div className="font-semibold text-sm">SYDE 577</div>
                         <div className="text-xs text-muted-foreground">
                           Deep Learning
                         </div>
@@ -147,9 +156,9 @@ export default function HomePage() {
                         <Target className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <div className="font-semibold text-sm">MSE 442</div>
+                        <div className="font-semibold text-sm">MSE 211</div>
                         <div className="text-xs text-muted-foreground">
-                          Data Systems
+                          Org. Behaviour
                         </div>
                       </div>
                     </div>

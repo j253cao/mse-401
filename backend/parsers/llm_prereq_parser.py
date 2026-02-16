@@ -1,19 +1,49 @@
 """
-LLM-based prerequisite parser using Google Gemini.
+LLM-based prerequisite parser using Google Gemini or Groq.
 
 Parses course prerequisite strings into structured JSON with proper AND/OR groupings.
 Handles complex patterns like "(A or B) and (C or D)" that are difficult to parse with regex.
 """
 
-import google.generativeai as genai
 import os
 import json
+from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Any
 from dotenv import load_dotenv
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
+
+# Optional imports - will be loaded based on provider
+try:
+    import google.generativeai as genai
+    HAS_GEMINI = True
+except ImportError:
+    HAS_GEMINI = False
+
+try:
+    from groq import Groq
+    HAS_GROQ = True
+except ImportError:
+    HAS_GROQ = False
 
 # Load environment variables from project root .env file
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+load_dotenv(PROJECT_ROOT / '.env')
+
+# Debug output path for raw LLM responses
+RAW_RESPONSE_DEBUG_PATH = PROJECT_ROOT / 'data' / 'dependencies' / 'llm_raw_response_debug.json'
+
+
+def _save_raw_response_debug(raw_response: str, courses_batch: List[Tuple[str, str]]) -> None:
+    """Save raw LLM response to JSON file for debugging before any parsing."""
+    RAW_RESPONSE_DEBUG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    debug_data = {
+        'timestamp': datetime.now().isoformat(),
+        'batch_codes': [code for code, _ in courses_batch],
+        'raw_response': raw_response if raw_response else '(empty)',
+    }
+    with open(RAW_RESPONSE_DEBUG_PATH, 'w') as f:
+        json.dump(debug_data, f, indent=2)
 
 
 # System context for the LLM - defines the parsing rules and output format
@@ -206,6 +236,10 @@ You must output a JSON object with course codes as keys and their parsed prerequ
 - If no grade requirement, set grade_requirement to null
 - Empty arrays for missing sections
 - Parse ALL sections (prereq, coreq, antireq) from the requirements string
+
+## Output Format
+- Return valid JSON as a single line with NO whitespace, newlines, or indentation (minified/compact format)
+- Do not wrap in markdown code blocks
 """
 
 
@@ -217,7 +251,7 @@ class LLMPrereqParser:
     Supports multiple API keys for higher throughput.
     """
     
-    def __init__(self, model_name: str = 'gemini-2.5-flash', api_keys: Optional[List[str]] = None):
+    def __init__(self, model_name: str = 'gemini-2.0-flash', api_keys: Optional[List[str]] = None):
         """
         Initialize the LLM parser.
         
@@ -252,6 +286,9 @@ class LLMPrereqParser:
         # Batch processing settings
         self.min_batch_size = 1
         self.reduction_factor = 2
+        
+        # API timeout settings (in seconds)
+        self.api_timeout = 120  # 2 minutes timeout for API calls
     
     def _configure_model(self, api_key: str):
         """Configure the model with the given API key."""
@@ -340,10 +377,27 @@ class LLMPrereqParser:
                 "max_output_tokens": 8192
             }
             
-            response = self.model.generate_content(prompt, generation_config=generation_config)
+            # Wrap API call with timeout to prevent infinite hangs
+            def _make_api_call():
+                return self.model.generate_content(prompt, generation_config=generation_config)
             
+            try:
+                with ThreadPoolExecutor(max_workers=1) as executor:
+                    future = executor.submit(_make_api_call)
+                    response = future.result(timeout=self.api_timeout)
+            except FutureTimeoutError:
+                return False, f"API call timed out after {self.api_timeout} seconds"
+            except Exception as e:
+                # Re-raise to be caught by outer exception handler
+                raise
+            
+            raw_response = response.text if response and response.text else ""
+
+            # Save raw response for debugging (before any parsing)
+            _save_raw_response_debug(raw_response, courses_batch)
+
             # Clean and validate response
-            response_text = self._clean_json_response(response.text)
+            response_text = self._clean_json_response(raw_response)
             
             if not response_text:
                 return False, "Failed to extract valid JSON from response"
@@ -368,17 +422,50 @@ class LLMPrereqParser:
         
         except Exception as e:
             error_str = str(e)
-            # Check for quota exceeded error
-            if '429' in error_str or 'quota' in error_str.lower():
+            error_type = type(e).__name__
+            
+            # Check for quota exceeded error - Gemini API can raise various exceptions
+            # Check status code if available
+            status_code = None
+            if hasattr(e, 'status_code'):
+                status_code = e.status_code
+            elif hasattr(e, 'response') and hasattr(e.response, 'status_code'):
+                status_code = e.response.status_code
+            
+            # Check for rate limit/quota errors
+            is_rate_limit = (
+                status_code == 429 or
+                '429' in error_str or
+                'quota' in error_str.lower() or
+                'rate limit' in error_str.lower() or
+                'rate_limit_exceeded' in error_str.lower() or
+                'RESOURCE_EXHAUSTED' in error_str
+            )
+            
+            if is_rate_limit:
+                # Check if it's a daily quota vs per-minute rate limit
+                is_daily = 'daily' in error_str.lower() or 'per day' in error_str.lower()
+                error_detail = f"{error_type}: {error_str}"
+                
                 if len(self.api_keys) > 1:
-                    print(f"    ⚠️  API Quota exceeded on key {self.current_key_index + 1}. Rotating...")
+                    print(f"    ⚠️  API Quota/Rate limit exceeded on key {self.current_key_index + 1}.")
+                    if is_daily:
+                        print(f"    ⚠️  Daily quota exceeded - rotating to next key...")
+                    else:
+                        print(f"    ⚠️  Rate limit exceeded - rotating to next key...")
+                    print(f"    ⚠️  Error: {error_detail[:200]}")
                     self._rotate_key()
-                    return False, f"API_QUOTA_EXCEEDED_ROTATING: {error_str}"
+                    return False, f"API_QUOTA_EXCEEDED_ROTATING: {error_detail}"
                 else:
-                    print(f"    ⚠️  API Quota exceeded. Please check your Gemini API plan.")
+                    if is_daily:
+                        print(f"    ⚠️  Daily quota exceeded. This resets at midnight UTC/PST.")
+                    else:
+                        print(f"    ⚠️  Rate limit/quota exceeded. Please check your Gemini API plan.")
+                    print(f"    ⚠️  Error: {error_detail[:200]}")
                     print(f"    See: https://ai.google.dev/gemini-api/docs/rate-limits")
-                    return False, f"API_QUOTA_EXCEEDED: {error_str}"
-            return False, error_str
+                    return False, f"API_QUOTA_EXCEEDED: {error_detail}"
+            
+            return False, f"{error_type}: {error_str}"
     
     def parse_batch(self, courses_batch: List[Tuple[str, str]]) -> Optional[Dict[str, Any]]:
         """
@@ -391,6 +478,7 @@ class LLMPrereqParser:
             Dictionary of parsed prerequisites or None if failed
         """
         current_batch_size = len(courses_batch)
+        last_error = None
         
         while current_batch_size >= self.min_batch_size:
             print(f"  Attempting batch size: {current_batch_size}")
@@ -400,8 +488,218 @@ class LLMPrereqParser:
                 success, result = self._process_single_batch(courses_batch)
                 if success:
                     return json.loads(result)
+                last_error = result
+                
+                # If it's a quota/rate limit error, don't keep reducing batch size
+                # Reducing won't help - the issue is with the API, not the batch size
+                if result and ('API_QUOTA_EXCEEDED' in result or 'quota' in result.lower() or '429' in result):
+                    print(f"  ⚠️  Quota/rate limit error detected. Stopping batch size reduction.")
+                    print(f"  ⚠️  Error: {result[:200]}")
+                    return None
             else:
                 # Process smaller sub-batches
+                sub_batches = [
+                    courses_batch[i:i + current_batch_size]
+                    for i in range(0, len(courses_batch), current_batch_size)
+                ]
+                
+                all_results = {}
+                all_successful = True
+                
+                for sub_batch in sub_batches:
+                    success, result = self._process_single_batch(sub_batch)
+                    if not success:
+                        all_successful = False
+                        last_error = result
+                        print(f"    Sub-batch failed: {result[:200]}")
+                        
+                        # If it's a quota/rate limit error, stop trying smaller batches
+                        if result and ('API_QUOTA_EXCEEDED' in result or 'quota' in result.lower() or '429' in result):
+                            print(f"  ⚠️  Quota/rate limit error detected. Stopping batch size reduction.")
+                            return None
+                        break
+                    
+                    try:
+                        all_results.update(json.loads(result))
+                    except json.JSONDecodeError:
+                        all_successful = False
+                        last_error = f"JSON decode error: {result[:100]}"
+                        break
+                
+                if all_successful:
+                    return all_results
+            
+            # Reduce batch size and retry (only if not a quota error)
+            current_batch_size = current_batch_size // self.reduction_factor
+            if current_batch_size >= self.min_batch_size:
+                print(f"  Reducing batch size to: {current_batch_size}")
+        
+        print(f"  Failed even with minimum batch size")
+        if last_error:
+            print(f"  Last error: {last_error[:200]}")
+        return None
+    
+    def parse_single(self, course_code: str, requirements: str) -> Optional[Dict[str, Any]]:
+        """
+        Parse a single course's requirements.
+        
+        Args:
+            course_code: Course code (e.g., "CS371")
+            requirements: Requirements description string
+            
+        Returns:
+            Parsed prerequisites dictionary or None if failed
+        """
+        result = self.parse_batch([(course_code, requirements)])
+        if result and course_code in result:
+            return result[course_code]
+        return None
+
+
+class GroqPrereqParser:
+    """
+    LLM-based prerequisite parser using Groq.
+    
+    Groq offers much higher free tier limits (~14,400 requests/day).
+    Uses Llama 3 models which are very capable for structured output.
+    """
+    
+    def __init__(self, model_name: str = 'llama-3.3-70b-versatile', api_key: Optional[str] = None):
+        """
+        Initialize the Groq parser.
+        
+        Args:
+            model_name: Groq model to use (default: llama-3.3-70b-versatile)
+            api_key: Optional API key. If None, uses GROQ_API_KEY env var.
+        """
+        if not HAS_GROQ:
+            raise ImportError("Groq package not installed. Run: pip install groq")
+        
+        self.api_key = api_key or os.getenv('GROQ_API_KEY')
+        if not self.api_key:
+            raise ValueError("No Groq API key found. Set GROQ_API_KEY in .env file")
+        
+        self.client = Groq(api_key=self.api_key)
+        self.model_name = model_name
+        self.api_keys = [self.api_key]  # For compatibility with batch processor
+        
+        print(f"Groq initialized with model: {model_name}")
+        
+        # Batch processing settings
+        self.min_batch_size = 1
+        self.reduction_factor = 2
+    
+    def _clean_json_response(self, response: str) -> Optional[str]:
+        """Clean markdown code blocks from LLM response."""
+        import re
+        
+        if not response:
+            return None
+        
+        cleaned = response.strip()
+        
+        # Try to extract JSON from ```json blocks
+        json_pattern = r'```json\s*(.*?)\s*```'
+        matches = re.findall(json_pattern, cleaned, re.DOTALL)
+        if matches:
+            for match in matches:
+                try:
+                    json.loads(match.strip())
+                    return match.strip()
+                except json.JSONDecodeError:
+                    continue
+        
+        # Try generic code blocks
+        code_pattern = r'```\s*(.*?)\s*```'
+        matches = re.findall(code_pattern, cleaned, re.DOTALL)
+        if matches:
+            for match in matches:
+                try:
+                    json.loads(match.strip())
+                    return match.strip()
+                except json.JSONDecodeError:
+                    continue
+        
+        # Try parsing as-is
+        try:
+            json.loads(cleaned)
+            return cleaned
+        except json.JSONDecodeError:
+            pass
+        
+        return None
+    
+    def _process_single_batch(self, courses_batch: List[Tuple[str, str]]) -> Tuple[bool, str]:
+        """Process a single batch of courses using Groq."""
+        try:
+            batch_input = {
+                "courses": [
+                    {"code": code, "requirements": requirements}
+                    for code, requirements in courses_batch
+                ]
+            }
+            
+            prompt = json.dumps(batch_input, indent=2)
+            
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {"role": "system", "content": PREREQ_PARSER_CONTEXT},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.1,
+                max_tokens=8192
+            )
+            raw_response = (
+                response.choices[0].message.content
+                if response.choices and response.choices[0].message
+                else ""
+            )
+
+            # Save raw response for debugging (before any parsing)
+            _save_raw_response_debug(raw_response, courses_batch)
+
+            response_text = self._clean_json_response(raw_response)
+            
+            if not response_text:
+                return False, "Failed to extract valid JSON from response"
+            
+            # Validate JSON structure
+            try:
+                parsed = json.loads(response_text)
+                
+                if not isinstance(parsed, dict):
+                    return False, "Invalid JSON structure - expected object"
+                
+                # Check all expected courses are present
+                expected_codes = {code for code, _ in courses_batch}
+                for code in expected_codes:
+                    if code not in parsed:
+                        return False, f"Missing results for {code}"
+                
+                return True, response_text
+                
+            except json.JSONDecodeError as e:
+                return False, f"Invalid JSON: {str(e)}"
+        
+        except Exception as e:
+            error_str = str(e)
+            if '429' in error_str or 'rate' in error_str.lower():
+                return False, f"RATE_LIMITED: {error_str}"
+            return False, error_str
+    
+    def parse_batch(self, courses_batch: List[Tuple[str, str]]) -> Optional[Dict[str, Any]]:
+        """Parse a batch of courses with automatic retry and batch size reduction."""
+        current_batch_size = len(courses_batch)
+        
+        while current_batch_size >= self.min_batch_size:
+            print(f"  Attempting batch size: {current_batch_size}")
+            
+            if current_batch_size == len(courses_batch):
+                success, result = self._process_single_batch(courses_batch)
+                if success:
+                    return json.loads(result)
+            else:
                 sub_batches = [
                     courses_batch[i:i + current_batch_size]
                     for i in range(0, len(courses_batch), current_batch_size)
@@ -426,7 +724,6 @@ class LLMPrereqParser:
                 if all_successful:
                     return all_results
             
-            # Reduce batch size and retry
             current_batch_size = current_batch_size // self.reduction_factor
             if current_batch_size >= self.min_batch_size:
                 print(f"  Reducing batch size to: {current_batch_size}")
@@ -435,20 +732,30 @@ class LLMPrereqParser:
         return None
     
     def parse_single(self, course_code: str, requirements: str) -> Optional[Dict[str, Any]]:
-        """
-        Parse a single course's requirements.
-        
-        Args:
-            course_code: Course code (e.g., "CS371")
-            requirements: Requirements description string
-            
-        Returns:
-            Parsed prerequisites dictionary or None if failed
-        """
+        """Parse a single course's requirements."""
         result = self.parse_batch([(course_code, requirements)])
         if result and course_code in result:
             return result[course_code]
         return None
+
+
+def create_parser(provider: str = 'groq', **kwargs):
+    """
+    Factory function to create the appropriate parser.
+    
+    Args:
+        provider: 'gemini' or 'groq' (default: groq)
+        **kwargs: Additional arguments passed to the parser constructor
+        
+    Returns:
+        LLMPrereqParser or GroqPrereqParser instance
+    """
+    if provider == 'groq':
+        return GroqPrereqParser(**kwargs)
+    elif provider == 'gemini':
+        return LLMPrereqParser(**kwargs)
+    else:
+        raise ValueError(f"Unknown provider: {provider}. Use 'gemini' or 'groq'")
 
 
 def main():

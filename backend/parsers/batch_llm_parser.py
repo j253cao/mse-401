@@ -1,10 +1,57 @@
 """
-Batch LLM parser for course prerequisites with checkpointing.
+Batch LLM parser for course prerequisites using Claude Haiku 3.
 
-Processes all courses from course-api-new-data.json using LLM-based parsing
-with rate limiting, checkpointing, and error recovery.
+Processes courses from course-api-new-data.json with rate limiting, checkpointing, and error recovery.
 
-Supports multiple API keys for higher throughput via key rotation.
+CODE FLOW EXPLANATION:
+=====================
+
+1. INITIALIZATION (main() function)
+   - Parse command-line arguments (test mode, batch size, departments, etc.)
+   - Load course data from course-api-new-data.json
+   - Create BatchCourseProcessor instance
+
+2. BATCH PROCESSING (BatchCourseProcessor.process_courses())
+   - Load courses with requirements from JSON file
+   - Filter by departments if specified
+   - Sort courses by priority (engineering departments first)
+   - Split remaining courses into batches (default: 12 courses per batch)
+   - For each batch:
+     a. Call RateLimitedParser.parse_batch_async()
+     b. Rate limiting ensures we don't exceed API limits
+     c. Claude API processes the batch
+     d. Parse and validate JSON response
+     e. Save results to checkpoint and output files
+     f. Continue to next batch
+
+3. RATE LIMITING (RateLimitedParser)
+   - Enforces Claude Haiku 3 Free Tier limits:
+     * 5 requests/min (regular API)
+     * 5 batch requests/min (batch API)
+     * 25,000 input tokens/min
+     * 5,000 output tokens/min (BOTTLENECK)
+   - Calculates minimum interval between batches (30 seconds)
+   - Waits if needed before making next request
+   - Handles rate limit errors with exponential backoff retry
+
+4. API CALL (ClaudePrereqParser._process_single_batch())
+   - Formats course batch as JSON input
+   - Sends to Claude API with system prompt (parsing instructions)
+   - Receives structured JSON response
+   - Cleans response (removes markdown code blocks if present)
+   - Validates JSON structure and ensures all courses are present
+
+5. CHECKPOINTING
+   - Saves progress after each successful batch
+   - Tracks: last_processed_index, successful count, failed count
+   - Allows resuming from last checkpoint if script is interrupted
+   - Results saved incrementally to course_dependencies_llm.json
+
+6. ERROR HANDLING
+   - Rate limit errors: Retry with exponential backoff
+   - JSON parsing errors: Reduce batch size and retry
+   - Missing courses: Log error and continue
+   - Critical errors: Stop processing and save error log
 
 Usage:
     python batch_llm_parser.py [--test] [--batch-size N] [--departments DEPT1,DEPT2]
@@ -19,19 +66,18 @@ Examples:
     # Process specific departments
     python batch_llm_parser.py --departments MSE,ECE,SYDE
     
-    # Custom batch size
-    python batch_llm_parser.py --batch-size 15
+    # Process engineering departments only
+    python batch_llm_parser.py --engineering
 
-API Keys:
-    Set one of the following in your .env file:
+API Key:
+    Set ANTHROPIC_API_KEY in your .env file.
+    Get your key from: https://console.anthropic.com/
     
-    # Single key
-    GEMINI_API_KEY=your_key_here
-    
-    # Multiple keys (comma-separated) for higher throughput
-    GEMINI_API_KEYS=key1,key2,key3,key4
-    
-    With 4 keys, you get 4x the rate limit (60 RPM instead of 15 RPM).
+Rate Limits (Claude Haiku 3 Free Tier):
+    - 5 requests/min
+    - 5 batch requests/min
+    - 25,000 input tokens/min
+    - 5,000 output tokens/min (bottleneck - limits to ~2 batches/min)
 """
 
 import json
@@ -40,10 +86,18 @@ import sys
 import asyncio
 import time
 import argparse
+import re
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional, Any
 from dotenv import load_dotenv
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
+
+try:
+    from anthropic import Anthropic
+    HAS_ANTHROPIC = True
+except ImportError:
+    HAS_ANTHROPIC = False
 
 # Ensure output is flushed immediately
 sys.stdout.reconfigure(line_buffering=True) if hasattr(sys.stdout, 'reconfigure') else None
@@ -52,11 +106,352 @@ sys.stdout.reconfigure(line_buffering=True) if hasattr(sys.stdout, 'reconfigure'
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 load_dotenv(PROJECT_ROOT / '.env')
 
-from llm_prereq_parser import LLMPrereqParser
+# Debug output path for raw LLM responses
+RAW_RESPONSE_DEBUG_PATH = PROJECT_ROOT / 'data' / 'dependencies' / 'llm_raw_response_debug.json'
+
+# System context for the LLM - defines the parsing rules and output format
+PREREQ_PARSER_CONTEXT = """# Course Prerequisites Parser - System Context
+
+You are a specialized parser that converts university course prerequisite strings into structured JSON data. Your job is to analyze prerequisite text and output a specific JSON structure that captures all the requirements, logical relationships, and constraints.
+
+## Input Format
+You will receive a JSON object containing multiple course prerequisite information in the following format:
+{
+  "courses": [
+    {
+      "code": "CS146",
+      "requirements": "Prerequisite text here"
+    }
+  ]
+}
+
+Each course's prerequisite string may include:
+- Course codes (e.g., "CS 146", "MATH 135", "STAT 230")
+- Grade requirements (e.g., "minimum grade of 60%", "grade of 65% or higher")
+- Logical operators (e.g., "and", "or", "one of", "two of", "/")
+- Program restrictions (e.g., "Honours Mathematics students only", "Not open to Software Engineering students")
+- Academic level requirements (e.g., "Level at least 2A", "3B or higher")
+- Faculty specifications (e.g., "Engineering", "Mathematics")
+
+## Output Structure
+You must output a JSON object with course codes as keys and their parsed prerequisites as values:
+
+{
+  "CS146": {
+    "prerequisites": {
+      "groups": [],
+      "program_requirements": [],
+      "root_operator": "AND"
+    },
+    "corequisites": {
+      "groups": [],
+      "root_operator": "AND"
+    },
+    "antirequisites": {
+      "courses": [],
+      "program_restrictions": []
+    }
+  }
+}
+
+### Course Object Structure
+{
+  "type": "course",
+  "code": "CS146",
+  "name": null,
+  "grade_requirement": {
+    "type": "grade_requirement",
+    "value": 60,
+    "operator": "minimum",
+    "unit": "%"
+  }
+}
+
+### Prerequisite Group Structure
+{
+  "type": "prerequisite_group",
+  "courses": [],
+  "operator": "AND" | "OR",
+  "quantity": 1
+}
+
+### Program Requirement Structure
+{
+  "type": "program_requirement",
+  "program_name": "Mathematics",
+  "program_type": "honours" | "regular" | null,
+  "faculty": "Engineering" | null,
+  "level_requirement": {
+    "type": "level_requirement",
+    "level": "2A",
+    "comparison": "at_least" | "exactly"
+  }
+}
+
+### Program Restriction Structure
+{
+  "type": "program_restriction",
+  "program_name": "Software Engineering",
+  "program_type": null,
+  "faculty": null,
+  "restriction_type": "not_open"
+}
+
+## Parsing Rules
+
+### 1. Logical Operators
+- "and", "&", ";" → AND operator
+- "or", "|", "/" → OR operator
+- "one of", "any of" → OR operator with quantity: 1
+- "two of", "any two of" → OR operator with quantity: 2
+- Parentheses indicate grouping
+
+### 2. Course Codes
+- Normalize course codes: "CS 146" → "CS146", "MATH 135" → "MATH135"
+- Remove spaces between subject and number
+
+### 3. Grade Requirements
+- "minimum grade of X%" → operator: "minimum", value: X
+- "grade of X% or higher" → operator: ">=", value: X
+- "at least X%" → operator: ">=", value: X
+
+### 4. Level Requirements
+- "Level at least 2A" → level: "2A", comparison: "at_least"
+- "2A or higher" → level: "2A", comparison: "at_least"
+
+### 5. Section Identification
+- **Prereq/Prerequisite**: Parse into prerequisites.groups
+- **Coreq/Corequisite**: Parse into corequisites.groups
+- **Antireq/Antirequisite**: Parse into antirequisites.courses
+
+## Important Notes
+- Always normalize course codes (remove spaces): "CS 146" → "CS146"
+- Default root_operator is "AND"
+- If no grade requirement, set grade_requirement to null
+- Empty arrays for missing sections
+- Parse ALL sections (prereq, coreq, antireq) from the requirements string
+
+## Output Format
+- Return valid JSON as a single line with NO whitespace, newlines, or indentation (minified/compact format)
+- Do not wrap in markdown code blocks"""
+
+
+def _save_raw_response_debug(raw_response: str, courses_batch: List[Tuple[str, str]]) -> None:
+    """Save raw LLM response to JSON file for debugging before any parsing."""
+    RAW_RESPONSE_DEBUG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    debug_data = {
+        'timestamp': datetime.now().isoformat(),
+        'batch_codes': [code for code, _ in courses_batch],
+        'raw_response': raw_response if raw_response else '(empty)',
+    }
+    with open(RAW_RESPONSE_DEBUG_PATH, 'w') as f:
+        json.dump(debug_data, f, indent=2)
+
+
+class ClaudePrereqParser:
+    """LLM-based prerequisite parser using Claude Haiku 3."""
+    
+    def __init__(self, model_name: str = 'claude-haiku-4-5-20251001', api_key: Optional[str] = None):
+        """
+        Initialize the Claude parser.
+        
+        Args:
+            model_name: Claude model to use (default: claude-3-5-haiku-20241022)
+            api_key: Optional API key. If None, uses ANTHROPIC_API_KEY env var.
+        """
+        if not HAS_ANTHROPIC:
+            raise ImportError("Anthropic package not installed. Run: pip install anthropic")
+        
+        self.api_key = api_key or os.getenv('ANTHROPIC_API_KEY')
+        if not self.api_key:
+            raise ValueError("No Anthropic API key found. Set ANTHROPIC_API_KEY in .env file")
+        
+        self.client = Anthropic(api_key=self.api_key)
+        self.model_name = model_name
+        self.api_keys = [self.api_key]  # For compatibility with batch processor
+        
+        print(f"Claude initialized with model: {model_name}")
+        
+        # Batch processing settings
+        self.min_batch_size = 1
+        self.reduction_factor = 2
+    
+    def _clean_json_response(self, response: str) -> Optional[str]:
+        """Clean markdown code blocks from LLM response."""
+        if not response:
+            return None
+        
+        cleaned = response.strip()
+        
+        # Try to extract JSON from ```json blocks
+        json_pattern = r'```json\s*(.*?)\s*```'
+        matches = re.findall(json_pattern, cleaned, re.DOTALL)
+        if matches:
+            for match in matches:
+                try:
+                    json.loads(match.strip())
+                    return match.strip()
+                except json.JSONDecodeError:
+                    continue
+        
+        # Try generic code blocks
+        code_pattern = r'```\s*(.*?)\s*```'
+        matches = re.findall(code_pattern, cleaned, re.DOTALL)
+        if matches:
+            for match in matches:
+                try:
+                    json.loads(match.strip())
+                    return match.strip()
+                except json.JSONDecodeError:
+                    continue
+        
+        # Try parsing as-is
+        try:
+            json.loads(cleaned)
+            return cleaned
+        except json.JSONDecodeError:
+            pass
+        
+        return None
+    
+    def _process_single_batch(self, courses_batch: List[Tuple[str, str]]) -> Tuple[bool, str]:
+        """
+        Process a single batch of courses using Claude API.
+        
+        FLOW:
+        1. Format courses as JSON input (list of {code, requirements})
+        2. Send to Claude API with system prompt (parsing instructions)
+        3. Receive raw response (may include markdown code blocks)
+        4. Clean response (extract JSON from markdown if needed)
+        5. Validate JSON structure and ensure all courses are present
+        6. Return (success, result_json_string) or (False, error_message)
+        
+        Args:
+            courses_batch: List of (course_code, requirements_description) tuples
+            
+        Returns:
+            Tuple of (success: bool, result_json_string_or_error: str)
+        """
+        try:
+            # STEP 1: Format batch as JSON input
+            batch_input = {
+                "courses": [
+                    {"code": code, "requirements": requirements}
+                    for code, requirements in courses_batch
+                ]
+            }
+            
+            prompt = json.dumps(batch_input, indent=2)
+            
+            # STEP 2: Call Claude API
+            # - Uses system prompt with parsing instructions
+            # - Low temperature (0.1) for consistent, structured output
+            # - Max tokens: 8192 (enough for ~12 courses with complex prerequisites)
+            response = self.client.messages.create(
+                model=self.model_name,
+                max_tokens=8192,
+                system=PREREQ_PARSER_CONTEXT,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.1
+            )
+            
+            # STEP 3: Extract raw response text
+            raw_response = (
+                response.content[0].text
+                if response.content and len(response.content) > 0
+                else ""
+            )
+
+            # Save raw response for debugging (before cleaning)
+            _save_raw_response_debug(raw_response, courses_batch)
+
+            # STEP 4: Clean response (remove markdown code blocks if present)
+            response_text = self._clean_json_response(raw_response)
+            
+            if not response_text:
+                return False, "Failed to extract valid JSON from response"
+            
+            # STEP 5: Validate JSON structure
+            try:
+                parsed = json.loads(response_text)
+                
+                if not isinstance(parsed, dict):
+                    return False, "Invalid JSON structure - expected object"
+                
+                # STEP 6: Ensure all courses from batch are present in response
+                expected_codes = {code for code, _ in courses_batch}
+                for code in expected_codes:
+                    if code not in parsed:
+                        return False, f"Missing results for {code}"
+                
+                return True, response_text
+                
+            except json.JSONDecodeError as e:
+                return False, f"Invalid JSON: {str(e)}"
+        
+        except Exception as e:
+            # Handle API errors (rate limits, billing, network issues, etc.)
+            error_str = str(e)
+            if '429' in error_str or 'rate' in error_str.lower():
+                return False, f"RATE_LIMITED: {error_str}"
+            elif 'credit' in error_str.lower() or 'billing' in error_str.lower() or 'balance' in error_str.lower():
+                return False, f"BILLING_ERROR: {error_str}"
+            return False, error_str
+    
+    def parse_batch(self, courses_batch: List[Tuple[str, str]]) -> Optional[Dict[str, Any]]:
+        """Parse a batch of courses with automatic retry and batch size reduction."""
+        current_batch_size = len(courses_batch)
+        
+        while current_batch_size >= self.min_batch_size:
+            print(f"  Attempting batch size: {current_batch_size}")
+            
+            if current_batch_size == len(courses_batch):
+                success, result = self._process_single_batch(courses_batch)
+                if success:
+                    return json.loads(result)
+            else:
+                sub_batches = [
+                    courses_batch[i:i + current_batch_size]
+                    for i in range(0, len(courses_batch), current_batch_size)
+                ]
+                
+                all_results = {}
+                all_successful = True
+                
+                for sub_batch in sub_batches:
+                    success, result = self._process_single_batch(sub_batch)
+                    if not success:
+                        all_successful = False
+                        print(f"    Sub-batch failed: {result}")
+                        break
+                    
+                    try:
+                        all_results.update(json.loads(result))
+                    except json.JSONDecodeError:
+                        all_successful = False
+                        break
+                
+                if all_successful:
+                    return all_results
+            
+            current_batch_size = current_batch_size // self.reduction_factor
+            if current_batch_size >= self.min_batch_size:
+                print(f"  Reducing batch size to: {current_batch_size}")
+        
+        print("  Failed even with minimum batch size")
+        return None
 
 
 # Priority departments for processing (processed first)
 PRIORITY_DEPARTMENTS = ['MSE', 'ECE', 'SYDE', 'BME', 'ME', 'MTE', 'SE', 'NE', 'CHE', 'CIVE', 'ENVE', 'GEOE']
+
+# Engineering departments at University of Waterloo
+ENGINEERING_DEPARTMENTS = [
+    'AE', 'BME', 'CHE', 'CIVE', 'ECE', 'ENVE', 'GENE', 'GEOE',
+    'ME', 'MTE', 'MSE', 'NE', 'SE', 'SYDE',
+]
 
 
 def get_department_from_code(code: str) -> str:
@@ -79,78 +474,155 @@ def get_course_priority(course_tuple: Tuple[str, str]) -> Tuple[int, str]:
 
 
 class RateLimitedParser:
-    """Rate-limited wrapper around LLMPrereqParser with retry logic and key rotation."""
+    """
+    Rate-limited wrapper around ClaudePrereqParser with retry logic.
     
-    def __init__(self, requests_per_minute: int = 30, batch_size: int = 12, api_keys: Optional[List[str]] = None):
-        self.parser = LLMPrereqParser(api_keys=api_keys)
-        self.num_keys = len(self.parser.api_keys)
+    Enforces Claude Haiku 3 Free Tier rate limits:
+    - 5 requests/min (regular API calls)
+    - 5 batch requests/min (batch API calls)
+    - 25,000 input tokens/min
+    - 5,000 output tokens/min
+    
+    BOTTLENECK ANALYSIS:
+    With batch size of 12 courses:
+    - Input tokens per batch: ~2,846 tokens (well under 25K/min limit)
+    - Output tokens per batch: ~2,000 tokens (this is the bottleneck!)
+    - Max batches by output tokens: 5,000 / 2,000 = 2.5 batches/min
+    
+    Therefore, we limit to 2 batches/min to stay safely under the 5K output tokens/min limit.
+    This is more restrictive than the 5 requests/min limit, so output tokens are the bottleneck.
+    """
+    
+    def __init__(self, batch_size: int = 12):
+        """
+        Initialize rate-limited parser.
         
-        # Adjust rate limit based on number of keys
-        self.requests_per_minute = requests_per_minute * self.num_keys
-        self.min_interval = 60.0 / self.requests_per_minute
+        Args:
+            batch_size: Number of courses per batch (default: 12)
+        """
+        self.parser = ClaudePrereqParser()
+        self.num_keys = 1
+        
+        # Rate limits from Claude Haiku 3 Free Tier
+        self.max_requests_per_minute = 5  # Regular API limit
+        self.max_batch_requests_per_minute = 5  # Batch API limit
+        self.max_input_tokens_per_minute = 25000  # Input token limit
+        self.max_output_tokens_per_minute = 5000  # Output token limit (BOTTLENECK)
+        
+        # Estimated token usage per batch (12 courses)
+        self.estimated_input_tokens_per_batch = 2846
+        self.estimated_output_tokens_per_batch = 2000
+        
+        # Calculate effective throughput based on the bottleneck (output tokens)
+        # Max batches = 5000 / 2000 = 2.5 batches/min, use 2 to be safe
+        self.effective_batches_per_minute = min(
+            self.max_batch_requests_per_minute,  # 5 batches/min (batch API limit)
+            self.max_output_tokens_per_minute // self.estimated_output_tokens_per_batch  # ~2 batches/min (output token limit)
+        )
+        
+        # Use the more restrictive limit (output tokens = 2 batches/min)
+        self.requests_per_minute = self.effective_batches_per_minute
+        self.min_interval = 60.0 / self.requests_per_minute  # 30 seconds between batches
         self.last_request_time = 0
         self.batch_size = batch_size
-        self.max_retries = 3 * self.num_keys  # More retries with more keys
-        self.base_retry_delay = 5  # seconds (shorter with key rotation)
+        self.max_retries = 3
+        self.base_retry_delay = 5  # seconds
         
-        print(f"Rate limit: {self.requests_per_minute} RPM (with {self.num_keys} key(s))")
+        print(f"Claude Haiku 3 Rate Limits:")
+        print(f"  - Requests/min: {self.max_requests_per_minute}")
+        print(f"  - Batch requests/min: {self.max_batch_requests_per_minute}")
+        print(f"  - Input tokens/min: {self.max_input_tokens_per_minute:,}")
+        print(f"  - Output tokens/min: {self.max_output_tokens_per_minute:,} (BOTTLENECK)")
+        print(f"  - Effective rate: {self.requests_per_minute} batches/min ({self.min_interval:.1f}s between batches)")
     
-    async def parse_batch_async(self, courses_batch: List[Tuple[str, str]]) -> Optional[Dict[str, Any]]:
-        """Parse a batch with rate limiting, retry logic, and key rotation."""
+    async def parse_batch_async(self, courses_batch: List[Tuple[str, str]]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+        """
+        Parse a batch with rate limiting and retry logic.
+        
+        FLOW:
+        1. Check if enough time has passed since last request (rate limiting)
+        2. If not, wait until minimum interval has elapsed
+        3. Call Claude API to parse the batch (runs in thread pool to avoid blocking)
+        4. On success: Update last_request_time and return results
+        5. On failure: Retry with exponential backoff (up to max_retries)
+        6. Handle rate limit errors (429) specially with longer backoff
+        
+        Args:
+            courses_batch: List of (course_code, requirements_description) tuples
+            
+        Returns:
+            Tuple of (result_dict_or_none, error_type_or_none)
+            error_type can be: "RATE_LIMIT", "DAILY_QUOTA", or None
+        """
+        last_error_type = None
         
         for retry in range(self.max_retries):
-            # Rate limiting
+            # STEP 1: Rate limiting - enforce minimum interval between requests
+            # This ensures we don't exceed the 5K output tokens/min limit
             current_time = time.time()
-            time_since_last = current_time - self.last_request_time
-            if time_since_last < self.min_interval:
-                wait_time = self.min_interval - time_since_last
-                print(f"  Rate limiting: waiting {wait_time:.2f}s...")
-                await asyncio.sleep(wait_time)
+            if self.last_request_time > 0:
+                time_since_last = current_time - self.last_request_time
+                if time_since_last < self.min_interval:
+                    wait_time = self.min_interval - time_since_last
+                    print(f"  Rate limiting: waiting {wait_time:.2f}s...")
+                    await asyncio.sleep(wait_time)
             
-            self.last_request_time = time.time()
-            
-            # Run in thread pool to avoid blocking
+            # STEP 2: Make API call (run in thread pool to avoid blocking async event loop)
             loop = asyncio.get_event_loop()
             try:
                 result = await loop.run_in_executor(None, self.parser.parse_batch, courses_batch)
+                
+                # STEP 3: On success, update timestamp and return
                 if result is not None:
-                    return result
-                # If result is None but no exception, it might be a quota issue handled internally
-                # The parser rotates keys internally, so we can retry quickly
-                if self.num_keys > 1:
-                    await asyncio.sleep(self.base_retry_delay)
-                    continue
+                    self.last_request_time = time.time()
+                    return result, None
+                
+                # STEP 4: On failure (but no exception), retry after short delay
+                await asyncio.sleep(self.base_retry_delay)
+                continue
+                
             except Exception as e:
                 error_str = str(e)
-                if '429' in error_str or 'quota' in error_str.lower():
-                    if self.num_keys > 1:
-                        # With multiple keys, retry quickly after rotation
-                        retry_delay = self.base_retry_delay
-                    else:
-                        # With single key, use exponential backoff
-                        retry_delay = self.base_retry_delay * (2 ** retry)
-                    print(f"  ⚠️  Quota exceeded. Retry {retry + 1}/{self.max_retries} in {retry_delay}s...")
+                
+                # STEP 5: Handle different types of errors
+                if '429' in error_str or 'rate' in error_str.lower() or 'quota' in error_str.lower():
+                    is_daily_quota = 'daily' in error_str.lower() or 'per day' in error_str.lower()
+                    
+                    if is_daily_quota:
+                        # Daily quota won't reset by retrying - stop immediately
+                        print(f"  ⚠️  Daily quota exceeded. This resets at midnight UTC.")
+                        return None, "DAILY_QUOTA"
+                    
+                    # Rate limits are PER MINUTE (not daily) - exponential backoff: 5s, 10s, 20s
+                    last_error_type = "RATE_LIMIT"
+                    retry_delay = self.base_retry_delay * (2 ** retry)
+                    print(f"  ⚠️  Rate limit exceeded (429). Retry {retry + 1}/{self.max_retries} in {retry_delay}s...")
+                    print(f"  ⚠️  Note: These are PER MINUTE limits - if all retries fail, wait 1-2 min and resume")
+                    print(f"  ⚠️  Error details: {error_str[:200]}")
                     await asyncio.sleep(retry_delay)
+                elif 'credit' in error_str.lower() or 'billing' in error_str.lower() or 'balance' in error_str.lower():
+                    # Billing/credit errors won't resolve by retrying - stop immediately
+                    print(f"  ⚠️  Billing/Credit error detected. Please add credits to your Anthropic account.")
+                    print(f"  ⚠️  Visit: https://console.anthropic.com/settings/billing")
+                    return None, "BILLING_ERROR"
                 else:
+                    # Non-rate-limit errors: re-raise to be handled by caller
                     raise
         
-        print(f"  ✗ Max retries exceeded")
-        return None
+        # All retries exhausted - likely rate limit
+        print(f"  ✗ Max retries exceeded (likely rate limit)")
+        print(f"  💡 Rate limits are PER MINUTE - wait 1-2 minutes and resume")
+        return None, last_error_type
 
 
 class BatchCourseProcessor:
-    """
-    Batch processor for course prerequisites with checkpointing.
-    
-    Processes courses in batches, saves progress, and can resume from failures.
-    """
+    """Batch processor for course prerequisites with checkpointing."""
     
     def __init__(self, 
                  api_data_path: Path,
                  output_dir: Path,
                  batch_size: int = 12,
-                 departments: Optional[List[str]] = None,
-                 api_keys: Optional[List[str]] = None):
+                 departments: Optional[List[str]] = None):
         """
         Initialize the processor.
         
@@ -159,7 +631,6 @@ class BatchCourseProcessor:
             output_dir: Directory for output files
             batch_size: Number of courses per batch
             departments: Optional list of departments to filter
-            api_keys: Optional list of Gemini API keys for rotation
         """
         self.api_data_path = api_data_path
         self.output_dir = output_dir
@@ -169,7 +640,7 @@ class BatchCourseProcessor:
         self.output_file = output_dir / 'course_dependencies_llm.json'
         self.error_log_file = output_dir / 'llm_error_log.json'
         
-        self.parser = RateLimitedParser(requests_per_minute=15, batch_size=batch_size, api_keys=api_keys)
+        self.parser = RateLimitedParser(batch_size=batch_size)
         self.departments = departments
         
         # Load checkpoint and results
@@ -233,6 +704,15 @@ class BatchCourseProcessor:
         print(f"Error Details: {error_details}")
         print(f"Failed Courses: {affected_courses}")
     
+    def _print_courses_summary(self):
+        """Print summary of all courses that have been successfully parsed."""
+        if self.results:
+            print(f"\n=== Courses Successfully Parsed ({len(self.results)} total) ===")
+            for code in sorted(self.results.keys()):
+                print(f"  {code}")
+        else:
+            print(f"\n=== No courses parsed yet ===")
+    
     def _get_courses_with_requirements(self) -> List[Tuple[str, str]]:
         """Load and filter courses with requirements."""
         with open(self.api_data_path, 'r') as f:
@@ -254,13 +734,7 @@ class BatchCourseProcessor:
         return courses
     
     async def process_courses(self, test_mode: bool = False, test_batches: int = 3):
-        """
-        Process all courses with checkpointing.
-        
-        Args:
-            test_mode: If True, only process a few batches for testing
-            test_batches: Number of batches to process in test mode
-        """
+        """Process all courses with checkpointing."""
         print(f"Loading courses from {self.api_data_path}...")
         courses = self._get_courses_with_requirements()
         
@@ -313,17 +787,44 @@ class BatchCourseProcessor:
             print(f"Courses: {[code for code, _ in batch]}")
             
             try:
-                # Process batch
-                result = await self.parser.parse_batch_async(batch)
+                result, error_type = await self.parser.parse_batch_async(batch)
                 
                 if result is None:
+                    # Determine error message based on error type
+                    if error_type == "RATE_LIMIT":
+                        error_msg = "Rate limit exceeded (429). These are PER MINUTE limits - wait 1-2 minutes and resume."
+                        print("\n⚠️  Rate limit exceeded - stopping gracefully")
+                        print("💡 These are PER MINUTE limits (not daily)")
+                        print("💡 Wait 1-2 minutes, then run the script again to resume")
+                    elif error_type == "DAILY_QUOTA":
+                        error_msg = "Daily quota exceeded. This resets at midnight UTC."
+                        print("\n⚠️  Daily quota exceeded - stopping")
+                        print("💡 This resets at midnight UTC - resume tomorrow")
+                    elif error_type == "BILLING_ERROR":
+                        error_msg = "Insufficient credits/billing issue. Please add credits to your Anthropic account."
+                        print("\n⚠️  Billing/Credit Error - stopping")
+                        print("💡 Your Anthropic account needs credits to use the API")
+                        print("💡 Visit: https://console.anthropic.com/settings/billing")
+                        print("💡 After adding credits, run the script again to resume")
+                    else:
+                        error_msg = "No response from LLM after retries"
+                        print("\n⚠️  Critical error - stopping")
+                    
                     self._log_error(
                         current_batch_num,
-                        "LLM_NO_RESPONSE",
-                        "No response from LLM",
+                        error_type or "LLM_NO_RESPONSE",
+                        error_msg,
                         [code for code, _ in batch]
                     )
-                    print("\n⚠️  Critical error - stopping")
+                    
+                    # IMPORTANT: Save checkpoint BEFORE stopping so we can resume
+                    # The failed batch will be retried when we resume
+                    self._save_checkpoint()
+                    self._save_results()
+                    
+                    print(f"💡 Progress saved: {self.checkpoint['successful']} courses processed")
+                    print(f"💡 Next run will resume from batch {current_batch_num}")
+                    self._print_courses_summary()
                     return
                 
                 # Update results
@@ -347,6 +848,7 @@ class BatchCourseProcessor:
                         missing_courses
                     )
                     print("\n⚠️  Critical error - stopping")
+                    self._print_courses_summary()
                     return
                 
             except Exception as e:
@@ -357,6 +859,7 @@ class BatchCourseProcessor:
                     [code for code, _ in batch]
                 )
                 print(f"\n⚠️  Unexpected error: {e}")
+                self._print_courses_summary()
                 return
             
             # Save progress
@@ -373,6 +876,8 @@ class BatchCourseProcessor:
         print(f"Successful: {self.checkpoint['successful']}")
         print(f"Failed: {self.checkpoint['failed']}")
         print(f"Results saved to: {self.output_file}")
+        
+        self._print_courses_summary()
     
     def reset_checkpoint(self):
         """Reset checkpoint to start fresh."""
@@ -390,10 +895,12 @@ class BatchCourseProcessor:
 
 async def main():
     """Main entry point."""
-    parser = argparse.ArgumentParser(description='Batch LLM parser for course prerequisites')
+    parser = argparse.ArgumentParser(description='Batch LLM parser for course prerequisites using Claude')
     parser.add_argument('--test', action='store_true', help='Run in test mode (3 batches)')
     parser.add_argument('--batch-size', type=int, default=12, help='Batch size (default: 12)')
     parser.add_argument('--departments', type=str, help='Comma-separated list of departments to process')
+    parser.add_argument('--engineering', action='store_true', 
+                        help='Process only engineering departments (default: all departments)')
     parser.add_argument('--reset', action='store_true', help='Reset checkpoint and start fresh')
     parser.add_argument('--input', type=str, default='new', choices=['old', 'new'],
                         help='Input data format (default: new)')
@@ -409,7 +916,10 @@ async def main():
     
     # Parse departments
     departments = None
-    if args.departments:
+    if args.engineering:
+        departments = ENGINEERING_DEPARTMENTS
+        print(f"Filtering to engineering departments: {departments}")
+    elif args.departments:
         departments = [d.strip().upper() for d in args.departments.split(',')]
     
     print(f"API data: {api_data_path}")
