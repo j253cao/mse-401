@@ -22,7 +22,11 @@ import {
   CheckCircle2,
   AlertCircle,
   Sparkles,
+  Settings2,
 } from "lucide-react";
+import { ProgramSelector } from "@/components/ProgramSelector";
+import { AcademicTermSelector } from "@/components/AcademicTermSelector";
+import { ENGINEERING_PROGRAMS } from "@/constants/engineeringPrograms";
 import { cn } from "@/lib/utils";
 import { api, ApiError } from "@/services/api";
 
@@ -34,6 +38,10 @@ export default function ProfilePage() {
     setTermSummaries,
     studentProfile,
     completedCourses,
+    programCode,
+    setProgramCode,
+    incomingLevel,
+    setIncomingLevel,
   } = useContext(RecommendationsContext);
 
   const [loading, setLoading] = useState(false);
@@ -134,6 +142,12 @@ export default function ProfilePage() {
     }
   };
 
+  const programDisplayName = programCode
+    ? ENGINEERING_PROGRAMS.find((p) => p.code === programCode)?.displayName ?? programCode
+    : "—";
+  const displayProgram = studentProfile?.program || programDisplayName;
+  const displayLevel = studentProfile?.latestTerm?.level || incomingLevel || "—";
+
   const profileInfo = studentProfile
     ? [
         { icon: User, label: "Student ID", value: studentProfile.studentNumber?.toString() || "—" },
@@ -143,9 +157,9 @@ export default function ProfilePage() {
       ]
     : [
         { icon: User, label: "Student ID", value: "Upload transcript" },
-        { icon: GraduationCap, label: "Program", value: "—" },
+        { icon: GraduationCap, label: "Program", value: displayProgram },
         { icon: Calendar, label: "Current Term", value: "—" },
-        { icon: FileText, label: "Level", value: "—" },
+        { icon: FileText, label: "Level", value: displayLevel },
       ];
 
   return (
@@ -162,6 +176,37 @@ export default function ProfilePage() {
         <div className="grid md:grid-cols-[1fr,320px] gap-8">
           {/* Left Column - Upload Section */}
           <div className="space-y-6">
+            {/* Manual Setup */}
+            <Card className="glass-card overflow-hidden">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings2 className="w-5 h-5 text-primary" />
+                  Set up your profile
+                </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  Select your program and incoming term to auto-populate required courses
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ProgramSelector
+                  value={programCode}
+                  onChange={setProgramCode}
+                />
+                <AcademicTermSelector
+                  value={incomingLevel}
+                  onChange={setIncomingLevel}
+                />
+                {programCode && incomingLevel && (
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-primary/5">
+                    <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                    <p className="text-sm text-muted-foreground">
+                      Required core courses for terms before {incomingLevel} have been loaded
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
             {/* Resume Upload */}
             <Card className="glass-card overflow-hidden">
               <CardHeader>
@@ -372,7 +417,7 @@ export default function ProfilePage() {
                       {studentProfile ? `Student #${studentProfile.studentNumber}` : "Student Profile"}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {studentProfile?.program || "Upload transcript to see details"}
+                      {studentProfile?.program || displayProgram || "Upload transcript or set up above"}
                     </p>
                   </div>
                 </div>
