@@ -1,0 +1,26 @@
+{
+  "last_error_timestamp": "2026-02-04T16:08:56.047289",
+  "last_error_batch": 4,
+  "error_type": "UNEXPECTED_ERROR",
+  "error_details": "[Errno 32] Broken pipe",
+  "failed_courses": [
+    "MSE546",
+    "MSE333",
+    "MSE531",
+    "MSE541",
+    "MSE555",
+    "MSE551",
+    "MSE261",
+    "MSE251",
+    "MSE431",
+    "MSE121",
+    "MSE131",
+    "MSE334"
+  ],
+  "checkpoint_state": {
+    "last_processed_index": 24,
+    "successful": 24,
+    "failed": 0,
+    "total_courses": 824
+  }
+}
