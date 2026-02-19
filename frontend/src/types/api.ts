@@ -79,6 +79,7 @@ export type IncomingLevel = "1A" | "1B" | "2A" | "2B" | "3A" | "3B" | "4A" | "4B
 export interface StoredProfile {
   programCode: string;
   incomingLevel: IncomingLevel;
+  completedCourses?: string[];
   startingTerm?: {
     season: "Fall" | "Winter" | "Spring";
     year: number;

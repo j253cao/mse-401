@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum
+import json
 import time
 import os
 import tempfile
@@ -23,6 +24,12 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 # Load environment variables from project root .env file
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
+
+# 14 UW Engineering departments (matches course_dependency_parser)
+ENGINEERING_DEPARTMENTS = (
+    "AE", "BME", "CHE", "CIVE", "ECE", "ENVE", "GENE", "GEOE",
+    "ME", "MTE", "MSE", "NE", "SE", "SYDE",
+)
 
 from recommender.main import get_recommendations, get_abs_path
 from recommender.data_loader import load_course_data
@@ -74,13 +81,18 @@ def recommend(request: QueryRequest):
     t0 = time.time()
     print(f"[endpoint] Request received: {request.queries}")
     print(f"[endpoint] Filters: {request.filters}")
+
+    # Default to engineering departments only when no department filter provided
+    filters = dict(request.filters) if request.filters else {}
+    if not filters.get("department"):
+        filters["department"] = list(ENGINEERING_DEPARTMENTS)
     
     t1 = time.time()
     results = get_recommendations(
         request.queries,
-        data_file='waterloo-open-api-data.json',
+        data_file='course-api-new-data.json',
         method='cosine',
-        filters=request.filters
+        filters=filters
     )
     t2 = time.time()
     print(f"[endpoint] Recommendation call: {t2-t1:.4f}s")
@@ -143,12 +155,17 @@ def resume_recommend(
         # Build a search query string
         query_parts = subfields + preferred_domains + suggested_directions
         query = ' '.join(query_parts)
+
+        # Default to engineering departments only when no department filter provided
+        res_filters = dict(filters) if filters else {}
+        if not res_filters.get("department"):
+            res_filters["department"] = list(ENGINEERING_DEPARTMENTS)
         
         recommendations = get_recommendations(
             [query],
-            data_file='waterloo-open-api-data.json',
+            data_file='course-api-new-data.json',
             method='cosine',
-            filters=filters
+            filters=res_filters
         )
         
         formatted = [
@@ -169,10 +186,48 @@ def resume_recommend(
         os.remove(tmp_path)
 
 
+@app.get("/courses/search")
+def courses_search(q: str = "", limit: int = 20):
+    """
+    Search courses by code or title prefix.
+    Returns { code, title }[] for use in course picker autocomplete.
+    Restricted to engineering departments only.
+    Uses subjectCode for department check (keys may be ENGDEAN* for ENVE, etc.).
+    Returns canonical code (subjectCode + catalogNumber) to match undergrad/grad lists.
+    """
+    if not q or len(q.strip()) < 2:
+        return []
+    query = q.strip().upper()
+    data_json = get_abs_path('data', 'courses', 'course-api-new-data.json')
+    with open(data_json, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    results = []
+    seen = set()
+    for key, info in data.items():
+        if len(results) >= limit:
+            break
+        # Use subjectCode for department (keys like ENGDEAN583 have subjectCode ENVE)
+        subject = (info.get('subjectCode') or '').upper()
+        catalog = info.get('catalogNumber') or ''
+        if subject not in ENGINEERING_DEPARTMENTS:
+            continue
+        # Canonical code matches undergrad/grad lists (e.g. ENVE223)
+        canonical_code = f"{subject}{catalog}" if catalog else key
+        if canonical_code in seen:
+            continue
+        title = info.get('title', '')
+        code_upper = canonical_code.upper()
+        title_upper = title.upper()
+        if query in code_upper or query in title_upper or query in key.upper():
+            seen.add(canonical_code)
+            results.append({"code": canonical_code, "title": title})
+    return results[:limit]
+
+
 @app.get("/random-course")
 def random_course():
     """Get a random course from the database."""
-    data_json = get_abs_path('data', 'courses', 'waterloo-open-api-data.json')
+    data_json = get_abs_path('data', 'courses', 'course-api-new-data.json')
     df = load_course_data(data_json)
     row = df.sample(1).iloc[0]
     return {

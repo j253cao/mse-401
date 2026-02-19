@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
 import { Button } from "@/components/ui/button";
@@ -29,10 +29,14 @@ import {
 import { cn } from "@/lib/utils";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
+import { CompletedCoursesManager } from "@/components/CompletedCoursesManager";
+import { FILTER_DEPARTMENTS } from "@/constants/filterDepartments";
 
-const DEPARTMENT_OPTIONS = ["MSE", "ECE"] as const;
-type Department = (typeof DEPARTMENT_OPTIONS)[number];
-type DepartmentFilters = Record<Department, boolean>;
+type DepartmentFilters = Record<string, boolean>;
+
+const INITIAL_DEPARTMENTS: DepartmentFilters = Object.fromEntries(
+  FILTER_DEPARTMENTS.map((d) => [d.code, true])
+);
 
 export default function RecommendationPage() {
   const [search, setSearch] = useState("");
@@ -44,29 +48,11 @@ export default function RecommendationPage() {
   const [error, setError] = useState<string | null>(null);
   const [includeUndergrad, setIncludeUndergrad] = useState(true);
   const [includeGrad, setIncludeGrad] = useState(true);
-  const [departments, setDepartments] = useState<DepartmentFilters>({
-    MSE: true,
-    ECE: true,
-  });
+  const [departments, setDepartments] = useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
   const [showFilters, setShowFilters] = useState(false);
 
-  const { recommendedCourses, completedCourses: contextCompletedCourses } =
+  const { recommendedCourses, completedCourses, setCompletedCourses } =
     useContext(RecommendationsContext);
-
-  // Local state for the text input
-  const [completedCoursesInput, setCompletedCoursesInput] = useState("");
-
-  // Track if we've synced from context (only sync once when transcript is uploaded)
-  const [hasSyncedFromContext, setHasSyncedFromContext] = useState(false);
-
-  // Update input when context changes from empty to non-empty (transcript upload)
-  useEffect(() => {
-    if (contextCompletedCourses.length > 0 && !hasSyncedFromContext) {
-      setCompletedCoursesInput(contextCompletedCourses.join(", "));
-      setHasSyncedFromContext(true);
-    }
-  }, [contextCompletedCourses, hasSyncedFromContext]);
-
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -77,19 +63,14 @@ export default function RecommendationPage() {
     setLoading(true);
     setError(null);
     try {
-      // Use the input field as the source of truth for completed courses
-      const completedCoursesList = completedCoursesInput
-        ? completedCoursesInput
-            .split(",")
-            .map((c) => c.trim())
-            .filter((c) => c)
-        : [];
-
+      const selectedDepts = Object.entries(departments)
+        .filter(([, v]) => v)
+        .map(([k]) => k);
       const filters = {
         include_undergrad: includeUndergrad,
         include_grad: includeGrad,
-        department: Object.keys(departments).filter((k) => departments[k as keyof typeof departments]),
-        completed_courses: completedCoursesList,
+        department: selectedDepts,
+        completed_courses: completedCourses,
       };
 
       const courses = await api.recommend([search], filters);
@@ -119,9 +100,8 @@ export default function RecommendationPage() {
   const activeFiltersCount = [
     !includeUndergrad,
     !includeGrad,
-    !departments.MSE,
-    !departments.ECE,
-    completedCoursesInput.length > 0,
+    ...Object.values(departments).filter((v) => !v),
+    completedCourses.length > 0,
   ].filter(Boolean).length;
 
   return (
@@ -220,6 +200,25 @@ export default function RecommendationPage() {
                           <X className="w-3 h-3" />
                         </Badge>
                       )}
+                      {Object.values(departments).filter(Boolean).length <
+                        FILTER_DEPARTMENTS.length && (
+                        <Badge
+                          variant="secondary"
+                          className="gap-1 cursor-pointer hover:bg-destructive/20"
+                          onClick={() =>
+                            setDepartments(
+                              Object.fromEntries(
+                                FILTER_DEPARTMENTS.map((d) => [d.code, true])
+                              )
+                            )
+                          }
+                        >
+                          {FILTER_DEPARTMENTS.length -
+                            Object.values(departments).filter(Boolean).length}{" "}
+                          depts excluded
+                          <X className="w-3 h-3" />
+                        </Badge>
+                      )}
                     </div>
                   </div>
 
@@ -227,100 +226,124 @@ export default function RecommendationPage() {
                   {showFilters && (
                     <Card className="glass-card">
                       <CardContent className="pt-6 space-y-6">
-                        {/* Level Filters */}
-                        <div className="space-y-3">
+                        {/* Level Filters - compact toggle pills */}
+                        <div className="space-y-2">
                           <Label className="text-sm font-medium">
                             Course Level
                           </Label>
-                          <div className="flex gap-6">
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                id="undergrad"
-                                checked={includeUndergrad}
-                                onCheckedChange={(checked) =>
-                                  setIncludeUndergrad(checked as boolean)
-                                }
-                              />
-                              <Label
-                                htmlFor="undergrad"
-                                className="text-sm cursor-pointer"
-                              >
-                                Undergraduate
-                              </Label>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                id="grad"
-                                checked={includeGrad}
-                                onCheckedChange={(checked) =>
-                                  setIncludeGrad(checked as boolean)
-                                }
-                              />
-                              <Label
-                                htmlFor="grad"
-                                className="text-sm cursor-pointer"
-                              >
-                                Graduate
-                              </Label>
-                            </div>
+                          <div className="flex rounded-lg border border-input p-1 bg-muted/30">
+                            <button
+                              type="button"
+                              onClick={() => setIncludeUndergrad(!includeUndergrad)}
+                              className={cn(
+                                "flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors",
+                                includeUndergrad
+                                  ? "bg-background shadow text-foreground"
+                                  : "text-muted-foreground hover:text-foreground"
+                              )}
+                            >
+                              Undergraduate
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setIncludeGrad(!includeGrad)}
+                              className={cn(
+                                "flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors",
+                                includeGrad
+                                  ? "bg-background shadow text-foreground"
+                                  : "text-muted-foreground hover:text-foreground"
+                              )}
+                            >
+                              Graduate
+                            </button>
                           </div>
                         </div>
 
-                        {/* Department Filters */}
-                        <div className="space-y-3">
-                          <Label className="text-sm font-medium">
-                            Departments
-                          </Label>
-                          <div className="flex gap-6">
-                            {DEPARTMENT_OPTIONS.map((dept) => (
+                        {/* Department Filters - grid with select all */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-sm font-medium">
+                              Departments
+                            </Label>
+                            <div className="flex gap-1">
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className="h-7 text-xs"
+                                onClick={() =>
+                                  setDepartments(
+                                    Object.fromEntries(
+                                      FILTER_DEPARTMENTS.map((d) => [d.code, true])
+                                    )
+                                  )
+                                }
+                              >
+                                All
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className="h-7 text-xs"
+                                onClick={() =>
+                                  setDepartments(
+                                    Object.fromEntries(
+                                      FILTER_DEPARTMENTS.map((d) => [d.code, false])
+                                    )
+                                  )
+                                }
+                              >
+                                None
+                              </Button>
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-48 overflow-y-auto rounded-lg border border-input p-2 bg-muted/20">
+                            {FILTER_DEPARTMENTS.map((dept) => (
                               <div
-                                key={dept}
-                                className="flex items-center gap-2"
+                                key={dept.code}
+                                className="flex items-center gap-2 min-w-0"
                               >
                                 <Checkbox
-                                  id={dept}
-                                  checked={departments[dept]}
+                                  id={dept.code}
+                                  checked={departments[dept.code] ?? true}
                                   onCheckedChange={(checked) =>
                                     setDepartments({
                                       ...departments,
-                                      [dept]: checked as boolean,
+                                      [dept.code]: checked as boolean,
                                     })
                                   }
                                 />
                                 <Label
-                                  htmlFor={dept}
-                                  className="text-sm cursor-pointer"
+                                  htmlFor={dept.code}
+                                  className="text-sm cursor-pointer flex-1 min-w-0 truncate"
+                                  title={`${dept.abbr} — ${dept.fullName}`}
                                 >
-                                  {dept}
+                                  <span className="font-medium">{dept.abbr}</span>
+                                  <span className="text-muted-foreground">
+                                    {" "}
+                                    {dept.fullName}
+                                  </span>
                                 </Label>
                               </div>
                             ))}
                           </div>
                         </div>
 
-                        {/* Completed Courses */}
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="completed"
-                            className="text-sm font-medium"
-                          >
-                            Completed Courses (optional)
-                          </Label>
-                          <Input
-                            id="completed"
-                            type="text"
-                            value={completedCoursesInput}
-                            onChange={(e) =>
-                              setCompletedCoursesInput(e.target.value)
-                            }
-                            placeholder="e.g., CS343, ECE124, MATH117"
-                            className="bg-background"
-                          />
-                          <p className="text-xs text-muted-foreground">
-                            Enter course codes separated by commas to exclude
-                            them from recommendations
-                          </p>
-                        </div>
+                        {/* Completed Courses - compact with expand */}
+                        <CompletedCoursesManager
+                          completedCourses={completedCourses}
+                          onAdd={(code) =>
+                            setCompletedCourses((prev) =>
+                              prev.includes(code) ? prev : [...prev, code]
+                            )
+                          }
+                          onRemove={(code) =>
+                            setCompletedCourses((prev) => prev.filter((c) => c !== code))
+                          }
+                          onClearAll={() => setCompletedCourses([])}
+                          compact
+                        />
                       </CardContent>
                     </Card>
                   )}
