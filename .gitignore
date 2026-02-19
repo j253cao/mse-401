@@ -42,3 +42,4 @@ build/
 # Large model files (optional - uncomment if you don't want to track these)
 # data/embeddings/*.npy
 # data/embeddings/*.pkl
+features.md
