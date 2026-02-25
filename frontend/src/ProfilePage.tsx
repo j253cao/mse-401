@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { ProgramSelector } from "@/components/ProgramSelector";
 import { AcademicTermSelector } from "@/components/AcademicTermSelector";
+import { CompletedCoursesManager } from "@/components/CompletedCoursesManager";
 import { ENGINEERING_PROGRAMS } from "@/constants/engineeringPrograms";
 import { cn } from "@/lib/utils";
 import { api, ApiError } from "@/services/api";
@@ -101,8 +102,11 @@ export default function ProfilePage() {
     try {
       const data = await api.parseTranscript(file);
 
-      // Update completed courses
-      setCompletedCourses(data.courses || []);
+      // Merge completed courses (dedupe) instead of replacing
+      setCompletedCourses((prev) => {
+        const merged = new Set([...prev, ...(data.courses || [])]);
+        return [...merged];
+      });
 
       // Update term summaries
       setTermSummaries(data.term_summaries || []);
@@ -390,6 +394,33 @@ export default function ProfilePage() {
                     Upload your transcript to track completed courses and get better recommendations.
                   </p>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Completed Courses Manager */}
+            <Card className="glass-card overflow-hidden">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5 text-accent" />
+                  Completed Courses
+                </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  Add or remove courses. Only known courses can be added. Used to filter recommendations.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <CompletedCoursesManager
+                  completedCourses={completedCourses}
+                  onAdd={(code) =>
+                    setCompletedCourses((prev) =>
+                      prev.includes(code) ? prev : [...prev, code]
+                    )
+                  }
+                  onRemove={(code) =>
+                    setCompletedCourses((prev) => prev.filter((c) => c !== code))
+                  }
+                  onClearAll={() => setCompletedCourses([])}
+                />
               </CardContent>
             </Card>
           </div>

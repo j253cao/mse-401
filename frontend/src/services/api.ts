@@ -150,6 +150,15 @@ export const api = {
   },
 
   /**
+   * Search courses by code or title (for course picker autocomplete)
+   */
+  async searchCourses(q: string, limit = 20): Promise<{ code: string; title: string }[]> {
+    if (!q || q.trim().length < 2) return [];
+    const params = new URLSearchParams({ q: q.trim(), limit: String(limit) });
+    return fetchApi<{ code: string; title: string }[]>(`/courses/search?${params}`);
+  },
+
+  /**
    * Health check endpoint
    */
   async healthCheck(): Promise<{ status: string; message: string }> {

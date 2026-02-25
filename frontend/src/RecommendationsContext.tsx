@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useState, useEffect, useCallback, useRef } from "react";
 import type { Course, TermSummary, StudentProfile, IncomingLevel } from "@/types/api";
 import { useStoredProfile } from "@/hooks/useStoredProfile";
 import { getCoreCoursesBeforeLevel } from "@/constants/engineeringPrograms";
@@ -43,6 +43,8 @@ export const RecommendationsProvider: React.FC<{
   const [termSummaries, setTermSummaries] = useState<TermSummary[]>([]);
   const [programCode, setProgramCode] = useState("");
   const [incomingLevel, setIncomingLevel] = useState<IncomingLevel | "">("");
+  const hasLoadedFromStorage = useRef(false);
+  const skipNextAutoPopulate = useRef(false);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -50,24 +52,35 @@ export const RecommendationsProvider: React.FC<{
     if (stored) {
       setProgramCode(stored.programCode);
       setIncomingLevel(stored.incomingLevel);
+      if (stored.completedCourses && stored.completedCourses.length > 0) {
+        setCompletedCourses(stored.completedCourses);
+        skipNextAutoPopulate.current = true;
+      }
     }
+    hasLoadedFromStorage.current = true;
   }, [read]);
 
-  // Persist to localStorage when program or term changes
+  // Persist to localStorage when program, term, or completedCourses changes
   const persistProfile = useCallback(() => {
     if (programCode && incomingLevel) {
-      write({ programCode, incomingLevel });
+      write({ programCode, incomingLevel, completedCourses });
     } else {
       write(null);
     }
-  }, [programCode, incomingLevel, write]);
+  }, [programCode, incomingLevel, completedCourses, write]);
 
   useEffect(() => {
     persistProfile();
   }, [persistProfile]);
 
   // Auto-populate completedCourses with core courses when program+term selected (no transcript)
+  // Skip on initial load when we restored completedCourses from storage
   useEffect(() => {
+    if (!hasLoadedFromStorage.current) return;
+    if (skipNextAutoPopulate.current) {
+      skipNextAutoPopulate.current = false;
+      return;
+    }
     if (programCode && incomingLevel && termSummaries.length === 0) {
       const coreCourses = getCoreCoursesBeforeLevel(programCode, incomingLevel);
       setCompletedCourses(coreCourses);

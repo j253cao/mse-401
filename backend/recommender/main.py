@@ -120,7 +120,7 @@ def _load_all(data_file):
 
 def get_recommendations(
     search_queries: List[str],
-    data_file: str = 'waterloo-open-api-data.json',
+    data_file: str = 'course-api-new-data.json',
     method: Optional[str] = None,
     filters: Optional[Dict[str, Any]] = None
 ) -> List[List[Dict[str, Any]]]:
