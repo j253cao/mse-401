@@ -26,16 +26,17 @@ import {
   X,
   Sparkles,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
 import { CompletedCoursesManager } from "@/components/CompletedCoursesManager";
 import { FILTER_DEPARTMENTS } from "@/constants/filterDepartments";
+import { MatchBadge } from "@/components/MatchBadge";
+import { cn } from "@/lib/utils";
 
 type DepartmentFilters = Record<string, boolean>;
 
 const INITIAL_DEPARTMENTS: DepartmentFilters = Object.fromEntries(
-  FILTER_DEPARTMENTS.map((d) => [d.code, true])
+  FILTER_DEPARTMENTS.map((d) => [d.code, true]),
 );
 
 export default function RecommendationPage() {
@@ -48,7 +49,8 @@ export default function RecommendationPage() {
   const [error, setError] = useState<string | null>(null);
   const [includeUndergrad, setIncludeUndergrad] = useState(true);
   const [includeGrad, setIncludeGrad] = useState(true);
-  const [departments, setDepartments] = useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
+  const [departments, setDepartments] =
+    useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
   const [showFilters, setShowFilters] = useState(false);
 
   const { recommendedCourses, completedCourses, setCompletedCourses } =
@@ -208,13 +210,14 @@ export default function RecommendationPage() {
                           onClick={() =>
                             setDepartments(
                               Object.fromEntries(
-                                FILTER_DEPARTMENTS.map((d) => [d.code, true])
-                              )
+                                FILTER_DEPARTMENTS.map((d) => [d.code, true]),
+                              ),
                             )
                           }
                         >
                           {FILTER_DEPARTMENTS.length -
-                            Object.values(departments).filter(Boolean).length}{" "}
+                            Object.values(departments).filter(Boolean)
+                              .length}{" "}
                           depts excluded
                           <X className="w-3 h-3" />
                         </Badge>
@@ -234,12 +237,14 @@ export default function RecommendationPage() {
                           <div className="flex rounded-lg border border-input p-1 bg-muted/30">
                             <button
                               type="button"
-                              onClick={() => setIncludeUndergrad(!includeUndergrad)}
+                              onClick={() =>
+                                setIncludeUndergrad(!includeUndergrad)
+                              }
                               className={cn(
                                 "flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors",
                                 includeUndergrad
                                   ? "bg-background shadow text-foreground"
-                                  : "text-muted-foreground hover:text-foreground"
+                                  : "text-muted-foreground hover:text-foreground",
                               )}
                             >
                               Undergraduate
@@ -251,7 +256,7 @@ export default function RecommendationPage() {
                                 "flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors",
                                 includeGrad
                                   ? "bg-background shadow text-foreground"
-                                  : "text-muted-foreground hover:text-foreground"
+                                  : "text-muted-foreground hover:text-foreground",
                               )}
                             >
                               Graduate
@@ -274,8 +279,11 @@ export default function RecommendationPage() {
                                 onClick={() =>
                                   setDepartments(
                                     Object.fromEntries(
-                                      FILTER_DEPARTMENTS.map((d) => [d.code, true])
-                                    )
+                                      FILTER_DEPARTMENTS.map((d) => [
+                                        d.code,
+                                        true,
+                                      ]),
+                                    ),
                                   )
                                 }
                               >
@@ -289,8 +297,11 @@ export default function RecommendationPage() {
                                 onClick={() =>
                                   setDepartments(
                                     Object.fromEntries(
-                                      FILTER_DEPARTMENTS.map((d) => [d.code, false])
-                                    )
+                                      FILTER_DEPARTMENTS.map((d) => [
+                                        d.code,
+                                        false,
+                                      ]),
+                                    ),
                                   )
                                 }
                               >
@@ -319,7 +330,9 @@ export default function RecommendationPage() {
                                   className="text-sm cursor-pointer flex-1 min-w-0 truncate"
                                   title={`${dept.abbr} — ${dept.fullName}`}
                                 >
-                                  <span className="font-medium">{dept.abbr}</span>
+                                  <span className="font-medium">
+                                    {dept.abbr}
+                                  </span>
                                   <span className="text-muted-foreground">
                                     {" "}
                                     {dept.fullName}
@@ -335,11 +348,13 @@ export default function RecommendationPage() {
                           completedCourses={completedCourses}
                           onAdd={(code) =>
                             setCompletedCourses((prev) =>
-                              prev.includes(code) ? prev : [...prev, code]
+                              prev.includes(code) ? prev : [...prev, code],
                             )
                           }
                           onRemove={(code) =>
-                            setCompletedCourses((prev) => prev.filter((c) => c !== code))
+                            setCompletedCourses((prev) =>
+                              prev.filter((c) => c !== code),
+                            )
                           }
                           onClearAll={() => setCompletedCourses([])}
                           compact
@@ -476,7 +491,9 @@ export default function RecommendationPage() {
                       <div className="flex items-center gap-2">
                         <Badge variant="secondary">{randomCourse.code}</Badge>
                       </div>
-                      <p className="font-medium text-sm">{randomCourse.title}</p>
+                      <p className="font-medium text-sm">
+                        {randomCourse.title}
+                      </p>
                       {randomCourse.description && (
                         <p className="text-xs text-muted-foreground line-clamp-2">
                           {randomCourse.description}
@@ -524,6 +541,9 @@ export default function RecommendationPage() {
               <Badge variant="default" className="text-sm">
                 {selectedCourse?.code}
               </Badge>
+              {selectedCourse?.score != null && (
+                <MatchBadge score={selectedCourse.score} />
+              )}
             </div>
             <DialogTitle className="text-xl">
               {selectedCourse?.title}
@@ -556,18 +576,22 @@ function CourseCard({
       className={cn(
         "glass-card cursor-pointer group transition-all duration-300",
         "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5",
-        "hover:-translate-y-0.5"
+        "hover:-translate-y-0.5",
       )}
-      onClick={onClick}
     >
-      <CardContent className="p-4 space-y-3">
+      <CardContent
+        className="p-4 space-y-3 h-full flex flex-col"
+        onClick={onClick}
+      >
         <div className="flex items-start justify-between">
-          <Badge
-            variant="outline"
-            className="bg-primary/10 text-primary border-primary/30"
-          >
-            {course.code}
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge
+              variant="outline"
+              className="bg-primary/10 text-primary border-primary/30"
+            >
+              {course.code}
+            </Badge>
+          </div>
           <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
         </div>
         <h3 className="font-semibold text-sm leading-tight group-hover:text-primary transition-colors">
@@ -578,13 +602,16 @@ function CourseCard({
             {course.description}
           </p>
         )}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full mt-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-        >
-          View Details
-        </Button>
+        <div className="mt-3 flex items-center justify-between">
+          {course.score != null && <MatchBadge score={course.score} />}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            View Details
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

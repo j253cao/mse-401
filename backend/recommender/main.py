@@ -1,5 +1,6 @@
 """Main recommendation engine module."""
 
+import json
 import os
 import pickle
 import numpy as np
@@ -12,6 +13,13 @@ from .recommenders import (
     recommend_fuzzy_multi, recommend_keyword_overlap, recommend_bert, recommend_hybrid_ensemble
 )
 from .utils import export_results_to_excel
+from .weights import (
+    build_dependency_graph,
+    compute_graph_features,
+    load_minor_option_counts,
+    apply_bucket_normalization,
+    compute_global_weight,
+)
 
 
 def get_abs_path(*parts):
@@ -89,6 +97,39 @@ def _load_all(data_file):
             df = df[df.apply(is_regular_course, axis=1)].reset_index(drop=True)
             # Filter embeddings to match filtered dataframe
             embeddings = embeddings[:len(df)]
+
+        # Attach additional metadata and global weights
+        # Load full course JSON to enrich df with subject/faculty information
+        with open(data_json, 'r', encoding='utf-8') as f:
+            raw_courses = json.load(f)
+        # Build lookup keyed by courseCode as in df
+        meta_rows = []
+        for code in df['courseCode']:
+            info = raw_courses.get(code, {})
+            meta_rows.append({
+                'subjectCode': info.get('subjectCode'),
+                'associatedAcademicGroupCode': info.get('associatedAcademicGroupCode'),
+            })
+        meta_df = pd.DataFrame(meta_rows, index=df.index)
+        df = pd.concat([df, meta_df], axis=1)
+
+        # Compute graph-based features from dependencies
+        deps_path = get_abs_path('data', 'dependencies', 'course_dependencies.json')
+        graph = build_dependency_graph(deps_path)
+        df = compute_graph_features(df, graph)
+
+        # Load minor/option course counts
+        programs_path = get_abs_path('data', 'programs', 'all_programs.json')
+        options_path = get_abs_path('data', 'programs', 'all_options.json')
+        minor_counts = load_minor_option_counts([programs_path, options_path])
+        df['minor_count'] = df['courseCode'].astype(str).map(
+            lambda c: minor_counts.get(c.upper().replace(' ', ''), 0)
+        ).astype(int)
+
+        # Normalize features within subject buckets and compute final global_weight
+        df = apply_bucket_normalization(df, bucket_col='subjectCode')
+        df['global_weight'] = compute_global_weight(df)
+
         _cached['df'] = df
         _cached['embeddings'] = embeddings
     

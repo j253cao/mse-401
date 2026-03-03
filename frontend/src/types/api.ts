@@ -7,6 +7,7 @@ export interface Course {
   code: string;
   title: string;
   description?: string;
+  score?: number;
 }
 
 export interface CourseRecommendation {
