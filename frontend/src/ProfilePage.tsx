@@ -17,7 +17,6 @@ import {
   FileText,
   User,
   GraduationCap,
-  Calendar,
   Loader2,
   CheckCircle2,
   AlertCircle,
@@ -154,15 +153,25 @@ export default function ProfilePage() {
 
   const profileInfo = studentProfile
     ? [
-        { icon: User, label: "Student ID", value: studentProfile.studentNumber?.toString() || "—" },
-        { icon: GraduationCap, label: "Program", value: studentProfile.program || "—" },
-        { icon: Calendar, label: "Current Term", value: studentProfile.latestTerm?.term_name || "—" },
-        { icon: FileText, label: "Level", value: studentProfile.latestTerm?.level || "—" },
+        {
+          icon: User,
+          label: "Student ID",
+          value: studentProfile.studentNumber?.toString() || "—",
+        },
+        {
+          icon: GraduationCap,
+          label: "Program",
+          value: studentProfile.program || "—",
+        },
+        {
+          icon: FileText,
+          label: "Level",
+          value: studentProfile.latestTerm?.level || "—",
+        },
       ]
     : [
         { icon: User, label: "Student ID", value: "Upload transcript" },
         { icon: GraduationCap, label: "Program", value: displayProgram },
-        { icon: Calendar, label: "Current Term", value: "—" },
         { icon: FileText, label: "Level", value: displayLevel },
       ];
 

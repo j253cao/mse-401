@@ -49,6 +49,7 @@ export default function RecommendationPage() {
   const [error, setError] = useState<string | null>(null);
   const [includeUndergrad, setIncludeUndergrad] = useState(true);
   const [includeGrad, setIncludeGrad] = useState(true);
+  const [explorationMode, setExplorationMode] = useState(false);
   const [departments, setDepartments] =
     useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
   const [showFilters, setShowFilters] = useState(false);
@@ -73,6 +74,7 @@ export default function RecommendationPage() {
         include_grad: includeGrad,
         department: selectedDepts,
         completed_courses: completedCourses,
+        ignore_dependencies: explorationMode,
       };
 
       const courses = await api.recommend([search], filters);
@@ -104,6 +106,7 @@ export default function RecommendationPage() {
     !includeGrad,
     ...Object.values(departments).filter((v) => !v),
     completedCourses.length > 0,
+    explorationMode,
   ].filter(Boolean).length;
 
   return (
@@ -229,7 +232,7 @@ export default function RecommendationPage() {
                   {showFilters && (
                     <Card className="glass-card">
                       <CardContent className="pt-6 space-y-6">
-                        {/* Level Filters - compact toggle pills */}
+                        {/* Level Filters - gold = included */}
                         <div className="space-y-2">
                           <Label className="text-sm font-medium">
                             Course Level
@@ -241,9 +244,9 @@ export default function RecommendationPage() {
                                 setIncludeUndergrad(!includeUndergrad)
                               }
                               className={cn(
-                                "flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors",
+                                "flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors mr-2",
                                 includeUndergrad
-                                  ? "bg-background shadow text-foreground"
+                                  ? "bg-primary text-primary-foreground shadow"
                                   : "text-muted-foreground hover:text-foreground",
                               )}
                             >
@@ -255,7 +258,7 @@ export default function RecommendationPage() {
                               className={cn(
                                 "flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors",
                                 includeGrad
-                                  ? "bg-background shadow text-foreground"
+                                  ? "bg-primary text-primary-foreground shadow"
                                   : "text-muted-foreground hover:text-foreground",
                               )}
                             >
@@ -340,6 +343,33 @@ export default function RecommendationPage() {
                                 </Label>
                               </div>
                             ))}
+                          </div>
+                        </div>
+
+                        {/* Exploration Mode */}
+                        <div className="space-y-2">
+                          <Label className="text-sm font-medium">
+                            Exploration Mode
+                          </Label>
+                          <div className="flex items-center justify-between rounded-lg border border-input px-3 py-2 bg-muted/20">
+                            <div className="space-y-0.5">
+                              <p className="text-sm font-medium">
+                                Ignore prerequisites
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                Show courses even if pre-, co-, or
+                                anti-requisites are not satisfied.
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Checkbox
+                                id="exploration-mode"
+                                checked={explorationMode}
+                                onCheckedChange={(checked) =>
+                                  setExplorationMode(!!checked)
+                                }
+                              />
+                            </div>
                           </div>
                         </div>
 

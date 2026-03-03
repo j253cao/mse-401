@@ -24,6 +24,7 @@ export interface RecommendFilters {
   include_grad?: boolean;
   department?: string[];
   completed_courses?: string[];
+  ignore_dependencies?: boolean;
 }
 
 export interface RecommendRequest {
