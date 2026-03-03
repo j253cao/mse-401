@@ -161,34 +161,63 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     sims = sims + boost_factor * phrase_mask.astype(float)
     # Replace NaN and inf with 0
     sims = np.nan_to_num(sims, nan=0.0, posinf=0.0, neginf=0.0)
+
+    # Stage 1: Retrieval (pure semantic relevance / cosine similarity).
+    sims_raw = sims.copy()
+
     t2 = time.time()
 
     # Filter by filters_applied if not empty
     if filters_applied:
         mask = df['courseCode'].isin(filters_applied)
         filtered_idxs = np.where(mask)[0]
-        sims_filtered = sims[filtered_idxs]
-        if top_k < len(sims_filtered):
-            idxs_in_filtered = np.argpartition(-sims_filtered, top_k)[:top_k]
+        sims_filtered = sims_raw[filtered_idxs]
+
+        # Retrieve more than top_k so weighting can re-rank meaningfully.
+        retrieval_k = min(len(sims_filtered), max(top_k * 5, top_k))
+        if retrieval_k < len(sims_filtered):
+            idxs_in_filtered = np.argpartition(-sims_filtered, retrieval_k)[:retrieval_k]
             idxs_in_filtered = idxs_in_filtered[np.argsort(-sims_filtered[idxs_in_filtered])]
         else:
             idxs_in_filtered = np.argsort(-sims_filtered)
-        idxs = filtered_idxs[idxs_in_filtered]
+        candidate_idxs = filtered_idxs[idxs_in_filtered]
     else:
-        # Get top_k indices using argpartition (O(N))
-        if top_k < len(sims):
-            idxs = np.argpartition(-sims, top_k)[:top_k]
-            idxs = idxs[np.argsort(-sims[idxs])]
+        sims_all = sims_raw
+        retrieval_k = min(len(sims_all), max(top_k * 5, top_k))
+        if retrieval_k < len(sims_all):
+            candidate_idxs = np.argpartition(-sims_all, retrieval_k)[:retrieval_k]
+            candidate_idxs = candidate_idxs[np.argsort(-sims_all[candidate_idxs])]
         else:
-            idxs = np.argsort(-sims)
+            candidate_idxs = np.argsort(-sims_all)
     t3 = time.time()
+
+    # Stage 2: Ranking (apply universal weights on the retrieved candidate set).
+    if 'global_weight' in df.columns and len(candidate_idxs) > 0:
+        global_w = df['global_weight'].to_numpy(dtype=float)
+        alpha = 0.3
+        weighted_scores = sims_raw[candidate_idxs] * (1.0 + alpha * global_w[candidate_idxs])
+    else:
+        weighted_scores = sims_raw[candidate_idxs] if len(candidate_idxs) > 0 else np.array([], dtype=float)
+
+    if len(candidate_idxs) > 0:
+        order = np.argsort(-weighted_scores)
+        candidate_idxs = candidate_idxs[order]
+        weighted_scores = weighted_scores[order]
+
+    # Keep final top_k after weighting re-rank
+    idxs = candidate_idxs[:top_k]
+    final_scores = weighted_scores[:top_k]
+
     # Build result DataFrame
     result = df.iloc[idxs][['courseCode', 'title', 'description']].copy()
-    result['similarity'] = sims[idxs]
+    # Expose both: raw similarity (retrieval) and final weighted similarity (ranking)
+    result['similarity_raw'] = sims_raw[idxs]
+    result['similarity_raw'] = np.nan_to_num(result['similarity_raw'], nan=0.0, posinf=0.0, neginf=0.0)
+    result['similarity'] = final_scores
     result['similarity'] = np.nan_to_num(result['similarity'], nan=0.0, posinf=0.0, neginf=0.0)
     
-    # Final filter: only keep results with similarity > 0.35
-    result = result[result['similarity'] > 0.35]
+    # Final filter: ensure semantic relevance threshold is applied on raw similarity
+    result = result[result['similarity_raw'] > 0.35]
     
     print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
     print(len(result))
