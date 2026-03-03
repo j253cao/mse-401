@@ -95,6 +95,7 @@ export const api = {
       code: r.course_code,
       title: r.title,
       description: r.description,
+      score: r.score,
     }));
   },
 
@@ -127,6 +128,7 @@ export const api = {
       code: r.course_code,
       title: r.title,
       description: r.description,
+      score: r.score,
     }));
   },
 
