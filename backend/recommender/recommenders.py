@@ -135,8 +135,8 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
         departments = tuple(filters['department'])
         filters_applied = {s for s in filters_applied if s.startswith(departments)}
     
-    # Apply prerequisite filter last
-    if filters and filters.get('completed_courses'):
+    # Apply prerequisite filter last (unless explicitly disabled)
+    if filters and filters.get('completed_courses') and not filters.get('ignore_dependencies'):
         # If we have other filters, apply them first, otherwise use all courses
         courses_to_check = filters_applied if filters_applied else df['courseCode']
         eligible_courses = get_valid_course_set(filters['completed_courses'], courses_to_check)
