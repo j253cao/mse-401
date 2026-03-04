@@ -98,6 +98,9 @@ export const api = {
       description: r.description,
       score: r.score,
       contributing_programs: r.contributing_programs,
+      prereqs: r.prereqs ?? null,
+      coreqs: r.coreqs ?? null,
+      antireqs: r.antireqs ?? null,
     }));
   },
 
@@ -112,6 +115,9 @@ export const api = {
       title: response.title,
       description: response.description,
       contributing_programs: response.contributing_programs,
+      prereqs: response.prereqs ?? null,
+      coreqs: response.coreqs ?? null,
+      antireqs: response.antireqs ?? null,
     };
   },
 
@@ -140,6 +146,9 @@ export const api = {
       description: r.description,
       score: r.score,
       contributing_programs: r.contributing_programs,
+      prereqs: r.prereqs ?? null,
+      coreqs: r.coreqs ?? null,
+      antireqs: r.antireqs ?? null,
     }));
   },
 

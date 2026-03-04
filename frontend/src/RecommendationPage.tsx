@@ -705,7 +705,7 @@ export default function RecommendationPage() {
         open={!!selectedCourse}
         onOpenChange={() => setSelectedCourse(null)}
       >
-        <DialogContent className="glass-card sm:max-w-lg">
+        <DialogContent className="glass-card sm:max-w-3xl">
           <DialogHeader>
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <Badge variant="default" className="text-sm">
@@ -723,15 +723,51 @@ export default function RecommendationPage() {
               {selectedCourse?.title}
             </DialogTitle>
           </DialogHeader>
-          {selectedCourse?.description ? (
-            <DialogDescription className="text-foreground leading-relaxed">
-              {selectedCourse.description}
-            </DialogDescription>
-          ) : (
-            <DialogDescription className="text-muted-foreground italic">
-              No description available for this course.
-            </DialogDescription>
-          )}
+          <div className="mt-4 grid gap-6 sm:grid-cols-[minmax(0,2fr),minmax(0,1.4fr)] items-start">
+            <div className="rounded-lg border border-border bg-muted/20 p-4">
+              {selectedCourse?.description ? (
+                <DialogDescription className="text-foreground leading-relaxed">
+                  {selectedCourse.description}
+                </DialogDescription>
+              ) : (
+                <DialogDescription className="text-muted-foreground italic">
+                  No description available for this course.
+                </DialogDescription>
+              )}
+            </div>
+            <div className="rounded-lg border border-border bg-muted/20 p-4 space-y-4">
+              <div>
+                <h3 className="text-sm font-semibold">
+                  {selectedCourse?.code} prerequisites
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {selectedCourse?.prereqs
+                    ? selectedCourse.prereqs
+                    : "No prerequisites"}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold">
+                  {selectedCourse?.code} corequisites
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {selectedCourse?.coreqs
+                    ? selectedCourse.coreqs
+                    : "No corequisites"}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold">
+                  {selectedCourse?.code} antirequisites
+                </h3>
+                <p className="mt-1 text-xs text-primary">
+                  {selectedCourse?.antireqs
+                    ? selectedCourse.antireqs
+                    : "No antirequisites"}
+                </p>
+              </div>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
