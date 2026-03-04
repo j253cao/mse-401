@@ -179,6 +179,46 @@ def load_minor_option_counts(programs_paths: Iterable[str]) -> Dict[str, int]:
     return counts
 
 
+def load_course_to_programs(
+    programs_paths: Iterable[Tuple[str, str]],
+) -> Dict[str, List[Dict[str, str]]]:
+    """
+    Load minors/options JSON files and return per-course program membership.
+
+    Each path is (file_path, program_type) where program_type is "option" or "minor".
+    Options use "option_name"; minors use "program_name".
+
+    Returns:
+        Dict mapping normalized course_code -> [{ "name": str, "type": "option"|"minor" }]
+    """
+    result: Dict[str, List[Dict[str, str]]] = {}
+
+    for path, prog_type in programs_paths:
+        if not os.path.exists(path):
+            continue
+        with open(path, "r", encoding="utf-8") as f:
+            items = json.load(f)
+
+        for item in items:
+            name = item.get("option_name") or item.get("program_name") or ""
+            if not name:
+                continue
+            entry = {"name": name, "type": prog_type}
+            for cl in item.get("course_lists") or []:
+                for code in cl.get("courses") or []:
+                    norm = _normalize_code(code)
+                    if not norm:
+                        continue
+                    if norm not in result:
+                        result[norm] = []
+                    # Avoid duplicate entries for same course in same program
+                    existing = {(e["name"], e["type"]) for e in result[norm]}
+                    if (name, prog_type) not in existing:
+                        result[norm].append(entry)
+
+    return result
+
+
 def _bucket_normalize_series(
     s: pd.Series,
     method: str = "zscore",

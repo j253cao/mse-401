@@ -3,11 +3,17 @@
  */
 
 // Course types
+export interface ContributingProgram {
+  name: string;
+  type: 'option' | 'minor';
+}
+
 export interface Course {
   code: string;
   title: string;
   description?: string;
   score?: number;
+  contributing_programs?: ContributingProgram[];
 }
 
 export interface CourseRecommendation {
@@ -16,6 +22,7 @@ export interface CourseRecommendation {
   title: string;
   description: string;
   score: number;
+  contributing_programs?: ContributingProgram[];
 }
 
 // Request types
@@ -25,6 +32,7 @@ export interface RecommendFilters {
   department?: string[];
   completed_courses?: string[];
   ignore_dependencies?: boolean;
+  options?: string[];
 }
 
 export interface RecommendRequest {
@@ -41,6 +49,12 @@ export interface RandomCourseResponse {
   course_code: string;
   title: string;
   description: string;
+  contributing_programs?: ContributingProgram[];
+}
+
+export interface OptionsAndMinorsResponse {
+  options: { name: string }[];
+  minors: { name: string }[];
 }
 
 export interface TermSummary {

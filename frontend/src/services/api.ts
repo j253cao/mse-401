@@ -14,6 +14,7 @@ import type {
   RandomCourseResponse,
   TranscriptParseResponse,
   ResumeRecommendResponse,
+  OptionsAndMinorsResponse,
   Course,
   RecommendFilters,
 } from '@/types/api';
@@ -96,6 +97,7 @@ export const api = {
       title: r.title,
       description: r.description,
       score: r.score,
+      contributing_programs: r.contributing_programs,
     }));
   },
 
@@ -109,7 +111,15 @@ export const api = {
       code: response.course_code,
       title: response.title,
       description: response.description,
+      contributing_programs: response.contributing_programs,
     };
+  },
+
+  /**
+   * Get list of options and minors for filter UI
+   */
+  async getOptionsAndMinors(): Promise<OptionsAndMinorsResponse> {
+    return fetchApi<OptionsAndMinorsResponse>('/options-and-minors');
   },
 
   /**
@@ -129,6 +139,7 @@ export const api = {
       title: r.title,
       description: r.description,
       score: r.score,
+      contributing_programs: r.contributing_programs,
     }));
   },
 
