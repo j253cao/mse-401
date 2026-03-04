@@ -136,6 +136,7 @@ Before running the application, you need to set up environment variables:
 | `/recommend` | POST | Get course recommendations from text queries |
 | `/resume-recommend` | POST | Get recommendations from uploaded resume PDF |
 | `/transcript-parse` | POST | Parse uploaded transcript PDF |
+| `/explore-high-value` | GET | Get high-value courses (cold start for first-year students) |
 | `/random-course` | GET | Get a random course |
 
 ### Example Request

@@ -3,6 +3,7 @@
 import json
 import os
 import pickle
+import re
 import numpy as np
 import pandas as pd
 from typing import List, Dict, Any, Optional
@@ -20,6 +21,7 @@ from .weights import (
     apply_bucket_normalization,
     compute_global_weight,
 )
+from .data_loader import load_undergrad_courses, load_grad_courses
 
 
 def get_abs_path(*parts):
@@ -76,8 +78,6 @@ def _load_all(data_file):
             "coop" in description or
             "co-op" in description
         )
-    
-    print(_cached)
     
     # DataFrame and embeddings
     if _cached['df'] is None or _cached['embeddings'] is None:
@@ -242,6 +242,129 @@ def get_recommendations(
         all_results.append(query_results)
     
     return all_results
+
+
+# Engineering departments for high-value course filtering (matches API)
+ENGINEERING_DEPARTMENTS = (
+    "AE", "BME", "CHE", "CIVE", "ECE", "ENVE", "GENE", "GEOE",
+    "ME", "MTE", "MSE", "NE", "SE", "SYDE",
+)
+
+
+def _is_100_level(course_code: str) -> bool:
+    """Check if course is 100-level (first year)."""
+    match = re.search(r"\d+", str(course_code))
+    if match:
+        num = int(match.group())
+        return 100 <= num <= 199
+    return False
+
+
+def _normalize_course_code(code: str) -> str:
+    """Normalize to uppercase, no spaces."""
+    return (code or "").strip().upper().replace(" ", "")
+
+
+def get_high_value_courses(
+    level: Optional[str] = None,
+    limit: int = 12,
+    program: Optional[str] = None,
+    depth_penalty: float = 0.15,
+    temperature: float = 0.5,
+    data_file: str = "course-api-new-data.json",
+) -> List[Dict[str, Any]]:
+    """
+    Get courses ranked by global_weight (common prereqs, many options/minors).
+    No search query needed—solves cold start for first-year students.
+
+    Args:
+        level: Incoming level (e.g., "1A", "1B"). If 1A or 1B, filter to 100-level only.
+        limit: Max courses to return (default 12).
+        program: Program code (e.g., "AE", "CHE"). When level is 1A/1B, boosts courses in program's 1A/1B core.
+        depth_penalty: Penalty per prerequisite depth level (higher depth = lower score). Default 0.15.
+        temperature: Sampling temperature (0=deterministic, higher=more variety). Default 0.5.
+        data_file: Course data file name.
+
+    Returns:
+        List of course dicts with course_code, title, description, score.
+    """
+    df, _, _, _, _, _ = _load_all(data_file)
+    undergrad = load_undergrad_courses()
+
+    # Filter: engineering depts (subjectCode or courseCode prefix), undergrad only
+    codes = df["courseCode"].astype(str)
+    dept_match = df["subjectCode"].isin(ENGINEERING_DEPARTMENTS) | codes.str.startswith(
+        tuple(ENGINEERING_DEPARTMENTS)
+    )
+    mask = dept_match & df["courseCode"].isin(undergrad)
+
+    # First-year filter: 100-level only when level is 1A or 1B
+    if level in ("1A", "1B"):
+        mask = mask & df["courseCode"].apply(_is_100_level)
+
+    filtered = df[mask].copy()
+    if filtered.empty:
+        return []
+
+    # Load program core courses: exclude from results (they're already in their curriculum)
+    core_path = get_abs_path("data", "degree_requirements", "program_core_courses.json")
+    program_core_exclude: set[str] = set()
+    if program and os.path.exists(core_path):
+        with open(core_path, "r", encoding="utf-8") as f:
+            core_data = json.load(f)
+        prog_data = core_data.get(program.upper(), {})
+        for term, courses in prog_data.items():
+            for c in courses:
+                program_core_exclude.add(_normalize_course_code(c))
+
+    # Exclude courses that are part of the student's core curriculum
+    if program_core_exclude:
+        exclude_mask = ~filtered["courseCode"].apply(
+            lambda c: _normalize_course_code(str(c)) in program_core_exclude
+        )
+        filtered = filtered[exclude_mask].copy()
+        if filtered.empty:
+            return []
+
+    # Compute adjusted score: global_weight - depth penalty
+    gw = filtered["global_weight"].astype(float)
+    depth = filtered.get("depth", 0).fillna(0).astype(float)
+    adjusted = gw - depth_penalty * depth
+
+    filtered = filtered.assign(adjusted_score=adjusted)
+
+    # Take a larger pool for temperature sampling (top 3x limit)
+    pool_size = min(len(filtered), limit * 3)
+    filtered = filtered.sort_values("adjusted_score", ascending=False).head(pool_size)
+
+    if temperature <= 0 or pool_size <= limit:
+        # Deterministic: take top limit
+        top = filtered.head(limit)
+    else:
+        # Temperature sampling: softmax over adjusted scores, then sample without replacement
+        scores = filtered["adjusted_score"].to_numpy(dtype=float)
+        # Shift for numerical stability (softmax is invariant to constant shift)
+        scores = scores - np.max(scores)
+        probs = np.exp(scores / temperature)
+        probs = probs / (probs.sum() + 1e-10)
+        probs = np.clip(probs, 1e-10, 1.0)  # Avoid zeros for sampling
+        probs = probs / probs.sum()
+        indices = np.random.choice(
+            len(filtered), size=min(limit, len(filtered)), replace=False, p=probs
+        )
+        top = filtered.iloc[indices]
+        # Re-sort by score for consistent display order
+        top = top.sort_values("adjusted_score", ascending=False)
+
+    return [
+        {
+            "course_code": row["courseCode"],
+            "title": row["title"],
+            "description": row["description"],
+            "score": float(row["adjusted_score"]),
+        }
+        for _, row in top.iterrows()
+    ]
 
 
 def main():

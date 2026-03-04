@@ -57,6 +57,10 @@ export interface OptionsAndMinorsResponse {
   minors: { name: string }[];
 }
 
+export interface HighValueCoursesResponse {
+  courses: CourseRecommendation[];
+}
+
 export interface TermSummary {
   term_id: number;
   term_name: string;
