@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,8 @@ import {
   Filter,
   X,
   Sparkles,
+  Unlock,
+  RefreshCw,
 } from "lucide-react";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
@@ -60,12 +62,53 @@ export default function RecommendationPage() {
     minors: { name: string }[];
   } | null>(null);
 
-  const { recommendedCourses, completedCourses, setCompletedCourses } =
-    useContext(RecommendationsContext);
+  const {
+    recommendedCourses,
+    completedCourses,
+    setCompletedCourses,
+    incomingLevel,
+    programCode,
+  } = useContext(RecommendationsContext);
+
+  const [highValueCourses, setHighValueCourses] = useState<Course[]>([]);
+  const [highValueLoading, setHighValueLoading] = useState(false);
+  const [highValueError, setHighValueError] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+
+  // Only show high-value block for first-year (1A/1B) or new users (no level set)
+  const showHighValueBlock =
+    !hasSearched &&
+    (incomingLevel === "" || incomingLevel === "1A" || incomingLevel === "1B");
+
+  const fetchHighValueCourses = useCallback(() => {
+    if (!showHighValueBlock) return;
+    setHighValueLoading(true);
+    setHighValueError(false);
+    api
+      .getHighValueCourses(incomingLevel || undefined, 12)
+      .then((courses) => {
+        setHighValueCourses(courses);
+        setHighValueError(false);
+      })
+      .catch(() => {
+        setHighValueCourses([]);
+        setHighValueError(true);
+      })
+      .finally(() => setHighValueLoading(false));
+  }, [showHighValueBlock, incomingLevel, programCode]);
+
+  useEffect(() => {
+    if (showHighValueBlock && !highValueLoading) {
+      fetchHighValueCourses();
+    }
+  }, [showHighValueBlock, incomingLevel, fetchHighValueCourses]);
 
   useEffect(() => {
     if (showFilters && !optionsAndMinors) {
-      api.getOptionsAndMinors().then(setOptionsAndMinors).catch(() => setOptionsAndMinors({ options: [], minors: [] }));
+      api
+        .getOptionsAndMinors()
+        .then(setOptionsAndMinors)
+        .catch(() => setOptionsAndMinors({ options: [], minors: [] }));
     }
   }, [showFilters, optionsAndMinors]);
 
@@ -80,8 +123,14 @@ export default function RecommendationPage() {
 
   const allPrograms = optionsAndMinors
     ? [
-        ...optionsAndMinors.options.map((o) => ({ name: o.name, type: "option" as const })),
-        ...optionsAndMinors.minors.map((m) => ({ name: m.name, type: "minor" as const })),
+        ...optionsAndMinors.options.map((o) => ({
+          name: o.name,
+          type: "option" as const,
+        })),
+        ...optionsAndMinors.minors.map((m) => ({
+          name: m.name,
+          type: "minor" as const,
+        })),
       ]
     : [];
   const optionSearchLower = optionSearch.trim().toLowerCase();
@@ -89,16 +138,19 @@ export default function RecommendationPage() {
     ? allPrograms.filter(
         (p) =>
           p.name.toLowerCase().includes(optionSearchLower) &&
-          !selectedOptions.includes(p.name)
+          !selectedOptions.includes(p.name),
       )
     : [];
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!search.trim()) {
+      setHasSearched(false);
       setFilteredCourses([]);
+      setError(null);
       return;
     }
+    setHasSearched(true);
     setLoading(true);
     setError(null);
     try {
@@ -402,7 +454,8 @@ export default function RecommendationPage() {
                               Options & Minors
                             </Label>
                             <p className="text-xs text-muted-foreground">
-                              Search and add options or minors to filter courses.
+                              Search and add options or minors to filter
+                              courses.
                             </p>
                             <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
                               <span className="flex items-center gap-1.5">
@@ -435,32 +488,33 @@ export default function RecommendationPage() {
                                 }}
                                 className="pr-3"
                               />
-                              {optionSearch.trim() && optionMatches.length > 0 && (
-                                <div className="absolute z-10 mt-1 w-full rounded-md border border-input bg-popover py-1 shadow-md max-h-48 overflow-y-auto">
-                                  {optionMatches.slice(0, 10).map((p) => (
-                                    <button
-                                      key={p.name}
-                                      type="button"
-                                      className="w-full px-3 py-2 text-left text-sm hover:bg-muted/50 flex items-center justify-between"
-                                      onClick={() => {
-                                        addOption(p.name);
-                                        setOptionSearch("");
-                                      }}
-                                    >
-                                      {p.name}
-                                      <span className="text-[10px] text-muted-foreground uppercase">
-                                        {p.type}
-                                      </span>
-                                    </button>
-                                  ))}
-                                  {optionMatches.length > 10 && (
-                                    <div className="px-3 py-1 text-xs text-muted-foreground">
-                                      +{optionMatches.length - 10} more — keep
-                                      typing to narrow
-                                    </div>
-                                  )}
-                                </div>
-                              )}
+                              {optionSearch.trim() &&
+                                optionMatches.length > 0 && (
+                                  <div className="absolute z-10 mt-1 w-full rounded-md border border-input bg-popover py-1 shadow-md max-h-48 overflow-y-auto">
+                                    {optionMatches.slice(0, 10).map((p) => (
+                                      <button
+                                        key={p.name}
+                                        type="button"
+                                        className="w-full px-3 py-2 text-left text-sm hover:bg-muted/50 flex items-center justify-between"
+                                        onClick={() => {
+                                          addOption(p.name);
+                                          setOptionSearch("");
+                                        }}
+                                      >
+                                        {p.name}
+                                        <span className="text-[10px] text-muted-foreground uppercase">
+                                          {p.type}
+                                        </span>
+                                      </button>
+                                    ))}
+                                    {optionMatches.length > 10 && (
+                                      <div className="px-3 py-1 text-xs text-muted-foreground">
+                                        +{optionMatches.length - 10} more — keep
+                                        typing to narrow
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                             </div>
                             {selectedOptions.length > 0 && (
                               <div className="flex flex-wrap gap-2">
@@ -540,7 +594,7 @@ export default function RecommendationPage() {
                         <p className="text-destructive">{error}</p>
                       </CardContent>
                     </Card>
-                  ) : filteredCourses.length === 0 ? (
+                  ) : filteredCourses.length === 0 && hasSearched ? (
                     <Card className="glass-card">
                       <CardContent className="py-16 text-center space-y-4">
                         <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto">
@@ -548,6 +602,66 @@ export default function RecommendationPage() {
                         </div>
                         <div>
                           <p className="font-medium">No courses found</p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Try searching for topics like "machine learning" or
+                            "data science"
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ) : filteredCourses.length === 0 &&
+                    !hasSearched &&
+                    showHighValueBlock ? (
+                    <div className="space-y-4">
+                      {highValueLoading ? (
+                        <div className="flex justify-center py-12">
+                          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                        </div>
+                      ) : highValueError ? (
+                        <div className="text-center py-8 space-y-4">
+                          <p className="text-sm text-muted-foreground">
+                            Could not load suggestions. Make sure the backend is
+                            running at{" "}
+                            <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
+                              {import.meta.env.VITE_API_URL ||
+                                "http://localhost:8000"}
+                            </code>
+                            , or try a search above.
+                          </p>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={fetchHighValueCourses}
+                            className="gap-2"
+                          >
+                            <RefreshCw className="w-4 h-4" />
+                            Retry
+                          </Button>
+                        </div>
+                      ) : highValueCourses.length > 0 ? (
+                        <div className="grid sm:grid-cols-2 gap-4">
+                          {highValueCourses.map((course) => (
+                            <CourseCard
+                              key={course.code}
+                              course={course}
+                              onClick={() => setSelectedCourse(course)}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-sm text-muted-foreground text-center py-8">
+                          Try searching for topics above.
+                        </p>
+                      )}
+                    </div>
+                  ) : filteredCourses.length === 0 && !hasSearched ? (
+                    <Card className="glass-card">
+                      <CardContent className="py-16 text-center space-y-4">
+                        <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto">
+                          <Search className="w-8 h-8 text-muted-foreground" />
+                        </div>
+                        <div>
+                          <p className="font-medium">No courses yet</p>
                           <p className="text-sm text-muted-foreground mt-1">
                             Try searching for topics like "machine learning" or
                             "data science"
