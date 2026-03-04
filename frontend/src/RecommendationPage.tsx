@@ -25,6 +25,7 @@ import {
   Filter,
   X,
   Sparkles,
+  ArrowRight,
 } from "lucide-react";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
@@ -53,6 +54,8 @@ export default function RecommendationPage() {
   const [departments, setDepartments] =
     useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
   const [showFilters, setShowFilters] = useState(false);
+  const [similarCourses, setSimilarCourses] = useState<Course[]>([]);
+  const [similarLoading, setSimilarLoading] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [optionSearch, setOptionSearch] = useState("");
   const [optionsAndMinors, setOptionsAndMinors] = useState<{
@@ -68,6 +71,29 @@ export default function RecommendationPage() {
       api.getOptionsAndMinors().then(setOptionsAndMinors).catch(() => setOptionsAndMinors({ options: [], minors: [] }));
     }
   }, [showFilters, optionsAndMinors]);
+
+  useEffect(() => {
+    if (!selectedCourse) {
+      setSimilarCourses([]);
+      return;
+    }
+    let cancelled = false;
+    setSimilarLoading(true);
+    api
+      .getSimilarCourses(selectedCourse.code)
+      .then((courses) => {
+        if (!cancelled) setSimilarCourses(courses);
+      })
+      .catch(() => {
+        if (!cancelled) setSimilarCourses([]);
+      })
+      .finally(() => {
+        if (!cancelled) setSimilarLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedCourse]);
 
   function addOption(name: string) {
     if (!name.trim() || selectedOptions.includes(name)) return;
@@ -767,6 +793,51 @@ export default function RecommendationPage() {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Similar Courses */}
+          <div className="mt-6">
+            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-primary" />
+              Similar Courses
+            </h3>
+            {similarLoading ? (
+              <div className="flex items-center gap-2 text-xs text-muted-foreground py-4">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                Finding similar courses…
+              </div>
+            ) : similarCourses.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {similarCourses.map((c) => (
+                  <button
+                    key={c.code}
+                    onClick={() => setSelectedCourse(c)}
+                    className={cn(
+                      "text-left rounded-lg border border-border bg-muted/20 p-3",
+                      "hover:border-primary/40 hover:bg-primary/5 transition-all",
+                      "group cursor-pointer",
+                    )}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] bg-primary/10 text-primary border-primary/30"
+                      >
+                        {c.code}
+                      </Badge>
+                      <ArrowRight className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <p className="text-xs font-medium leading-tight line-clamp-2">
+                      {c.title}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                No similar courses found.
+              </p>
+            )}
           </div>
         </DialogContent>
       </Dialog>

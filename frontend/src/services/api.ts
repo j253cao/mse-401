@@ -181,6 +181,26 @@ export const api = {
   },
 
   /**
+   * Get courses similar to a given course based on description similarity
+   */
+  async getSimilarCourses(code: string, limit = 6): Promise<Course[]> {
+    const params = new URLSearchParams({ limit: String(limit) });
+    const response = await fetchApi<(RandomCourseResponse & { score?: number })[]>(
+      `/courses/${encodeURIComponent(code)}/similar?${params}`
+    );
+    return response.map((r) => ({
+      code: r.course_code,
+      title: r.title,
+      description: r.description,
+      score: r.score,
+      contributing_programs: r.contributing_programs,
+      prereqs: r.prereqs ?? null,
+      coreqs: r.coreqs ?? null,
+      antireqs: r.antireqs ?? null,
+    }));
+  },
+
+  /**
    * Health check endpoint
    */
   async healthCheck(): Promise<{ status: string; message: string }> {
