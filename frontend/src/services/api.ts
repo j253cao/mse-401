@@ -99,6 +99,9 @@ export const api = {
       description: r.description,
       score: r.score,
       contributing_programs: r.contributing_programs,
+      prereqs: r.prereqs ?? null,
+      coreqs: r.coreqs ?? null,
+      antireqs: r.antireqs ?? null,
     }));
   },
 
@@ -139,6 +142,9 @@ export const api = {
       title: response.title,
       description: response.description,
       contributing_programs: response.contributing_programs,
+      prereqs: response.prereqs ?? null,
+      coreqs: response.coreqs ?? null,
+      antireqs: response.antireqs ?? null,
     };
   },
 
@@ -167,6 +173,9 @@ export const api = {
       description: r.description,
       score: r.score,
       contributing_programs: r.contributing_programs,
+      prereqs: r.prereqs ?? null,
+      coreqs: r.coreqs ?? null,
+      antireqs: r.antireqs ?? null,
     }));
   },
 
@@ -196,6 +205,26 @@ export const api = {
     if (!q || q.trim().length < 2) return [];
     const params = new URLSearchParams({ q: q.trim(), limit: String(limit) });
     return fetchApi<{ code: string; title: string }[]>(`/courses/search?${params}`);
+  },
+
+  /**
+   * Get courses similar to a given course based on description similarity
+   */
+  async getSimilarCourses(code: string, limit = 6): Promise<Course[]> {
+    const params = new URLSearchParams({ limit: String(limit) });
+    const response = await fetchApi<(RandomCourseResponse & { score?: number })[]>(
+      `/courses/${encodeURIComponent(code)}/similar?${params}`
+    );
+    return response.map((r) => ({
+      code: r.course_code,
+      title: r.title,
+      description: r.description,
+      score: r.score,
+      contributing_programs: r.contributing_programs,
+      prereqs: r.prereqs ?? null,
+      coreqs: r.coreqs ?? null,
+      antireqs: r.antireqs ?? null,
+    }));
   },
 
   /**

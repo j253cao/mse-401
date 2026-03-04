@@ -5,7 +5,7 @@
 // Course types
 export interface ContributingProgram {
   name: string;
-  type: 'option' | 'minor';
+  type: "option" | "minor";
 }
 
 export interface Course {
@@ -14,6 +14,9 @@ export interface Course {
   description?: string;
   score?: number;
   contributing_programs?: ContributingProgram[];
+  prereqs?: string | null;
+  coreqs?: string | null;
+  antireqs?: string | null;
 }
 
 export interface CourseRecommendation {
@@ -23,6 +26,9 @@ export interface CourseRecommendation {
   description: string;
   score: number;
   contributing_programs?: ContributingProgram[];
+  prereqs?: string | null;
+  coreqs?: string | null;
+  antireqs?: string | null;
 }
 
 // Request types
@@ -50,6 +56,9 @@ export interface RandomCourseResponse {
   title: string;
   description: string;
   contributing_programs?: ContributingProgram[];
+  prereqs?: string | null;
+  coreqs?: string | null;
+  antireqs?: string | null;
 }
 
 export interface OptionsAndMinorsResponse {

@@ -367,6 +367,50 @@ def get_high_value_courses(
     ]
 
 
+def get_similar_courses(
+    course_code: str,
+    data_file: str = 'course-api-new-data.json',
+    top_k: int = 6,
+) -> List[Dict[str, Any]]:
+    """
+    Find courses most similar to the given course based on TF-IDF/SVD
+    description embeddings (cosine similarity).
+
+    Returns a list of dicts: [{course_code, title, description, score}, ...]
+    """
+    df, embeddings, *_ = _load_all(data_file)
+
+    code_upper = course_code.strip().upper().replace(' ', '')
+    matches = df.index[df['courseCode'].str.upper().str.replace(' ', '', regex=False) == code_upper]
+    if len(matches) == 0:
+        return []
+    idx = matches[0]
+
+    query_vec = embeddings[idx].reshape(1, -1)
+    norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+    norms[norms == 0] = 1
+    emb_norm = embeddings / norms
+    q_norm = query_vec / max(np.linalg.norm(query_vec), 1e-10)
+    sims = np.dot(emb_norm, q_norm.flatten())
+
+    # Zero out the query course itself
+    sims[idx] = -1.0
+
+    top_idxs = np.argsort(-sims)[:top_k]
+    results = []
+    for i in top_idxs:
+        if sims[i] <= 0:
+            continue
+        row = df.iloc[i]
+        results.append({
+            'course_code': row['courseCode'],
+            'title': row['title'],
+            'description': row['description'],
+            'score': float(sims[i]),
+        })
+    return results
+
+
 def main():
     """CLI entry point for testing recommendations."""
     search_queries = [
