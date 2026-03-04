@@ -22,6 +22,7 @@ import {
   AlertCircle,
   Sparkles,
   Settings2,
+  Trash2,
 } from "lucide-react";
 import { ProgramSelector } from "@/components/ProgramSelector";
 import { AcademicTermSelector } from "@/components/AcademicTermSelector";
@@ -42,6 +43,7 @@ export default function ProfilePage() {
     setProgramCode,
     incomingLevel,
     setIncomingLevel,
+    clearProfile,
   } = useContext(RecommendationsContext);
 
   const [loading, setLoading] = useState(false);
@@ -55,7 +57,15 @@ export default function ProfilePage() {
   const [transcriptDragActive, setTranscriptDragActive] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [uploadedTranscriptName, setUploadedTranscriptName] = useState<string | null>(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
   const navigate = useNavigate();
+
+  function handleClearProfile() {
+    clearProfile();
+    setUploadedFileName(null);
+    setUploadedTranscriptName(null);
+    setShowClearConfirm(false);
+  }
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -179,12 +189,44 @@ export default function ProfilePage() {
     <div className="min-h-main">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Your Profile</h1>
-          <p className="text-muted-foreground mt-1">
-            Upload your documents to get personalized recommendations
-          </p>
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold">Your Profile</h1>
+            <p className="text-muted-foreground mt-1">
+              Upload your documents to get personalized recommendations
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-muted-foreground hover:text-destructive hover:border-destructive/50 self-start sm:self-auto"
+            onClick={() => setShowClearConfirm(true)}
+          >
+            <Trash2 className="w-4 h-4 mr-2" />
+            Clear profile data
+          </Button>
         </div>
+
+        {/* Clear confirmation dialog */}
+        <Dialog open={showClearConfirm} onOpenChange={setShowClearConfirm}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Clear profile data?</DialogTitle>
+              <DialogDescription>
+                This will remove your program, course level, completed courses,
+                resume recommendations, and transcript data. This cannot be undone.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="gap-2 sm:gap-0">
+              <Button variant="outline" onClick={() => setShowClearConfirm(false)}>
+                Cancel
+              </Button>
+              <Button variant="destructive" onClick={handleClearProfile}>
+                Clear all
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <div className="grid md:grid-cols-[1fr,320px] gap-8">
           {/* Left Column - Upload Section */}

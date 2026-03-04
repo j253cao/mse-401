@@ -31,7 +31,7 @@ ENGINEERING_DEPARTMENTS = (
     "ME", "MTE", "MSE", "NE", "SE", "SYDE",
 )
 
-from recommender.main import get_recommendations, get_similar_courses, get_abs_path
+from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path
 from recommender.data_loader import load_course_data
 from recommender.weights import load_course_to_programs
 from parsers.resume_parser import ResumeParser
@@ -318,6 +318,33 @@ def courses_search(q: str = "", limit: int = 20):
             seen.add(canonical_code)
             results.append({"code": canonical_code, "title": title})
     return results[:limit]
+
+
+@app.get("/explore-high-value")
+def explore_high_value(
+    level: Optional[str] = None,
+    limit: int = 12,
+    program: Optional[str] = None,
+    depth_penalty: float = 0.15,
+    temperature: float = 0.5,
+):
+    """
+    Get high-value courses (common prereqs, many options/minors).
+    No search query needed—solves cold start for first-year students.
+    When level is 1A or 1B, restricts to 100-level courses only.
+    Program bias: when level is 1A/1B, boosts courses in that program's core.
+    Temperature: higher = more variety in results (0 = deterministic).
+    """
+    raw = get_high_value_courses(
+        level=level,
+        limit=limit,
+        program=program,
+        depth_penalty=depth_penalty,
+        temperature=temperature,
+    )
+    return {
+        "courses": [_enrich_course_with_programs(c) for c in raw],
+    }
 
 
 @app.get("/courses/{course_code}/similar")

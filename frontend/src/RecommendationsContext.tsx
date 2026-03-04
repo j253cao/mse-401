@@ -18,6 +18,7 @@ export const RecommendationsContext = createContext<{
   setProgramCode: React.Dispatch<React.SetStateAction<string>>;
   incomingLevel: IncomingLevel | "";
   setIncomingLevel: React.Dispatch<React.SetStateAction<IncomingLevel | "">>;
+  clearProfile: () => void;
 }>({
   recommendedCourses: [],
   setRecommendedCourses: () => {},
@@ -31,6 +32,7 @@ export const RecommendationsContext = createContext<{
   setProgramCode: () => {},
   incomingLevel: "",
   setIncomingLevel: () => {},
+  clearProfile: () => {},
 });
 
 export const RecommendationsProvider: React.FC<{
@@ -87,6 +89,17 @@ export const RecommendationsProvider: React.FC<{
     }
   }, [programCode, incomingLevel, termSummaries.length]);
 
+  const clearProfile = useCallback(() => {
+    setProgramCode("");
+    setIncomingLevel("");
+    setCompletedCourses([]);
+    setRecommendedCourses([]);
+    setStudentProfile(null);
+    setTermSummaries([]);
+    skipNextAutoPopulate.current = true;
+    write(null);
+  }, [write]);
+
   return (
     <RecommendationsContext.Provider
       value={{
@@ -102,6 +115,7 @@ export const RecommendationsProvider: React.FC<{
         setProgramCode,
         incomingLevel,
         setIncomingLevel,
+        clearProfile,
       }}
     >
       {children}

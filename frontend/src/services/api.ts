@@ -15,6 +15,7 @@ import type {
   TranscriptParseResponse,
   ResumeRecommendResponse,
   OptionsAndMinorsResponse,
+  HighValueCoursesResponse,
   Course,
   RecommendFilters,
 } from '@/types/api';
@@ -101,6 +102,32 @@ export const api = {
       prereqs: r.prereqs ?? null,
       coreqs: r.coreqs ?? null,
       antireqs: r.antireqs ?? null,
+    }));
+  },
+
+  /**
+   * Get high-value courses (common prereqs, many options/minors).
+   * No search query needed—solves cold start for first-year students.
+   * When level is 1A/1B, pass program to bias towards that program's core courses.
+   */
+  async getHighValueCourses(
+    level?: string,
+    limit = 12,
+    program?: string
+  ): Promise<Course[]> {
+    const params = new URLSearchParams();
+    if (level) params.set('level', level);
+    params.set('limit', String(limit));
+    if (program) params.set('program', program);
+    const response = await fetchApi<HighValueCoursesResponse>(
+      `/explore-high-value?${params}`
+    );
+    return response.courses.map((r) => ({
+      code: r.course_code,
+      title: r.title,
+      description: r.description,
+      score: r.score,
+      contributing_programs: r.contributing_programs,
     }));
   },
 
