@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ import { api } from "@/services/api";
 import type { Course } from "@/types/api";
 import { CompletedCoursesManager } from "@/components/CompletedCoursesManager";
 import { FILTER_DEPARTMENTS } from "@/constants/filterDepartments";
-import { MatchBadge } from "@/components/MatchBadge";
+import { OptionBadges } from "@/components/OptionBadge";
 import { cn } from "@/lib/utils";
 
 type DepartmentFilters = Record<string, boolean>;
@@ -53,9 +53,45 @@ export default function RecommendationPage() {
   const [departments, setDepartments] =
     useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [optionSearch, setOptionSearch] = useState("");
+  const [optionsAndMinors, setOptionsAndMinors] = useState<{
+    options: { name: string }[];
+    minors: { name: string }[];
+  } | null>(null);
 
   const { recommendedCourses, completedCourses, setCompletedCourses } =
     useContext(RecommendationsContext);
+
+  useEffect(() => {
+    if (showFilters && !optionsAndMinors) {
+      api.getOptionsAndMinors().then(setOptionsAndMinors).catch(() => setOptionsAndMinors({ options: [], minors: [] }));
+    }
+  }, [showFilters, optionsAndMinors]);
+
+  function addOption(name: string) {
+    if (!name.trim() || selectedOptions.includes(name)) return;
+    setSelectedOptions((prev) => [...prev, name]);
+  }
+
+  function removeOption(name: string) {
+    setSelectedOptions((prev) => prev.filter((n) => n !== name));
+  }
+
+  const allPrograms = optionsAndMinors
+    ? [
+        ...optionsAndMinors.options.map((o) => ({ name: o.name, type: "option" as const })),
+        ...optionsAndMinors.minors.map((m) => ({ name: m.name, type: "minor" as const })),
+      ]
+    : [];
+  const optionSearchLower = optionSearch.trim().toLowerCase();
+  const optionMatches = optionSearchLower
+    ? allPrograms.filter(
+        (p) =>
+          p.name.toLowerCase().includes(optionSearchLower) &&
+          !selectedOptions.includes(p.name)
+      )
+    : [];
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -75,6 +111,7 @@ export default function RecommendationPage() {
         department: selectedDepts,
         completed_courses: completedCourses,
         ignore_dependencies: explorationMode,
+        ...(selectedOptions.length > 0 && { options: selectedOptions }),
       };
 
       const courses = await api.recommend([search], filters);
@@ -107,6 +144,7 @@ export default function RecommendationPage() {
     ...Object.values(departments).filter((v) => !v),
     completedCourses.length > 0,
     explorationMode,
+    selectedOptions.length > 0,
   ].filter(Boolean).length;
 
   return (
@@ -222,6 +260,17 @@ export default function RecommendationPage() {
                             Object.values(departments).filter(Boolean)
                               .length}{" "}
                           depts excluded
+                          <X className="w-3 h-3" />
+                        </Badge>
+                      )}
+                      {selectedOptions.length > 0 && (
+                        <Badge
+                          variant="secondary"
+                          className="gap-1 cursor-pointer hover:bg-destructive/20"
+                          onClick={() => setSelectedOptions([])}
+                        >
+                          {selectedOptions.length} option
+                          {selectedOptions.length !== 1 ? "s" : ""} selected
                           <X className="w-3 h-3" />
                         </Badge>
                       )}
@@ -345,6 +394,91 @@ export default function RecommendationPage() {
                             ))}
                           </div>
                         </div>
+
+                        {/* Options & Minors - search + tags */}
+                        {optionsAndMinors && (
+                          <div className="space-y-2">
+                            <Label className="text-sm font-medium">
+                              Options & Minors
+                            </Label>
+                            <p className="text-xs text-muted-foreground">
+                              Search and add options or minors to filter courses.
+                            </p>
+                            <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
+                              <span className="flex items-center gap-1.5">
+                                <span className="inline-flex items-center rounded border border-primary/20 bg-primary/5 px-1.5 py-0.5 text-[9px] font-medium text-primary">
+                                  Opt
+                                </span>
+                                Option
+                              </span>
+                              <span className="flex items-center gap-1.5">
+                                <span className="inline-flex items-center rounded border border-muted bg-muted/50 px-1.5 py-0.5 text-[9px] font-medium text-muted-foreground">
+                                  Min
+                                </span>
+                                Minor
+                              </span>
+                            </div>
+                            <div className="relative">
+                              <Input
+                                type="text"
+                                placeholder="Search options or minors..."
+                                value={optionSearch}
+                                onChange={(e) =>
+                                  setOptionSearch(e.target.value)
+                                }
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" && optionMatches[0]) {
+                                    e.preventDefault();
+                                    addOption(optionMatches[0].name);
+                                    setOptionSearch("");
+                                  }
+                                }}
+                                className="pr-3"
+                              />
+                              {optionSearch.trim() && optionMatches.length > 0 && (
+                                <div className="absolute z-10 mt-1 w-full rounded-md border border-input bg-popover py-1 shadow-md max-h-48 overflow-y-auto">
+                                  {optionMatches.slice(0, 10).map((p) => (
+                                    <button
+                                      key={p.name}
+                                      type="button"
+                                      className="w-full px-3 py-2 text-left text-sm hover:bg-muted/50 flex items-center justify-between"
+                                      onClick={() => {
+                                        addOption(p.name);
+                                        setOptionSearch("");
+                                      }}
+                                    >
+                                      {p.name}
+                                      <span className="text-[10px] text-muted-foreground uppercase">
+                                        {p.type}
+                                      </span>
+                                    </button>
+                                  ))}
+                                  {optionMatches.length > 10 && (
+                                    <div className="px-3 py-1 text-xs text-muted-foreground">
+                                      +{optionMatches.length - 10} more — keep
+                                      typing to narrow
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                            {selectedOptions.length > 0 && (
+                              <div className="flex flex-wrap gap-2">
+                                {selectedOptions.map((name) => (
+                                  <Badge
+                                    key={name}
+                                    variant="secondary"
+                                    className="gap-1 pr-1 cursor-pointer hover:bg-destructive/20"
+                                    onClick={() => removeOption(name)}
+                                  >
+                                    {name}
+                                    <X className="w-3 h-3" />
+                                  </Badge>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )}
 
                         {/* Exploration Mode */}
                         <div className="space-y-2">
@@ -529,6 +663,12 @@ export default function RecommendationPage() {
                           {randomCourse.description}
                         </p>
                       )}
+                      {randomCourse.contributing_programs &&
+                        randomCourse.contributing_programs.length > 0 && (
+                          <OptionBadges
+                            programs={randomCourse.contributing_programs}
+                          />
+                        )}
                     </CardContent>
                   </Card>
                 )}
@@ -567,13 +707,17 @@ export default function RecommendationPage() {
       >
         <DialogContent className="glass-card sm:max-w-lg">
           <DialogHeader>
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
               <Badge variant="default" className="text-sm">
                 {selectedCourse?.code}
               </Badge>
-              {selectedCourse?.score != null && (
-                <MatchBadge score={selectedCourse.score} />
-              )}
+              {selectedCourse?.contributing_programs &&
+                selectedCourse.contributing_programs.length > 0 && (
+                  <OptionBadges
+                    programs={selectedCourse.contributing_programs}
+                    className="flex-1"
+                  />
+                )}
             </div>
             <DialogTitle className="text-xl">
               {selectedCourse?.title}
@@ -632,16 +776,10 @@ function CourseCard({
             {course.description}
           </p>
         )}
-        <div className="mt-3 flex items-center justify-between">
-          {course.score != null && <MatchBadge score={course.score} />}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-          >
-            View Details
-          </Button>
-        </div>
+        {course.contributing_programs &&
+          course.contributing_programs.length > 0 && (
+            <OptionBadges programs={course.contributing_programs} />
+          )}
       </CardContent>
     </Card>
   );

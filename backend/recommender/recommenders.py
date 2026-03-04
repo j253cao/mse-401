@@ -10,6 +10,7 @@ import time
 import json
 import os
 from .data_loader import load_undergrad_courses, load_grad_courses, find_project_root
+from .weights import load_course_to_programs
 
 
 def get_valid_course_set(completed_courses, available_courses):
@@ -113,14 +114,9 @@ def get_valid_course_set(completed_courses, available_courses):
             continue
             
         course_data = dependencies_normalized[course_code]
-        if course_code == 'MSE546':
-            print("course_data", course_data)
-            print("is_course_eligible", is_course_eligible(course_code, course_data, completed_set))
         # Check if prerequisites are satisfied
         if is_course_eligible(course_code, course_data, completed_set):
             eligible_courses.add(course_code)
-    print(eligible_courses)
-    print(available_set)
     return eligible_courses
 
 
@@ -134,7 +130,27 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     if filters and filters.get('department'):
         departments = tuple(filters['department'])
         filters_applied = {s for s in filters_applied if s.startswith(departments)}
-    
+
+    # Filter by options/minors when specified
+    if filters and filters.get('options'):
+        selected_names = set(filters['options'])
+        if selected_names:
+            project_root = find_project_root()
+            options_path = os.path.join(project_root, 'data', 'programs', 'all_options.json')
+            programs_path = os.path.join(project_root, 'data', 'programs', 'all_programs.json')
+            course_to_programs = load_course_to_programs([
+                (options_path, 'option'),
+                (programs_path, 'minor'),
+            ])
+            courses_in_options = {
+                code for code, progs in course_to_programs.items()
+                if any(p['name'] in selected_names for p in progs)
+            }
+            if filters_applied:
+                filters_applied = filters_applied & courses_in_options
+            else:
+                filters_applied = courses_in_options
+
     # Apply prerequisite filter last (unless explicitly disabled)
     if filters and filters.get('completed_courses') and not filters.get('ignore_dependencies'):
         # If we have other filters, apply them first, otherwise use all courses

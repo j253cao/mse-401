@@ -33,7 +33,31 @@ ENGINEERING_DEPARTMENTS = (
 
 from recommender.main import get_recommendations, get_abs_path
 from recommender.data_loader import load_course_data
+from recommender.weights import load_course_to_programs
 from parsers.resume_parser import ResumeParser
+
+# Cached course-to-programs lookup for enriching responses
+_course_to_programs_cache = None
+
+
+def _get_course_to_programs():
+    global _course_to_programs_cache
+    if _course_to_programs_cache is None:
+        options_path = get_abs_path('data', 'programs', 'all_options.json')
+        programs_path = get_abs_path('data', 'programs', 'all_programs.json')
+        _course_to_programs_cache = load_course_to_programs([
+            (options_path, 'option'),
+            (programs_path, 'minor'),
+        ])
+    return _course_to_programs_cache
+
+
+def _enrich_course_with_programs(course: dict) -> dict:
+    """Add contributing_programs to a course dict keyed by course_code."""
+    code = (course.get('course_code') or '').strip().upper().replace(' ', '')
+    lookup = _get_course_to_programs()
+    programs = lookup.get(code, [])
+    return {**course, 'contributing_programs': programs}
 from parsers.transcript_parser import parse_transcript_bytes, term_id_to_name, get_all_courses
 
 app = FastAPI(
@@ -65,6 +89,27 @@ class QueryRequest(BaseModel):
 def root():
     """Health check endpoint."""
     return {"status": "ok", "message": "UW Course Recommendation API"}
+
+
+@app.get("/options-and-minors")
+def options_and_minors():
+    """
+    Return lists of option and minor names for filter UI.
+    Loads from all_options.json and all_programs.json.
+    """
+    options_path = get_abs_path('data', 'programs', 'all_options.json')
+    programs_path = get_abs_path('data', 'programs', 'all_programs.json')
+    options = []
+    minors = []
+    if os.path.exists(options_path):
+        with open(options_path, 'r', encoding='utf-8') as f:
+            items = json.load(f)
+        options = [{"name": item.get("option_name", "")} for item in items if item.get("option_name")]
+    if os.path.exists(programs_path):
+        with open(programs_path, 'r', encoding='utf-8') as f:
+            items = json.load(f)
+        minors = [{"name": item.get("program_name", "")} for item in items if item.get("program_name")]
+    return {"options": options, "minors": minors}
 
 
 @app.post("/recommend")
@@ -102,13 +147,13 @@ def recommend(request: QueryRequest):
     for q, q_results in zip(request.queries, results):
         cosine_results = [r for r in q_results if r["method"] == "cosine"]
         formatted[q] = [
-            {
+            _enrich_course_with_programs({
                 "rank": r["rank"],
                 "course_code": r["course_code"],
                 "title": r["title"],
                 "description": r["description"],
                 "score": r["score"]
-            }
+            })
             for r in cosine_results
         ]
     
@@ -169,13 +214,13 @@ def resume_recommend(
         )
         
         formatted = [
-            {
+            _enrich_course_with_programs({
                 "rank": r["rank"],
                 "course_code": r["course_code"],
                 "title": r["title"],
                 "description": r["description"],
                 "score": r["score"]
-            }
+            })
             for r in recommendations[0] if r["method"] == "cosine"
         ]
         
@@ -230,11 +275,11 @@ def random_course():
     data_json = get_abs_path('data', 'courses', 'course-api-new-data.json')
     df = load_course_data(data_json)
     row = df.sample(1).iloc[0]
-    return {
+    return _enrich_course_with_programs({
         "course_code": row["courseCode"],
         "title": row["title"],
         "description": row["description"]
-    }
+    })
 
 
 @app.post("/transcript-parse")
