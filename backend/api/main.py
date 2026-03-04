@@ -31,7 +31,7 @@ ENGINEERING_DEPARTMENTS = (
     "ME", "MTE", "MSE", "NE", "SE", "SYDE",
 )
 
-from recommender.main import get_recommendations, get_abs_path
+from recommender.main import get_recommendations, get_similar_courses, get_abs_path
 from recommender.data_loader import load_course_data
 from recommender.weights import load_course_to_programs
 from parsers.resume_parser import ResumeParser
@@ -318,6 +318,28 @@ def courses_search(q: str = "", limit: int = 20):
             seen.add(canonical_code)
             results.append({"code": canonical_code, "title": title})
     return results[:limit]
+
+
+@app.get("/courses/{course_code}/similar")
+def similar_courses(course_code: str, limit: int = 6):
+    """Return courses most similar to the given course based on description embeddings."""
+    similar = get_similar_courses(course_code, data_file='course-api-new-data.json', top_k=limit)
+    deps_lookup = load_course_dependencies()
+    enriched = []
+    for item in similar:
+        code = str(item['course_code']).upper()
+        dep_info = deps_lookup.get(code, {})
+        base_course = {
+            "course_code": item['course_code'],
+            "title": item['title'],
+            "description": item['description'],
+            "score": item['score'],
+            "prereqs": dep_info.get("prereqs"),
+            "coreqs": dep_info.get("coreqs"),
+            "antireqs": dep_info.get("antireqs"),
+        }
+        enriched.append(_enrich_course_with_programs(base_course))
+    return enriched
 
 
 @app.get("/random-course")
