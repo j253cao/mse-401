@@ -21,9 +21,9 @@ export default function HomePage() {
     },
     {
       icon: FileText,
-      title: "Resume Analysis",
+      title: "Transcript Analysis",
       description:
-        "Upload your resume to discover courses that align with your experience",
+        "Upload your transcript to discover courses that align with your experience",
     },
     {
       icon: Target,
@@ -76,7 +76,7 @@ export default function HomePage() {
                 >
                   <Link to="/profile">
                     <FileText className="w-4 h-4" />
-                    Upload Resume
+                    Upload Transcript
                   </Link>
                 </Button>
               </div>
