@@ -190,6 +190,7 @@ export default function RecommendationPage() {
         completed_courses: completedCourses,
         ignore_dependencies: explorationMode,
         ...(selectedOptions.length > 0 && { options: selectedOptions }),
+        ...(incomingLevel && { incoming_level: incomingLevel }),
       };
 
       const courses = await api.recommend([search], filters);

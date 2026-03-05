@@ -39,6 +39,7 @@ export interface RecommendFilters {
   completed_courses?: string[];
   ignore_dependencies?: boolean;
   options?: string[];
+  incoming_level?: string;
 }
 
 export interface RecommendRequest {

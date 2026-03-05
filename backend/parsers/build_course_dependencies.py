@@ -15,7 +15,7 @@ from collections import defaultdict
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 # Regex patterns for parsing
-LEVEL_PATTERN = re.compile(r'level\s+(\d+[A-Z])\s*(or\s+higher)?', re.IGNORECASE)
+LEVEL_PATTERN = re.compile(r'lev(?:el)?\s+(at\s+least\s+)?(\d+[A-Z])\s*(or\s+higher)?', re.IGNORECASE)
 PROGRAM_ENROLLMENT_PATTERN = re.compile(r'enrolled\s+in\s+(?:H-|JH-)?([^,\.]+?)(?:,|\s+or\s+|\s*$)', re.IGNORECASE)
 NOT_OPEN_PATTERN = re.compile(r'not\s+open\s+to\s+students\s+enrolled\s+in\s+([^,\.]+?)(?:,|\s+or\s+|\s*$)', re.IGNORECASE)
 COURSE_CODE_PATTERN = re.compile(r'\b([A-Z]{2,})([0-9]{3}[A-Z]*)\b')
@@ -55,13 +55,18 @@ class CourseDependencyBuilder:
         """
         Parse level requirement from text.
         
+        Handles formats: "Level at least 3A", "Lev at least 3A",
+        "Level 3A or higher", "Level 3A" (exact).
+        
         Returns:
             Dict with 'level' and 'comparison' keys, or None
         """
         match = LEVEL_PATTERN.search(text)
         if match:
-            level = match.group(1).upper()
-            is_at_least = bool(match.group(2))  # "or higher" indicates at_least
+            level = match.group(2).upper()
+            has_at_least = bool(match.group(1))
+            has_or_higher = bool(match.group(3))
+            is_at_least = has_at_least or has_or_higher
             return {
                 "type": "level_requirement",
                 "level": level,
