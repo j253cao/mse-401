@@ -448,14 +448,15 @@ export default function ProfilePage() {
                   </div>
                 )}
 
-                {completedCourses.length > 0 && (
-                  <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 text-green-500">
-                    <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-                    <p className="text-sm">
-                      {completedCourses.length} courses loaded from transcript
-                    </p>
-                  </div>
-                )}
+                {completedCourses.length > 0 &&
+                  (uploadedTranscriptName || studentProfile) && (
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 text-green-500">
+                      <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                      <p className="text-sm">
+                        {completedCourses.length} courses loaded from transcript
+                      </p>
+                    </div>
+                  )}
 
                 <div className="flex items-start gap-2 p-3 rounded-lg bg-accent/5">
                   <GraduationCap className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
@@ -627,29 +628,19 @@ export default function ProfilePage() {
               your transcript.
             </DialogDescription>
             {studentProfile && (
-              <p className="text-sm text-muted-foreground text-center sm:text-left">
+              <p className="text-sm text-muted-foreground text-center">
                 {studentProfile.program} • Level{" "}
                 {studentProfile.latestTerm?.level}
               </p>
             )}
           </DialogHeader>
-          <DialogFooter className="flex-col sm:flex-row gap-2">
+          <DialogFooter>
             <Button
               variant="outline"
               onClick={() => setShowTranscriptConfirmation(false)}
-              className="w-full sm:w-auto"
+              className="w-full"
             >
-              Stay Here
-            </Button>
-            <Button
-              onClick={() => {
-                setShowTranscriptConfirmation(false);
-                navigate("/recommendation");
-              }}
-              className="w-full sm:w-auto gap-2"
-            >
-              <Sparkles className="w-4 h-4" />
-              Get Recommendations
+              Done
             </Button>
           </DialogFooter>
         </DialogContent>
