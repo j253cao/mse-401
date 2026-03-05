@@ -232,7 +232,7 @@ export default function RecommendationPage() {
           {/* Main Content */}
           <div className="space-y-6">
             <Tabs defaultValue="search" className="w-full">
-              <TabsList className="w-full sm:w-auto grid grid-cols-2 sm:inline-flex h-11 bg-card border border-border">
+              {/* <TabsList className="w-full sm:w-auto grid grid-cols-2 sm:inline-flex h-11 bg-card border border-border">
                 <TabsTrigger
                   value="search"
                   className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
@@ -252,7 +252,7 @@ export default function RecommendationPage() {
                     </Badge>
                   )}
                 </TabsTrigger>
-              </TabsList>
+              </TabsList> */}
 
               {/* Search Tab */}
               <TabsContent value="search" className="mt-6 space-y-6">
