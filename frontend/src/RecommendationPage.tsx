@@ -33,8 +33,30 @@ import { api } from "@/services/api";
 import type { Course } from "@/types/api";
 import { CompletedCoursesManager } from "@/components/CompletedCoursesManager";
 import { FILTER_DEPARTMENTS } from "@/constants/filterDepartments";
+import { ENGINEERING_PROGRAMS } from "@/constants/engineeringPrograms";
 import { OptionBadges } from "@/components/OptionBadge";
 import { cn } from "@/lib/utils";
+
+/**
+ * Check if a course has program-level prerequisites that don't match the user's program.
+ * Returns true if the course requires specific programs and the user's program isn't one of them.
+ */
+function needsOverride(prereqs: string | null | undefined, programCode: string): boolean {
+  if (!prereqs || !programCode) return false;
+  const programStudentParts = prereqs
+    .split(";")
+    .map((s) => s.trim())
+    .filter((s) => /\bstudents\b/i.test(s));
+  if (programStudentParts.length === 0) return false;
+  const program = ENGINEERING_PROGRAMS.find((p) => p.code === programCode);
+  if (!program) return false;
+  return !programStudentParts.some((part) =>
+    part.toLowerCase().includes(program.displayName.toLowerCase())
+  );
+}
+
+const OVERRIDE_BADGE_CLASS =
+  "bg-red-500/15 text-red-400 border border-red-500/30";
 
 type DepartmentFilters = Record<string, boolean>;
 
@@ -43,6 +65,16 @@ const INITIAL_DEPARTMENTS: DepartmentFilters = Object.fromEntries(
 );
 
 export default function RecommendationPage() {
+  const {
+    recommendedCourses,
+    completedCourses,
+    setCompletedCourses,
+    incomingLevel,
+    programCode,
+  } = useContext(RecommendationsContext);
+
+  const isUndergrad = !!incomingLevel;
+
   const [search, setSearch] = useState("");
   const [randomCourse, setRandomCourse] = useState<Course | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -51,7 +83,7 @@ export default function RecommendationPage() {
   const [randomLoading, setRandomLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [includeUndergrad, setIncludeUndergrad] = useState(true);
-  const [includeGrad, setIncludeGrad] = useState(true);
+  const [includeGrad, setIncludeGrad] = useState(!isUndergrad);
   const [explorationMode, setExplorationMode] = useState(false);
   const [departments, setDepartments] =
     useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
@@ -64,14 +96,6 @@ export default function RecommendationPage() {
     options: { name: string }[];
     minors: { name: string }[];
   } | null>(null);
-
-  const {
-    recommendedCourses,
-    completedCourses,
-    setCompletedCourses,
-    incomingLevel,
-    programCode,
-  } = useContext(RecommendationsContext);
 
   const [highValueCourses, setHighValueCourses] = useState<Course[]>([]);
   const [highValueLoading, setHighValueLoading] = useState(false);
@@ -125,7 +149,21 @@ export default function RecommendationPage() {
     api
       .getSimilarCourses(selectedCourse.code)
       .then((courses) => {
-        if (!cancelled) setSimilarCourses(courses);
+        if (!cancelled) {
+          const antireqs = selectedCourse.antireqs
+            ? selectedCourse.antireqs.split(",").map((s) => s.trim())
+            : [];
+          setSimilarCourses(
+            courses.filter((c) => {
+              if (antireqs.includes(c.code)) return false;
+              if (isUndergrad) {
+                const num = parseInt(c.code.replace(/\D/g, ""), 10);
+                if (!isNaN(num) && num >= 600) return false;
+              }
+              return true;
+            }),
+          );
+        }
       })
       .catch(() => {
         if (!cancelled) setSimilarCourses([]);
@@ -136,7 +174,7 @@ export default function RecommendationPage() {
     return () => {
       cancelled = true;
     };
-  }, [selectedCourse]);
+  }, [selectedCourse, isUndergrad]);
 
   function addOption(name: string) {
     if (!name.trim() || selectedOptions.includes(name)) return;
@@ -219,7 +257,7 @@ export default function RecommendationPage() {
 
   const activeFiltersCount = [
     !includeUndergrad,
-    !includeGrad,
+    !includeGrad && !isUndergrad,
     ...Object.values(departments).filter((v) => !v),
     completedCourses.length > 0,
     explorationMode,
@@ -312,7 +350,7 @@ export default function RecommendationPage() {
                           <X className="w-3 h-3" />
                         </Badge>
                       )}
-                      {!includeGrad && (
+                      {!includeGrad && !isUndergrad && (
                         <Badge
                           variant="secondary"
                           className="gap-1 cursor-pointer hover:bg-destructive/20"
@@ -672,6 +710,7 @@ export default function RecommendationPage() {
                               key={course.code}
                               course={course}
                               onClick={() => setSelectedCourse(course)}
+                              overrideRequired={needsOverride(course.prereqs, programCode)}
                             />
                           ))}
                         </div>
@@ -703,6 +742,7 @@ export default function RecommendationPage() {
                           key={course.code}
                           course={course}
                           onClick={() => setSelectedCourse(course)}
+                          overrideRequired={needsOverride(course.prereqs, programCode)}
                         />
                       ))}
                     </div>
@@ -724,6 +764,7 @@ export default function RecommendationPage() {
                           key={course.code}
                           course={course}
                           onClick={() => setSelectedCourse(course)}
+                          overrideRequired={needsOverride(course.prereqs, programCode)}
                         />
                       ))}
                     </div>
@@ -795,6 +836,11 @@ export default function RecommendationPage() {
                     <CardContent className="p-4 space-y-2">
                       <div className="flex items-center gap-2">
                         <Badge variant="secondary">{randomCourse.code}</Badge>
+                        {needsOverride(randomCourse.prereqs, programCode) && (
+                          <Badge className={OVERRIDE_BADGE_CLASS}>
+                            Override required
+                          </Badge>
+                        )}
                       </div>
                       <p className="font-medium text-sm">
                         {randomCourse.title}
@@ -852,6 +898,11 @@ export default function RecommendationPage() {
               <Badge variant="default" className="text-sm">
                 {selectedCourse?.code}
               </Badge>
+              {needsOverride(selectedCourse?.prereqs, programCode) && (
+                <Badge className={OVERRIDE_BADGE_CLASS}>
+                  Override required
+                </Badge>
+              )}
               {selectedCourse?.contributing_programs &&
                 selectedCourse.contributing_programs.length > 0 && (
                   <OptionBadges
@@ -934,12 +985,19 @@ export default function RecommendationPage() {
                     )}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <Badge
-                        variant="outline"
-                        className="text-[10px] bg-primary/10 text-primary border-primary/30"
-                      >
-                        {c.code}
-                      </Badge>
+                      <div className="flex items-center gap-1">
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] bg-primary/10 text-primary border-primary/30"
+                        >
+                          {c.code}
+                        </Badge>
+                        {needsOverride(c.prereqs, programCode) && (
+                          <Badge className={cn("text-[9px] px-1 py-0", OVERRIDE_BADGE_CLASS)}>
+                            Override
+                          </Badge>
+                        )}
+                      </div>
                       <ArrowRight className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <p className="text-xs font-medium leading-tight line-clamp-2">
@@ -963,9 +1021,11 @@ export default function RecommendationPage() {
 function CourseCard({
   course,
   onClick,
+  overrideRequired,
 }: {
   course: Course;
   onClick: () => void;
+  overrideRequired?: boolean;
 }) {
   return (
     <Card
@@ -987,6 +1047,11 @@ function CourseCard({
             >
               {course.code}
             </Badge>
+            {overrideRequired && (
+              <Badge className={OVERRIDE_BADGE_CLASS}>
+                Override required
+              </Badge>
+            )}
           </div>
           <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
         </div>
