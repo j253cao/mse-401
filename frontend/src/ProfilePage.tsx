@@ -567,10 +567,6 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                {/* Edit Button */}
-                <Button variant="outline" className="w-full mt-6" disabled>
-                  Edit Profile (Coming Soon)
-                </Button>
               </CardContent>
             </Card>
           </div>
