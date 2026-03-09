@@ -56,7 +56,9 @@ export default function ProfilePage() {
   const [dragActive, setDragActive] = useState(false);
   const [transcriptDragActive, setTranscriptDragActive] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
-  const [uploadedTranscriptName, setUploadedTranscriptName] = useState<string | null>(null);
+  const [uploadedTranscriptName, setUploadedTranscriptName] = useState<
+    string | null
+  >(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const navigate = useNavigate();
 
@@ -96,7 +98,10 @@ export default function ProfilePage() {
       setRecommendedCourses(courses);
       setShowConfirmation(true);
     } catch (err) {
-      const message = err instanceof ApiError ? err.message : "Could not get recommendations. Please try again.";
+      const message =
+        err instanceof ApiError
+          ? err.message
+          : "Could not get recommendations. Please try again.";
       setError(message);
       setUploadedFileName(null);
     } finally {
@@ -129,7 +134,8 @@ export default function ProfilePage() {
 
       setShowTranscriptConfirmation(true);
     } catch (err) {
-      const message = err instanceof ApiError ? err.message : "Could not parse transcript.";
+      const message =
+        err instanceof ApiError ? err.message : "Could not parse transcript.";
       setTranscriptError(message);
       setUploadedTranscriptName(null);
     } finally {
@@ -156,10 +162,12 @@ export default function ProfilePage() {
   };
 
   const programDisplayName = programCode
-    ? ENGINEERING_PROGRAMS.find((p) => p.code === programCode)?.displayName ?? programCode
+    ? (ENGINEERING_PROGRAMS.find((p) => p.code === programCode)?.displayName ??
+      programCode)
     : "—";
   const displayProgram = studentProfile?.program || programDisplayName;
-  const displayLevel = studentProfile?.latestTerm?.level || incomingLevel || "—";
+  const displayLevel =
+    studentProfile?.latestTerm?.level || incomingLevel || "—";
 
   const profileInfo = studentProfile
     ? [
@@ -214,11 +222,15 @@ export default function ProfilePage() {
               <DialogTitle>Clear profile data?</DialogTitle>
               <DialogDescription>
                 This will remove your program, course level, completed courses,
-                resume recommendations, and transcript data. This cannot be undone.
+                resume recommendations, and transcript data. This cannot be
+                undone.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="gap-2 sm:gap-0">
-              <Button variant="outline" onClick={() => setShowClearConfirm(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowClearConfirm(false)}
+              >
                 Cancel
               </Button>
               <Button variant="destructive" onClick={handleClearProfile}>
@@ -239,7 +251,8 @@ export default function ProfilePage() {
                   Set up your profile
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  Select your program and incoming term to auto-populate required courses
+                  Select your program and incoming term to auto-populate
+                  required courses
                 </p>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -255,14 +268,15 @@ export default function ProfilePage() {
                   <div className="flex items-center gap-2 p-3 rounded-lg bg-primary/5">
                     <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
                     <p className="text-sm text-muted-foreground">
-                      Required core courses for terms before {incomingLevel} have been loaded
+                      Required core courses for terms before {incomingLevel}{" "}
+                      have been loaded
                     </p>
                   </div>
                 )}
               </CardContent>
             </Card>
 
-            {/* Resume Upload */}
+            {/* Resume Upload
             <Card className="glass-card overflow-hidden">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -350,7 +364,7 @@ export default function ProfilePage() {
                   </p>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Transcript Upload */}
             <Card className="glass-card overflow-hidden">
@@ -367,7 +381,7 @@ export default function ProfilePage() {
                     transcriptDragActive
                       ? "border-accent bg-accent/5"
                       : "border-border hover:border-accent/50 hover:bg-card/50",
-                    transcriptLoading && "pointer-events-none opacity-50"
+                    transcriptLoading && "pointer-events-none opacity-50",
                   )}
                   onDragEnter={handleTranscriptDrag}
                   onDragLeave={handleTranscriptDrag}
@@ -388,7 +402,7 @@ export default function ProfilePage() {
                     <div
                       className={cn(
                         "w-16 h-16 rounded-full mx-auto flex items-center justify-center transition-colors",
-                        transcriptDragActive ? "bg-accent/20" : "bg-muted"
+                        transcriptDragActive ? "bg-accent/20" : "bg-muted",
                       )}
                     >
                       {transcriptLoading ? (
@@ -401,7 +415,9 @@ export default function ProfilePage() {
                     </div>
                     <div>
                       {transcriptLoading ? (
-                        <p className="font-medium">Parsing your transcript...</p>
+                        <p className="font-medium">
+                          Parsing your transcript...
+                        </p>
                       ) : uploadedTranscriptName ? (
                         <>
                           <p className="font-medium text-green-500">
@@ -432,17 +448,21 @@ export default function ProfilePage() {
                   </div>
                 )}
 
-                {completedCourses.length > 0 && (
-                  <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 text-green-500">
-                    <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-                    <p className="text-sm">{completedCourses.length} courses loaded from transcript</p>
-                  </div>
-                )}
+                {completedCourses.length > 0 &&
+                  (uploadedTranscriptName || studentProfile) && (
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 text-green-500">
+                      <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                      <p className="text-sm">
+                        {completedCourses.length} courses loaded from transcript
+                      </p>
+                    </div>
+                  )}
 
                 <div className="flex items-start gap-2 p-3 rounded-lg bg-accent/5">
                   <GraduationCap className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-muted-foreground">
-                    Upload your transcript to track completed courses and get better recommendations.
+                    Upload your transcript to track completed courses and get
+                    better recommendations.
                   </p>
                 </div>
               </CardContent>
@@ -456,7 +476,8 @@ export default function ProfilePage() {
                   Completed Courses
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  Add or remove courses. Only known courses can be added. Used to filter recommendations.
+                  Add or remove courses. Only known courses can be added. Used
+                  to filter recommendations.
                 </p>
               </CardHeader>
               <CardContent>
@@ -464,11 +485,13 @@ export default function ProfilePage() {
                   completedCourses={completedCourses}
                   onAdd={(code) =>
                     setCompletedCourses((prev) =>
-                      prev.includes(code) ? prev : [...prev, code]
+                      prev.includes(code) ? prev : [...prev, code],
                     )
                   }
                   onRemove={(code) =>
-                    setCompletedCourses((prev) => prev.filter((c) => c !== code))
+                    setCompletedCourses((prev) =>
+                      prev.filter((c) => c !== code),
+                    )
                   }
                   onClearAll={() => setCompletedCourses([])}
                 />
@@ -496,10 +519,14 @@ export default function ProfilePage() {
                   </div>
                   <div className="text-center">
                     <h3 className="font-semibold text-lg">
-                      {studentProfile ? `Student #${studentProfile.studentNumber}` : "Student Profile"}
+                      {studentProfile
+                        ? `Student #${studentProfile.studentNumber}`
+                        : "Student Profile"}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {studentProfile?.program || displayProgram || "Upload transcript or set up above"}
+                      {studentProfile?.program ||
+                        displayProgram ||
+                        "Upload transcript or set up above"}
                     </p>
                   </div>
                 </div>
@@ -528,18 +555,18 @@ export default function ProfilePage() {
                       </Badge>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-muted-foreground">Courses Completed</p>
+                      <p className="text-xs text-muted-foreground">
+                        Courses Completed
+                      </p>
                       <p className="text-sm font-medium truncate">
-                        {completedCourses.length > 0 ? `${completedCourses.length} courses` : "None loaded"}
+                        {completedCourses.length > 0
+                          ? `${completedCourses.length} courses`
+                          : "None loaded"}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Edit Button */}
-                <Button variant="outline" className="w-full mt-6" disabled>
-                  Edit Profile (Coming Soon)
-                </Button>
               </CardContent>
             </Card>
           </div>
@@ -582,7 +609,10 @@ export default function ProfilePage() {
       </Dialog>
 
       {/* Transcript Success Modal */}
-      <Dialog open={showTranscriptConfirmation} onOpenChange={setShowTranscriptConfirmation}>
+      <Dialog
+        open={showTranscriptConfirmation}
+        onOpenChange={setShowTranscriptConfirmation}
+      >
         <DialogContent className="glass-card sm:max-w-md">
           <DialogHeader className="text-center sm:text-center">
             <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
@@ -590,31 +620,23 @@ export default function ProfilePage() {
             </div>
             <DialogTitle>Transcript Parsed Successfully!</DialogTitle>
             <DialogDescription>
-              <strong>{completedCourses.length}</strong> courses loaded from your transcript.
+              <strong>{completedCourses.length}</strong> courses loaded from
+              your transcript.
             </DialogDescription>
             {studentProfile && (
-              <p className="text-sm text-muted-foreground text-center sm:text-left">
-                {studentProfile.program} • Level {studentProfile.latestTerm?.level}
+              <p className="text-sm text-muted-foreground text-center">
+                {studentProfile.program} • Level{" "}
+                {studentProfile.latestTerm?.level}
               </p>
             )}
           </DialogHeader>
-          <DialogFooter className="flex-col sm:flex-row gap-2">
+          <DialogFooter>
             <Button
               variant="outline"
               onClick={() => setShowTranscriptConfirmation(false)}
-              className="w-full sm:w-auto"
+              className="w-full"
             >
-              Stay Here
-            </Button>
-            <Button
-              onClick={() => {
-                setShowTranscriptConfirmation(false);
-                navigate("/recommendation");
-              }}
-              className="w-full sm:w-auto gap-2"
-            >
-              <Sparkles className="w-4 h-4" />
-              Get Recommendations
+              Done
             </Button>
           </DialogFooter>
         </DialogContent>

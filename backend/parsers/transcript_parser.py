@@ -165,7 +165,7 @@ def _extract_term_summaries(text: str) -> List[TermSummary]:
             
             department = course_match.group(1)
             number = course_match.group(2)
-            course_code = f'{department}{number}'.lower()
+            course_code = f'{department}{number}'.upper()
             
             term_summary.courses.append(course_code)
             course_idx += 1

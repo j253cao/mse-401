@@ -6,8 +6,10 @@ import {
   BookOpen,
   Brain,
   FileText,
+  Settings2,
   Sparkles,
   Target,
+  Upload,
   Zap,
 } from "lucide-react";
 
@@ -21,9 +23,9 @@ export default function HomePage() {
     },
     {
       icon: FileText,
-      title: "Resume Analysis",
+      title: "Transcript Analysis",
       description:
-        "Upload your resume to discover courses that align with your experience",
+        "Upload your transcript to discover courses that align with your experience",
     },
     {
       icon: Target,
@@ -63,8 +65,9 @@ export default function HomePage() {
                   size="lg"
                   className="w-full sm:w-auto gap-2 group"
                 >
-                  <Link to="/recommendation">
-                    Explore Courses
+                  <Link to="/profile">
+                    <Upload className="w-4 h-4" />
+                    Upload Transcript
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -74,12 +77,14 @@ export default function HomePage() {
                   size="lg"
                   className="w-full sm:w-auto gap-2"
                 >
-                  <Link to="/profile">
-                    <FileText className="w-4 h-4" />
-                    Upload Resume
+                  <Link to="/recommendation">
+                    Explore Courses
                   </Link>
                 </Button>
               </div>
+              <p className="text-sm text-muted-foreground -mt-2">
+                Takes less than 30 seconds
+              </p>
 
               {/* Stats */}
               <div className="flex gap-8 pt-4">
@@ -205,6 +210,74 @@ export default function HomePage() {
                   <p className="text-muted-foreground">{feature.description}</p>
                 </CardContent>
               </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 border-t border-border/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl font-bold">
+              How It{" "}
+              <span className="gradient-text">Works</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Get personalized course recommendations in three simple steps.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connector line (desktop only) */}
+            <div className="hidden md:block absolute top-12 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary/40 via-primary/20 to-primary/40" />
+
+            {[
+              {
+                step: 1,
+                icon: Upload,
+                title: "Upload Your Transcript",
+                description:
+                  "Upload your UW transcript PDF to automatically extract your completed courses.",
+                link: "/profile",
+                linkText: "Upload now",
+              },
+              {
+                step: 2,
+                icon: Settings2,
+                title: "Set Your Preferences",
+                description:
+                  "Choose departments, levels, or topics you're interested in exploring.",
+                link: "/recommendation",
+                linkText: "Set preferences",
+              },
+              {
+                step: 3,
+                icon: Sparkles,
+                title: "Get Recommendations",
+                description:
+                  "Our AI matches you with courses based on your background and goals.",
+                link: "/recommendation",
+                linkText: "See recommendations",
+              },
+            ].map((item) => (
+              <div key={item.step} className="relative text-center space-y-4">
+                <div className="w-24 h-24 mx-auto rounded-full glass-card flex items-center justify-center relative">
+                  <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center">
+                    {item.step}
+                  </div>
+                  <item.icon className="w-10 h-10 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+                <Link
+                  to={item.link}
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                >
+                  {item.linkText}
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
             ))}
           </div>
         </div>

@@ -12,8 +12,21 @@ import os
 from .data_loader import load_undergrad_courses, load_grad_courses, find_project_root
 from .weights import load_course_to_programs
 
+TERM_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"]
 
-def get_valid_course_set(completed_courses, available_courses):
+
+def meets_level_requirement(user_level, required_level, comparison="at_least"):
+    """Check if user's academic level satisfies a level requirement."""
+    if user_level not in TERM_ORDER or required_level not in TERM_ORDER:
+        return True
+    user_idx = TERM_ORDER.index(user_level)
+    req_idx = TERM_ORDER.index(required_level)
+    if comparison == "at_least":
+        return user_idx >= req_idx
+    return user_idx == req_idx
+
+
+def get_valid_course_set(completed_courses, available_courses, incoming_level=None):
     """
     Given a list of completed courses and available courses, return a set of courses 
     from the available courses that are eligible to take based on their prerequisites 
@@ -22,13 +35,14 @@ def get_valid_course_set(completed_courses, available_courses):
     Args:
         completed_courses: List of course codes that have been completed (e.g., ['CS135', 'MATH137'])
         available_courses: List/set of course codes to filter from
+        incoming_level: User's current academic level (e.g., '1B', '3A') for level requirement checks
         
     Returns:
         set: Set of course codes from available_courses that are eligible to take
     """
     # Load course dependencies
     project_root = find_project_root()
-    dependencies_path = os.path.join(project_root, 'data', 'dependencies', 'course_dependencies.json')
+    dependencies_path = os.path.join(project_root, 'data', 'dependencies', 'course_dependencies_llm.json')
     try:
         with open(dependencies_path, 'r', encoding='utf-8') as f:
             dependencies = json.load(f)
@@ -77,12 +91,23 @@ def get_valid_course_set(completed_courses, available_courses):
         
         return False
     
-    def is_course_eligible(course_code, course_data, completed_courses_set):
-        """Check if a course is eligible based on its prerequisites"""
-        groups = course_data.get('groups', [])
-        root_operator = course_data.get('root_operator', 'AND')
-        
-        # If no prerequisites, course is eligible
+    def is_course_eligible(course_code, course_dep, completed_courses_set):
+        """Check if a course is eligible based on its prerequisites and level requirements"""
+        prereqs = course_dep.get('prerequisites', course_dep)
+        groups = prereqs.get('groups', [])
+        root_operator = prereqs.get('root_operator', 'AND')
+        program_requirements = prereqs.get('program_requirements', [])
+
+        # Check level requirements from program_requirements
+        if incoming_level and program_requirements:
+            for req in program_requirements:
+                level_req = req.get('level_requirement')
+                if level_req:
+                    required_level = level_req.get('level', '')
+                    comparison = level_req.get('comparison', 'at_least')
+                    if not meets_level_requirement(incoming_level, required_level, comparison):
+                        return False
+
         if not groups:
             return True
         
@@ -92,10 +117,8 @@ def get_valid_course_set(completed_courses, available_courses):
                 satisfied_groups += 1
         
         if root_operator == 'OR':
-            # Need at least one group to be satisfied
             return satisfied_groups > 0
-        else:  # AND
-            # Need all groups to be satisfied
+        else:
             return satisfied_groups == len(groups)
     
     # Build a normalized lookup for dependencies (keys may have spaces)
@@ -152,11 +175,17 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
                 filters_applied = courses_in_options
 
     # Apply prerequisite filter last (unless explicitly disabled)
-    if filters and filters.get('completed_courses') and not filters.get('ignore_dependencies'):
-        # If we have other filters, apply them first, otherwise use all courses
-        courses_to_check = filters_applied if filters_applied else df['courseCode']
-        eligible_courses = get_valid_course_set(filters['completed_courses'], courses_to_check)
-        filters_applied = eligible_courses
+    if filters and not filters.get('ignore_dependencies'):
+        has_courses = bool(filters.get('completed_courses'))
+        has_level = bool(filters.get('incoming_level'))
+        if has_courses or has_level:
+            courses_to_check = filters_applied if filters_applied else df['courseCode']
+            eligible_courses = get_valid_course_set(
+                filters.get('completed_courses', []),
+                courses_to_check,
+                incoming_level=filters.get('incoming_level'),
+            )
+            filters_applied = eligible_courses
     
     t0 = time.time()
     # Vectorize query
