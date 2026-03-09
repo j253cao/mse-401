@@ -1,0 +1,94 @@
+Undergraduate studies
+Academic Calendar
+0 results available
+Home
+About the Undergraduate Studies Academic Calendar
+Studying at Waterloo
+Important Dates & Deadlines
+Programs & Plans
+Regulations
+Courses
+Addenda
+printPrint this page
+arrow_back
+Back
+Options: Faculty of Engineering Programs & Plans>Mechatronics Option
+Mechatronics Option
+This option is available for students in the following degrees
+Bachelor of Applied Science
+Bachelor of Software Engineering
+Declaration Requirements
+Before requesting admission to this academic plan, see invalid credential combinations.
+Minimum Average(s) Required
+A minimum cumulative option average of 60.0%.
+Graduation Requirements
+Complete a total of 5.0 units.
+Course Requirements
+Required Courses
+keyboard_arrow_up
+Complete all of the following
+Complete 1 of the following: 
+BME294 - Circuits, Instrumentation, and Measurements (0.50)
+ECE240 - Electronic Circuits 1 (0.50)
+MTE220 - Sensors and Instrumentation (0.50)
+SYDE292 - Circuits, Instrumentation, and Measurements (0.50)
+Complete 1 of the following: 
+ECE224 - Embedded Microprocessor Systems (0.50)
+MTE325 - Microprocessor Systems and Interfacing for Mechatronics Engineering (0.50)
+Complete 1 of the following: 
+ECE260 - Electromechanical Energy Conversion (0.50)
+ME269 - Electromechanical Devices and Power Processing (0.50)
+MTE320 - Actuators and Power Electronics (0.50)
+Complete 1 of the following: 
+ME321 - Dynamics of Machines and Mechanical Vibrations (0.50)
+MTE321 - Design and Dynamics of Machines (0.50)
+Complete 1 of the following: 
+ECE481 - Digital Control Systems (0.50)
+ECE484 - Digital Control Applications (0.50)
+ECE488 - Multivariable Control Systems (0.50)
+MTE460 - Mechatronic System Integration (0.50)
+Complete 1 of the following: 
+ECE486 - Robot Dynamics and Control (0.50)
+ME547 - Robot Manipulators: Kinematics, Dynamics, Control (0.50)
+MTE544 - Autonomous Mobile Robots (0.50)
+Complete 1 of the following: 
+ME322 - Mechanical Design 1 (0.50)
+ME524 - Advanced Dynamics and Vibrations (0.50)
+MTE322 - Electromechanical Machine Design (0.50)
+SYDE553 - Advanced Dynamics (0.50)
+Complete 1 of the following: 
+ECE356 - Database Systems (0.50)
+ECE454 - Distributed Computing (0.50)
+ECE455 - Embedded Software (0.50)
+ECE457A - Co-operative and Adaptive Algorithms (0.50)
+ECE457B - Fundamentals of Computational Intelligence (0.50)
+ECE459 - Programming for Performance (0.50)
+ECE463 - Design and Applications of Power Electronic Converters (0.50)
+ME561 - Fluid Power Control Systems (0.50)
+SYDE522 - Foundations of Artificial Intelligence (0.50)
+SYDE572 - Introduction to Pattern Recognition (0.50)
+SYDE575 - Image Processing (0.50)
+Complete 1 of the following
+Complete all the following: 
+BME461 - Biomedical Engineering Design Workshop 2 (0.50)
+BME462 - Biomedical Engineering Design Workshop 3 (0.50)
+Complete all the following: 
+ECE498A - Engineering Design Project (0.50)
+ECE498B - Engineering Design Project (0.50)
+Complete all the following: 
+GENE403 - Interdisciplinary Design Project 1 (0.50)
+GENE404 - Interdisciplinary Design Project 2 (0.50)
+Complete all the following: 
+ME481 - Mechanical Engineering Design Project 1 (0.50)
+ME482 - Mechanical Engineering Design Project 2 (0.50)
+Complete all the following: 
+SYDE461 - Systems Design Capstone Project 1 (0.50)
+SYDE462 - Systems Design Capstone Project 2 (0.50)
+Additional Constraints
+The two-term design project/workshop requirement must have a mechatronics theme which must be approved by the faculty Mechatronics Option co-ordinator. Students must also meet the project/workshop requirements of their home department.
+Notes
+Students are encouraged to contact the Mechatronics Option co-ordinator if they have difficulty enrolling in a course.
+Exceptions to the requirements and electives listed above require approval of the Option co-ordinator.
+Offered by Faculty(ies)
+Faculty of Engineering
+file_upload

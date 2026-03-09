@@ -1,0 +1,99 @@
+Undergraduate studies
+Academic Calendar
+0 results available
+Home
+About the Undergraduate Studies Academic Calendar
+Studying at Waterloo
+Important Dates & Deadlines
+Programs & Plans
+Regulations
+Courses
+Addenda
+printPrint this page
+arrow_back
+Back
+Options: Faculty of Engineering Programs & Plans>Management Science Option
+Management Science Option
+This option is available for students in the following degrees
+Bachelor of Applied Science
+Bachelor of Software Engineering
+Declaration Requirements
+Before requesting admission to this academic plan, see invalid credential combinations.
+Minimum Average(s) Required
+A minimum cumulative option average of 60.0%.
+Graduation Requirements
+Complete a total of 3.0 units.
+Course Requirements
+Required Courses
+keyboard_arrow_up
+Complete all of the following
+Complete 1 of the following: 
+MSE211 - Organizational Behaviour (0.50)
+MSE311 - Organizational Design and Technology (0.50)
+PSYCH238 - Organizational Psychology (0.50)
+Complete 1 of the following: 
+BME411 - Optimization and Numerical Methods (0.50)
+CHE521 - Process Optimization (0.50)
+CIVE332 - Civil Systems and Project Management (0.50)
+CO250 - Introduction to Optimization (0.50)
+ENVE335 - Decision Making for Environmental Engineers (0.50)
+MSE331 - Introduction to Optimization (0.50)
+SYDE411 - Optimization and Numerical Methods (0.50)
+Complete all of the following
+Complete 4 courses from the following lists.
+Choose any of the following: 
+CIVE343 - Traffic Simulation Modelling and Applications (0.50)
+ECON371 - Business Finance 1 (0.50)
+HRM200 - Basic Human Resources Management (0.50)
+MSE311 - Organizational Design and Technology (0.50)
+MSE332 - Deterministic Optimization Models and Methods (0.50)
+MSE343 - Human-Computer Interaction (0.50)
+MSE422 - Economic Impact of Technological Change and Entrepreneurship (0.50)
+MSE431 - Stochastic Models and Methods (0.50)
+MSE432 - Production and Service Operations Management (0.50)
+MSE433 - Applications of Management Engineering (0.50)
+MSE435 - Advanced Optimization Techniques (0.50)
+MSE442 - Impact of Information Systems on Organizations and Society (0.50)
+MSE452 - Decision Making Under Uncertainty (0.50)
+MSE454 - Technical Entrepreneurship (0.50)
+MSE531 - Stochastic Processes and Decision Making (0.50)
+MSE541 - Search Engines (0.50)
+MSE543 - Analytics and User Experience (0.50)
+MSE546 - Advanced Machine Learning (0.50)
+MSE551 - Quality Management and Control (0.50)
+MSE555 - Scheduling: Theory and Practice (0.50)
+MSE597 - Complementary Studies Topics in Management Science and Engineering (0.50)
+MSE598 - Special Topics in Management Engineering (0.50)
+SYDE531 - Design Optimization Under Probabilistic Uncertainty (0.50)
+SYDE533 - Conflict Resolution (0.50)
+Complete no more than 1 from the following: 
+AE392 - Economics and Life Cycle Cost Analysis (0.50)
+BME364 - Engineering Biomedical Economics (0.50)
+CIVE392 - Economics and Life Cycle Cost Analysis (0.50)
+ENVE392 - Economics and Life Cycle Cost Analysis (0.50)
+GEOE392 - Economics and Life Cycle Cost Analysis (0.50)
+MSE261 - Engineering Economics: Financial Management for Engineers (0.50)
+SYDE262 - Engineering Economics of Design (0.50)
+Complete no more than 1 from the following: 
+BET450 - Leadership (0.50)
+MSE411 - Leadership and Influence (0.50)
+Complete no more than 1 from the following: 
+CS480 - Introduction to Machine Learning (0.50)
+ECE457B - Fundamentals of Computational Intelligence (0.50)
+MSE446 - Introduction to Machine Learning (0.50)
+SYDE522 - Foundations of Artificial Intelligence (0.50)
+Complete no more than 1 from the following: 
+ECON201 - Microeconomic Theory for Business and Policy (0.50)
+MSE263 - Managerial Economics (0.50)
+Complete no more than 1 from the following: 
+MSE211 - Organizational Behaviour (0.50)
+PSYCH238 - Organizational Psychology (0.50)
+Additional Constraints
+At least three courses must be MSE-labelled courses.
+A maximum of one course from outside the approved list may be counted towards the Option, subject to approval of the option co-ordinator.
+Students may take both MSE211 and MSE311; each course may only be used towards one requirement.
+Notes
+For further information about the Management Science Option, contact the option co-ordinator in the Management Science and Engineering Department.
+Offered by Faculty(ies)
+Faculty of Engineering
+file_upload

@@ -1,0 +1,186 @@
+Undergraduate studies
+Academic Calendar
+0 results available
+Home
+About the Undergraduate Studies Academic Calendar
+Studying at Waterloo
+Important Dates & Deadlines
+Programs & Plans
+Regulations
+Courses
+Addenda
+printPrint this page
+arrow_back
+Back
+Options: Faculty of Engineering Programs & Plans>Software Engineering Option
+Software Engineering Option
+This option is available for students in the following degrees
+Bachelor of Applied Science
+Bachelor of Architectural Studies
+Declaration Requirements
+Before declaring this academic plan, see invalid credential combinations.
+Students may not declare this Option until they have completed a List 1 course and a List 2 course. Students must have a minimum average of 75.0% calculated across these two courses in order to declare this Option.
+Minimum Average(s) Required
+A minimum cumulative option average of 75.0%.
+Graduation Requirements
+Complete a total of 4.0 units:
+1.5 units of required courses.
+2.5 units of approved courses:
+
+0.5 unit from List 1.
+0.5 unit from List 2.
+1.0 unit from List 3.
+0.5 unit from List 4.
+Course Requirements
+Required Courses
+keyboard_arrow_up
+Complete all of the following
+Complete 1 of the following: 
+CS445 - Software Requirements Specification and Analysis (0.50)
+ECE451 - Software Requirements Specification and Analysis (0.50)
+SE463 - Software Project Management, Requirements, and Analysis (0.50)
+Complete 1 of the following: 
+CS446 - Software Design and Architectures (0.50)
+ECE452 - Software Design and Architectures (0.50)
+SE464 - Software Design and Architectures (0.50)
+Complete 1 of the following: 
+CS447 - Software Testing, Quality Assurance, and Maintenance (0.50)
+ECE453 - Software Testing, Quality Assurance, and Maintenance (0.50)
+SE465 - Software Testing and Quality Assurance (0.50)
+Course Lists
+Approved Courses List
+keyboard_arrow_up
+See Additional Constraints when selecting courses.
+List 1
+keyboard_arrow_up
+Complete 1 of the following: 
+AE121 - Computational Methods (0.50)
+BME121 - Digital Computation (0.50)
+CHE120 - Computer Literacy and Programming for Chemical Engineers (0.50)
+CIVE121 - Computational Methods (0.50)
+CS115 - Introduction to Computer Science 1 (0.50)
+CS116 - Introduction to Computer Science 2 (0.50)
+CS135 - Designing Functional Programs (0.50)
+CS137 - Programming Principles (0.50)
+CS145 - Designing Functional Programs (Advanced Level) (0.50)
+ECE150 - Fundamentals of Programming (0.50)
+ENVE121 - Computational Methods (0.50)
+GEOE121 - Computational Methods (0.50)
+ME101 - Introduction to Mechanical Engineering Practice 2 (0.75)
+MSE121 - Introduction to Computer Programming (0.50)
+MTE121 - Digital Computation (0.50)
+NE111 - Introduction to Programming for Engineers (0.25)
+SYDE121 - Digital Computation (0.50)
+List 2
+keyboard_arrow_up
+Complete 1 of the following: 
+BME122 - Data Structures and Algorithms (0.50)
+CS136 - Elementary Algorithm Design and Data Abstraction (0.50)
+CS138 - Introduction to Data Abstraction and Implementation (0.50)
+CS146 - Elementary Algorithm Design and Data Abstraction (Advanced Level) (0.50)
+CS231 - Algorithmic Problem Solving (0.50)
+ECE250 - Algorithms and Data Structures (0.50)
+MSE240 - Algorithms and Data Structures (0.50)
+MTE140 - Algorithms and Data Structures (0.50)
+SYDE223 - Data Structures and Algorithms (0.50)
+List 3
+keyboard_arrow_up
+Complete all of the following
+Complete 2 courses from any of the following:
+Choose any of the following: 
+BIOL487 - Computational Neuroscience (0.50)
+BME393 - Digital Systems (0.50)
+BME411 - Optimization and Numerical Methods (0.50)
+CHE322 - Numerical Methods for Process Analysis and Design (0.50)
+CIVE422 - Finite Element Analysis (0.50)
+EARTH456 - Numerical Methods in Hydrogeology (0.50)
+ENVE225 - Environmental Modelling (0.75)
+NE336 - Micro and Nanosystem Computer-Aided Design (0.50)
+Choose any of the following: 
+CS230 - Introduction to Computers and Computer Systems (0.50)
+CS234 - Data Types and Structures (0.50)
+CS245 - Logic and Computation (0.50)
+CS338 - Computer Applications in Business: Databases (0.50)
+CS445 - Software Requirements Specification and Analysis (0.50)
+CS446 - Software Design and Architectures (0.50)
+CS447 - Software Testing, Quality Assurance, and Maintenance (0.50)
+Choose any of the following: 
+ECE124 - Digital Circuits and Systems (0.50)
+ECE204 - Numerical Methods (0.50)
+ECE208 - Discrete Mathematics and Logic 2 (0.50)
+ECE222 - Digital Computers (0.50)
+ECE224 - Embedded Microprocessor Systems (0.50)
+ECE252 - Systems Programming and Concurrency (0.50)
+ECE320 - Computer Architecture (0.50)
+ECE327 - Digital Hardware Systems (0.50)
+ECE350 - Real-Time Operating Systems (0.50)
+ECE351 - Compilers (0.50)
+ECE356 - Database Systems (0.50)
+ECE358 - Computer Networks (0.50)
+ECE406 - Algorithm Design and Analysis (0.50)
+ECE409 - Cryptography and System Security (0.50)
+ECE417 - Image Processing (0.50)
+ECE423 - Embedded Computer Systems (0.50)
+ECE451 - Software Requirements Specification and Analysis (0.50)
+ECE452 - Software Design and Architectures (0.50)
+ECE453 - Software Testing, Quality Assurance, and Maintenance (0.50)
+ECE454 - Distributed Computing (0.50)
+ECE455 - Embedded Software (0.50)
+ECE457A - Co-operative and Adaptive Algorithms (0.50)
+ECE457B - Fundamentals of Computational Intelligence (0.50)
+ECE457C - Reinforcement Learning (0.50)
+ECE458 - Computer Security (0.50)
+ECE459 - Programming for Performance (0.50)
+Choose any of the following: 
+ME262 - Introduction to Microprocessors and Digital Logic (0.50)
+ME559 - Finite Element Methods (0.50)
+ME566 - Computational Fluid Dynamics for Engineering Design (0.50)
+Choose any of the following: 
+MSE245 - Databases and Software Design (0.50)
+MSE342 - Principles of Software Engineering (0.50)
+MSE343 - Human-Computer Interaction (0.50)
+MSE436 - Decision Support Systems (0.50)
+MSE446 - Introduction to Machine Learning (0.50)
+MSE541 - Search Engines (0.50)
+MSE543 - Analytics and User Experience (0.50)
+MSE546 - Advanced Machine Learning (0.50)
+Choose any of the following: 
+MTE204 - Numerical Methods (0.50)
+MTE241 - Introduction to Computer Structures and Real-Time Systems (0.50)
+MTE262 - Introduction to Digital Logic (0.50)
+MTE325 - Microprocessor Systems and Interfacing for Mechatronics Engineering (0.50)
+MTE544 - Autonomous Mobile Robots (0.50)
+MTE546 - Multi-Sensor Data Fusion (0.50)
+Choose any of the following: 
+SE212 - Logic and Computation (0.50)
+SE350 - Operating Systems (0.50)
+SE463 - Software Project Management, Requirements, and Analysis (0.50)
+SE464 - Software Design and Architectures (0.50)
+SE465 - Software Testing and Quality Assurance (0.50)
+Choose any of the following: 
+SYDE192 - Digital Systems (0.50)
+SYDE411 - Optimization and Numerical Methods (0.50)
+SYDE522 - Foundations of Artificial Intelligence (0.50)
+SYDE542 - Interface Design (0.50)
+SYDE543 - Cognitive Ergonomics (0.50)
+SYDE548 - User Centred Design Methods (0.50)
+SYDE552 - Computational Neuroscience (0.50)
+SYDE556 - Simulating Neurobiological Systems (0.50)
+SYDE572 - Introduction to Pattern Recognition (0.50)
+SYDE575 - Image Processing (0.50)
+SYDE577 - Deep Learning (0.50)
+List 4
+keyboard_arrow_up
+Complete 1 of the following: 
+CS492 - The Social Implications of Computing (0.50)
+HIST212 - The Computing Society (0.50)
+MSE442 - Impact of Information Systems on Organizations and Society (0.50)
+SOC324 - Digital Cultures (0.50)
+STV205 - Cybernetics and Society (0.50)
+STV208 - Artificial Intelligence and Society: Impact, Ethics, and Equity (0.50)
+STV210 - The Computing Society (0.50)
+STV302 - Information Technology and Society (0.50)
+Additional Constraints
+Five of the courses must be considered as electives in the student's major academic plan. For the purposes of this Option, a course that a student could choose to graduate without will be considered elective.
+Students who take CS136 or CS146 are also required to enrol in CS136L. However, passing CS136L is not a requirement for the Option and the course may be coded as NRNA.
+Exceptions to these courses can be made by the Opt

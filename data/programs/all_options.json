@@ -11,7 +11,8 @@
           "STV208",
           "STV210",
           "STV302"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -20,14 +21,18 @@
           "CS480",
           "CS485",
           "CS486",
+          "ECE457A",
+          "ECE457B",
+          "ECE457C",
           "MSE435",
           "MSE446",
           "SYDE522"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 30,
+        "list_description": "Complete all of the following\nComplete 3 additional courses from List 2 or List 3",
+        "required_count": 3,
         "courses": [
           "AMATH449",
           "BIOL487",
@@ -59,7 +64,8 @@
           "SYDE556",
           "SYDE572",
           "SYDE577"
-        ]
+        ],
+        "list_name": "List 3"
       }
     ],
     "option_name": "Artificial Intelligence"
@@ -67,13 +73,14 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "BME588",
           "CIVE460",
           "ME574"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -83,14 +90,17 @@
           "BIOL273",
           "BME284",
           "SYDE584"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
-        "required_count": 1,
+        "required_count": 2,
         "courses": [
-          "KIN100"
-        ]
+          "KIN100",
+          "KIN100L"
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -98,17 +108,19 @@
         "courses": [
           "KIN320",
           "KIN420",
-          "SYDE162",
           "SYDE543",
           "SYDE548"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
-        "required_count": 1,
+        "required_count": 2,
         "courses": [
-          "KIN121"
-        ]
+          "KIN121",
+          "KIN121L"
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -135,7 +147,8 @@
           "SYDE553",
           "SYDE572",
           "SYDE575"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -150,29 +163,35 @@
           "KIN422",
           "KIN425",
           "KIN472"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
-        "required_count": 1,
+        "required_count": 2,
         "courses": [
-          "KIN221"
-        ]
+          "KIN221",
+          "KIN221L"
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
-        "required_count": 1,
+        "required_count": 2,
         "courses": [
-          "KIN255"
-        ]
+          "KIN255",
+          "KIN255L"
+        ],
+        "list_name": "Complete all the following"
       },
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
+        "list_description": "Complete all the following",
+        "required_count": 2,
         "courses": [
           "CHE482",
           "CHE483"
-        ]
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
@@ -180,7 +199,17 @@
         "courses": [
           "CIVE400",
           "CIVE401"
-        ]
+        ],
+        "list_name": "Complete all the following"
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "ECE498A",
+          "ECE498B"
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
@@ -188,7 +217,8 @@
         "courses": [
           "ENVE400",
           "ENVE401"
-        ]
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
@@ -196,7 +226,8 @@
         "courses": [
           "GENE403",
           "GENE404"
-        ]
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
@@ -204,7 +235,8 @@
         "courses": [
           "ME481",
           "ME482"
-        ]
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
@@ -212,7 +244,8 @@
         "courses": [
           "MTE481",
           "MTE482"
-        ]
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
@@ -220,7 +253,8 @@
         "courses": [
           "NE408",
           "NE409"
-        ]
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
@@ -228,7 +262,8 @@
         "courses": [
           "SYDE461",
           "SYDE462"
-        ]
+        ],
+        "list_name": "Complete all the following"
       }
     ],
     "option_name": "Biomechanics"
@@ -243,7 +278,8 @@
           "ECE327",
           "ECE423",
           "ECE455"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ],
     "option_name": "Computer Engineering"
@@ -271,7 +307,8 @@
           "MTE121",
           "NE111",
           "SYDE121"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -286,11 +323,12 @@
           "MSE240",
           "MTE140",
           "SYDE223"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 38,
+        "list_description": "Complete 2 courses from List 3; complete 2 additional courses from List 1, List 2, or List 3.",
+        "required_count": 4,
         "courses": [
           "BIOL487",
           "BME393",
@@ -328,9 +366,46 @@
           "ECE453",
           "ECE454",
           "ECE455",
+          "ECE457A",
+          "ECE457B",
+          "ECE457C",
           "ECE458",
-          "ECE459"
-        ]
+          "ECE459",
+          "ME262",
+          "ME559",
+          "ME566",
+          "MSE245",
+          "MSE342",
+          "MSE343",
+          "MSE436",
+          "MSE446",
+          "MSE541",
+          "MSE543",
+          "MSE546",
+          "MTE204",
+          "MTE241",
+          "MTE262",
+          "MTE325",
+          "MTE544",
+          "MTE546",
+          "SE212",
+          "SE350",
+          "SE463",
+          "SE464",
+          "SE465",
+          "SYDE192",
+          "SYDE411",
+          "SYDE522",
+          "SYDE542",
+          "SYDE543",
+          "SYDE548",
+          "SYDE552",
+          "SYDE556",
+          "SYDE572",
+          "SYDE575",
+          "SYDE577"
+        ],
+        "list_name": "List 3"
       }
     ],
     "option_name": "Computing"
@@ -338,13 +413,34 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: BET100 - Foundations of Entrepreneurial Practice (0.50), BET320 - Entrepreneurial Strategy (0.50), BET340 - Essentials of Entrepreneurial Planning and Execution (0.50)",
         "required_count": 3,
         "courses": [
           "BET100",
           "BET320",
           "BET340"
-        ]
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete at least 1 additional BET course",
+        "required_count": 1,
+        "courses": [
+          "BET100",
+          "BET320",
+          "BET340"
+        ],
+        "list_name": "Complete at least 1 additional BET course"
+      },
+      {
+        "list_description": "Complete up to 2 additional BET courses, or courses in an area related to an entrepreneurial endeavor or entrepreneurship, as approved by the Conrad associate director, undergraduate studies",
+        "required_count": 2,
+        "courses": [
+          "BET100",
+          "BET320",
+          "BET340"
+        ],
+        "list_name": "Complete up to 2 additional BET courses, or courses in an area related to an entrepreneurial endeavor or entrepreneurship, as approved by the Conrad associate director, undergraduate studies"
       }
     ],
     "option_name": "Entrepreneurship"
@@ -364,7 +460,8 @@
           "ERS404",
           "GEOE391",
           "PSCI432"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -381,7 +478,8 @@
           "GEOG432",
           "HLTH420",
           "PLAN432"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -396,7 +494,8 @@
           "ENVE577",
           "ME452",
           "ME459"
-        ]
+        ],
+        "list_name": "List 3"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -411,7 +510,8 @@
           "MSE452",
           "SYDE532",
           "SYDE533"
-        ]
+        ],
+        "list_name": "List 4"
       }
     ],
     "option_name": "Environmental Engineering"
@@ -419,27 +519,15 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete all of the following",
+        "required_count": 4,
         "courses": [
           "BIOL130",
           "BIOL239",
-          "BIOL240"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "BIOL240",
           "CHEM262",
           "CHEM266",
-          "NE222"
-        ]
-      },
-      {
-        "list_description": "Complete 3 of the following",
-        "required_count": 3,
-        "courses": [
+          "NE222",
           "AMATH382",
           "BIOL266",
           "BIOL308",
@@ -449,38 +537,21 @@
           "BIOL382",
           "BIOL434",
           "CHE565"
-        ]
+        ],
+        "list_name": "Theme 1: Molecular and Cell Biology"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Complete all of the following",
+        "required_count": 4,
         "courses": [
           "BIOL239",
-          "BIOL240"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "BIOL240",
           "BME285",
-          "CHE161"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "CHE161",
           "BME186",
           "CHE102",
           "CHEM123",
-          "NE121"
-        ]
-      },
-      {
-        "list_description": "Complete 3 of the following",
-        "required_count": 3,
-        "courses": [
+          "NE121",
           "BIOL150",
           "BIOL241",
           "BIOL349",
@@ -490,38 +561,21 @@
           "BIOL462",
           "CHE565",
           "EARTH444"
-        ]
+        ],
+        "list_name": "Theme 2: Environmental/Ecological Science"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Complete all of the following",
+        "required_count": 4,
         "courses": [
           "ECE105",
-          "PHYS380"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "PHYS380",
           "BIOL280",
-          "PHYS280"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "PHYS280",
           "BME186",
           "CHE102",
           "CHEM123",
-          "NE121"
-        ]
-      },
-      {
-        "list_description": "Complete 3 of the following",
-        "required_count": 3,
-        "courses": [
+          "NE121",
           "BIOL349",
           "CHE565",
           "CHEM233",
@@ -532,46 +586,22 @@
           "NE222",
           "PHYS395",
           "PHYS396"
-        ]
+        ],
+        "list_name": "Theme 3: Biophysical Science"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all of the following",
+        "required_count": 4,
         "courses": [
-          "CHEM267"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "CHEM267",
           "BME186",
           "CHE102",
           "CHEM123",
-          "NE121"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "NE121",
           "BME285",
-          "CHE161"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "CHE161",
           "CHEM262",
           "CHEM266",
-          "NE222"
-        ]
-      },
-      {
-        "list_description": "Complete 3 of the following",
-        "required_count": 3,
-        "courses": [
           "CHEM220",
           "CHEM233",
           "CHEM237",
@@ -579,7 +609,8 @@
           "CHEM357",
           "CHEM430",
           "CHEM432"
-        ]
+        ],
+        "list_name": "Theme 4: Biochemical Science"
       }
     ],
     "option_name": "Life Sciences"
@@ -587,16 +618,17 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete 1 of the following: ",
+        "required_count": 1,
         "courses": [
           "MSE211",
           "MSE311",
           "PSYCH238"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "BME411",
@@ -606,11 +638,12 @@
           "ENVE335",
           "MSE331",
           "SYDE411"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 40,
+        "list_description": "Complete 4 courses from the following lists. Choose any of the following: ",
+        "required_count": 4,
         "courses": [
           "CIVE343",
           "ECON371",
@@ -635,24 +668,61 @@
           "MSE597",
           "MSE598",
           "SYDE531",
-          "SYDE533",
+          "SYDE533"
+        ],
+        "list_name": "List 3"
+      },
+      {
+        "list_description": "Complete no more than 1 from the following: ",
+        "required_count": 1,
+        "courses": [
           "AE392",
           "BME364",
           "CIVE392",
           "ENVE392",
           "GEOE392",
           "MSE261",
-          "SYDE262",
+          "SYDE262"
+        ],
+        "list_name": "List 4"
+      },
+      {
+        "list_description": "Complete no more than 1 from the following: ",
+        "required_count": 1,
+        "courses": [
           "BET450",
-          "MSE411",
+          "MSE411"
+        ],
+        "list_name": "List 5"
+      },
+      {
+        "list_description": "Complete no more than 1 from the following: ",
+        "required_count": 1,
+        "courses": [
           "CS480",
+          "ECE457B",
           "MSE446",
-          "SYDE522",
+          "SYDE522"
+        ],
+        "list_name": "List 6"
+      },
+      {
+        "list_description": "Complete no more than 1 from the following: ",
+        "required_count": 1,
+        "courses": [
           "ECON201",
-          "MSE263",
+          "MSE263"
+        ],
+        "list_name": "List 7"
+      },
+      {
+        "list_description": "Complete no more than 1 from the following: ",
+        "required_count": 1,
+        "courses": [
           "MSE211",
           "PSYCH238"
-        ]
+        ],
+        "list_name": "List 8"
       }
     ],
     "option_name": "Management Science"
@@ -660,91 +730,111 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 4,
+        "list_description": "BME294 - Circuits, Instrumentation, and Measurements (0.50)",
+        "required_count": 1,
         "courses": [
           "BME294",
           "ECE240",
           "MTE220",
           "SYDE292"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "ECE224 - Embedded Microprocessor Systems (0.50)",
         "required_count": 1,
         "courses": [
           "ECE224",
           "MTE325"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "ECE260 - Electromechanical Energy Conversion (0.50)",
         "required_count": 1,
         "courses": [
           "ECE260",
           "ME269",
           "MTE320"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "ME321 - Dynamics of Machines and Mechanical Vibrations (0.50)",
         "required_count": 1,
         "courses": [
           "ME321",
           "MTE321"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "ECE481 - Digital Control Systems (0.50)",
         "required_count": 1,
         "courses": [
           "ECE481",
           "ECE484",
           "ECE488",
           "MTE460"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "ECE486 - Robot Dynamics and Control (0.50)",
         "required_count": 1,
         "courses": [
           "ECE486",
           "ME547",
           "MTE544"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "ME322 - Mechanical Design 1 (0.50)",
         "required_count": 1,
         "courses": [
           "ME322",
           "ME524",
           "MTE322",
           "SYDE553"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "ECE356 - Database Systems (0.50)",
         "required_count": 1,
         "courses": [
           "ECE356",
           "ECE454",
           "ECE455",
+          "ECE457A",
+          "ECE457B",
           "ECE459",
           "ECE463",
           "ME561",
           "SYDE522",
           "SYDE572",
           "SYDE575"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
+        "list_description": "Complete all the following",
+        "required_count": 2,
         "courses": [
           "BME461",
           "BME462"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "ECE498A",
+          "ECE498B"
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
@@ -752,7 +842,8 @@
         "courses": [
           "GENE403",
           "GENE404"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
@@ -760,7 +851,8 @@
         "courses": [
           "ME481",
           "ME482"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
@@ -768,7 +860,8 @@
         "courses": [
           "SYDE461",
           "SYDE462"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       }
     ],
     "option_name": "Mechatronics"
@@ -776,54 +869,29 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all of the following",
         "required_count": 4,
         "courses": [
           "ECE105",
           "NE131",
           "PHYS115",
-          "PHYS121"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "PHYS121",
           "ECE106",
           "NE241",
           "PHYS122",
-          "SYDE283"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "SYDE283",
           "ECE140",
           "PHYS242",
           "PHYS263",
           "PHYS334",
-          "PHYS358"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "PHYS358",
           "NE332",
-          "PHYS234"
-        ]
-      },
-      {
-        "list_description": "Complete 3 of the following",
-        "required_count": 3,
-        "courses": [
+          "PHYS234",
           "AMATH473",
           "CO481",
           "CS467",
           "NE334",
           "PHYS275",
-          "PHYS334",
           "PHYS335",
           "PHYS342",
           "PHYS359",
@@ -836,44 +904,28 @@
           "PHYS454",
           "PHYS467",
           "PHYS475"
-        ]
+        ],
+        "list_name": "Theme 1: Physics"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all of the following",
+        "required_count": 2,
         "courses": [
-          "CHEM209"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "CHEM209",
           "CHE102",
           "CHEM123",
-          "NE121"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "NE121",
           "CHEM212",
-          "NE225"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "NE225",
           "CHEM262",
           "CHEM264",
           "NE222"
-        ]
+        ],
+        "list_name": "Theme 2: Chemistry"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 18,
+        "list_description": "Complete 3 courses from the following lists.",
+        "required_count": 3,
         "courses": [
           "CHEM220",
           "CHEM221",
@@ -884,57 +936,59 @@
           "CHEM340",
           "CHEM350",
           "CHEM360",
+          "CHEM356",
           "CHE230",
           "CHEM254",
           "ME250",
-          "SYDE381",
-          "CHEM356",
-          "NE332",
-          "PHYS234",
-          "CHEM370",
-          "NE333"
-        ]
+          "SYDE381"
+        ],
+        "list_name": "Theme 2: Chemistry"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete no more than 1 from the following:",
+        "required_count": 1,
+        "courses": [
+          "CHEM356",
+          "NE332",
+          "PHYS234"
+        ],
+        "list_name": "Theme 2: Chemistry"
+      },
+      {
+        "list_description": "Complete no more than 1 from the following:",
+        "required_count": 1,
+        "courses": [
+          "CHEM370",
+          "NE333"
+        ],
+        "list_name": "Theme 2: Chemistry"
+      },
+      {
+        "list_description": "Complete all of the following",
+        "required_count": 2,
         "courses": [
           "CHE102",
           "CHEM123",
-          "NE121"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "NE121",
           "ECE105",
           "NE131",
           "PHYS115",
-          "PHYS121"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "PHYS121",
           "ECE106",
-          "PHYS122"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
-          "EARTH121"
-        ]
+          "PHYS122",
+          "EARTH121",
+          "EARTH121L"
+        ],
+        "list_name": "Theme 3: Earth and Environmental Sciences"
       },
       {
         "list_description": "Complete all the following",
-        "required_count": 1,
+        "required_count": 2,
         "courses": [
-          "EARTH122"
-        ]
+          "EARTH121",
+          "EARTH121L"
+        ],
+        "list_name": "Theme 3: Earth and Environmental Sciences"
       }
     ],
     "option_name": "Physical Sciences"
@@ -942,23 +996,10 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
-          "AMATH373",
-          "CHEM356",
-          "ECE305",
-          "NE332",
-          "PHYS233",
-          "PHYS234"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
-          "PHYS468"
-        ]
+        "list_description": "Complete all the following: ECE405C - Programming of Quantum Computing Algorithms (0.50); Complete 1 of the following: AMATH373 - Quantum Theory 1 (0.50), CHEM356 - Introductory Quantum Mechanics (0.50), ECE305 - Introduction to Quantum Mechanics (0.50), NE332 - Quantum Mechanics (0.50), PHYS233 - Introduction to Quantum Mechanics (0.50), PHYS234 - Quantum Physics 1 (0.50); Complete 1 of the following: ECE405A - Quantum Information Processing Devices (0.50), PHYS468 - Introduction to the Implementation of Quantum Information Processing (0.50); Complete 1 of the following: ECE405B - Fundamentals of Experimental Quantum Information (0.50), ECE405D - Superconducting Quantum Circuits (0.50)",
+        "required_count": 0,
+        "courses": [],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -978,7 +1019,8 @@
           "MTE202",
           "NE216",
           "SYDE211"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -998,7 +1040,8 @@
           "NE241",
           "PHYS342",
           "SYDE292"
-        ]
+        ],
+        "list_name": "List 2"
       }
     ],
     "option_name": "Quantum Engineering"
@@ -1006,31 +1049,20 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete 1 of the following: Complete 1 of the following: Complete 1 of the following: ",
         "required_count": 3,
         "courses": [
           "CS445",
           "ECE451",
-          "SE463"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "SE463",
           "CS446",
           "ECE452",
-          "SE464"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "SE464",
           "CS447",
           "ECE453",
           "SE465"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       }
     ],
     "option_name": "Software Engineering"
@@ -1038,14 +1070,15 @@
   {
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: STAT435 - Statistical Methods for Process Improvements (0.50)",
         "required_count": 1,
         "courses": [
           "STAT435"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: CHE220 - Process Data Analysis (0.50)",
         "required_count": 1,
         "courses": [
           "CHE220",
@@ -1058,28 +1091,31 @@
           "NE215",
           "STAT231",
           "SYDE212"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: CHE225 - Strategies for Process Improvement and Product Development (0.50)",
         "required_count": 1,
         "courses": [
           "CHE225",
           "CHE425",
           "MSE253",
           "STAT332"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: STAT331 - Applied Linear Models (0.50)",
         "required_count": 1,
         "courses": [
           "STAT331",
           "SYDE334"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 3 of the following",
+        "list_description": "Complete 3 of the following: CHE341 - Introduction to Process Control (0.50)",
         "required_count": 3,
         "courses": [
           "CHE341",
@@ -1103,7 +1139,8 @@
           "SYDE531",
           "SYDE533",
           "SYDE572"
-        ]
+        ],
+        "list_name": "Complete 3 of the following"
       }
     ],
     "option_name": "Statistics"

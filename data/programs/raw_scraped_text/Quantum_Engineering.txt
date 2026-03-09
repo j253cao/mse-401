@@ -1,0 +1,81 @@
+Undergraduate studies
+Academic Calendar
+0 results available
+Home
+About the Undergraduate Studies Academic Calendar
+Studying at Waterloo
+Important Dates & Deadlines
+Programs & Plans
+Regulations
+Courses
+Addenda
+printPrint this page
+arrow_back
+Back
+Options: Faculty of Engineering Programs & Plans>Options: Faculty of EngineeringQuantum Engineering Option
+Quantum Engineering Option
+This option is available for students in the following degrees
+Bachelor of Applied Science
+Bachelor of Software Engineering
+Declaration Requirements
+Students may not declare this Option until they have completed both a List 1 course and a List 2 course. Students must have a minimum average of 75.0% calculated across these two courses, and a minimum cumulative average of 75.0% in order to declare this Option.
+Minimum Average(s) Required
+A minimum cumulative option average of 75.0%.
+Graduation Requirements
+Complete a total of 3.0 units.
+Course Requirements
+Required Courses
+keyboard_arrow_up
+Complete all of the following
+Complete all the following: 
+ECE405C - Programming of Quantum Computing Algorithms (0.50)
+Complete 1 of the following: 
+AMATH373 - Quantum Theory 1 (0.50)
+CHEM356 - Introductory Quantum Mechanics (0.50)
+ECE305 - Introduction to Quantum Mechanics (0.50)
+NE332 - Quantum Mechanics (0.50)
+PHYS233 - Introduction to Quantum Mechanics (0.50)
+PHYS234 - Quantum Physics 1 (0.50)
+Complete 1 of the following: 
+ECE405A - Quantum Information Processing Devices (0.50)
+PHYS468 - Introduction to the Implementation of Quantum Information Processing (0.50)
+Complete 1 of the following: 
+ECE405B - Fundamentals of Experimental Quantum Information (0.50)
+ECE405D - Superconducting Quantum Circuits (0.50)
+List 1
+keyboard_arrow_up
+Complete 1 of the following: 
+AE223 - Differential Equations and Balance Laws (0.50)
+CIVE222 - Differential Equations (0.50)
+ECE205 - Advanced Calculus 1 for Electrical and Computer Engineers (0.50)
+ENVE223 - Differential Equations and Balance Laws (0.50)
+GEOE223 - Differential Equations and Balance Laws (0.50)
+MATH211 - Advanced Calculus 1 for Electrical and Computer Engineers (0.50)
+MATH213 - Signals, Systems, and Differential Equations (0.50)
+MATH217 - Calculus 3 for Chemical Engineering (0.50)
+MATH218 - Differential Equations for Engineers (0.50)
+ME203 - Ordinary Differential Equations (0.50)
+MSE271 - Advanced Calculus and Numerical Methods (0.50)
+MTE202 - Ordinary Differential Equations (0.50)
+NE216 - Advanced Calculus and Numerical Methods 1 (0.50)
+SYDE211 - Calculus 3 (0.50)
+List 2
+keyboard_arrow_up
+Complete 1 of the following: 
+AE123 - Electrical Circuits and Instrumentation (0.50)
+BME294 - Circuits, Instrumentation, and Measurements (0.50)
+CIVE123 - Electrical Circuits and Instrumentation (0.50)
+ECE106 - Electricity and Magnetism (0.50)
+ECE140 - Linear Circuits (0.50)
+ECE375 - Electromagnetic Fields and Waves (0.50)
+ENVE123 - Electrical Circuits and Instrumentation (0.50)
+GENE123 - Electrical Circuits and Instrumentation (0.50)
+GEOE123 - Electrical Circuits and Instrumentation (0.50)
+ME123 - Electrical Engineering for Mechanical Engineers (0.50)
+MTE120 - Circuits (0.75)
+NE241 - Electromagnetism (0.50)
+PHYS342 - Electricity and Magnetism 2 (0.50)
+SYDE292 - Circuits, Instrumentation, and Measurements (0.50)
+Offered by Faculty(ies)
+Faculty of Engineering
+file_upload

@@ -1,0 +1,46 @@
+Undergraduate studies
+Academic Calendar
+0 results available
+Home
+About the Undergraduate Studies Academic Calendar
+Studying at Waterloo
+Important Dates & Deadlines
+Programs & Plans
+Regulations
+Courses
+Addenda
+printPrint this page
+arrow_back
+Back
+Computer Science Minor
+Computer Science Minor
+Declaration Requirements
+This credential is open to all Honours students and is generally not available to students outside the Faculty of Mathematics because it includes several restricted courses. Students inside the Faculty of Mathematics may need to register as a Computer Science major for one or more terms to complete the Computer Science Minor.
+Before declaring this academic plan, see invalid credential combinations.
+Minimum Average(s) Required
+A minimum cumulative Computer Science average of 60.0%.
+Graduation Requirements
+Complete a total of 4.75 units.
+Course Requirements
+Required Courses
+keyboard_arrow_up
+Complete all of the following
+Complete 1 of the following: 
+CS115 - Introduction to Computer Science 1 (0.50)
+CS135 - Designing Functional Programs (0.50)
+CS145 - Designing Functional Programs (Advanced Level) (0.50)
+Complete 1 of the following
+Complete all the following: 
+CS136 - Elementary Algorithm Design and Data Abstraction (0.50)
+CS136L - Tools and Techniques for Software Development (0.25)
+Complete all the following: 
+CS136L - Tools and Techniques for Software Development (0.25)
+CS146 - Elementary Algorithm Design and Data Abstraction (Advanced Level) (0.50)
+Complete 1 of the following: 
+MATH239 - Introduction to Combinatorics (0.50)
+MATH249 - Introduction to Combinatorics (Advanced Level) (0.50)
+Complete 1 additional CS course from CS 340-CS 398, CS 440-CS 498.
+Complete 5 additional CS courses from CS 240-CS 299, CS 340-CS 398, CS 440-CS 498.
+Offered by Faculty(ies)
+Faculty of Mathematics
+file_upload
