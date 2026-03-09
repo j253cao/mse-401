@@ -28,6 +28,7 @@ import {
   Unlock,
   RefreshCw,
   ArrowRight,
+  ExternalLink,
 } from "lucide-react";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
@@ -36,6 +37,10 @@ import { FILTER_DEPARTMENTS } from "@/constants/filterDepartments";
 import { ENGINEERING_PROGRAMS } from "@/constants/engineeringPrograms";
 import { OptionBadges } from "@/components/OptionBadge";
 import { cn } from "@/lib/utils";
+
+function uwFlowUrl(code: string) {
+  return `https://uwflow.com/course/${code.replace(/\s+/g, "").toLowerCase()}`;
+}
 
 /**
  * Check if a course has program-level prerequisites that don't match the user's program.
@@ -911,9 +916,28 @@ export default function RecommendationPage() {
                   />
                 )}
             </div>
-            <DialogTitle className="text-xl">
-              {selectedCourse?.title}
-            </DialogTitle>
+            <div className="flex items-center gap-3">
+              <DialogTitle className="text-xl flex-1">
+                {selectedCourse?.title}
+              </DialogTitle>
+              {selectedCourse && (
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="gap-1.5 shrink-0"
+                >
+                  <a
+                    href={uwFlowUrl(selectedCourse.code)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    UW Flow
+                  </a>
+                </Button>
+              )}
+            </div>
           </DialogHeader>
           <div className="mt-4 grid gap-6 sm:grid-cols-[minmax(0,2fr),minmax(0,1.4fr)] items-start">
             <div className="rounded-lg border border-border bg-muted/20 p-4">
@@ -1035,11 +1059,8 @@ function CourseCard({
         "hover:-translate-y-0.5",
       )}
     >
-      <CardContent
-        className="p-4 space-y-3 h-full flex flex-col"
-        onClick={onClick}
-      >
-        <div className="flex items-start justify-between">
+      <CardContent className="p-4 space-y-3 h-full flex flex-col">
+        <div className="flex items-start justify-between" onClick={onClick}>
           <div className="flex items-center gap-2">
             <Badge
               variant="outline"
@@ -1055,18 +1076,36 @@ function CourseCard({
           </div>
           <BookOpen className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
         </div>
-        <h3 className="font-semibold text-sm leading-tight group-hover:text-primary transition-colors">
-          {course.title}
-        </h3>
-        {course.description && (
-          <p className="text-xs text-muted-foreground line-clamp-2">
-            {course.description}
-          </p>
-        )}
-        {course.contributing_programs &&
-          course.contributing_programs.length > 0 && (
-            <OptionBadges programs={course.contributing_programs} />
+        <div className="flex-1" onClick={onClick}>
+          <h3 className="font-semibold text-sm leading-tight group-hover:text-primary transition-colors">
+            {course.title}
+          </h3>
+          {course.description && (
+            <p className="text-xs text-muted-foreground line-clamp-2 mt-2">
+              {course.description}
+            </p>
           )}
+          {course.contributing_programs &&
+            course.contributing_programs.length > 0 && (
+              <div className="mt-2">
+                <OptionBadges programs={course.contributing_programs} />
+              </div>
+            )}
+        </div>
+        <a
+          href={uwFlowUrl(course.code)}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className={cn(
+            "inline-flex items-center gap-1.5 text-xs font-medium",
+            "text-muted-foreground hover:text-primary transition-colors",
+            "mt-auto pt-1",
+          )}
+        >
+          <ExternalLink className="w-3 h-3" />
+          View on UW Flow
+        </a>
       </CardContent>
     </Card>
   );
