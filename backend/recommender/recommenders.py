@@ -66,6 +66,8 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
     
     def check_prerequisite_group(group, completed_courses_set):
         """Check if a prerequisite group is satisfied by completed courses"""
+        if isinstance(group, str):
+            return group.strip().upper().replace(' ', '') in completed_courses_set
         if group.get('type') == 'course':
             # Single course requirement (normalize to uppercase, no spaces)
             course_code = group.get('code', '').strip().upper().replace(' ', '')
@@ -79,7 +81,11 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
             
             satisfied_count = 0
             for course in courses:
-                if course.get('type') == 'course':
+                if isinstance(course, str):
+                    course_code = course.strip().upper().replace(' ', '')
+                    if course_code in completed_courses_set:
+                        satisfied_count += 1
+                elif course.get('type') == 'course':
                     # Normalize to uppercase, no spaces
                     course_code = course.get('code', '').strip().upper().replace(' ', '')
                     if course_code in completed_courses_set:
@@ -102,6 +108,8 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
     def is_course_eligible(course_code, course_dep, completed_courses_set):
         """Check if a course is eligible based on its prerequisites and level requirements"""
         prereqs = course_dep.get('prerequisites', course_dep)
+        if isinstance(prereqs, list):
+            prereqs = {}
         groups = prereqs.get('groups', [])
         root_operator = prereqs.get('root_operator', 'AND')
         program_requirements = prereqs.get('program_requirements', [])
@@ -109,6 +117,8 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
         # Check level requirements from program_requirements
         if incoming_level and program_requirements:
             for req in program_requirements:
+                if not isinstance(req, dict):
+                    continue
                 level_req = req.get('level_requirement')
                 if level_req:
                     required_level = level_req.get('level', '')
@@ -116,14 +126,19 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
                     if not meets_level_requirement(incoming_level, required_level, comparison):
                         return False
 
+        # If no completed courses provided, skip course prerequisite check
+        # (level requirement alone is sufficient when we have no transcript)
+        if not completed_courses_set:
+            return True
+
         if not groups:
             return True
-        
+
         satisfied_groups = 0
         for group in groups:
             if check_prerequisite_group(group, completed_courses_set):
                 satisfied_groups += 1
-        
+
         if root_operator == 'OR':
             return satisfied_groups > 0
         else:
