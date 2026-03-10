@@ -9,10 +9,18 @@ import networkx as nx
 import time
 import json
 import os
+import re
 from .data_loader import load_undergrad_courses, load_grad_courses, find_project_root
 from .weights import load_course_to_programs
 
 TERM_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"]
+
+_DEPT_PREFIX_RE = re.compile(r'^([A-Za-z]+)')
+
+def _get_course_dept(course_code: str) -> str:
+    """Extract department prefix from a course code (e.g. 'ME101' -> 'ME', 'MEDVL330' -> 'MEDVL')."""
+    m = _DEPT_PREFIX_RE.match(course_code)
+    return m.group(1).upper() if m else ''
 
 
 def meets_level_requirement(user_level, required_level, comparison="at_least"):
@@ -151,8 +159,8 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     if filters and filters.get('include_grad'):
         filters_applied.update(load_grad_courses())
     if filters and filters.get('department'):
-        departments = tuple(filters['department'])
-        filters_applied = {s for s in filters_applied if s.startswith(departments)}
+        departments = set(filters['department'])
+        filters_applied = {s for s in filters_applied if _get_course_dept(s) in departments}
 
     # Filter by options/minors when specified
     if filters and filters.get('options'):

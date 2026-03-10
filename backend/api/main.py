@@ -249,10 +249,7 @@ def recommend(request: QueryRequest):
     print(f"[endpoint] Request received: {request.queries}")
     print(f"[endpoint] Filters: {request.filters}")
 
-    # Default to engineering departments only when no department filter provided
     filters = dict(request.filters) if request.filters else {}
-    if not filters.get("department"):
-        filters["department"] = list(ENGINEERING_DEPARTMENTS)
     
     t1 = time.time()
     deps_lookup = load_course_dependencies()

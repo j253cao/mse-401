@@ -221,10 +221,13 @@ export default function RecommendationPage() {
       const selectedDepts = Object.entries(departments)
         .filter(([, v]) => v)
         .map(([k]) => k);
+      // All departments selected = no dept restriction (show all courses incl. non-engineering)
+      const departmentFilter =
+        selectedDepts.length === FILTER_DEPARTMENTS.length ? [] : selectedDepts;
       const filters = {
         include_undergrad: includeUndergrad,
         include_grad: includeGrad,
-        department: selectedDepts,
+        department: departmentFilter,
         completed_courses: completedCourses,
         ignore_dependencies: explorationMode,
         ...(selectedOptions.length > 0 && { options: selectedOptions }),
