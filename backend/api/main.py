@@ -201,11 +201,20 @@ def _has_three_plus_consecutive_digits(query: str) -> bool:
     return bool(_THREE_PLUS_DIGITS_PATTERN.search(query or ""))
 
 
+_COURSE_DATA_LOOKUP_CACHE: Dict[str, Dict[str, Any]] | None = None
+
+
 def _load_course_data_for_lookup() -> Dict[str, Dict[str, Any]]:
-    """Load course JSON for lookup. Keys are canonical codes (e.g. MSE446)."""
+    """Load course JSON for lookup. Keys are canonical codes (e.g. MSE446).
+    Result is cached in-process so disk is only read once per server lifetime.
+    """
+    global _COURSE_DATA_LOOKUP_CACHE
+    if _COURSE_DATA_LOOKUP_CACHE is not None:
+        return _COURSE_DATA_LOOKUP_CACHE
     data_json = get_abs_path("data", "courses", "course-api-new-data.json")
     with open(data_json, "r", encoding="utf-8") as f:
-        return json.load(f)
+        _COURSE_DATA_LOOKUP_CACHE = json.load(f)
+    return _COURSE_DATA_LOOKUP_CACHE
 
 
 def _lookup_courses_by_code(
@@ -218,10 +227,12 @@ def _lookup_courses_by_code(
     """
     data = _load_course_data_for_lookup()
     departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
-    if isinstance(departments, (list, tuple)):
+    if isinstance(departments, str):
+        dept_set = {departments.upper()}
+    elif isinstance(departments, (list, tuple)):
         dept_set = set(d.upper() for d in departments)
     else:
-        dept_set = set()
+        dept_set = set(ENGINEERING_DEPARTMENTS)
 
     results = []
     # Direct key lookup (keys are canonical: MSE446, etc.)
@@ -257,14 +268,19 @@ def _lookup_courses_by_number_sequence(
     limit: int = 50,
 ) -> List[Dict[str, Any]]:
     """
-    Find courses whose code contains 3+ consecutive digits from the query.
+    Find courses whose catalog number contains 3+ consecutive digits from the query.
+    Digits are matched against catalogNumber only (not the full course code string),
+    so "446" matches ECE446 but not a hypothetical subject whose letters include that
+    substring. Results are sorted by catalog number for a stable, predictable order.
     """
     data = _load_course_data_for_lookup()
     departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
-    if isinstance(departments, (list, tuple)):
+    if isinstance(departments, str):
+        dept_set = {departments.upper()}
+    elif isinstance(departments, (list, tuple)):
         dept_set = set(d.upper() for d in departments)
     else:
-        dept_set = set()
+        dept_set = set(ENGINEERING_DEPARTMENTS)
 
     digit_matches = _THREE_PLUS_DIGITS_PATTERN.findall(query)
     if not digit_matches:
@@ -276,14 +292,13 @@ def _lookup_courses_by_number_sequence(
     results = []
     seen = set()
     for key, info in data.items():
-        if len(results) >= limit:
-            break
         subject = (info.get("subjectCode") or "").upper()
         catalog = info.get("catalogNumber") or ""
         canonical = f"{subject}{catalog}" if catalog else key
         if canonical in seen:
             continue
-        if search_digits not in canonical:
+        # Fix 5: match digits against catalog number only, not the full course code
+        if search_digits not in catalog:
             continue
         if dept_set and subject not in dept_set:
             continue
@@ -292,8 +307,15 @@ def _lookup_courses_by_number_sequence(
             "course_code": canonical,
             "title": info.get("title", ""),
             "description": info.get("description", ""),
+            "_catalog": catalog,  # temporary sort key
         })
-    return results
+
+    # Fix 6: sort by catalog number for a stable, meaningful order
+    results.sort(key=lambda r: r["_catalog"])
+    for r in results:
+        r.pop("_catalog")
+
+    return results[:limit]
 
 
 def _course_lookup_results_to_recommend_format(
@@ -402,16 +424,22 @@ def recommend(request: QueryRequest):
     query_to_lookup_results: Dict[str, List[Dict[str, Any]]] = {}
 
     for q in request.queries:
+        # Fix 3: normalize once and use consistently across all lookup paths
         q_clean = (q or "").strip().upper().replace(" ", "")
         lookup_results = []
+        attempted_code_lookup = False
 
         # Priority 1: Exact course code match
-        if _is_course_code_query(q):
+        if _is_course_code_query(q_clean):
+            attempted_code_lookup = True
             lookup_results = _lookup_courses_by_code(q_clean, filters)
 
-        # Priority 2: 3+ consecutive digits in query
-        if not lookup_results and _has_three_plus_consecutive_digits(q):
-            lookup_results = _lookup_courses_by_number_sequence(q, filters)
+        # Fix 4: only try digit search when the query was NOT a course-code pattern.
+        # If it looked like a code (e.g. MSE446) but returned nothing (dept mismatch),
+        # fall through to semantic rather than returning unrelated courses like ECE446.
+        # Fix 3: pass q_clean so digit detection and lookup see the same normalised string.
+        if not lookup_results and not attempted_code_lookup and _has_three_plus_consecutive_digits(q_clean):
+            lookup_results = _lookup_courses_by_number_sequence(q_clean, filters)
 
         if lookup_results:
             query_to_lookup_results[q] = lookup_results
@@ -699,4 +727,3 @@ def transcript_parse(file: UploadFile = File(...)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
