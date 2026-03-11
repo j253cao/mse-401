@@ -1,0 +1,90 @@
+Undergraduate studies
+Academic Calendar
+0 results available
+Home
+About the Undergraduate Studies Academic Calendar
+Studying at Waterloo
+Important Dates & Deadlines
+Programs & Plans
+Regulations
+Courses
+Addenda
+printPrint this page
+arrow_back
+Back
+Options: Faculty of Engineering Programs & Plans>Artificial Intelligence Option
+Artificial Intelligence Option
+This option is available for students in the following degrees
+Bachelor of Applied Science
+Bachelor of Software Engineering
+Minimum Average(s) Required
+A minimum cumulative option average of 60.0%.
+Graduation Requirements
+Complete a total of 3.0 units.
+Course Requirements
+Required Courses
+keyboard_arrow_up
+Complete a total of 6 courses
+List 1
+keyboard_arrow_up
+Complete 1 of the following: 
+HIST212 - The Computing Society (0.50)
+MSE442 - Impact of Information Systems on Organizations and Society (0.50)
+STV205 - Cybernetics and Society (0.50)
+STV208 - Artificial Intelligence and Society: Impact, Ethics, and Equity (0.50)
+STV210 - The Computing Society (0.50)
+STV302 - Information Technology and Society (0.50)
+List 2
+keyboard_arrow_up
+Complete 2 of the following: 
+CS480 - Introduction to Machine Learning (0.50)
+CS485 - Statistical and Computational Foundations of Machine Learning (0.50)
+CS486 - Introduction to Artificial Intelligence (0.50)
+ECE457A - Co-operative and Adaptive Algorithms (0.50)
+ECE457B - Fundamentals of Computational Intelligence (0.50)
+ECE457C - Reinforcement Learning (0.50)
+MSE435 - Advanced Optimization Techniques (0.50)
+MSE446 - Introduction to Machine Learning (0.50)
+SYDE522 - Foundations of Artificial Intelligence (0.50)
+List 3
+keyboard_arrow_up
+Complete all of the following
+Complete 3 additional courses from List 2 or List 3
+Choose any of the following: 
+AMATH449 - Neural Networks (0.50)
+BIOL487 - Computational Neuroscience (0.50)
+CHE521 - Process Optimization (0.50)
+CHE522 - Advanced Process Dynamics and Control (0.50)
+CHE524 - Process Control Laboratory (0.50)
+CO367 - Nonlinear Optimization (0.50)
+CO456 - Introduction to Game Theory (0.50)
+CO463 - Convex Optimization and Analysis (0.50)
+CO466 - Continuous Optimization (0.50)
+CS452 - Real-Time Programming (0.50)
+CS479 - Neural Networks (0.50)
+CS484 - Computational Vision (0.50)
+ECE423 - Embedded Computer Systems (0.50)
+ECE455 - Embedded Software (0.50)
+ECE481 - Digital Control Systems (0.50)
+ECE484 - Digital Control Applications (0.50)
+ECE486 - Robot Dynamics and Control (0.50)
+ECE488 - Multivariable Control Systems (0.50)
+ECE495 - Autonomous Vehicles (0.50)
+MSE546 - Advanced Machine Learning (0.50)
+MTE544 - Autonomous Mobile Robots (0.50)
+MTE546 - Multi-Sensor Data Fusion (0.50)
+STAT341 - Computational Statistics and Data Analysis (0.50)
+STAT440 - Computational Inference (0.50)
+STAT441 - Statistical Learning - Classification (0.50)
+STAT444 - Statistical Learning - Advanced Regression (0.50)
+SYDE552 - Computational Neuroscience (0.50)
+SYDE556 - Simulating Neurobiological Systems (0.50)
+SYDE572 - Introduction to Pattern Recognition (0.50)
+SYDE577 - Deep Learning (0.50)
+Additional Constraints
+At least one course must be from the Faculty of Mathematics and at least one course must be from the Faculty of Engineering. Exceptions to this rule may be granted by the option co-ordinator if it is logistically infeasible to be satisfied.
+Five of the courses must be considered elective (that is, not required courses) in the student's major. For the purposes of this Option, a course that a student could choose to graduate without will be considered elective.
+Special topics courses, independent project courses, and the capstone project courses may sometimes be appropriate for this Option, with approval of the Artificial Intelligence option co-ordinator and the course instructor.
+Offered by Faculty(ies)
+Faculty of Engineering
+file_upload

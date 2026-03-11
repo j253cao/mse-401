@@ -1,0 +1,162 @@
+Undergraduate studies
+Academic Calendar
+0 results available
+Home
+About the Undergraduate Studies Academic Calendar
+Studying at Waterloo
+Important Dates & Deadlines
+Programs & Plans
+Regulations
+Courses
+Addenda
+printPrint this page
+arrow_back
+Back
+Options: Faculty of Engineering Programs & Plans>Physical Sciences Option
+Physical Sciences Option
+This option is available for students in the following degrees
+Bachelor of Applied Science
+Bachelor of Software Engineering
+Minimum Average(s) Required
+A minimum cumulative option average of 60.0%.
+Graduation Requirements
+Complete the required courses for one theme described below.
+Theme 1: Complete a total of 3.5 units.
+Theme 2: Complete a total of 3.5 units.
+Theme 3: Complete a total of 3.5-3.75 units.
+Course Requirements
+Required Courses
+keyboard_arrow_up
+Complete all of the following
+Theme 1: Physics
+Complete all of the following
+Complete 1 of the following: 
+ECE105 - Classical Mechanics (0.50)
+NE131 - Physics for Nanotechnology Engineering (0.50)
+PHYS115 - Mechanics (0.50)
+PHYS121 - Mechanics (0.50)
+Complete 1 of the following: 
+ECE106 - Electricity and Magnetism (0.50)
+NE241 - Electromagnetism (0.50)
+PHYS122 - Waves, Electricity and Magnetism (0.50)
+SYDE283 - Physics 3: Electricity, Magnetism and Optics (0.50)
+Complete 1 of the following: 
+ECE140 - Linear Circuits (0.50)
+PHYS242 - Electricity and Magnetism 1 (0.50)
+PHYS263 - Classical Mechanics and Special Relativity (0.50)
+PHYS334 - Quantum Physics 2 (0.50)
+PHYS358 - Thermal Physics (0.50)
+Complete 1 of the following: 
+NE332 - Quantum Mechanics (0.50)
+PHYS234 - Quantum Physics 1 (0.50)
+Complete 3 of the following: 
+AMATH473 - Quantum Theory 2 (0.50)
+CO481 - Introduction to Quantum Information Processing (0.50)
+CS467 - Introduction to Quantum Information Processing (0.50)
+NE334 - Statistical Thermodynamics (0.50)
+PHYS275 - Planets (0.50)
+PHYS334 - Quantum Physics 2 (0.50)
+PHYS335 - Condensed Matter Physics (0.50)
+PHYS342 - Electricity and Magnetism 2 (0.50)
+PHYS359 - Statistical Mechanics (0.50)
+PHYS364 - Mathematical Physics 1 (0.50)
+PHYS365 - Mathematical Physics 2 (0.50)
+PHYS375 - Stars (0.50)
+PHYS434 - Quantum Physics 3 (0.50)
+PHYS435 - Current Topics in Condensed Matter Physics (0.50)
+PHYS442 - Electricity and Magnetism 3 (0.50)
+PHYS454 - Quantum Theory 2 (0.50)
+PHYS467 - Introduction to Quantum Information Processing (0.50)
+PHYS475 - Cosmology (0.50)
+Theme 2: Chemistry
+Complete all of the following
+Complete all the following: 
+CHEM209 - Introductory Spectroscopy and Structure (0.50)
+Complete 1 of the following: 
+CHE102 - Chemistry for Engineers (0.50)
+CHEM123 - General Chemistry 2 (0.50)
+NE121 - Chemical Principles (0.50)
+Complete 1 of the following: 
+CHEM212 - Structure and Bonding (0.50)
+NE225 - Structure and Properties of Nanomaterials (0.50)
+Complete 1 of the following: 
+CHEM262 - Organic Chemistry for Engineering (0.50)
+CHEM264 - Organic Chemistry 1 (0.50)
+NE222 - Organic Chemistry for Nanotechnology Engineers (0.50)
+Complete all of the following
+Complete 3 courses from the following lists.
+Choose any of the following: 
+CHEM220 - Intro Analytical Chemistry (0.50)
+CHEM221 - Multi-Component Analysis (0.50)
+CHEM265 - Organic Chemistry 2 (0.50)
+CHEM310 - Transition Element Compounds and Inorganic Materials (0.50)
+CHEM313 - Main Group and Solid State Chemistry (0.50)
+CHEM323 - Analytical Instrumentation (0.50)
+CHEM340 - Introductory Computational Chemistry (0.50)
+CHEM350 - Chemical Kinetics and Statistical Mechanics (0.50)
+CHEM360 - Organic Chemistry 3 (0.50)
+Complete no more than 1 from the following: 
+CHE230 - Physical Chemistry 1 (0.50)
+CHEM254 - Introductory Chemical Thermodynamics (0.50)
+ME250 - Thermodynamics 1 (0.50)
+SYDE381 - Thermodynamics (0.50)
+Complete no more than 1 from the following: 
+CHEM356 - Introductory Quantum Mechanics (0.50)
+NE332 - Quantum Mechanics (0.50)
+PHYS234 - Quantum Physics 1 (0.50)
+Complete no more than 1 from the following: 
+CHEM370 - Introduction to Polymer Science (0.50)
+NE333 - Macromolecular Science (0.50)
+Theme 3: Earth and Environmental Sciences
+Complete all of the following
+Complete 1 of the following: 
+CHE102 - Chemistry for Engineers (0.50)
+CHEM123 - General Chemistry 2 (0.50)
+NE121 - Chemical Principles (0.50)
+Complete 1 of the following: 
+ECE105 - Classical Mechanics (0.50)
+NE131 - Physics for Nanotechnology Engineering (0.50)
+PHYS115 - Mechanics (0.50)
+PHYS121 - Mechanics (0.50)
+Complete 1 of the following: 
+ECE106 - Electricity and Magnetism (0.50)
+PHYS122 - Waves, Electricity and Magnetism (0.50)
+Complete 1 of the following
+Complete all the following: 
+EARTH121 - Introductory Earth Sciences (0.50)
+EARTH121L - Introductory Earth Sciences Laboratory (0.25)
+Complete all the following: 
+EARTH122 - Introductory Environmental Sciences (0.50)
+EARTH122L - Introductory Environmental Sciences Laboratory (0.25)
+Complete 1 of the following: 
+CIVE153 - Earth Engineering (0.50)
+ENVE153 - Earth Engineering (0.50)
+GEOE153 - Earth Engineering (0.50)
+Complete 3 of the following: 
+BIOL462 - Applied Wetland Science (0.50)
+EARTH221 - Introductory Geochemistry (0.50)
+EARTH231 - Mineralogy (0.50)
+EARTH232 - Introductory Petrography (0.50)
+EARTH235 - Stratigraphic Approaches to Understanding Earth's History (0.50)
+EARTH260 - Introductory Applied Geophysics (0.50)
+EARTH270 - Disasters and Natural Hazards (0.50)
+EARTH281 - Geological Impacts on Human Health (0.50)
+EARTH333 - Introductory Sedimentology (0.50)
+EARTH358 - Earth System Science (0.50)
+EARTH421 - Advanced Geochemistry (0.50)
+EARTH438 - Engineering Geology (0.50)
+EARTH440 - Quaternary Geology (0.50)
+EARTH444 - Applied Wetland Science (0.50)
+EARTH456 - Numerical Methods in Hydrogeology (0.50)
+EARTH458 - Physical Hydrogeology (0.50)
+EARTH459 - Chemical Hydrogeology (0.50)
+EARTH460 - Geophysical Data Analysis (0.50)
+EARTH471 - Mineral Deposits (0.50)
+Additional Constraints
+For Theme 1: Only one of NE334 or PHYS359 may be taken.
+For Theme 3: Due to the overlap, this theme is not available to Geological Engineering students.
+Notes
+For further information about the Physical Sciences Option or one of the theme areas, contact the option co-ordinator.
+Offered by Faculty(ies)
+Faculty of Engineering
+file_upload

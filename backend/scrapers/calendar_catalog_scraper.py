@@ -20,6 +20,14 @@ try:
 except ImportError:
     sync_playwright = None
 
+# Ollama is optional; used for LLM-based course list parsing
+try:
+    import ollama
+    HAS_OLLAMA = True
+except ImportError:
+    ollama = None
+    HAS_OLLAMA = False
+
 
 # Base URL of the catalog (no hash)
 CATALOG_BASE = "https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog"
@@ -54,12 +62,12 @@ def slugify(s: str) -> str:
     return s[:120] if s else "unnamed"
 
 
-# Course code pattern: SUBJ + digits (e.g. AFM111, ECON101, COMMST111)
-COURSE_CODE_RE = re.compile(r"\b([A-Z]{2,5})\s*(\d{3})\b")
+# Course code pattern: SUBJ + digits + optional letter suffix (e.g. AFM111, ECE457A, COMMST111)
+COURSE_CODE_RE = re.compile(r"\b([A-Z]{2,5})\s*(\d{3}[A-Z]?)\b")
 
 
 def _normalize_course_code(match: re.Match) -> str:
-    """Normalize to 'SUBJ NNN' (e.g. AFM 111) then return 'SUBJNNN' for consistency."""
+    """Normalize to 'SUBJNNN' or 'SUBJNNNA' for consistency (e.g. ECE457A)."""
     subj, num = match.group(1), match.group(2)
     return f"{subj}{num}"
 
@@ -128,7 +136,202 @@ def parse_course_lists_from_text(text: str) -> List[Dict[str, Any]]:
     return lists_out
 
 
-def raw_to_program_output(raw_data: Dict[str, Any]) -> Dict[str, Any]:
+# ---------------------------------------------------------------------------
+# Ollama-based course list parser
+# ---------------------------------------------------------------------------
+
+COURSE_LIST_PARSER_PROMPT = """# Course Requirements Parser
+
+You convert university course requirement text into structured JSON.
+
+## Input
+Raw text from a University of Waterloo program/option page. Requirements are organized into numbered Lists (List 1, List 2, List 3, …). Each list has a selection instruction and a pool of eligible courses.
+
+## Critical Parsing Rules
+
+### Nested structures
+"Complete all of the following" is often a CONTAINER for sub-requirements, NOT a literal instruction to take every course. Look inside for the real instruction:
+- If it contains something like "Complete 3 additional courses from List 2 or List 3", the actual required_count is 3.
+- If it contains "Complete 2 courses from List 3; complete 2 additional courses from List 1, List 2, or List 3", the required_count is 2 (from List 3's own pool).
+- Only when "Complete all of the following" is directly followed by a flat list of courses (no inner count instruction) does required_count equal the total number of courses.
+
+### Cross-list references
+Instructions like "Complete 3 additional courses from List 2 or List 3" mean the student picks from the combined pools. Preserve this text verbatim in list_description.
+
+### Course codes
+- Standard: SUBJ + digits (CS480, MATH135)
+- With letter suffix: SUBJ + digits + letter (ECE457A, ECE457B, ECE457C)
+- Normalize by removing spaces: "ECE 457A" → "ECE457A"
+
+### Multiple "Choose any of the following:" sub-groups
+A single List may have several "Choose any of the following:" blocks organized by department. Flatten them all into one courses array for that list.
+
+## Output Format
+Return a JSON array, one object per List:
+[
+  {
+    "list_name": "List 1",
+    "list_description": "Complete 2 of the following",
+    "required_count": 2,
+    "courses": ["CS480", "CS485", "ECE457A"]
+  }
+]
+
+- list_name: "List 1", "List 2", etc.
+- list_description: The real selection instruction. For nested containers use the INNER instruction, not "Complete all of the following".
+- required_count: How many courses the student must pick from this list's pool.
+- courses: ALL course codes in the pool (flattened, deduplicated), with letter suffixes preserved.
+
+## Rules
+- Return ONLY a valid JSON array. No markdown fences, no explanation text.
+- Every course code in the input text MUST appear in the output.
+- Do NOT invent courses that are not in the input.
+- When a List has sub-groups ("Choose any of the following:" repeated), merge all courses into one flat array."""
+
+
+def _clean_llm_json_response(response: str) -> Optional[str]:
+    """Extract valid JSON from an LLM response that may contain markdown fences."""
+    if not response:
+        return None
+    cleaned = response.strip()
+
+    # Try ```json ... ``` blocks
+    for pattern in [r'```json\s*(.*?)\s*```', r'```\s*(.*?)\s*```']:
+        matches = re.findall(pattern, cleaned, re.DOTALL)
+        for match in matches:
+            try:
+                json.loads(match.strip())
+                return match.strip()
+            except json.JSONDecodeError:
+                continue
+
+    # Try to find a top-level JSON array
+    bracket_start = cleaned.find('[')
+    if bracket_start != -1:
+        depth = 0
+        for i in range(bracket_start, len(cleaned)):
+            if cleaned[i] == '[':
+                depth += 1
+            elif cleaned[i] == ']':
+                depth -= 1
+                if depth == 0:
+                    candidate = cleaned[bracket_start:i + 1]
+                    try:
+                        json.loads(candidate)
+                        return candidate
+                    except json.JSONDecodeError:
+                        break
+
+    # Try raw text
+    try:
+        json.loads(cleaned)
+        return cleaned
+    except json.JSONDecodeError:
+        pass
+    return None
+
+
+def parse_course_lists_with_ollama(
+    text: str,
+    item_name: str = "",
+    model_name: str = "qwen2.5:7b",
+) -> Optional[List[Dict[str, Any]]]:
+    """
+    Use a local Ollama model to parse course requirement text into structured
+    course lists. Returns None if Ollama is unavailable or parsing fails.
+    """
+    if not HAS_OLLAMA:
+        return None
+
+    try:
+        ollama.list()
+    except Exception:
+        print("  Ollama not reachable, falling back to regex parser.")
+        return None
+
+    available_models = []
+    try:
+        available_models = [m.model for m in ollama.list().models]
+    except Exception:
+        pass
+
+    if not any(model_name in m for m in available_models):
+        print(f"  Model '{model_name}' not found locally. Pulling (this may take a while)...")
+        try:
+            ollama.pull(model_name)
+        except Exception as e:
+            print(f"  Failed to pull model: {e}")
+            return None
+
+    user_prompt = f"Option/Program: {item_name}\n\n{text}" if item_name else text
+
+    try:
+        response = ollama.chat(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": COURSE_LIST_PARSER_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            options={
+                "temperature": 0.1,
+                "num_predict": 16384,
+            },
+        )
+        raw_response = response.get("message", {}).get("content", "")
+    except Exception as e:
+        print(f"  Ollama chat error: {e}")
+        return None
+
+    json_str = _clean_llm_json_response(raw_response)
+    if not json_str:
+        print("  Failed to extract valid JSON from Ollama response.")
+        return None
+
+    try:
+        parsed = json.loads(json_str)
+    except json.JSONDecodeError as e:
+        print(f"  JSON decode error: {e}")
+        return None
+
+    if not isinstance(parsed, list):
+        print("  Ollama response is not a JSON array.")
+        return None
+
+    course_lists: List[Dict[str, Any]] = []
+    for item in parsed:
+        if not isinstance(item, dict):
+            continue
+        courses = item.get("courses", [])
+        if not isinstance(courses, list):
+            continue
+        normalized = []
+        for c in courses:
+            if isinstance(c, str):
+                code = re.sub(r'\s+', '', c).upper()
+                if code and code not in normalized:
+                    normalized.append(code)
+        entry: Dict[str, Any] = {
+            "list_description": item.get("list_description", ""),
+            "required_count": item.get("required_count", len(normalized)),
+            "courses": normalized,
+        }
+        if item.get("list_name"):
+            entry["list_name"] = item["list_name"]
+        course_lists.append(entry)
+
+    if not course_lists:
+        print("  Ollama returned empty course lists.")
+        return None
+
+    print(f"  Ollama parsed {len(course_lists)} list(s) successfully.")
+    return course_lists
+
+
+def raw_to_program_output(
+    raw_data: Dict[str, Any],
+    use_llm: bool = False,
+    model_name: str = "qwen2.5:7b",
+) -> Dict[str, Any]:
     """
     Reduce full scraped program/minor page data to only program_name and course_lists.
     Used for all saved JSON so minors and programs share the same format.
@@ -154,7 +357,6 @@ def raw_to_program_output(raw_data: Dict[str, Any]) -> Dict[str, Any]:
         program_name = raw_data["title"].strip()
 
     course_lists: List[Dict[str, Any]] = []
-    # Prefer full course requirements text
     cr = raw_data.get("course_requirements") or {}
     full_text = cr.get("course_requirements") or ""
     if not full_text and cr.get("course_blocks"):
@@ -166,8 +368,19 @@ def raw_to_program_output(raw_data: Dict[str, Any]) -> Dict[str, Any]:
             full_text = sec.get("main_content", "") or ""
             if "Course Requirements" in full_text or "Complete all" in full_text:
                 break
+
     if full_text:
-        course_lists = parse_course_lists_from_text(full_text)
+        if use_llm:
+            llm_result = parse_course_lists_with_ollama(
+                full_text, item_name=program_name, model_name=model_name
+            )
+            if llm_result is not None:
+                course_lists = llm_result
+            else:
+                print("  LLM parse failed, falling back to regex parser.")
+                course_lists = parse_course_lists_from_text(full_text)
+        else:
+            course_lists = parse_course_lists_from_text(full_text)
 
     return {
         "program_name": program_name or "Unknown",
@@ -188,13 +401,30 @@ class CalendarCatalogScraper:
         output_dir: Optional[Path] = None,
         headless: bool = True,
         delay_between_pages: float = 1.0,
+        use_llm: bool = True,
+        model_name: str = "qwen2.5:7b",
     ):
         self.output_dir = Path(output_dir) if output_dir else get_data_dir()
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.headless = headless
         self.delay_between_pages = delay_between_pages
+        self.use_llm = use_llm
+        self.model_name = model_name
+        self._raw_text_dir = self.output_dir / "raw_scraped_text"
         self._playwright = None
         self._browser: Optional[Browser] = None
+
+    def _save_raw_text(self, name: str, raw_data: Dict[str, Any]) -> None:
+        """Save the raw scraped text to disk for debugging and re-processing."""
+        self._raw_text_dir.mkdir(parents=True, exist_ok=True)
+        raw_text = ""
+        for sec in raw_data.get("raw_sections", []):
+            raw_text += sec.get("main_content", "") + "\n"
+        if not raw_text.strip():
+            return
+        filename = slugify(name or "unnamed") + ".txt"
+        out_path = self._raw_text_dir / filename
+        out_path.write_text(raw_text, encoding="utf-8")
 
     def _ensure_playwright(self) -> None:
         if sync_playwright is None:
@@ -714,9 +944,11 @@ class CalendarCatalogScraper:
                 try:
                     raw_data = self._extract_program_page(page, url)
                     raw_data["index_name"] = name
-                    program_data = raw_to_program_output(raw_data)
+                    self._save_raw_text(name, raw_data)
+                    program_data = raw_to_program_output(
+                        raw_data, use_llm=self.use_llm, model_name=self.model_name
+                    )
                     if options_only:
-                        # Use the name from the options index (link text on Engineering Options page), not the catalog page
                         program_data["option_name"] = name
                         program_data.pop("program_name", None)
                     results.append(program_data)
@@ -750,7 +982,10 @@ class CalendarCatalogScraper:
             try:
                 raw_data = self._extract_program_page(page, url)
                 raw_data["index_name"] = raw_data.get("index_name") or ""
-                data = raw_to_program_output(raw_data)
+                self._save_raw_text(raw_data.get("title", "single_page"), raw_data)
+                data = raw_to_program_output(
+                    raw_data, use_llm=self.use_llm, model_name=self.model_name
+                )
                 if output_filename:
                     out_path = self.output_dir / output_filename
                 else:
@@ -774,11 +1009,25 @@ def main():
     parser.add_argument("--minors-only", action="store_true", help="Use catalog search ?searchTerm=minor and scrape all minors -> all_programs.json")
     parser.add_argument("--options-only", action="store_true", help="Scrape Engineering Options from degree-enhancement/options -> all_options.json")
     parser.add_argument("--single-url", metavar="URL", help="Scrape only this one page and save to data/programs/single_program.json")
+    parser.add_argument("--no-llm", action="store_true", help="Disable Ollama LLM parsing; use regex parser only")
+    parser.add_argument("--model", type=str, default="qwen2.5:7b", help="Ollama model for course list parsing (default: qwen2.5:7b)")
     args = parser.parse_args()
+
+    use_llm = not args.no_llm
+    if use_llm and not HAS_OLLAMA:
+        print("Warning: ollama package not installed. Using regex parser. Install with: pip install ollama")
+        use_llm = False
+    if use_llm:
+        print(f"LLM parsing enabled (model: {args.model})")
+    else:
+        print("LLM parsing disabled, using regex parser.")
+
     scraper = CalendarCatalogScraper(
         output_dir=args.output_dir,
         headless=not args.no_headless,
         delay_between_pages=args.delay,
+        use_llm=use_llm,
+        model_name=args.model,
     )
     if args.single_url:
         data = scraper.run_single_page(args.single_url)

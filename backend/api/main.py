@@ -71,7 +71,7 @@ def _flatten_groups(groups: list) -> str:
     for group in groups:
         g_type = group.get("type", "")
         if g_type == "prerequisite_group":
-            codes = [c.get("code", "") for c in group.get("courses", []) if c.get("code")]
+            codes = [c.get("code", "") if isinstance(c, dict) else str(c) for c in group.get("courses", []) if (c.get("code") if isinstance(c, dict) else c)]
             op = group.get("operator", "OR")
             joiner = " or " if op == "OR" else " and "
             if codes:
@@ -122,7 +122,7 @@ def _flatten_antireq_courses(courses: list) -> str:
 
 def _flatten_program_restrictions(restrictions: list) -> str:
     """Flatten program_restrictions into a readable string."""
-    names = [r.get("program_name", "") for r in restrictions if r.get("program_name")]
+    names = [r.get("program_name", "") for r in restrictions if isinstance(r, dict) and r.get("program_name")]
     if not names:
         return ""
     return "Not open to " + ", ".join(names) + " students"
@@ -149,6 +149,8 @@ def load_course_dependencies() -> Dict[str, Dict[str, Optional[str]]]:
     for code, info in data.items():
         # Prerequisites
         prereq_section = info.get("prerequisites", {})
+        if isinstance(prereq_section, list):
+            prereq_section = {}
         prereq_parts: List[str] = []
         groups_text = _flatten_groups(prereq_section.get("groups", []))
         if groups_text:
@@ -160,11 +162,15 @@ def load_course_dependencies() -> Dict[str, Dict[str, Optional[str]]]:
 
         # Corequisites
         coreq_section = info.get("corequisites", {})
+        if isinstance(coreq_section, list):
+            coreq_section = {}
         coreqs_text = _flatten_groups(coreq_section.get("groups", []))
         coreqs = coreqs_text or None
 
         # Antirequisites
         antireq_section = info.get("antirequisites", {})
+        if isinstance(antireq_section, list):
+            antireq_section = {}
         antireq_parts: List[str] = []
         courses_text = _flatten_antireq_courses(antireq_section.get("courses", []))
         if courses_text:
@@ -411,8 +417,8 @@ def recommend(request: QueryRequest):
     print(f"[endpoint] Request received: {request.queries}")
     print(f"[endpoint] Filters: {request.filters}")
 
-    # Default to engineering departments only when no department filter provided
     filters = dict(request.filters) if request.filters else {}
+    t1 = time.time()
     if not filters.get("department"):
         filters["department"] = list(ENGINEERING_DEPARTMENTS)
 

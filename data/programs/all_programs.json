@@ -9,7 +9,8 @@
           "ENVS444",
           "ERS431",
           "ERS454"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -17,7 +18,8 @@
         "courses": [
           "PLAN240",
           "PLAN340"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
         "list_description": "Complete 4 of the following",
@@ -48,7 +50,8 @@
           "GEOG368",
           "PLAN341",
           "REC230"
-        ]
+        ],
+        "list_name": "List 3"
       }
     ]
   },
@@ -56,21 +59,30 @@
     "program_name": "Music Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: MUSIC110 - How Music Matters (0.50), MUSIC270 - Music Theory 1 (0.50)",
         "required_count": 2,
         "courses": [
           "MUSIC110",
           "MUSIC270"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "MUSIC222 - Conducting 1 (0.50), MUSIC233 - Musical Rhythms of the World (0.50)",
         "required_count": 1,
         "courses": [
           "MUSIC222",
-          "MUSIC233",
+          "MUSIC233"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "The following cannot be used towards this academic plan: MUSIC111 - Fundamentals of Music Theory (0.50)",
+        "required_count": 2.5,
+        "courses": [
           "MUSIC111"
-        ]
+        ],
+        "list_name": "Complete 2.5 additional units of MUSIC courses"
       }
     ]
   },
@@ -78,8 +90,8 @@
     "program_name": "German Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 14,
+        "list_description": "Complete 6 of the following",
+        "required_count": 6,
         "courses": [
           "GER101",
           "GER102",
@@ -95,7 +107,14 @@
           "GER350",
           "GER407",
           "GER431"
-        ]
+        ],
+        "list_name": "Complete 6 of the following"
+      },
+      {
+        "list_description": "Complete 1.0 additional unit of GER courses or from the Approved Courses List below",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 1.0 additional unit of GER courses or from the Approved Courses List below"
       }
     ]
   },
@@ -103,60 +122,139 @@
     "program_name": "French Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 8,
+        "list_description": "Complete all the following: FR276 - Introduction to French-Language Literatures and Cultures in Canada (0.50), FR296 - French Culture & Literature: Origins to 1715 (0.50), FR297 - French Culture & Literature: 1715 to the Present (0.50)",
+        "required_count": 3,
         "courses": [
           "FR276",
           "FR296",
-          "FR297",
-          "FR101",
-          "FR151",
-          "FR152",
-          "FR291",
-          "FR292"
-        ]
+          "FR297"
+        ],
+        "list_name": "Complete all of the following"
+      },
+      {
+        "list_description": "The following cannot be used towards this academic plan: FR101 - Beginner French (0.50), FR151 - Basic French 1 (0.50), FR152 - Basic French 2 (0.50), FR291 - French Civilization 1 (0.50), FR292 - French Civilization 2 (0.50)",
+        "required_count": 2,
+        "courses": [
+          "FR200A",
+          "FR200B",
+          "FR200C",
+          "FR200D",
+          "FR200E",
+          "FR200F",
+          "FR200G",
+          "FR200H",
+          "FR200I",
+          "FR200J",
+          "FR200K",
+          "FR200L",
+          "FR200M",
+          "FR200N",
+          "FR200O",
+          "FR200P",
+          "FR200Q",
+          "FR200R",
+          "FR200S",
+          "FR200T",
+          "FR200U",
+          "FR200V",
+          "FR200W",
+          "FR200X",
+          "FR200Y",
+          "FR200Z",
+          "FR300A",
+          "FR300B",
+          "FR300C",
+          "FR300D",
+          "FR300E",
+          "FR300F",
+          "FR300G",
+          "FR300H",
+          "FR300I",
+          "FR300J",
+          "FR300K",
+          "FR300L",
+          "FR300M",
+          "FR300N",
+          "FR300O",
+          "FR300P",
+          "FR300Q",
+          "FR300R",
+          "FR300S",
+          "FR300T",
+          "FR300U",
+          "FR300V",
+          "FR300W",
+          "FR300X",
+          "FR300Y",
+          "FR300Z",
+          "FR400A",
+          "FR400B",
+          "FR400C",
+          "FR400D",
+          "FR400E",
+          "FR400F",
+          "FR400G",
+          "FR400H",
+          "FR400I",
+          "FR400J",
+          "FR400K",
+          "FR400L",
+          "FR400M",
+          "FR400N",
+          "FR400O",
+          "FR400P",
+          "FR400Q",
+          "FR400R",
+          "FR400S",
+          "FR400T",
+          "FR400U",
+          "FR400V",
+          "FR400W",
+          "FR400X",
+          "FR400Y",
+          "FR400Z"
+        ],
+        "list_name": "Complete 2.5 additional units of FR courses"
       }
     ]
   },
   {
     "program_name": "Biology Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete a total of 5.0 units of BIOL courses.",
+        "required_count": 5,
+        "courses": [],
+        "list_name": "Biology Minor"
+      }
+    ]
   },
   {
     "program_name": "Tourism Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Complete all the following: Complete 1 of the following: Complete 1 of the following: Complete 1 of the following: Complete 1 of the following:",
+        "required_count": 5,
         "courses": [
           "GEOG233",
-          "REC280"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "REC280",
           "GEOG323",
-          "REC383"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "REC383",
+          "GEOG430C",
           "PLAN414",
           "REC425",
           "REC433",
           "REC475",
           "REC480"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 4 of the following",
+        "list_description": "Complete 4 of the following:",
         "required_count": 4,
         "courses": [
           "ANTH348",
+          "ENGL208M",
           "GEOG423",
           "HRM200",
           "MGMT220",
@@ -172,7 +270,8 @@
           "REC425",
           "REC433",
           "REC480"
-        ]
+        ],
+        "list_name": "Approved Courses List"
       }
     ]
   },
@@ -186,7 +285,8 @@
           "PHYS121",
           "PHYS122",
           "PHYS124"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
         "list_description": "Complete 3 of the following",
@@ -205,23 +305,838 @@
           "PHYS363",
           "PHYS364",
           "PHYS365"
-        ]
+        ],
+        "list_name": "Complete 3 of the following"
       }
     ]
   },
   {
     "program_name": "Spanish Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete a total of 4.0 units in SPAN courses.",
+        "required_count": 4,
+        "courses": [
+          "SPAN101",
+          "SPAN102",
+          "SPAN201",
+          "SPAN202",
+          "SPAN203",
+          "SPAN204",
+          "SPAN205",
+          "SPAN206",
+          "SPAN207",
+          "SPAN208",
+          "SPAN209",
+          "SPAN210",
+          "SPAN211",
+          "SPAN212",
+          "SPAN213",
+          "SPAN214",
+          "SPAN215",
+          "SPAN216",
+          "SPAN217",
+          "SPAN218",
+          "SPAN219",
+          "SPAN220",
+          "SPAN221",
+          "SPAN222",
+          "SPAN223",
+          "SPAN224",
+          "SPAN225",
+          "SPAN226",
+          "SPAN227",
+          "SPAN228",
+          "SPAN229",
+          "SPAN230",
+          "SPAN231",
+          "SPAN232",
+          "SPAN233",
+          "SPAN234",
+          "SPAN235",
+          "SPAN236",
+          "SPAN237",
+          "SPAN238",
+          "SPAN239",
+          "SPAN240",
+          "SPAN241",
+          "SPAN242",
+          "SPAN243",
+          "SPAN244",
+          "SPAN245",
+          "SPAN246",
+          "SPAN247",
+          "SPAN248",
+          "SPAN249",
+          "SPAN250",
+          "SPAN251",
+          "SPAN252",
+          "SPAN253",
+          "SPAN254",
+          "SPAN255",
+          "SPAN256",
+          "SPAN257",
+          "SPAN258",
+          "SPAN259",
+          "SPAN260",
+          "SPAN261",
+          "SPAN262",
+          "SPAN263",
+          "SPAN264",
+          "SPAN265",
+          "SPAN266",
+          "SPAN267",
+          "SPAN268",
+          "SPAN269",
+          "SPAN270",
+          "SPAN271",
+          "SPAN272",
+          "SPAN273",
+          "SPAN274",
+          "SPAN275",
+          "SPAN276",
+          "SPAN277",
+          "SPAN278",
+          "SPAN279",
+          "SPAN280",
+          "SPAN281",
+          "SPAN282",
+          "SPAN283",
+          "SPAN284",
+          "SPAN285",
+          "SPAN286",
+          "SPAN287",
+          "SPAN288",
+          "SPAN289",
+          "SPAN290",
+          "SPAN291",
+          "SPAN292",
+          "SPAN293",
+          "SPAN294",
+          "SPAN295",
+          "SPAN296",
+          "SPAN297",
+          "SPAN298",
+          "SPAN299",
+          "SPAN301",
+          "SPAN302",
+          "SPAN303",
+          "SPAN304",
+          "SPAN305",
+          "SPAN306",
+          "SPAN307",
+          "SPAN308",
+          "SPAN309",
+          "SPAN310",
+          "SPAN311",
+          "SPAN312",
+          "SPAN313",
+          "SPAN314",
+          "SPAN315",
+          "SPAN316",
+          "SPAN317",
+          "SPAN318",
+          "SPAN319",
+          "SPAN320",
+          "SPAN321",
+          "SPAN322",
+          "SPAN323",
+          "SPAN324",
+          "SPAN325",
+          "SPAN326",
+          "SPAN327",
+          "SPAN328",
+          "SPAN329",
+          "SPAN330",
+          "SPAN331",
+          "SPAN332",
+          "SPAN333",
+          "SPAN334",
+          "SPAN335",
+          "SPAN336",
+          "SPAN337",
+          "SPAN338",
+          "SPAN339",
+          "SPAN340",
+          "SPAN341",
+          "SPAN342",
+          "SPAN343",
+          "SPAN344",
+          "SPAN345",
+          "SPAN346",
+          "SPAN347",
+          "SPAN348",
+          "SPAN349",
+          "SPAN350",
+          "SPAN351",
+          "SPAN352",
+          "SPAN353",
+          "SPAN354",
+          "SPAN355",
+          "SPAN356",
+          "SPAN357",
+          "SPAN358",
+          "SPAN359",
+          "SPAN360",
+          "SPAN361",
+          "SPAN362",
+          "SPAN363",
+          "SPAN364",
+          "SPAN365",
+          "SPAN366",
+          "SPAN367",
+          "SPAN368",
+          "SPAN369",
+          "SPAN370",
+          "SPAN371",
+          "SPAN372",
+          "SPAN373",
+          "SPAN374",
+          "SPAN375",
+          "SPAN376",
+          "SPAN377",
+          "SPAN378",
+          "SPAN379",
+          "SPAN380",
+          "SPAN381",
+          "SPAN382",
+          "SPAN383",
+          "SPAN384",
+          "SPAN385",
+          "SPAN386",
+          "SPAN387",
+          "SPAN388",
+          "SPAN389",
+          "SPAN390",
+          "SPAN391",
+          "SPAN392",
+          "SPAN393",
+          "SPAN394",
+          "SPAN395",
+          "SPAN396",
+          "SPAN397",
+          "SPAN398",
+          "SPAN399",
+          "SPAN401",
+          "SPAN402",
+          "SPAN403",
+          "SPAN404",
+          "SPAN405",
+          "SPAN406",
+          "SPAN407",
+          "SPAN408",
+          "SPAN409",
+          "SPAN410",
+          "SPAN411",
+          "SPAN412",
+          "SPAN413",
+          "SPAN414",
+          "SPAN415",
+          "SPAN416",
+          "SPAN417",
+          "SPAN418",
+          "SPAN419",
+          "SPAN420",
+          "SPAN421",
+          "SPAN422",
+          "SPAN423",
+          "SPAN424",
+          "SPAN425",
+          "SPAN426",
+          "SPAN427",
+          "SPAN428",
+          "SPAN429",
+          "SPAN430",
+          "SPAN431",
+          "SPAN432",
+          "SPAN433",
+          "SPAN434",
+          "SPAN435",
+          "SPAN436",
+          "SPAN437",
+          "SPAN438",
+          "SPAN439",
+          "SPAN440",
+          "SPAN441",
+          "SPAN442",
+          "SPAN443",
+          "SPAN444",
+          "SPAN445",
+          "SPAN446",
+          "SPAN447",
+          "SPAN448",
+          "SPAN449",
+          "SPAN450",
+          "SPAN451",
+          "SPAN452",
+          "SPAN453",
+          "SPAN454",
+          "SPAN455",
+          "SPAN456",
+          "SPAN457",
+          "SPAN458",
+          "SPAN459",
+          "SPAN460",
+          "SPAN461",
+          "SPAN462",
+          "SPAN463",
+          "SPAN464",
+          "SPAN465",
+          "SPAN466",
+          "SPAN467",
+          "SPAN468",
+          "SPAN469",
+          "SPAN470",
+          "SPAN471",
+          "SPAN472",
+          "SPAN473",
+          "SPAN474",
+          "SPAN475",
+          "SPAN476",
+          "SPAN477",
+          "SPAN478",
+          "SPAN479",
+          "SPAN480",
+          "SPAN481",
+          "SPAN482",
+          "SPAN483",
+          "SPAN484",
+          "SPAN485",
+          "SPAN486",
+          "SPAN487",
+          "SPAN488",
+          "SPAN489",
+          "SPAN490",
+          "SPAN491",
+          "SPAN492",
+          "SPAN493",
+          "SPAN494",
+          "SPAN495",
+          "SPAN496",
+          "SPAN497",
+          "SPAN498",
+          "SPAN499"
+        ],
+        "list_name": "List 1"
+      }
+    ]
   },
   {
     "program_name": "History Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete at least 2 courses from HIST 250 - 499",
+        "required_count": 2,
         "courses": [
-          "HIST250"
-        ]
+          "HIST250",
+          "HIST251",
+          "HIST252",
+          "HIST253",
+          "HIST254",
+          "HIST255",
+          "HIST256",
+          "HIST257",
+          "HIST258",
+          "HIST259",
+          "HIST260",
+          "HIST261",
+          "HIST262",
+          "HIST263",
+          "HIST264",
+          "HIST265",
+          "HIST266",
+          "HIST267",
+          "HIST268",
+          "HIST269",
+          "HIST270",
+          "HIST271",
+          "HIST272",
+          "HIST273",
+          "HIST274",
+          "HIST275",
+          "HIST276",
+          "HIST277",
+          "HIST278",
+          "HIST279",
+          "HIST280",
+          "HIST281",
+          "HIST282",
+          "HIST283",
+          "HIST284",
+          "HIST285",
+          "HIST286",
+          "HIST287",
+          "HIST288",
+          "HIST289",
+          "HIST290",
+          "HIST291",
+          "HIST292",
+          "HIST293",
+          "HIST294",
+          "HIST295",
+          "HIST296",
+          "HIST297",
+          "HIST298",
+          "HIST299",
+          "HIST300",
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST304",
+          "HIST305",
+          "HIST306",
+          "HIST307",
+          "HIST308",
+          "HIST309",
+          "HIST310",
+          "HIST311",
+          "HIST312",
+          "HIST313",
+          "HIST314",
+          "HIST315",
+          "HIST316",
+          "HIST317",
+          "HIST318",
+          "HIST319",
+          "HIST320",
+          "HIST321",
+          "HIST322",
+          "HIST323",
+          "HIST324",
+          "HIST325",
+          "HIST326",
+          "HIST327",
+          "HIST328",
+          "HIST329",
+          "HIST330",
+          "HIST331",
+          "HIST332",
+          "HIST333",
+          "HIST334",
+          "HIST335",
+          "HIST336",
+          "HIST337",
+          "HIST338",
+          "HIST339",
+          "HIST340",
+          "HIST341",
+          "HIST342",
+          "HIST343",
+          "HIST344",
+          "HIST345",
+          "HIST346",
+          "HIST347",
+          "HIST348",
+          "HIST349",
+          "HIST350",
+          "HIST351",
+          "HIST352",
+          "HIST353",
+          "HIST354",
+          "HIST355",
+          "HIST356",
+          "HIST357",
+          "HIST358",
+          "HIST359",
+          "HIST360",
+          "HIST361",
+          "HIST362",
+          "HIST363",
+          "HIST364",
+          "HIST365",
+          "HIST366",
+          "HIST367",
+          "HIST368",
+          "HIST369",
+          "HIST370",
+          "HIST371",
+          "HIST372",
+          "HIST373",
+          "HIST374",
+          "HIST375",
+          "HIST376",
+          "HIST377",
+          "HIST378",
+          "HIST379",
+          "HIST380",
+          "HIST381",
+          "HIST382",
+          "HIST383",
+          "HIST384",
+          "HIST385",
+          "HIST386",
+          "HIST387",
+          "HIST388",
+          "HIST389",
+          "HIST390",
+          "HIST391",
+          "HIST392",
+          "HIST393",
+          "HIST394",
+          "HIST395",
+          "HIST396",
+          "HIST397",
+          "HIST398",
+          "HIST399",
+          "HIST400",
+          "HIST401",
+          "HIST402",
+          "HIST403",
+          "HIST404",
+          "HIST405",
+          "HIST406",
+          "HIST407",
+          "HIST408",
+          "HIST409",
+          "HIST410",
+          "HIST411",
+          "HIST412",
+          "HIST413",
+          "HIST414",
+          "HIST415",
+          "HIST416",
+          "HIST417",
+          "HIST418",
+          "HIST419",
+          "HIST420",
+          "HIST421",
+          "HIST422",
+          "HIST423",
+          "HIST424",
+          "HIST425",
+          "HIST426",
+          "HIST427",
+          "HIST428",
+          "HIST429",
+          "HIST430",
+          "HIST431",
+          "HIST432",
+          "HIST433",
+          "HIST434",
+          "HIST435",
+          "HIST436",
+          "HIST437",
+          "HIST438",
+          "HIST439",
+          "HIST440",
+          "HIST441",
+          "HIST442",
+          "HIST443",
+          "HIST444",
+          "HIST445",
+          "HIST446",
+          "HIST447",
+          "HIST448",
+          "HIST449",
+          "HIST450",
+          "HIST451",
+          "HIST452",
+          "HIST453",
+          "HIST454",
+          "HIST455",
+          "HIST456",
+          "HIST457",
+          "HIST458",
+          "HIST459",
+          "HIST460",
+          "HIST461",
+          "HIST462",
+          "HIST463",
+          "HIST464",
+          "HIST465",
+          "HIST466",
+          "HIST467",
+          "HIST468",
+          "HIST469",
+          "HIST470",
+          "HIST471",
+          "HIST472",
+          "HIST473",
+          "HIST474",
+          "HIST475",
+          "HIST476",
+          "HIST477",
+          "HIST478",
+          "HIST479",
+          "HIST480",
+          "HIST481",
+          "HIST482",
+          "HIST483",
+          "HIST484",
+          "HIST485",
+          "HIST486",
+          "HIST487",
+          "HIST488",
+          "HIST489",
+          "HIST490",
+          "HIST491",
+          "HIST492",
+          "HIST493",
+          "HIST494",
+          "HIST495",
+          "HIST496",
+          "HIST497",
+          "HIST498",
+          "HIST499"
+        ],
+        "list_name": "Complete at least 2 courses from HIST 250 - 499"
+      },
+      {
+        "list_description": "Complete 3.0 additional units of HIST courses",
+        "required_count": 3,
+        "courses": [
+          "HIST250",
+          "HIST251",
+          "HIST252",
+          "HIST253",
+          "HIST254",
+          "HIST255",
+          "HIST256",
+          "HIST257",
+          "HIST258",
+          "HIST259",
+          "HIST260",
+          "HIST261",
+          "HIST262",
+          "HIST263",
+          "HIST264",
+          "HIST265",
+          "HIST266",
+          "HIST267",
+          "HIST268",
+          "HIST269",
+          "HIST270",
+          "HIST271",
+          "HIST272",
+          "HIST273",
+          "HIST274",
+          "HIST275",
+          "HIST276",
+          "HIST277",
+          "HIST278",
+          "HIST279",
+          "HIST280",
+          "HIST281",
+          "HIST282",
+          "HIST283",
+          "HIST284",
+          "HIST285",
+          "HIST286",
+          "HIST287",
+          "HIST288",
+          "HIST289",
+          "HIST290",
+          "HIST291",
+          "HIST292",
+          "HIST293",
+          "HIST294",
+          "HIST295",
+          "HIST296",
+          "HIST297",
+          "HIST298",
+          "HIST299",
+          "HIST300",
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST304",
+          "HIST305",
+          "HIST306",
+          "HIST307",
+          "HIST308",
+          "HIST309",
+          "HIST310",
+          "HIST311",
+          "HIST312",
+          "HIST313",
+          "HIST314",
+          "HIST315",
+          "HIST316",
+          "HIST317",
+          "HIST318",
+          "HIST319",
+          "HIST320",
+          "HIST321",
+          "HIST322",
+          "HIST323",
+          "HIST324",
+          "HIST325",
+          "HIST326",
+          "HIST327",
+          "HIST328",
+          "HIST329",
+          "HIST330",
+          "HIST331",
+          "HIST332",
+          "HIST333",
+          "HIST334",
+          "HIST335",
+          "HIST336",
+          "HIST337",
+          "HIST338",
+          "HIST339",
+          "HIST340",
+          "HIST341",
+          "HIST342",
+          "HIST343",
+          "HIST344",
+          "HIST345",
+          "HIST346",
+          "HIST347",
+          "HIST348",
+          "HIST349",
+          "HIST350",
+          "HIST351",
+          "HIST352",
+          "HIST353",
+          "HIST354",
+          "HIST355",
+          "HIST356",
+          "HIST357",
+          "HIST358",
+          "HIST359",
+          "HIST360",
+          "HIST361",
+          "HIST362",
+          "HIST363",
+          "HIST364",
+          "HIST365",
+          "HIST366",
+          "HIST367",
+          "HIST368",
+          "HIST369",
+          "HIST370",
+          "HIST371",
+          "HIST372",
+          "HIST373",
+          "HIST374",
+          "HIST375",
+          "HIST376",
+          "HIST377",
+          "HIST378",
+          "HIST379",
+          "HIST380",
+          "HIST381",
+          "HIST382",
+          "HIST383",
+          "HIST384",
+          "HIST385",
+          "HIST386",
+          "HIST387",
+          "HIST388",
+          "HIST389",
+          "HIST390",
+          "HIST391",
+          "HIST392",
+          "HIST393",
+          "HIST394",
+          "HIST395",
+          "HIST396",
+          "HIST397",
+          "HIST398",
+          "HIST399",
+          "HIST400",
+          "HIST401",
+          "HIST402",
+          "HIST403",
+          "HIST404",
+          "HIST405",
+          "HIST406",
+          "HIST407",
+          "HIST408",
+          "HIST409",
+          "HIST410",
+          "HIST411",
+          "HIST412",
+          "HIST413",
+          "HIST414",
+          "HIST415",
+          "HIST416",
+          "HIST417",
+          "HIST418",
+          "HIST419",
+          "HIST420",
+          "HIST421",
+          "HIST422",
+          "HIST423",
+          "HIST424",
+          "HIST425",
+          "HIST426",
+          "HIST427",
+          "HIST428",
+          "HIST429",
+          "HIST430",
+          "HIST431",
+          "HIST432",
+          "HIST433",
+          "HIST434",
+          "HIST435",
+          "HIST436",
+          "HIST437",
+          "HIST438",
+          "HIST439",
+          "HIST440",
+          "HIST441",
+          "HIST442",
+          "HIST443",
+          "HIST444",
+          "HIST445",
+          "HIST446",
+          "HIST447",
+          "HIST448",
+          "HIST449",
+          "HIST450",
+          "HIST451",
+          "HIST452",
+          "HIST453",
+          "HIST454",
+          "HIST455",
+          "HIST456",
+          "HIST457",
+          "HIST458",
+          "HIST459",
+          "HIST460",
+          "HIST461",
+          "HIST462",
+          "HIST463",
+          "HIST464",
+          "HIST465",
+          "HIST466",
+          "HIST467",
+          "HIST468",
+          "HIST469",
+          "HIST470",
+          "HIST471",
+          "HIST472",
+          "HIST473",
+          "HIST474",
+          "HIST475",
+          "HIST476",
+          "HIST477",
+          "HIST478",
+          "HIST479",
+          "HIST480",
+          "HIST481",
+          "HIST482",
+          "HIST483",
+          "HIST484",
+          "HIST485",
+          "HIST486",
+          "HIST487",
+          "HIST488",
+          "HIST489",
+          "HIST490",
+          "HIST491",
+          "HIST492",
+          "HIST493",
+          "HIST494",
+          "HIST495",
+          "HIST496",
+          "HIST497",
+          "HIST498",
+          "HIST499"
+        ],
+        "list_name": "Complete 3.0 additional units of HIST courses"
       }
     ]
   },
@@ -229,21 +1144,29 @@
     "program_name": "Economics Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: ECON101 - Introduction to Microeconomics (0.50), ECON102 - Introduction to Macroeconomics (0.50), ECON201 - Microeconomic Theory for Business and Policy (0.50)",
         "required_count": 3,
         "courses": [
           "ECON101",
           "ECON102",
           "ECON201"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ECON206 - Money and Banking 1 (0.50), ECON207 - Economic Growth and Development 1 (0.50)",
         "required_count": 1,
         "courses": [
           "ECON206",
           "ECON207"
-        ]
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete 2.0 additional units of ECON courses at the 200-level or above",
+        "required_count": 2,
+        "courses": [],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -251,13 +1174,14 @@
     "program_name": "Computing Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "CS115",
           "CS135",
           "CS145"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -265,29 +1189,71 @@
         "courses": [
           "CS114",
           "CS116"
-        ]
-      },
-      {
-        "list_description": "Complete all the following",
-        "required_count": 1,
-        "courses": [
-          "CS136"
-        ]
-      },
-      {
-        "list_description": "Complete all the following",
-        "required_count": 1,
-        "courses": [
-          "CS146"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
         "required_count": 2,
         "courses": [
-          "COMM432",
-          "CS399"
-        ]
+          "CS136",
+          "CS136L"
+        ],
+        "list_name": "Complete all the following"
+      },
+      {
+        "list_description": "Complete all the following",
+        "required_count": 2,
+        "courses": [
+          "CS146",
+          "CS136L"
+        ],
+        "list_name": "Complete all the following"
+      },
+      {
+        "list_description": "Complete 1 CS course at the 200-, 300-, or 400-level",
+        "required_count": 1,
+        "courses": [
+          "CS136",
+          "CS136L",
+          "CS146"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete 1 additional CS course at the 100-, 200-, 300-, or 400-level",
+        "required_count": 1,
+        "courses": [
+          "CS115",
+          "CS135",
+          "CS145",
+          "CS114",
+          "CS116",
+          "CS136",
+          "CS136L",
+          "CS146"
+        ],
+        "list_name": "Complete 1 additional CS course at the 100-, 200-, 300-, or 400-level"
+      },
+      {
+        "list_description": "Complete 3 additional CS courses at the 200-, 300-, or 400-level",
+        "required_count": 3,
+        "courses": [
+          "CS136",
+          "CS136L",
+          "CS146"
+        ],
+        "list_name": "Complete 3 additional CS courses at the 200-, 300-, or 400-level"
+      },
+      {
+        "list_description": "Complete 1 additional CS course at the 300- or 400-level",
+        "required_count": 1,
+        "courses": [
+          "CS136",
+          "CS136L",
+          "CS146"
+        ],
+        "list_name": "Complete 1 additional CS course at the 300- or 400-level"
       }
     ]
   },
@@ -295,11 +1261,25 @@
     "program_name": "Sociology Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete 1 of the following",
         "required_count": 1,
         "courses": [
-          "SOC101"
-        ]
+          "SOC101",
+          "SOC101R"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete 1.5 units of SOC courses at the 200-level",
+        "required_count": 1.5,
+        "courses": [],
+        "list_name": "Complete 1.5 units of SOC courses at the 200-level"
+      },
+      {
+        "list_description": "Complete 2.0 units of SOC courses at the 300-level or above",
+        "required_count": 2,
+        "courses": [],
+        "list_name": "Complete 2.0 units of SOC courses at the 300-level or above"
       }
     ]
   },
@@ -307,20 +1287,62 @@
     "program_name": "Chemistry Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Complete 1 of the following: ",
+        "required_count": 1,
         "courses": [
           "CHEM120",
           "CHEM121"
-        ]
+        ],
+        "list_name": "Complete 1 of the following: "
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
+        "required_count": 1,
+        "courses": [
+          "CHEM120L",
+          "CHEM121L"
+        ],
+        "list_name": "Complete 1 of the following: "
+      },
+      {
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "CHEM123",
           "CHEM125"
-        ]
+        ],
+        "list_name": "Complete 1 of the following: "
+      },
+      {
+        "list_description": "Complete 1 of the following: ",
+        "required_count": 1,
+        "courses": [
+          "CHEM123L",
+          "CHEM125L"
+        ],
+        "list_name": "Complete 1 of the following: "
+      },
+      {
+        "list_description": "Complete 3.0 units of CHEM lecture courses, with a minimum of 1.0 unit at the 300-level or above. ",
+        "required_count": 3,
+        "courses": [
+          "CHEM120",
+          "CHEM121",
+          "CHEM123",
+          "CHEM125"
+        ],
+        "list_name": "Complete 3.0 units of CHEM lecture courses, with a minimum of 1.0 unit at the 300-level or above. "
+      },
+      {
+        "list_description": "Complete 0.5 unit of CHEM laboratory courses, at the 200-level or above. ",
+        "required_count": 0.5,
+        "courses": [
+          "CHEM120L",
+          "CHEM121L",
+          "CHEM123L",
+          "CHEM125L"
+        ],
+        "list_name": "Complete 0.5 unit of CHEM laboratory courses, at the 200-level or above. "
       }
     ]
   },
@@ -328,12 +1350,13 @@
     "program_name": "Statistics Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "MATH237",
           "MATH247"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 3 of the following",
@@ -343,13 +1366,32 @@
           "STAT331",
           "STAT332",
           "STAT333"
-        ]
+        ],
+        "list_name": "Complete 3 of the following"
+      },
+      {
+        "list_description": "Complete 2 additional STAT courses at the 300- or 400-level",
+        "required_count": 2,
+        "courses": [
+          "STAT330",
+          "STAT331",
+          "STAT332",
+          "STAT333"
+        ],
+        "list_name": "Complete 2 additional STAT courses at the 300- or 400-level"
       }
     ]
   },
   {
     "program_name": "Philosophy Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete 0.5 unit of PHIL courses at the 300-level or above",
+        "required_count": 0.5,
+        "courses": [],
+        "list_name": "Required Courses"
+      }
+    ]
   },
   {
     "program_name": "Biophysics Minor",
@@ -362,8 +1404,11 @@
           "BIOL239",
           "BIOL308",
           "PHYS121",
-          "PHYS122"
-        ]
+          "PHYS121L",
+          "PHYS122",
+          "PHYS122L"
+        ],
+        "list_name": "Complete all of the following"
       },
       {
         "list_description": "Complete 3 of the following",
@@ -376,7 +1421,8 @@
           "PHYS395",
           "PHYS396",
           "PHYS483"
-        ]
+        ],
+        "list_name": "Complete 3 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -391,7 +1437,8 @@
           "PHYS358",
           "PHYS359",
           "STAT202"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       }
     ]
   },
@@ -399,11 +1446,13 @@
     "program_name": "Psychology Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete 1 of the following",
         "required_count": 1,
         "courses": [
-          "PSYCH101"
-        ]
+          "PSYCH101",
+          "PSYCH101R"
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -411,7 +1460,8 @@
         "courses": [
           "PSYCH207",
           "PSYCH261"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -421,9 +1471,24 @@
           "PSYCH211",
           "PSYCH238",
           "PSYCH253",
+          "PSYCH253R",
           "PSYCH257",
+          "PSYCH257R",
           "PSYCH261"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
+      },
+      {
+        "list_description": "Complete 1.0 unit of PSYCH courses at the 300-level or above",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 1.0 unit of PSYCH courses at the 300-level or above"
+      },
+      {
+        "list_description": "Complete 1.0 additional unit of PSYCH courses",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 1.0 additional unit of PSYCH courses"
       }
     ]
   },
@@ -431,19 +1496,9 @@
     "program_name": "Gerontology Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Choose any of the following: ",
+        "required_count": 8,
         "courses": [
-          "GERON201",
-          "HLTH201"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
-          "GERON400",
-          "HLTH400",
           "BIOL355",
           "GEOG432",
           "GERON218",
@@ -452,6 +1507,8 @@
           "GERON310",
           "GERON352",
           "GERON355",
+          "GERON401A",
+          "GERON401B",
           "GSJ380",
           "HLTH218",
           "HLTH220",
@@ -475,6 +1532,8 @@
           "KIN422",
           "KIN429",
           "PHIL226",
+          "PHIL319J",
+          "PHIL321J",
           "PLAN432",
           "PSYCH218",
           "PSYCH398",
@@ -482,20 +1541,31 @@
           "RCS387",
           "REC361",
           "REC362",
+          "SDS245R",
+          "SDS367R",
           "SOC248",
           "SOC253",
-          "SOC352",
+          "SOC352"
+        ],
+        "list_name": "List 1"
+      },
+      {
+        "list_description": "Complete no more than 1 from the following: ",
+        "required_count": 1,
+        "courses": [
           "ARTS280",
           "HLTH204",
           "KIN232",
           "LS280",
           "PSYCH292",
           "REC371",
+          "SDS250R",
           "SOC280",
           "STAT202",
           "STAT221",
           "STAT231"
-        ]
+        ],
+        "list_name": "List 2"
       }
     ]
   },
@@ -503,23 +1573,18 @@
     "program_name": "Mathematics Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
-        "courses": [
-          "CS115",
-          "CS135",
-          "CS145"
-        ]
-      },
-      {
         "list_description": "Complete 1 of the following",
         "required_count": 1,
         "courses": [
+          "CS115",
+          "CS135",
+          "CS145",
           "CS114",
           "CS116",
           "CS136",
           "CS146"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -528,7 +1593,8 @@
           "MATH106",
           "MATH114",
           "MATH115"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -537,7 +1603,8 @@
           "MATH116",
           "MATH117",
           "MATH127"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -546,7 +1613,8 @@
           "MATH118",
           "MATH119",
           "MATH128"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -556,7 +1624,23 @@
           "STAT221",
           "STAT321",
           "STAT322"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
+      },
+      {
+        "list_description": "Complete 3 additional math courses from the following subject codes: ACTSC, AMATH, CO, CS, MATBUS, MATH, PMATH, STAT",
+        "required_count": 3,
+        "courses": [
+          "ACTSC",
+          "AMATH",
+          "CO",
+          "CS",
+          "MATBUS",
+          "MATH",
+          "PMATH",
+          "STAT"
+        ],
+        "list_name": "Complete 3 additional math courses from the following subject codes: ACTSC, AMATH, CO, CS, MATBUS, MATH, PMATH, STAT"
       }
     ]
   },
@@ -578,7 +1662,8 @@
           "PSYCH306",
           "PSYCH307",
           "PSYCH335"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -586,8 +1671,8 @@
     "program_name": "Biochemistry Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 6,
+        "list_description": "Complete all of the following",
+        "required_count": 5,
         "courses": [
           "BIOL130",
           "BIOL240",
@@ -595,10 +1680,11 @@
           "CHEM264",
           "CHEM265",
           "CHEM331"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: ",
         "required_count": 2,
         "courses": [
           "BIOL331",
@@ -607,17 +1693,19 @@
           "BIOL434",
           "BIOL439",
           "BIOL448"
-        ]
+        ],
+        "list_name": "Choose any of the following:"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: ",
         "required_count": 2,
         "courses": [
           "CHEM357",
           "CHEM430",
           "CHEM432",
           "CHEM433"
-        ]
+        ],
+        "list_name": "Choose any of the following:"
       }
     ]
   },
@@ -625,18 +1713,19 @@
     "program_name": "Human Rights Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: HRTS101 - Introduction to Human Rights (0.50), HRTS201 - Foundations and Critiques of Human Rights (0.50), HRTS203 - The Canadian Charter of Rights and Freedoms (0.50), HRTS204 - Discrimination, Rights, and Canadian Law (0.50)",
         "required_count": 4,
         "courses": [
           "HRTS101",
           "HRTS201",
           "HRTS203",
           "HRTS204"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 25,
+        "list_description": "Choose any of the following: CDNST201 - The Indigenous Experience in Canada (0.50), CI250 - Truth - Reconciliation - Story (0.50), GSJ102 - Introduction to Gender and Social Justice: The Global South (0.50), GSJ206 - Women and the Law (0.50), HIST221 - Racism and Response in Canadian History (0.50), HIST271 - Global Indigenous Issues (0.50), HIST314 - The American Civil Rights Movement (0.50), HIST321 - Human Rights in Historical Perspective (0.50), INDG201 - The Indigenous Experience in Canada (0.50), INDG305 - Indigenous Rights in Global Context (0.50), LS201 - Women and the Law (0.50), LS273 - Children's Rights in Canada (0.50), LS331 - Human Rights in Historical Perspective (0.50), LS352 - Human Rights (0.50), LS463 - Rights and Public Policy (0.50), LS464 - Justice and Gender (0.50), PACS318 - Peacebuilding in Divided Societies (0.50), PACS324 - Human Rights, Peace, and Business (0.50), PACS325 - Refugees and Forced Migration (0.50), PHIL328 - Human Rights (0.50), PSCI352 - Peacebuilding in Divided Societies (0.50), PSCI421 - Justice and Gender (0.50), PSCI463 - Rights and Public Policy (0.50), SDS210R - Children's Rights in Canada (0.50), SDS449R - Prejudice and Discrimination (0.50), SOC388 - Refugees and Forced Migration (0.50), SPAN400 - Memory, Human Rights, and Reconciliation (0.50)",
+        "required_count": 2,
         "courses": [
           "CDNST201",
           "CI250",
@@ -661,9 +1750,12 @@
           "PSCI352",
           "PSCI421",
           "PSCI463",
+          "SDS210R",
+          "SDS449R",
           "SOC388",
           "SPAN400"
-        ]
+        ],
+        "list_name": "Complete 2.0 units from any additional HRTS courses or from the list of courses below."
       }
     ]
   },
@@ -671,11 +1763,12 @@
     "program_name": "Anthropology Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all of the following",
+        "required_count": 2,
         "courses": [
           "ANTH204"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -683,7 +1776,8 @@
         "courses": [
           "ANTH201",
           "CLAS221"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -695,48 +1789,34 @@
           "ANTH245",
           "ANTH251",
           "ANTH290"
-        ]
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete 2.5 additional units of ANTH courses at any level",
+        "required_count": 2.5,
+        "courses": [],
+        "list_name": "Required Courses"
       }
     ]
   },
   {
     "program_name": "Astrophysics Minor",
-    "course_lists": [
-      {
-        "list_description": "Complete all the following",
-        "required_count": 2,
-        "courses": [
-          "PHYS121",
-          "PHYS122"
-        ]
-      },
-      {
-        "list_description": "Complete 4 of the following",
-        "required_count": 4,
-        "courses": [
-          "AMATH475",
-          "PHYS175",
-          "PHYS267",
-          "PHYS275",
-          "PHYS375",
-          "PHYS474",
-          "PHYS475",
-          "PHYS476"
-        ]
-      }
-    ]
+    "course_lists": [],
+    "error": "Page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://uwaterloo.ca/academic-calendar/undergraduate-studies/catalog#/programs/HkgrkkR0i3?searchTerm=minor&bc=true&bcCurrent=Astrophysics%20Minor&bcItemType=programs\", waiting until \"networkidle\"\n"
   },
   {
     "program_name": "Urban Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all of the following",
         "required_count": 3,
         "courses": [
           "ECON101",
           "PLAN100",
           "PLAN233"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -744,19 +1824,14 @@
         "courses": [
           "ENVS195",
           "GEOG101"
-        ]
+        ],
+        "list_name": "Themes"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all of the following",
+        "required_count": 2,
         "courses": [
-          "ECON201"
-        ]
-      },
-      {
-        "list_description": "Complete 4 of the following",
-        "required_count": 4,
-        "courses": [
+          "ECON201",
           "AE392",
           "CIVE392",
           "ECON241",
@@ -778,19 +1853,14 @@
           "PLAN320",
           "PLAN416",
           "PLAN483"
-        ]
+        ],
+        "list_name": "Theme 1: Urban Economics/Finance"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all of the following",
+        "required_count": 2,
         "courses": [
-          "ENVS200"
-        ]
-      },
-      {
-        "list_description": "Complete 4 of the following",
-        "required_count": 4,
-        "courses": [
+          "ENVS200",
           "BIOL225",
           "BIOL350",
           "BIOL455",
@@ -814,32 +1884,26 @@
           "PLAN451",
           "PLAN453",
           "PLAN478",
-          "PLAN483",
           "PLAN484"
-        ]
+        ],
+        "list_name": "Theme 2: Urban Activity and The Environment"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all of the following",
+        "required_count": 2,
         "courses": [
-          "ERS253"
-        ]
-      },
-      {
-        "list_description": "Complete 4 of the following",
-        "required_count": 4,
-        "courses": [
+          "ERS253",
           "ANTH272",
+          "EASIA220R",
           "ECON363",
-          "ECON437",
           "GEOG325",
-          "GEOG432",
-          "GSJ302",
+          "HIST231R",
           "HIST260",
           "HIST374",
           "HLTH420",
           "INDG272"
-        ]
+        ],
+        "list_name": "Theme 3: Urban Societies"
       }
     ]
   },
@@ -847,18 +1911,35 @@
     "program_name": "Legal Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all the following: Complete all of the following",
+        "required_count": 4,
         "courses": [
-          "LS101"
-        ]
+          "LS101",
+          "SOC101",
+          "SOC101R"
+        ],
+        "list_name": "Complete all of the following"
       },
       {
         "list_description": "Complete 1 of the following",
         "required_count": 1,
         "courses": [
-          "SOC101"
-        ]
+          "SOC101",
+          "SOC101R"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete 1.5 units of LS courses at the 200-level",
+        "required_count": 1.5,
+        "courses": [],
+        "list_name": "Complete 1.5 units of LS courses at the 200-level"
+      },
+      {
+        "list_description": "Complete 1.5 units of LS courses at the 300-level or above",
+        "required_count": 1.5,
+        "courses": [],
+        "list_name": "Complete 1.5 units of LS courses at the 300-level or above"
       }
     ]
   },
@@ -866,21 +1947,46 @@
     "program_name": "Global Affairs Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Complete all of the following",
+        "required_count": 3,
         "courses": [
           "GA200",
-          "GA400"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "GA400",
           "PSCI281",
           "PSCI282",
           "PSCI283"
-        ]
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete 1.0 unit of courses in the same subject from any of the following language and culture subject codes: ARABIC, ASL, CHINA, CI, CROAT, DUTCH, EASIA, FR, GER, GRK, ITAL, ITALST, JAPAN, JS, KOREA, LAT, MOHAWK, PORT, RCS, REES, RUSS, SI, SPAN",
+        "required_count": 1,
+        "courses": [
+          "ARABIC",
+          "ASL",
+          "CHINA",
+          "CI",
+          "CROAT",
+          "DUTCH",
+          "EASIA",
+          "FR",
+          "GER",
+          "GRK",
+          "ITAL",
+          "ITALST",
+          "JAPAN",
+          "JS",
+          "KOREA",
+          "LAT",
+          "MOHAWK",
+          "PORT",
+          "RCS",
+          "REES",
+          "RUSS",
+          "SI",
+          "SPAN"
+        ],
+        "list_name": "Language and Culture Courses"
       }
     ]
   },
@@ -888,27 +1994,64 @@
     "program_name": "Human Sciences Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: HUMSC101 - Great Dialogues: Reflection and Action (0.50), HUMSC102 - Great Dialogues: Politics and Morality (0.50)",
         "required_count": 2,
         "courses": [
           "HUMSC101",
           "HUMSC102"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "HUMSC201 - Great Dialogues: Reason and Faith (0.50), HUMSC301 - Great Dialogues: The Sacred and the Profane (0.50)",
         "required_count": 1,
         "courses": [
           "HUMSC201",
           "HUMSC301"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "HUMSC401 - Great Dialogues: Athens, Jerusalem, and Technological Society (0.50), PHIL326J - Philosophy of Social Justice (0.50)",
         "required_count": 1,
         "courses": [
-          "HUMSC401"
-        ]
+          "HUMSC401",
+          "PHIL326J"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "ITALST291 - Italian Culture and Civilization 1 (0.50), ITALST311 - Medieval Italian Literature (0.50), ITALST312 - Renaissance Italian Literature (0.50), ITALST360 - Dante's Divine Comedy (0.50)",
+        "required_count": 1,
+        "courses": [
+          "ITALST291",
+          "ITALST311",
+          "ITALST312",
+          "ITALST360"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "PHIL100J - Introduction to Philosophy (0.50), PHIL118J - Virtue and the Good Life (0.50), PHIL120J - The Meaning of Life (0.50), PHIL204J - Philosophy and Culture (0.50), PHIL210J - Human Nature (0.50), PHIL218J - Foundations of Ethics (0.50)",
+        "required_count": 2,
+        "courses": [
+          "PHIL100J",
+          "PHIL118J",
+          "PHIL120J",
+          "PHIL204J",
+          "PHIL210J",
+          "PHIL218J"
+        ],
+        "list_name": "Complete 2 of the following"
+      },
+      {
+        "list_description": "SOC355J - Power and Parenting (0.50), SOC369J - The Sociology of Community (0.50)",
+        "required_count": 1,
+        "courses": [
+          "SOC355J",
+          "SOC369J"
+        ],
+        "list_name": "Complete 1 of the following"
       }
     ]
   },
@@ -916,10 +2059,9 @@
     "program_name": "Jewish Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 32,
+        "list_description": "Complete 4 of the following: \nGER283 - The Holocaust and Film (0.50)\nJS203 - Jewish Responses to the Holocaust (0.50)\nJS209 - Jews and Jewishness (0.50)\nJS212 - Great Jewish Books (0.50)\nJS215 - Visions of Israel in Judaism: From Biblical to Modern Times (0.50)\nJS217 - Judaism (0.50)\nJS218 - Seduction, Rivalry, and Dysfunction in the Bible (0.50)\nJS228 - Big Ideas of the Bible (0.50)\nJS231 - Antisemitism (0.50)\nJS233 - The Holocaust and Film (0.50)\nJS234 - Power and Corruption in the Bible (0.50)\nJS235 - Jesus: Life and Legacy (0.50)\nJS236 - Paul: Life and Letters (0.50)\nJS237 - Insiders and Outsiders in the Bible (0.50)\nJS314 - Secret Teachings and Mysticism in Judaism (0.50)\nJS350 - Special Topics in Jewish Studies (0.50)\nJS364 - Jewish Humour: Laughing Your Way Through History (0.50)\nRCS209 - Jews and Jewishness (0.50)\nRCS210 - Judaism (0.50)\nRCS211 - Jewish Responses to the Holocaust (0.50)\nRCS212 - Great Jewish Books (0.50)\nRCS218 - Seduction, Rivalry, and Dysfunction in the Bible (0.50)\nRCS228 - Big Ideas of the Bible (0.50)\nRCS230 - Visions of Israel in Judaism: From Biblical to Modern Times (0.50)\nRCS231 - Antisemitism (0.50)\nRCS234 - Power and Corruption in the Bible (0.50)\nRCS235 - Jesus: Life and Legacy (0.50)\nRCS236 - Paul: Life and Letters (0.50)\nRCS237 - Insiders and Outsiders in the Bible (0.50)\nRCS272 - The Holocaust and Film (0.50)\nRCS314 - Secret Teachings and Mysticism in Judaism (0.50)\nRCS364 - Jewish Humour: Laughing Your Way Through History (0.50)",
+        "required_count": 4,
         "courses": [
-          "GER283",
           "JS203",
           "JS209",
           "JS212",
@@ -951,16 +2093,18 @@
           "RCS272",
           "RCS314",
           "RCS364"
-        ]
+        ],
+        "list_name": "Complete 4 of the following"
       },
       {
-        "list_description": "Complete 4 of the following",
+        "list_description": "Complete 4 of the following: \nCLAS210 - History of Ancient Law (0.50)\nCLAS237 - The Ancient Near East and Egypt (0.50)\nCLAS325 - Greek and Roman Religion (0.50)\nCLAS361 - History of Ancient Philosophy (0.50)\nENGL202A - The Bible and Literature 1 (0.50)\nGSJ261 - Gender and the Great Religions (0.50)\nHIST210 - History of Ancient Law (0.50)\nHIST223 - The Holocaust in History (0.50)\nHIST237 - The Ancient Near East and Egypt (0.50)\nHIST263 - The Age of Revolution: Europe in the 19th Century (0.50)\nHIST341 - The Nazi Occupation of Europe (0.50)\nLS235 - History of Ancient Law (0.50)\nPHIL230J - God and Philosophy (0.50)\nPHIL380 - History of Ancient Philosophy (0.50)\nRCS110 - Judaism, Christianity, Islam (0.50)\nRCS121 - Evil (0.50)\nRCS258 - God (0.50)\nRCS260 - Religion Matters (0.50)\nRCS284 - Gender and the Great Religions (0.50)\nRCS315 - Greek and Roman Religion (0.50)",
         "required_count": 4,
         "courses": [
           "CLAS210",
           "CLAS237",
           "CLAS325",
           "CLAS361",
+          "ENGL202A",
           "GSJ261",
           "HIST210",
           "HIST223",
@@ -968,6 +2112,7 @@
           "HIST263",
           "HIST341",
           "LS235",
+          "PHIL230J",
           "PHIL380",
           "RCS110",
           "RCS121",
@@ -975,7 +2120,8 @@
           "RCS260",
           "RCS284",
           "RCS315"
-        ]
+        ],
+        "list_name": "Complete 4 of the following"
       }
     ]
   },
@@ -983,36 +2129,63 @@
     "program_name": "Earth Sciences Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all the following: EARTH121 - Introductory Earth Sciences (0.50), EARTH121L - Introductory Earth Sciences Laboratory (0.25), EARTH122L - Introductory Environmental Sciences Laboratory (0.25)",
+        "required_count": 3,
         "courses": [
-          "EARTH121"
-        ]
+          "EARTH121",
+          "EARTH121L",
+          "EARTH122L"
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: EARTH122 - Introductory Environmental Sciences (0.50), ENVS195 - Introduction to Environmental Studies (0.50)",
         "required_count": 1,
         "courses": [
           "EARTH122",
           "ENVS195"
-        ]
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete 3 EARTH lecture courses at the 300-level or above.",
+        "required_count": 3,
+        "courses": [],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete 4 additional EARTH lecture courses.",
+        "required_count": 4,
+        "courses": [],
+        "list_name": "Required Courses"
       }
     ]
   },
   {
     "program_name": "Italian Studies Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete 1.0 unit of ITAL courses\nComplete 3.0 units of ITALST courses (see Additional Constraints)",
+        "required_count": 4,
+        "courses": [
+          "ITAL",
+          "ITALST"
+        ],
+        "list_name": "Complete all of the following"
+      }
+    ]
   },
   {
     "program_name": "Human Nutrition Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all of the following",
         "required_count": 2,
         "courses": [
           "BIOL373",
           "KIN146"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1022,7 +2195,8 @@
           "CHEM237",
           "HLTH217",
           "KIN217"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1030,7 +2204,8 @@
         "courses": [
           "KIN343",
           "KIN346"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -1049,7 +2224,8 @@
           "ECON391",
           "ECON392",
           "ECON393"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -1057,14 +2233,15 @@
     "program_name": "Event Management Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all of the following",
         "required_count": 4,
         "courses": [
           "REC215",
           "REC219",
           "REC319",
           "REC419"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 4 of the following",
@@ -1073,6 +2250,12 @@
           "AFM123",
           "ARBUS102",
           "ARBUS202",
+          "COMMST204",
+          "COMMST223",
+          "COMMST325",
+          "COMMST433",
+          "ENGL210F",
+          "ENGL210G",
           "ENGL295",
           "ENVS105",
           "HRM200",
@@ -1086,7 +2269,8 @@
           "PSYCH340",
           "REC218",
           "REC356"
-        ]
+        ],
+        "list_name": "Elective Courses"
       }
     ]
   },
@@ -1099,7 +2283,8 @@
         "courses": [
           "FINE100",
           "VCULT101"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1112,7 +2297,8 @@
           "VCULT216",
           "VCULT257",
           "VCULT293"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
         "list_description": "Complete 5 of the following",
@@ -1138,7 +2324,8 @@
           "FINE271",
           "FINE272",
           "VCULT293"
-        ]
+        ],
+        "list_name": "List 3"
       }
     ]
   },
@@ -1146,13 +2333,30 @@
     "program_name": "Entrepreneurship Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: BET100 - Foundations of Entrepreneurial Practice (0.50), BET320 - Entrepreneurial Strategy (0.50), BET340 - Essentials of Entrepreneurial Planning and Execution (0.50)",
         "required_count": 3,
         "courses": [
           "BET100",
           "BET320",
           "BET340"
-        ]
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete at least 3 additional BET courses",
+        "required_count": 3,
+        "courses": [
+          "BET100",
+          "BET320",
+          "BET340"
+        ],
+        "list_name": "Complete at least 3 additional BET courses"
+      },
+      {
+        "list_description": "Complete up to 2 additional BET courses, or courses at the 300- or 400-level in an area related to an entrepreneurial endeavor or entrepreneurship, as approved by the Conrad associate director, undergraduate studies",
+        "required_count": 2,
+        "courses": [],
+        "list_name": "Complete up to 2 additional BET courses, or courses at the 300- or 400-level in an area related to an entrepreneurial endeavor or entrepreneurship, as approved by the Conrad associate director, undergraduate studies"
       }
     ]
   },
@@ -1160,14 +2364,15 @@
     "program_name": "Medieval Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 4,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "CLAS105",
           "HIST115",
           "MEDVL105",
           "MEDVL115"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1178,7 +2383,24 @@
           "MEDVL205",
           "MEDVL252",
           "MEDVL260"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete 3.0 units from the course lists below",
+        "required_count": 3,
+        "courses": [
+          "CLAS105",
+          "HIST115",
+          "MEDVL105",
+          "MEDVL115",
+          "CLAS205",
+          "HIST260",
+          "MEDVL205",
+          "MEDVL252",
+          "MEDVL260"
+        ],
+        "list_name": "Complete 3.0 units from the course lists below"
       }
     ]
   },
@@ -1186,41 +2408,352 @@
     "program_name": "Computer Science Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "CS115",
           "CS135",
           "CS145"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
+        "list_description": "Complete all the following",
+        "required_count": 2,
         "courses": [
-          "CS136"
-        ]
+          "CS136",
+          "CS136L",
+          "CS146"
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete all the following",
         "required_count": 1,
         "courses": [
+          "CS136L",
           "CS146"
-        ]
+        ],
+        "list_name": "Complete all the following"
       },
       {
         "list_description": "Complete 1 of the following",
         "required_count": 1,
         "courses": [
           "MATH239",
-          "MATH249",
+          "MATH249"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete 1 additional CS course from CS 340-CS 398, CS 440-CS 498",
+        "required_count": 1,
+        "courses": [
           "CS340",
+          "CS341",
+          "CS342",
+          "CS343",
+          "CS344",
+          "CS345",
+          "CS346",
+          "CS347",
+          "CS348",
+          "CS349",
+          "CS350",
+          "CS351",
+          "CS352",
+          "CS353",
+          "CS354",
+          "CS355",
+          "CS356",
+          "CS357",
+          "CS358",
+          "CS359",
+          "CS360",
+          "CS361",
+          "CS362",
+          "CS363",
+          "CS364",
+          "CS365",
+          "CS366",
+          "CS367",
+          "CS368",
+          "CS369",
+          "CS370",
+          "CS371",
+          "CS372",
+          "CS373",
+          "CS374",
+          "CS375",
+          "CS376",
+          "CS377",
+          "CS378",
+          "CS379",
+          "CS380",
+          "CS381",
+          "CS382",
+          "CS383",
+          "CS384",
+          "CS385",
+          "CS386",
+          "CS387",
+          "CS388",
+          "CS389",
+          "CS390",
+          "CS391",
+          "CS392",
+          "CS393",
+          "CS394",
+          "CS395",
+          "CS396",
+          "CS397",
           "CS398",
           "CS440",
-          "CS498",
+          "CS441",
+          "CS442",
+          "CS443",
+          "CS444",
+          "CS445",
+          "CS446",
+          "CS447",
+          "CS448",
+          "CS449",
+          "CS450",
+          "CS451",
+          "CS452",
+          "CS453",
+          "CS454",
+          "CS455",
+          "CS456",
+          "CS457",
+          "CS458",
+          "CS459",
+          "CS460",
+          "CS461",
+          "CS462",
+          "CS463",
+          "CS464",
+          "CS465",
+          "CS466",
+          "CS467",
+          "CS468",
+          "CS469",
+          "CS470",
+          "CS471",
+          "CS472",
+          "CS473",
+          "CS474",
+          "CS475",
+          "CS476",
+          "CS477",
+          "CS478",
+          "CS479",
+          "CS480",
+          "CS481",
+          "CS482",
+          "CS483",
+          "CS484",
+          "CS485",
+          "CS486",
+          "CS487",
+          "CS488",
+          "CS489",
+          "CS490",
+          "CS491",
+          "CS492",
+          "CS493",
+          "CS494",
+          "CS495",
+          "CS496",
+          "CS497",
+          "CS498"
+        ],
+        "list_name": "Complete 1 additional CS course from CS 340-CS 398, CS 440-CS 498"
+      },
+      {
+        "list_description": "Complete 5 additional CS courses from CS 240-CS 299, CS 340-CS 398, CS 440-CS 498",
+        "required_count": 5,
+        "courses": [
           "CS240",
-          "CS299"
-        ]
+          "CS241",
+          "CS242",
+          "CS243",
+          "CS244",
+          "CS245",
+          "CS246",
+          "CS247",
+          "CS248",
+          "CS249",
+          "CS250",
+          "CS251",
+          "CS252",
+          "CS253",
+          "CS254",
+          "CS255",
+          "CS256",
+          "CS257",
+          "CS258",
+          "CS259",
+          "CS260",
+          "CS261",
+          "CS262",
+          "CS263",
+          "CS264",
+          "CS265",
+          "CS266",
+          "CS267",
+          "CS268",
+          "CS269",
+          "CS270",
+          "CS271",
+          "CS272",
+          "CS273",
+          "CS274",
+          "CS275",
+          "CS276",
+          "CS277",
+          "CS278",
+          "CS279",
+          "CS280",
+          "CS281",
+          "CS282",
+          "CS283",
+          "CS284",
+          "CS285",
+          "CS286",
+          "CS287",
+          "CS288",
+          "CS289",
+          "CS290",
+          "CS291",
+          "CS292",
+          "CS293",
+          "CS294",
+          "CS295",
+          "CS296",
+          "CS297",
+          "CS298",
+          "CS299",
+          "CS340",
+          "CS341",
+          "CS342",
+          "CS343",
+          "CS344",
+          "CS345",
+          "CS346",
+          "CS347",
+          "CS348",
+          "CS349",
+          "CS350",
+          "CS351",
+          "CS352",
+          "CS353",
+          "CS354",
+          "CS355",
+          "CS356",
+          "CS357",
+          "CS358",
+          "CS359",
+          "CS360",
+          "CS361",
+          "CS362",
+          "CS363",
+          "CS364",
+          "CS365",
+          "CS366",
+          "CS367",
+          "CS368",
+          "CS369",
+          "CS370",
+          "CS371",
+          "CS372",
+          "CS373",
+          "CS374",
+          "CS375",
+          "CS376",
+          "CS377",
+          "CS378",
+          "CS379",
+          "CS380",
+          "CS381",
+          "CS382",
+          "CS383",
+          "CS384",
+          "CS385",
+          "CS386",
+          "CS387",
+          "CS388",
+          "CS389",
+          "CS390",
+          "CS391",
+          "CS392",
+          "CS393",
+          "CS394",
+          "CS395",
+          "CS396",
+          "CS397",
+          "CS398",
+          "CS440",
+          "CS441",
+          "CS442",
+          "CS443",
+          "CS444",
+          "CS445",
+          "CS446",
+          "CS447",
+          "CS448",
+          "CS449",
+          "CS450",
+          "CS451",
+          "CS452",
+          "CS453",
+          "CS454",
+          "CS455",
+          "CS456",
+          "CS457",
+          "CS458",
+          "CS459",
+          "CS460",
+          "CS461",
+          "CS462",
+          "CS463",
+          "CS464",
+          "CS465",
+          "CS466",
+          "CS467",
+          "CS468",
+          "CS469",
+          "CS470",
+          "CS471",
+          "CS472",
+          "CS473",
+          "CS474",
+          "CS475",
+          "CS476",
+          "CS477",
+          "CS478",
+          "CS479",
+          "CS480",
+          "CS481",
+          "CS482",
+          "CS483",
+          "CS484",
+          "CS485",
+          "CS486",
+          "CS487",
+          "CS488",
+          "CS489",
+          "CS490",
+          "CS491",
+          "CS492",
+          "CS493",
+          "CS494",
+          "CS495",
+          "CS496",
+          "CS497",
+          "CS498"
+        ],
+        "list_name": "Complete 5 additional CS courses from CS 240-CS 299, CS 340-CS 398, CS 440-CS 498"
       }
     ]
   },
@@ -1228,13 +2761,14 @@
     "program_name": "Catholic Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all of the following",
         "required_count": 3,
         "courses": [
           "RCS110",
           "RCS150",
           "RCS225"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1242,7 +2776,8 @@
         "courses": [
           "RCS348",
           "RCS354"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -1254,7 +2789,8 @@
           "RCS245",
           "RCS251",
           "RCS283"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -1274,13 +2810,23 @@
           "LS236",
           "MEDVL115",
           "MEDVL304",
+          "PHIL204J",
+          "PHIL210J",
+          "PHIL218J",
+          "PHIL219J",
+          "PHIL230J",
+          "PHIL305J",
+          "PHIL319J",
           "PHIL382",
           "PHIL384",
+          "PHIL450J",
+          "PHIL451J",
           "RCS228",
           "RCS240",
           "RCS253",
           "RCS342"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -1288,38 +2834,42 @@
     "program_name": "Canadian Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: CDNST101 - Introduction to Canadian Studies (0.50)",
         "required_count": 1,
         "courses": [
           "CDNST101"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "CDNST201 - The Indigenous Experience in Canada (0.50)",
         "required_count": 1,
         "courses": [
           "CDNST201",
           "INDG201"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "CDNST211 - Canada: Conflict and Unity (0.50)",
         "required_count": 1,
         "courses": [
           "CDNST211",
           "CDNST212"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "HIST253 - Canada: Cultures and Conflicts in the Colonial Era (0.50)",
         "required_count": 1,
         "courses": [
           "HIST253",
           "HIST254"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 4 of the following",
+        "list_description": "ANTH272 - Issues in Contemporary Indigenous Communities in Canada (0.50)",
         "required_count": 4,
         "courses": [
           "ANTH272",
@@ -1343,7 +2893,8 @@
           "PSCI360",
           "PSCI461",
           "VCULT216"
-        ]
+        ],
+        "list_name": "Complete 4 of the following"
       }
     ]
   },
@@ -1351,8 +2902,8 @@
     "program_name": "Pure Mathematics Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 6,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "MATH103",
           "MATH106",
@@ -1360,7 +2911,8 @@
           "MATH115",
           "MATH136",
           "MATH146"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1372,7 +2924,8 @@
           "MATH127",
           "MATH137",
           "MATH147"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1383,7 +2936,220 @@
           "MATH128",
           "MATH138",
           "MATH148"
-        ]
+        ],
+        "list_name": "List 3"
+      },
+      {
+        "list_description": "Complete 5 additional PMATH courses",
+        "required_count": 5,
+        "courses": [
+          "PMATH1",
+          "PMATH2",
+          "PMATH3",
+          "PMATH4",
+          "PMATH5",
+          "PMATH6",
+          "PMATH7",
+          "PMATH8",
+          "PMATH9",
+          "PMATH10",
+          "PMATH11",
+          "PMATH12",
+          "PMATH13",
+          "PMATH14",
+          "PMATH15",
+          "PMATH16",
+          "PMATH17",
+          "PMATH18",
+          "PMATH19",
+          "PMATH20",
+          "PMATH21",
+          "PMATH22",
+          "PMATH23",
+          "PMATH24",
+          "PMATH25",
+          "PMATH26",
+          "PMATH27",
+          "PMATH28",
+          "PMATH29",
+          "PMATH30",
+          "PMATH31",
+          "PMATH32",
+          "PMATH33",
+          "PMATH34",
+          "PMATH35",
+          "PMATH36",
+          "PMATH37",
+          "PMATH38",
+          "PMATH39",
+          "PMATH40",
+          "PMATH41",
+          "PMATH42",
+          "PMATH43",
+          "PMATH44",
+          "PMATH45",
+          "PMATH46",
+          "PMATH47",
+          "PMATH48",
+          "PMATH49",
+          "PMATH50",
+          "PMATH51",
+          "PMATH52",
+          "PMATH53",
+          "PMATH54",
+          "PMATH55",
+          "PMATH56",
+          "PMATH57",
+          "PMATH58",
+          "PMATH59",
+          "PMATH60",
+          "PMATH61",
+          "PMATH62",
+          "PMATH63",
+          "PMATH64",
+          "PMATH65",
+          "PMATH66",
+          "PMATH67",
+          "PMATH68",
+          "PMATH69",
+          "PMATH70",
+          "PMATH71",
+          "PMATH72",
+          "PMATH73",
+          "PMATH74",
+          "PMATH75",
+          "PMATH76",
+          "PMATH77",
+          "PMATH78",
+          "PMATH79",
+          "PMATH80",
+          "PMATH81",
+          "PMATH82",
+          "PMATH83",
+          "PMATH84",
+          "PMATH85",
+          "PMATH86",
+          "PMATH87",
+          "PMATH88",
+          "PMATH89",
+          "PMATH90",
+          "PMATH91",
+          "PMATH92",
+          "PMATH93",
+          "PMATH94",
+          "PMATH95",
+          "PMATH96",
+          "PMATH97",
+          "PMATH98",
+          "PMATH99"
+        ],
+        "list_name": "List 4"
+      },
+      {
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
+        "courses": [
+          "PMATH1",
+          "PMATH2",
+          "PMATH3",
+          "PMATH4",
+          "PMATH5",
+          "PMATH6",
+          "PMATH7",
+          "PMATH8",
+          "PMATH9",
+          "PMATH10",
+          "PMATH11",
+          "PMATH12",
+          "PMATH13",
+          "PMATH14",
+          "PMATH15",
+          "PMATH16",
+          "PMATH17",
+          "PMATH18",
+          "PMATH19",
+          "PMATH20",
+          "PMATH21",
+          "PMATH22",
+          "PMATH23",
+          "PMATH24",
+          "PMATH25",
+          "PMATH26",
+          "PMATH27",
+          "PMATH28",
+          "PMATH29",
+          "PMATH30",
+          "PMATH31",
+          "PMATH32",
+          "PMATH33",
+          "PMATH34",
+          "PMATH35",
+          "PMATH36",
+          "PMATH37",
+          "PMATH38",
+          "PMATH39",
+          "PMATH40",
+          "PMATH41",
+          "PMATH42",
+          "PMATH43",
+          "PMATH44",
+          "PMATH45",
+          "PMATH46",
+          "PMATH47",
+          "PMATH48",
+          "PMATH49",
+          "PMATH50",
+          "PMATH51",
+          "PMATH52",
+          "PMATH53",
+          "PMATH54",
+          "PMATH55",
+          "PMATH56",
+          "PMATH57",
+          "PMATH58",
+          "PMATH59",
+          "PMATH60",
+          "PMATH61",
+          "PMATH62",
+          "PMATH63",
+          "PMATH64",
+          "PMATH65",
+          "PMATH66",
+          "PMATH67",
+          "PMATH68",
+          "PMATH69",
+          "PMATH70",
+          "PMATH71",
+          "PMATH72",
+          "PMATH73",
+          "PMATH74",
+          "PMATH75",
+          "PMATH76",
+          "PMATH77",
+          "PMATH78",
+          "PMATH79",
+          "PMATH80",
+          "PMATH81",
+          "PMATH82",
+          "PMATH83",
+          "PMATH84",
+          "PMATH85",
+          "PMATH86",
+          "PMATH87",
+          "PMATH88",
+          "PMATH89",
+          "PMATH90",
+          "PMATH91",
+          "PMATH92",
+          "PMATH93",
+          "PMATH94",
+          "PMATH95",
+          "PMATH96",
+          "PMATH97",
+          "PMATH98",
+          "PMATH99"
+        ],
+        "list_name": "List 5"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1395,7 +3161,8 @@
           "MATH227",
           "MATH237",
           "MATH247"
-        ]
+        ],
+        "list_name": "List 6"
       }
     ]
   },
@@ -1403,13 +3170,14 @@
     "program_name": "Mennonite Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all of the following",
         "required_count": 3,
         "courses": [
           "HIST247",
           "MENN125",
           "SOC275"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1417,7 +3185,8 @@
         "courses": [
           "HIST348",
           "RCS344"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 4 of the following",
@@ -1448,7 +3217,8 @@
           "RCS353",
           "RCS357",
           "RCS358"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -1456,47 +3226,31 @@
     "program_name": "Cognitive Science Minor",
     "course_lists": [
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
-          "PHIL256",
-          "PSYCH256"
-        ]
-      },
-      {
         "list_description": "Complete 3 of the following",
         "required_count": 3,
         "courses": [
           "BIOL487",
+          "COGSCI300",
           "CS486",
+          "ECE457A",
           "PHIL356",
           "PSYCH420",
           "SYDE522",
           "SYDE552",
-          "SYDE556"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
-          "FR303"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "SYDE556",
+          "ENGL306A",
+          "FR303",
           "PHIL447",
-          "PSYCH447"
-        ]
+          "PSYCH447",
+          "PSYCH207",
+          "PSYCH261"
+        ],
+        "list_name": "List 1"
       },
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
+        "list_description": "Choose any of the following",
+        "required_count": 2,
         "courses": [
-          "PSYCH207",
-          "PSYCH261",
           "AMATH449",
           "ANTH204",
           "CS349",
@@ -1505,7 +3259,11 @@
           "CS480",
           "CS484",
           "CS485",
+          "ECE457B",
           "ECE486",
+          "ENGL309A",
+          "ENGL392B",
+          "ENGL409A",
           "INTEG220",
           "INTEG251",
           "KIN255",
@@ -1521,6 +3279,7 @@
           "PHIL290",
           "PHIL363",
           "PSYCH101",
+          "PSYCH101R",
           "PSYCH306",
           "PSYCH307",
           "PSYCH314",
@@ -1533,19 +3292,228 @@
           "SYDE543",
           "SYDE548",
           "SYDE572"
-        ]
+        ],
+        "list_name": "List 2"
       }
     ]
   },
   {
     "program_name": "Political Science Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete 1.0 unit of PSCI courses at the 300-level or above and Complete 3.0 additional units of PSCI courses at any level",
+        "required_count": 4,
+        "courses": [
+          "PSCI300",
+          "PSCI301",
+          "PSCI302",
+          "PSCI303",
+          "PSCI304",
+          "PSCI305",
+          "PSCI306",
+          "PSCI307",
+          "PSCI308",
+          "PSCI309",
+          "PSCI310",
+          "PSCI311",
+          "PSCI312",
+          "PSCI313",
+          "PSCI314",
+          "PSCI315",
+          "PSCI316",
+          "PSCI317",
+          "PSCI318",
+          "PSCI319",
+          "PSCI320",
+          "PSCI321",
+          "PSCI322",
+          "PSCI323",
+          "PSCI324",
+          "PSCI325",
+          "PSCI326",
+          "PSCI327",
+          "PSCI328",
+          "PSCI329",
+          "PSCI330",
+          "PSCI331",
+          "PSCI332",
+          "PSCI333",
+          "PSCI334",
+          "PSCI335",
+          "PSCI336",
+          "PSCI337",
+          "PSCI338",
+          "PSCI339",
+          "PSCI340",
+          "PSCI341",
+          "PSCI342",
+          "PSCI343",
+          "PSCI344",
+          "PSCI345",
+          "PSCI346",
+          "PSCI347",
+          "PSCI348",
+          "PSCI349",
+          "PSCI350",
+          "PSCI351",
+          "PSCI352",
+          "PSCI353",
+          "PSCI354",
+          "PSCI355",
+          "PSCI356",
+          "PSCI357",
+          "PSCI358",
+          "PSCI359",
+          "PSCI360",
+          "PSCI361",
+          "PSCI362",
+          "PSCI363",
+          "PSCI364",
+          "PSCI365",
+          "PSCI366",
+          "PSCI367",
+          "PSCI368",
+          "PSCI369",
+          "PSCI370",
+          "PSCI371",
+          "PSCI372",
+          "PSCI373",
+          "PSCI374",
+          "PSCI375",
+          "PSCI376",
+          "PSCI377",
+          "PSCI378",
+          "PSCI379",
+          "PSCI380",
+          "PSCI381",
+          "PSCI382",
+          "PSCI383",
+          "PSCI384",
+          "PSCI385",
+          "PSCI386",
+          "PSCI387",
+          "PSCI388",
+          "PSCI389",
+          "PSCI390",
+          "PSCI391",
+          "PSCI392",
+          "PSCI393",
+          "PSCI394",
+          "PSCI395",
+          "PSCI396",
+          "PSCI397",
+          "PSCI398",
+          "PSCI399",
+          "PSCI400",
+          "PSCI401",
+          "PSCI402",
+          "PSCI403",
+          "PSCI404",
+          "PSCI405",
+          "PSCI406",
+          "PSCI407",
+          "PSCI408",
+          "PSCI409",
+          "PSCI410",
+          "PSCI411",
+          "PSCI412",
+          "PSCI413",
+          "PSCI414",
+          "PSCI415",
+          "PSCI416",
+          "PSCI417",
+          "PSCI418",
+          "PSCI419",
+          "PSCI420",
+          "PSCI421",
+          "PSCI422",
+          "PSCI423",
+          "PSCI424",
+          "PSCI425",
+          "PSCI426",
+          "PSCI427",
+          "PSCI428",
+          "PSCI429",
+          "PSCI430",
+          "PSCI431",
+          "PSCI432",
+          "PSCI433",
+          "PSCI434",
+          "PSCI435",
+          "PSCI436",
+          "PSCI437",
+          "PSCI438",
+          "PSCI439",
+          "PSCI440",
+          "PSCI441",
+          "PSCI442",
+          "PSCI443",
+          "PSCI444",
+          "PSCI445",
+          "PSCI446",
+          "PSCI447",
+          "PSCI448",
+          "PSCI449",
+          "PSCI450",
+          "PSCI451",
+          "PSCI452",
+          "PSCI453",
+          "PSCI454",
+          "PSCI455",
+          "PSCI456",
+          "PSCI457",
+          "PSCI458",
+          "PSCI459",
+          "PSCI460",
+          "PSCI461",
+          "PSCI462",
+          "PSCI463",
+          "PSCI464",
+          "PSCI465",
+          "PSCI466",
+          "PSCI467",
+          "PSCI468",
+          "PSCI469",
+          "PSCI470",
+          "PSCI471",
+          "PSCI472",
+          "PSCI473",
+          "PSCI474",
+          "PSCI475",
+          "PSCI476",
+          "PSCI477",
+          "PSCI478",
+          "PSCI479",
+          "PSCI480",
+          "PSCI481",
+          "PSCI482",
+          "PSCI483",
+          "PSCI484",
+          "PSCI485",
+          "PSCI486",
+          "PSCI487",
+          "PSCI488",
+          "PSCI489",
+          "PSCI490",
+          "PSCI491",
+          "PSCI492",
+          "PSCI493",
+          "PSCI494",
+          "PSCI495",
+          "PSCI496",
+          "PSCI497",
+          "PSCI498",
+          "PSCI499"
+        ],
+        "list_name": "Complete all of the following"
+      }
+    ]
   },
   {
     "program_name": "Actuarial Science Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: ACTSC231 - Introductory Financial Mathematics (0.50), ACTSC232 - Life Contingencies 1 (0.50), AFM101 - Introduction to Financial Accounting (0.50), MTHEL131 - Introduction to Actuarial Practice (0.50), STAT330 - Mathematical Statistics (0.50), STAT333 - Stochastic Processes 1 (0.50)",
         "required_count": 6,
         "courses": [
           "ACTSC231",
@@ -1554,59 +3522,77 @@
           "MTHEL131",
           "STAT330",
           "STAT333"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: MATH237 - Calculus 3 for Honours Mathematics (0.50), MATH247 - Calculus 3 (Advanced Level) (0.50)",
         "required_count": 1,
         "courses": [
           "MATH237",
           "MATH247"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: ACTSC331 - Life Contingencies 2 (0.50), ACTSC363 - Casualty and Health Insurance Mathematics 1 (0.50), ACTSC372 - Investment Science and Corporate Finance (0.50)",
         "required_count": 2,
         "courses": [
           "ACTSC331",
           "ACTSC363",
           "ACTSC372"
-        ]
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete 1 additional ACTSC course at the 400-level",
+        "required_count": 1,
+        "courses": [
+          "ACTSC4XX"
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
   {
     "program_name": "Classical Studies Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete a total of 4.0 units of CLAS, GRK, or LAT courses",
+        "required_count": 4,
+        "courses": [
+          "CLAS",
+          "GRK",
+          "LAT"
+        ],
+        "list_name": "List 1"
+      }
+    ]
   },
   {
     "program_name": "Management Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 4,
+        "list_description": "Complete all of the following",
+        "required_count": 3,
         "courses": [
           "ARBUS200",
           "ARBUS300",
           "ARBUS400",
           "ECON101"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
         "required_count": 1,
         "courses": [
           "AFM101",
-          "AFM102"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "AFM102",
           "AFM123",
           "ARBUS102"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1614,7 +3600,8 @@
         "courses": [
           "ARBUS302",
           "MGMT244"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1630,6 +3617,7 @@
           "PSCI314",
           "PSYCH292",
           "REC371",
+          "SDS250R",
           "SRF230",
           "SOC280",
           "STAT202",
@@ -1638,7 +3626,8 @@
           "STAT221",
           "STAT231",
           "STAT241"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1647,7 +3636,8 @@
           "HRM200",
           "MSE211",
           "PSYCH238"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -1655,29 +3645,48 @@
     "program_name": "East Asian Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 19,
+        "list_description": "Complete 2 language courses from the following subject codes: CHINA, JAPAN, KOREA",
+        "required_count": 2,
         "courses": [
-          "ANTH382",
-          "GEOG215",
-          "GSJ301",
-          "HIST239",
-          "PSCI259",
-          "PSCI277",
-          "PSCI310",
-          "PSCI358",
-          "PSCI385",
-          "PSCI405",
-          "PSCI479",
-          "PSCI480",
-          "RCS100",
-          "RCS123",
-          "RCS201",
-          "RCS204",
-          "RCS206",
-          "RCS301",
-          "RCS307"
-        ]
+          "CHINA",
+          "JAPAN",
+          "KOREA"
+        ],
+        "list_name": "List 1"
+      },
+      {
+        "list_description": "Complete 1.0 unit of additional EASIA courses",
+        "required_count": 1,
+        "courses": [
+          "EASIA120R",
+          "EASIA205R",
+          "EASIA206R",
+          "EASIA207R",
+          "EASIA220R",
+          "EASIA277R",
+          "EASIA300R",
+          "EASIA302R",
+          "EASIA377R",
+          "EASIA382R"
+        ],
+        "list_name": "List 2"
+      },
+      {
+        "list_description": "Choose any of the following: ANTH382 - Anthropology of East Asia (0.50), EASIA120R - Monsters and Magic in Japanese Popular Culture (0.50), EASIA205R - Religions of East Asia (0.50), EASIA206R - Japanese Religion and Spirituality (0.50), EASIA207R - Buddhism (0.50), EASIA220R - The History of East Asian Communities in Canada (0.50), EASIA277R - International Relations of East Asia (0.50), EASIA300R - Politics and Diplomacy of Contemporary Japan (0.50), EASIA302R - Chinese Foreign Policy Since 1949 (0.50), EASIA377R - Cold War in East Asia (0.50), EASIA382R - Anthropology of East Asia (0.50), GEOG215 - China: Diverse and Dynamic (0.50), GSJ301 - Socially Engaged Buddhism (0.50), HIST231R - The History of East Asian Communities in Canada (0.50), HIST239 - History of Modern China, 1911 to the Present (0.50), HIST377R - Cold War in East Asia (0.50), PSCI259 - Government and Politics of Asia (0.50), PSCI277 - International Relations of East Asia (0.50), PSCI310 - Politics and Diplomacy of Contemporary Japan (0.50), PSCI358 - Political Change in China (0.50), PSCI385 - Chinese Foreign Policy Since 1949 (0.50), PSCI405 - Chinese Political Economy (0.50), PSCI479 - International Political Economy of Asia (0.50), PSCI480 - China and Global Governance (0.50), RCS100 - Religions of Asia (0.50), RCS123 - Monsters and Magic in Japanese Popular Culture (0.50), RCS201 - Religions of East Asia (0.50), RCS204 - Buddhism (0.50), RCS206 - Japanese Religion and Spirituality (0.50), RCS301 - Socially Engaged Buddhism (0.50), RCS307 - Buddhism in North America (0.50)",
+        "required_count": 0,
+        "courses": [],
+        "list_name": "List 3"
+      },
+      {
+        "list_description": "Choose any additional course from the following subject codes: CHINA, EASIA, JAPAN, KOREA",
+        "required_count": 1,
+        "courses": [
+          "CHINA",
+          "EASIA",
+          "JAPAN",
+          "KOREA"
+        ],
+        "list_name": "List 4"
       }
     ]
   },
@@ -1685,31 +3694,34 @@
     "program_name": "Indigenous Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: INDG301 - Critical Theories of Indigeneity in a Global Perspective (0.50)",
         "required_count": 1,
         "courses": [
           "INDG301"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ANTH272 - Issues in Contemporary Indigenous Communities in Canada (0.50)",
         "required_count": 1,
         "courses": [
           "ANTH272",
           "INDG272"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: CDNST201 - The Indigenous Experience in Canada (0.50)",
         "required_count": 1,
         "courses": [
           "CDNST201",
           "INDG201"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 12,
+        "list_description": "Complete 5 courses from any additional INDG course or from the list of courses below.",
+        "required_count": 5,
         "courses": [
           "ANTH233",
           "ENGL211",
@@ -1722,8 +3734,12 @@
           "LS462",
           "PSCI326",
           "PSCI362",
-          "PSCI462"
-        ]
+          "PSCI462",
+          "SDS311R",
+          "SDS411R",
+          "SDS421R"
+        ],
+        "list_name": "Complete all of the following"
       }
     ]
   },
@@ -1732,18 +3748,12 @@
     "course_lists": [
       {
         "list_description": "Complete all the following",
-        "required_count": 4,
+        "required_count": 5,
         "courses": [
           "BIOL239",
           "BIOL373",
           "KIN308",
-          "KIN404"
-        ]
-      },
-      {
-        "list_description": "Complete 2 of the following",
-        "required_count": 2,
-        "courses": [
+          "KIN404",
           "BIOL341",
           "BIOL354",
           "BIOL355",
@@ -1752,13 +3762,7 @@
           "BIOL472",
           "BIOL473",
           "BIOL476",
-          "GERON355"
-        ]
-      },
-      {
-        "list_description": "Complete 2 of the following",
-        "required_count": 2,
-        "courses": [
+          "GERON355",
           "GERON310",
           "HLTH310",
           "KIN301",
@@ -1770,27 +3774,18 @@
           "KIN406",
           "KIN407",
           "KIN416",
-          "KIN429"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "KIN429",
           "GSJ380",
           "HLTH380",
-          "PHIL226"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
+          "PHIL226",
+          "PHIL319J",
+          "PHIL321J",
           "PSYCH207",
           "PSYCH261",
           "PSYCH307",
           "PSYCH335"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       }
     ]
   },
@@ -1798,73 +3793,46 @@
     "program_name": "Cultural Identities Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
-        "courses": [
-          "CI100"
-        ]
+        "list_description": "Complete all the following: CI100 - Cultural Identities Today (0.50); Complete 1 of the following: ANTH233 - Inuit Cultures (0.50), ANTH272 - Issues in Contemporary Indigenous Communities in Canada (0.50), ENGL211 - First Nations, M\u00e9tis, and Inuit Literatures (0.50), ENGL318 - Contemporary Canadian Literature (0.50), FR276 - Introduction to French-Language Literatures and Cultures in Canada (0.50), FR375 - Quebec Literature (0.50), GSJ211 - First Nations, M\u00e9tis, and Inuit Literatures (0.50), HIST221 - Racism and Response in Canadian History (0.50), HIST247 - Mennonite History: A Survey (0.50), HIST269 - Indigenous Histories in Canada (0.50), HIST351 - Canada: The Immigrant Experience (0.50), HIST374 - Canada's Social History (0.50), INDG216 - Indigenous Visual Culture in Canada (0.50), INDG272 - Issues in Contemporary Indigenous Communities in Canada (0.50), INDG318 - Indigenous Worldviews and Spirituality (0.50), MENN125 - Who are the Mennonites? (0.50), RCS318 - Indigenous Worldviews and Spirituality (0.50), SOC256 - Ethnic and Racial Relations (0.50), SOC270 - International Migration (0.50), VCULT216 - Indigenous Visual Culture in Canada (0.50); Complete 1 of the following: CI200 - Transcultural Studies (0.50), GER200 - Transcultural Studies (0.50); Complete 1.0 unit of courses from any of the following subject codes: ARABIC, ASL, CHINA, CI, CROAT, DUTCH, EASIA, FR, GER, GRK, ITAL, ITALST, JAPAN, JS, KOREA, LAT, MOHAWK, PORT, REES, RUSS, SI, SPAN",
+        "required_count": 0,
+        "courses": [],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
+        "list_description": "Complete 1.5 additional units from the courses listed above or from List 1",
+        "required_count": 1.5,
         "courses": [
-          "ANTH233",
-          "ANTH272",
-          "ENGL211",
-          "ENGL318",
-          "FR276",
-          "FR375",
-          "GSJ211",
-          "HIST221",
-          "HIST247",
-          "HIST269",
-          "HIST351",
-          "HIST374",
-          "INDG216",
-          "INDG272",
-          "INDG318",
-          "MENN125",
-          "RCS318",
-          "SOC256",
-          "SOC270",
-          "VCULT216"
-        ]
-      },
-      {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
-        "courses": [
-          "CI200",
-          "GER200",
-          "ANTH202",
-          "ANTH221",
-          "ENGL280",
-          "ENGL291",
-          "ENGL322",
-          "ENGL463",
-          "GSJ221",
-          "GSJ261",
-          "GSJ262",
-          "GSJ463",
-          "HIST201",
-          "HIST224",
-          "HIST234",
-          "HIST271",
-          "HIST305",
-          "INDEV100",
-          "INDEV300",
-          "LS344",
-          "MUSIC110",
-          "MUSIC232",
-          "MUSIC355",
-          "PACS327",
-          "PACS328",
-          "PACS329",
-          "PHIL227",
-          "RCS245",
-          "RCS284",
-          "VCULT262"
-        ]
+          "ANTH202-SOCIALANDCULTURALANTHROPOLOGY(0.50)",
+          "ANTH221-LANGUAGEANDSOCIETY(0.50)",
+          "COMMST226-INTRODUCTIONTORACE,CULTURE,ANDCOMMUNICATION(0.50)",
+          "ENGL280-LITERATURESOFMIGRATION(0.50)",
+          "ENGL291-GLOBALLITERATURES(0.50)",
+          "ENGL322-POSTCOLONIALLITERATUREOFTHEAMERICAS(0.50)",
+          "ENGL463-POSTCOLONIALLITERATURES(0.50)",
+          "GSJ221-LANGUAGEANDSOCIETY(0.50)",
+          "GSJ261-GENDERANDTHEGREATRELIGIONS(0.50)",
+          "GSJ262-GLOBALQUEERCINEMA(0.50)",
+          "GSJ463-POSTCOLONIALLITERATURES(0.50)",
+          "HIST201-COLUMBUSANDAFTER:NEWWORLDSINTHEAMERICAS(0.50)",
+          "HIST224-FOOD,CULTURE,ANDHISTORY(0.50)",
+          "HIST234-THECATHOLICCHURCHINCANADA(0.50)",
+          "HIST271-GLOBALINDIGENOUSISSUES(0.50)",
+          "HIST305-HISTORICALMEMORYANDNATIONALIDENTITY(0.50)",
+          "INDEV100-INTRODUCTIONTOINTERNATIONALDEVELOPMENT(0.50)",
+          "INDEV300-CULTUREANDETHICS(0.50)",
+          "LS344-RESTORATIVEJUSTICE(0.50)",
+          "MUSIC110-HOWMUSICMATTERS(0.50)",
+          "MUSIC232-MUSICASAGLOBALPHENOMENON(0.50)",
+          "MUSIC355-MUSICANDCULTURETRAVELCOURSE(0.50)",
+          "PACS327-CULTURALAPPROACHESTOCONFLICTRESOLUTION(0.50)",
+          "PACS328-FAIRTRADE(0.50)",
+          "PACS329-RESTORATIVEJUSTICE(0.50)",
+          "PHIL227-CULTUREANDETHICS(0.50)",
+          "RCS245-THECATHOLICCHURCHINCANADA(0.50)",
+          "RCS284-GENDERANDTHEGREATRELIGIONS(0.50)",
+          "VCULT262-GLOBALQUEERCINEMA(0.50)"
+        ],
+        "list_name": "Complete 1.5 additional units from the courses listed above or from List 1"
       }
     ]
   },
@@ -1872,8 +3840,8 @@
     "program_name": "Applied Mathematics Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 6,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "MATH103",
           "MATH106",
@@ -1881,7 +3849,8 @@
           "MATH115",
           "MATH136",
           "MATH146"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1893,7 +3862,8 @@
           "MATH127",
           "MATH137",
           "MATH147"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1904,7 +3874,8 @@
           "MATH128",
           "MATH138",
           "MATH148"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1916,7 +3887,8 @@
           "MATH227",
           "MATH237",
           "MATH247"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -1929,7 +3901,22 @@
           "MATH213",
           "MATH218",
           "MATH228"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete 5 additional AMATH courses, at least 3 courses must be at the 300- or 400-level",
+        "required_count": 5,
+        "courses": [
+          "AMATH250",
+          "AMATH251",
+          "ECE205",
+          "MATH211",
+          "MATH213",
+          "MATH218",
+          "MATH228"
+        ],
+        "list_name": "Complete 5 additional AMATH courses, at least 3 courses must be at the 300- or 400-level"
       }
     ]
   },
@@ -1937,17 +3924,18 @@
     "program_name": "International Trade Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: ECON102 - Introduction to Macroeconomics (0.50), ECON231 - Introduction to International Economics (0.50), PSCI283 - International Political Economy (0.50), PSCI380 - Political Economy of International Trade (0.50)",
         "required_count": 4,
         "courses": [
           "ECON102",
           "ECON231",
           "PSCI283",
           "PSCI380"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: COMM103 - Principles of Economics (0.50), ECON100 - Principles of Economics (0.50), ECON101 - Introduction to Microeconomics (0.50), ECON201 - Microeconomic Theory for Business and Policy (0.50), ECON290 - Models of Choice in Competitive Markets (0.50)",
         "required_count": 1,
         "courses": [
           "COMM103",
@@ -1955,15 +3943,46 @@
           "ECON101",
           "ECON201",
           "ECON290"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: INTST101 - Introduction to International Studies (0.50), PSCI150 - Introduction to Global Politics (0.50)",
         "required_count": 1,
         "courses": [
           "INTST101",
           "PSCI150"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "Complete 1.0 unit in the same subject from the following language and culture subject codes: ARABIC, ASL, CHINA, CI, CROAT, DUTCH, EASIA, FR, GER, GRK, ITAL, ITALST, JAPAN, JS, KOREA, LAT, MOHAWK, PORT, REES, RUSS, SI, SPAN",
+        "required_count": 1,
+        "courses": [
+          "ARABIC",
+          "ASL",
+          "CHINA",
+          "CI",
+          "CROAT",
+          "DUTCH",
+          "EASIA",
+          "FR",
+          "GER",
+          "GRK",
+          "ITAL",
+          "ITALST",
+          "JAPAN",
+          "JS",
+          "KOREA",
+          "LAT",
+          "MOHAWK",
+          "PORT",
+          "REES",
+          "RUSS",
+          "SI",
+          "SPAN"
+        ],
+        "list_name": "Complete 1.0 unit in the same subject from the following language and culture subject codes"
       }
     ]
   },
@@ -1977,7 +3996,8 @@
           "PSCI231",
           "PSCI283",
           "PSCI300"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 3 of the following",
@@ -1992,7 +4012,8 @@
           "ECON290",
           "ECON351",
           "ECON371"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -2015,7 +4036,8 @@
           "PSCI479",
           "PSCI485",
           "PSCI488"
-        ]
+        ],
+        "list_name": "List 3"
       }
     ]
   },
@@ -2023,12 +4045,71 @@
     "program_name": "Performance Creation Minor",
     "course_lists": [
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete all the following: THPERF243 - Technical Production 1 (0.50), THPERF244 - Technical Production 2 (0.50)",
+        "required_count": 2,
+        "courses": [
+          "THPERF243",
+          "THPERF244"
+        ],
+        "list_name": "Complete all of the following"
+      },
+      {
+        "list_description": "THPERF282 - Gender and Performance (0.50), THPERF378 - Race and Performance (0.50)",
         "required_count": 1,
         "courses": [
+          "THPERF282",
+          "THPERF378"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "COMMST220 - Performance Studies (0.50), DAC246 - Design for Performance Media (0.50), DAC248 - Project Management in the Arts (0.50), THPERF220 - Performance Studies (0.50), THPERF221 - Performing Text (0.50), THPERF222 - Performing the Body (0.50), THPERF246 - Design for Performance Media (0.50), THPERF248 - Project Management in the Arts (0.50)",
+        "required_count": 1,
+        "courses": [
+          "COMMST220",
           "DAC246",
-          "DAC248"
-        ]
+          "DAC248",
+          "THPERF220",
+          "THPERF221",
+          "THPERF222",
+          "THPERF246",
+          "THPERF248"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "THPERF301 - Performance Creation (0.50), THPERF306 - Production Participation 3 (0.50), THPERF307 - Production Participation 4 (0.50), THPERF316 - Production Participation 5 (1.00), THPERF317 - Production Participation 6 (1.00), THPERF389 - Audience Engagement (0.50)",
+        "required_count": 1,
+        "courses": [
+          "THPERF301",
+          "THPERF306",
+          "THPERF307",
+          "THPERF316",
+          "THPERF317",
+          "THPERF389"
+        ],
+        "list_name": "Complete 1 of the following"
+      },
+      {
+        "list_description": "COMMST, DAC, THPERF",
+        "required_count": 1.5,
+        "courses": [
+          "COMMST220",
+          "DAC246",
+          "DAC248",
+          "THPERF220",
+          "THPERF221",
+          "THPERF222",
+          "THPERF246",
+          "THPERF248",
+          "THPERF301",
+          "THPERF306",
+          "THPERF307",
+          "THPERF316",
+          "THPERF317",
+          "THPERF389"
+        ],
+        "list_name": "Complete 1.5 additional units from the following subject codes"
       }
     ]
   },
@@ -2042,23 +4123,26 @@
           "INTEG120",
           "INTEG121",
           "INTEG340"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "INTEG220",
           "PHIL290"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "INTEG221",
           "PHIL291"
-        ]
+        ],
+        "list_name": "List 3"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -2067,7 +4151,18 @@
           "INTEG230",
           "INTEG320",
           "INTEG321"
-        ]
+        ],
+        "list_name": "List 4"
+      },
+      {
+        "list_description": "Complete 1.5 units of additional INTEG courses",
+        "required_count": 1.5,
+        "courses": [
+          "INTEG230",
+          "INTEG320",
+          "INTEG321"
+        ],
+        "list_name": "List 5"
       }
     ]
   },
@@ -2075,11 +4170,45 @@
     "program_name": "Communication Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete 4 of the following",
+        "required_count": 4,
         "courses": [
-          "BLKST224"
-        ]
+          "BLKST224",
+          "COMMST100",
+          "COMMST101",
+          "COMMST220",
+          "COMMST223",
+          "COMMST224",
+          "COMMST226",
+          "COMMST228",
+          "THPERF220",
+          "THPERF224"
+        ],
+        "list_name": "Complete 4 of the following"
+      },
+      {
+        "list_description": "Complete 0.5 unit at the 400-level from the following subject codes: COMMST, DAC",
+        "required_count": 0.5,
+        "courses": [
+          "COMMST4XX",
+          "DAC4XX"
+        ],
+        "list_name": "Complete 0.5 unit at the 400-level from the following subject codes: COMMST, DAC"
+      },
+      {
+        "list_description": "Complete 1.5 additional units at any level from the following subject codes: COMMST, DAC",
+        "required_count": 1.5,
+        "courses": [
+          "COMMST4XX",
+          "COMMST3XX",
+          "COMMST2XX",
+          "COMMST1XX",
+          "DAC4XX",
+          "DAC3XX",
+          "DAC2XX",
+          "DAC1XX"
+        ],
+        "list_name": "Complete 1.5 additional units at any level from the following subject codes: COMMST, DAC"
       }
     ]
   },
@@ -2087,13 +4216,14 @@
     "program_name": "Church Music and Worship Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "CMW363",
           "MUSIC363",
           "RCS357"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -2102,7 +4232,8 @@
           "CMW364",
           "MUSIC364",
           "RCS358"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -2110,15 +4241,17 @@
         "courses": [
           "CMW201",
           "CMW202"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete all the following",
-        "required_count": 2,
+        "required_count": 1,
         "courses": [
           "MUSIC116",
           "MUSIC117"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -2140,15 +4273,42 @@
           "RCS255",
           "RCS335",
           "RCS343",
-          "RCS344",
-          "RCS300",
-          "MUSIC216",
-          "MUSIC217",
-          "MUSIC316",
-          "MUSIC317",
-          "MUSIC416",
-          "MUSIC417"
-        ]
+          "RCS344"
+        ],
+        "list_name": "Complete 2 of the following"
+      },
+      {
+        "list_description": "Complete at least 1 courses from HIST or RCS 300 - 499",
+        "required_count": 1,
+        "courses": [
+          "HIST235",
+          "HIST348",
+          "HIST379",
+          "RCS110",
+          "RCS228",
+          "RCS235",
+          "RCS236",
+          "RCS240",
+          "RCS253",
+          "RCS255",
+          "RCS335",
+          "RCS343",
+          "RCS344"
+        ],
+        "list_name": "Complete at least 1 courses from HIST or RCS 300 - 499"
+      },
+      {
+        "list_description": "Complete at least 2 courses from MUSIC, excluding:",
+        "required_count": 2,
+        "courses": [
+          "MUSIC116",
+          "MUSIC117",
+          "MUSIC363",
+          "MUSIC364",
+          "RCS357",
+          "RCS358"
+        ],
+        "list_name": "Complete at least 2 courses from MUSIC, excluding:"
       }
     ]
   },
@@ -2158,19 +4318,74 @@
   },
   {
     "program_name": "Applied Language Studies Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete all the following: APPLS205R - Second Language Acquisition (0.50)",
+        "required_count": 1,
+        "courses": [
+          "APPLS205R"
+        ],
+        "list_name": "Complete all of the following"
+      },
+      {
+        "list_description": "Complete 3 additional APPLS courses",
+        "required_count": 3,
+        "courses": [],
+        "list_name": "Complete 3 additional APPLS courses"
+      },
+      {
+        "list_description": "Complete 2.0 units of language courses from the Approved Courses List below. See Additional Constraints",
+        "required_count": 2,
+        "courses": [],
+        "list_name": "Complete 2.0 units of language courses from the Approved Courses List below. See Additional Constraints"
+      }
+    ]
   },
   {
     "program_name": "Peace and Conflict Studies Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete 2 of the following",
+        "required_count": 2,
         "courses": [
           "PACS201",
           "PACS202",
           "PACS203"
-        ]
+        ],
+        "list_name": "Complete all of the following"
+      },
+      {
+        "list_description": "Complete 1.0 unit of PACS courses at the 300-level",
+        "required_count": 1,
+        "courses": [
+          "PACS300A",
+          "PACS300B",
+          "PACS300C",
+          "PACS300D",
+          "PACS300E",
+          "PACS300F",
+          "PACS300G",
+          "PACS300H",
+          "PACS300I",
+          "PACS300J",
+          "PACS300K",
+          "PACS300L",
+          "PACS300M",
+          "PACS300N",
+          "PACS300O",
+          "PACS300P",
+          "PACS300Q",
+          "PACS300R",
+          "PACS300S",
+          "PACS300T",
+          "PACS300U",
+          "PACS300V",
+          "PACS300W",
+          "PACS300X",
+          "PACS300Y",
+          "PACS300Z"
+        ],
+        "list_name": "Complete all of the following"
       }
     ]
   },
@@ -2178,8 +4393,8 @@
     "program_name": "International Development Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 7,
+        "list_description": "Complete all the following: ",
+        "required_count": 4,
         "courses": [
           "ERS215",
           "GEOG101",
@@ -2188,15 +4403,17 @@
           "INDEV101",
           "INDEV200",
           "INDEV300"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "INDEV302",
           "INDEV308"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       }
     ]
   },
@@ -2204,31 +4421,35 @@
     "program_name": "Computational Mathematics Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete 1 of the following",
+        "required_count": 1,
         "courses": [
           "AMATH242",
           "CS370",
           "CS371"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 12,
+        "list_description": "Complete 3 courses from the following choices",
+        "required_count": 3,
         "courses": [
           "AMATH342",
           "CS475",
           "CO250",
           "CO255",
           "CS245",
+          "CS245E",
           "PMATH330",
           "PMATH432",
           "SE212",
           "CS246",
+          "CS246E",
           "CS247",
           "STAT340",
           "STAT341"
-        ]
+        ],
+        "list_name": "Complete 3 courses from the following choices"
       },
       {
         "list_description": "Complete 3 of the following",
@@ -2272,7 +4493,8 @@
           "STAT441",
           "STAT442",
           "STAT444"
-        ]
+        ],
+        "list_name": "List 1"
       }
     ]
   },
@@ -2280,43 +4502,47 @@
     "program_name": "Human Resources Management Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: HRM200 - Basic Human Resources Management (0.50)",
         "required_count": 1,
         "courses": [
           "HRM200"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: AFM102 - Introduction to Managerial Accounting (0.50), AFM123 - Accounting Information for Managers (0.50), ARBUS102 - Accounting Information for Managers (0.50)",
         "required_count": 1,
         "courses": [
           "AFM102",
           "AFM123",
           "ARBUS102"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 3 of the following",
+        "list_description": "Complete 3 of the following: HRM301 - Strategic Human Resources Management (0.50), HRM303 - Compensation (0.50), HRM305 - Health and Safety (0.50), HRM307 - Labour Relations (0.50)",
         "required_count": 3,
         "courses": [
           "HRM301",
           "HRM303",
           "HRM305",
           "HRM307"
-        ]
+        ],
+        "list_name": "Complete 3 of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: PSYCH238 - Organizational Psychology (0.50), PSYCH339 - Personnel Psychology (0.50), PSYCH340 - Training and Development (0.50)",
         "required_count": 2,
         "courses": [
           "PSYCH238",
           "PSYCH339",
           "PSYCH340"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 6,
+        "list_description": "Complete 1 additional course from the courses listed above or from the following list of courses. Choose any of the following: HRM400 - Honours Seminar in Human Resources Management - Special Topics (0.50), LS271 - Conflict Resolution (0.50), MSE311 - Organizational Design and Technology (0.50), PACS202 - Conflict Resolution (0.50), PSYCH439 - Negotiation in the Workplace: Theory and Practice (0.50), PSYCH467 - Human Resources Apprenticeship (0.50)",
+        "required_count": 1,
         "courses": [
           "HRM400",
           "LS271",
@@ -2324,7 +4550,8 @@
           "PACS202",
           "PSYCH439",
           "PSYCH467"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       }
     ]
   },
@@ -2332,30 +4559,68 @@
     "program_name": "Digital Arts Communication Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 8,
+        "list_description": "Complete no more than 3 from the following: ",
+        "required_count": 2,
         "courses": [
+          "COMMST220",
+          "COMMST440",
           "DAC246",
           "DAC248",
           "DAC278",
+          "ENGL392A",
+          "ENGL392B",
+          "ENGL408A",
+          "ENGL408B",
           "ERS318",
           "FINE130",
           "FINE228",
           "FINE232",
-          "MUSIC275"
-        ]
+          "MUSIC275",
+          "THPERF220",
+          "THPERF243",
+          "THPERF246",
+          "THPERF248",
+          "THPERF278",
+          "THPERF374",
+          "THPERF379",
+          "THPERF440"
+        ],
+        "list_name": "Complete 2.5 units of DAC courses"
       }
     ]
   },
   {
     "program_name": "Social Development Studies Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete all the following:",
+        "required_count": 3,
+        "courses": [
+          "SDS131R",
+          "SDS150R",
+          "SOCWK120R"
+        ],
+        "list_name": "Complete all of the following"
+      },
+      {
+        "list_description": "Complete 1.0 additional unit of SDS courses at the 200-level or above",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 1.0 additional unit of SDS courses at the 200-level or above"
+      },
+      {
+        "list_description": "Complete 1.5 additional units from the approved courses list",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 1.5 additional units from the approved courses list"
+      }
+    ]
   },
   {
     "program_name": "Social Innovation and Impact Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: INNOV200 - Theory and Practice of Social Innovation and Impact (0.50), INNOV201 - Social Innovation for Global Impact (0.50), INNOV300 - Case Studies in Social Innovation for Impact (0.50), INNOV302 - Measuring and Evaluating Social Innovation for Impact (0.50), INNOV311 - Research for Social Impact (0.50), INNOV411 - Designing for Social Impact (0.50)",
         "required_count": 6,
         "courses": [
           "INNOV200",
@@ -2364,46 +4629,51 @@
           "INNOV302",
           "INNOV311",
           "INNOV411"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
-        "required_count": 1,
+        "list_description": "Complete 2 of the following: BET100 - Foundations of Entrepreneurial Practice (0.50), BET300 - Foundations of Venture Creation (0.50), BET360 - Design Frameworks for Social Ventures (0.50), BET420 - Entrepreneurship for Social Impact (0.50)",
+        "required_count": 2,
         "courses": [
           "BET100",
           "BET300",
           "BET360",
           "BET420"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: ENBUS203 - Green Entrepreneurship (0.50), ENBUS211 - Principles of Marketing for Sustainability Professionals (0.50), ENBUS309 - Behaviour Change and Sustainability (0.50)",
         "required_count": 2,
         "courses": [
           "ENBUS203",
           "ENBUS211",
           "ENBUS309"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: INDG201 - The Indigenous Experience in Canada (0.50), INDG272 - Issues in Contemporary Indigenous Communities in Canada (0.50), INDG305 - Indigenous Rights in Global Context (0.50), INDG318 - Indigenous Worldviews and Spirituality (0.50)",
         "required_count": 2,
         "courses": [
           "INDG201",
           "INDG272",
           "INDG305",
           "INDG318"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: REC201 - Introduction to Leisure, Equity, Diversity, and Inclusion for Just Communities (0.50), REC218 - Social Entrepreneurship for Change (0.50), REC356 - Leading Action for Community Change (0.50), REC361 - Aging and Leisure (0.50)",
         "required_count": 2,
         "courses": [
           "REC201",
           "REC218",
           "REC356",
           "REC361"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
       }
     ]
   },
@@ -2411,7 +4681,19 @@
     "program_name": "Indigenous Entrepreneurship Minor",
     "course_lists": [
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete all the following: ",
+        "required_count": 5,
+        "courses": [
+          "INDENT200",
+          "INDENT210",
+          "INDENT225",
+          "INDENT310",
+          "INDENT325"
+        ],
+        "list_name": "Required Courses"
+      },
+      {
+        "list_description": "Complete 2 of the following: ",
         "required_count": 2,
         "courses": [
           "ANTH272",
@@ -2426,16 +4708,19 @@
           "INDG301",
           "INDG318",
           "RCS318"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "COMM103",
           "ECON100",
-          "ECON101"
-        ]
+          "ECON101",
+          "INDENT320"
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -2443,15 +4728,16 @@
     "program_name": "Combinatorics and Optimization Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 2,
+        "list_description": "Complete 1 of the following: CO250 - Introduction to Optimization (0.50) or CO255 - Introduction to Optimization (Advanced Level) (0.50)",
+        "required_count": 1,
         "courses": [
           "CO250",
           "CO255"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 3 of the following",
+        "list_description": "Complete 3 of the following: CO330 - Combinatorial Enumeration (0.50), CO331 - Coding Theory (0.50), CO342 - Introduction to Graph Theory (0.50), CO351 - Network Flow Theory (0.50), CO353 - Computational Discrete Optimization (0.50), CO367 - Nonlinear Optimization (0.50), CO370 - Deterministic OR Models (0.50), CO372 - Portfolio Optimization Models (0.50), CO430 - Algebraic Enumeration (0.50), CO431 - Symmetric Functions (0.50), CO432 - Information Theory and Applications (0.50), CO434 - Combinatorial Designs (0.50), CO439 - Topics in Combinatorics (0.50), CO440 - Topics in Graph Theory (0.50), CO442 - Graph Theory (0.50), CO444 - Algebraic Graph Theory (0.50), CO446 - Matroid Theory (0.50), CO450 - Combinatorial Optimization (0.50), CO452 - Integer Programming (0.50), CO454 - Scheduling (0.50), CO456 - Introduction to Game Theory (0.50), CO459 - Topics in Optimization (0.50), CO463 - Convex Optimization and Analysis (0.50), CO466 - Continuous Optimization (0.50), CO471 - Semidefinite Optimization (0.50), CO481 - Introduction to Quantum Information Processing (0.50), CO485 - The Mathematics of Public-Key Cryptography (0.50), CO486 - Topics in Quantum Information (0.50), CO487 - Applied Cryptography (0.50), CS467 - Introduction to Quantum Information Processing (0.50), PHYS467 - Introduction to Quantum Information Processing (0.50)",
         "required_count": 3,
         "courses": [
           "CO330",
@@ -2485,10 +4771,11 @@
           "CO487",
           "CS467",
           "PHYS467"
-        ]
+        ],
+        "list_name": "Complete 3 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: MATH103 - Introductory Algebra for Arts and Social Science (0.50), MATH106 - Applied Linear Algebra 1 (0.50), MATH114 - Linear Algebra for Science (0.50), MATH115 - Linear Algebra for Engineering (0.50), MATH136 - Linear Algebra 1 for Honours Mathematics (0.50), MATH146 - Linear Algebra 1 (Advanced Level) (0.50)",
         "required_count": 1,
         "courses": [
           "MATH103",
@@ -2497,10 +4784,11 @@
           "MATH115",
           "MATH136",
           "MATH146"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: MATH104 - Introductory Calculus for Arts and Social Science (0.50), MATH116 - Calculus 1 for Engineering (0.50), MATH117 - Calculus 1 for Engineering (0.50), MATH127 - Calculus 1 for the Sciences (0.50), MATH137 - Calculus 1 for Honours Mathematics (0.50), MATH147 - Calculus 1 (Advanced Level) (0.50)",
         "required_count": 1,
         "courses": [
           "MATH104",
@@ -2509,23 +4797,26 @@
           "MATH127",
           "MATH137",
           "MATH147"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: MATH135 - Algebra for Honours Mathematics (0.50), MATH145 - Algebra (Advanced Level) (0.50)",
         "required_count": 1,
         "courses": [
           "MATH135",
           "MATH145"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: MATH239 - Introduction to Combinatorics (0.50), MATH249 - Introduction to Combinatorics (Advanced Level) (0.50)",
         "required_count": 1,
         "courses": [
           "MATH239",
           "MATH249"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       }
     ]
   },
@@ -2539,7 +4830,8 @@
           "KIN221",
           "KIN320",
           "KIN420"
-        ]
+        ],
+        "list_name": "List 1"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -2549,7 +4841,8 @@
           "KIN327",
           "KIN427",
           "KIN428"
-        ]
+        ],
+        "list_name": "List 2"
       },
       {
         "list_description": "Complete 6 of the following",
@@ -2574,7 +4867,8 @@
           "SYDE542",
           "SYDE543",
           "SYDE548"
-        ]
+        ],
+        "list_name": "List 3"
       }
     ]
   },
@@ -2582,18 +4876,49 @@
     "program_name": "English Language and Literature Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: ENGL251 - Literary Theory and Criticism (0.50)",
         "required_count": 1,
         "courses": [
           "ENGL251"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: ENGL200A - English Literatures 1 (0.50), ENGL200B - English Literatures 2 (0.50), ENGL200C - English Literatures 3 (0.50)",
         "required_count": 2,
         "courses": [
+          "ENGL200A",
+          "ENGL200B",
+          "ENGL200C"
+        ],
+        "list_name": "Complete 2 of the following"
+      },
+      {
+        "list_description": "Complete 0.5 additional unit of ENGL courses at the 300-level or above",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 0.5 additional unit of ENGL courses at the 300-level or above"
+      },
+      {
+        "list_description": "Complete 2.0 additional units of ENGL courses",
+        "required_count": 2,
+        "courses": [],
+        "list_name": "Complete 2.0 additional units of ENGL courses"
+      },
+      {
+        "list_description": "Complete no more than 2 from the following: COMMST323 - Speech Writing (0.50), ENGL210E - Genres of Technical Communication (0.50), ENGL210F - Genres of Business Communication (0.50), ENGL210G - Genres of Fundraising Communication (0.50), ENGL210H - Arts Writing (0.50), ENGL210I - Legal Writing (0.50), ENGL309E - Speech Writing (0.50), LS291 - Legal Writing (0.50)",
+        "required_count": 2,
+        "courses": [
+          "COMMST323",
+          "ENGL210E",
+          "ENGL210F",
+          "ENGL210G",
+          "ENGL210H",
+          "ENGL210I",
+          "ENGL309E",
           "LS291"
-        ]
+        ],
+        "list_name": "Complete no more than 2 from the following"
       }
     ]
   },
@@ -2606,11 +4931,12 @@
         "courses": [
           "RUSS101",
           "RUSS102"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete all the following",
-        "required_count": 7,
+        "list_description": "Complete 3.0 units from the courses listed below or from the following subject codes: CROAT, REES, RUSS",
+        "required_count": 3,
         "courses": [
           "HIST263",
           "HIST265",
@@ -2619,7 +4945,8 @@
           "HIST356",
           "PSCI353",
           "PSCI355"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -2627,33 +4954,51 @@
     "program_name": "Technical and Professional Writing Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 1,
+        "list_description": "Complete all the following: ENGL210E - Genres of Technical Communication (0.50), ENGL210J - Technical Editing (0.50), ENGL292 - Rhetorical Theory and Criticism (0.50), ENGL392A - Information Design (0.50)",
+        "required_count": 4,
         "courses": [
-          "ENGL292"
-        ]
+          "ENGL210E",
+          "ENGL210J",
+          "ENGL292",
+          "ENGL392A"
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: COMMST191 - Communication in the Engineering Profession (AE, CIVE, ENVE, GEOE) (0.50), COMMST192 - Communication in the Engineering Profession (COMPE, ELE, MGTE) (0.50), COMMST193 - Communication in the Sciences (0.50), ENGL109 - Introduction to Academic Writing (0.50), ENGL191 - Communication in the Engineering Profession (AE, CIVE, ENVE, GEOE) (0.50), ENGL192 - Communication in the Engineering Profession (COMPE, ELE, MGTE) (0.50), ENGL193 - Communication in the Sciences (0.50), ENGL210F - Genres of Business Communication (0.50), ENGL210G - Genres of Fundraising Communication (0.50), ENGL210H - Arts Writing (0.50), ENGL210I - Legal Writing (0.50), LS291 - Legal Writing (0.50)",
         "required_count": 2,
         "courses": [
+          "COMMST191",
+          "COMMST192",
+          "COMMST193",
           "ENGL109",
           "ENGL191",
           "ENGL192",
           "ENGL193",
+          "ENGL210F",
+          "ENGL210G",
+          "ENGL210H",
+          "ENGL210I",
           "LS291"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: ENGL293 - Introduction to Digital Media Studies (0.50), ENGL306B - How English Grammar Works (0.50), ENGL335 - Creative Writing 1 (0.50), ENGL371 - Editing Literary Works (0.50), ENGL392B - Visual Rhetoric (0.50), ENGL408A - Writing for the Media (0.50), ENGL408B - The Discourse of Advertising (0.50), ENGL408C - The Rhetoric of Digital Design: Theory and Practice (0.50), ENGL472 - Research Methods in Technical Communication (0.50), ENGL493 - Topics in Professional Writing and Communication Design (0.50)",
         "required_count": 2,
         "courses": [
           "ENGL293",
+          "ENGL306B",
           "ENGL335",
           "ENGL371",
+          "ENGL392B",
+          "ENGL408A",
+          "ENGL408B",
+          "ENGL408C",
           "ENGL472",
           "ENGL493"
-        ]
+        ],
+        "list_name": "Complete 2 of the following"
       }
     ]
   },
@@ -2661,11 +5006,12 @@
     "program_name": "Canadian Politics and Public Policy Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all of the following",
         "required_count": 1,
         "courses": [
           "PSCI100"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 1 of the following",
@@ -2673,7 +5019,8 @@
         "courses": [
           "LS206",
           "PSCI260"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 4 of the following",
@@ -2698,7 +5045,8 @@
           "PSCI463",
           "PSCI472",
           "SOC334"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
         "list_description": "Complete 2 of the following",
@@ -2712,8 +5060,16 @@
           "ECON441",
           "ECON457",
           "LS273",
-          "LS373"
-        ]
+          "LS373",
+          "SDS210R",
+          "SDS231R",
+          "SDS310R",
+          "SDS311R",
+          "SDS312R",
+          "SDS331R",
+          "SDS400R"
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
@@ -2721,11 +5077,30 @@
     "program_name": "Religion, Culture, and Spirituality Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: RCS260 - Religion Matters (0.50)",
         "required_count": 1,
         "courses": [
           "RCS260"
-        ]
+        ],
+        "list_name": "Complete all of the following"
+      },
+      {
+        "list_description": "Complete 1.0 additional unit of RCS courses at the 200-level",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 1.0 additional unit of RCS courses at the 200-level"
+      },
+      {
+        "list_description": "Complete 1.0 unit of RCS courses at the 300-level or above",
+        "required_count": 1,
+        "courses": [],
+        "list_name": "Complete 1.0 unit of RCS courses at the 300-level or above"
+      },
+      {
+        "list_description": "Complete 1.5 additional units of RCS courses",
+        "required_count": 3,
+        "courses": [],
+        "list_name": "Complete 1.5 additional units of RCS courses"
       }
     ]
   },
@@ -2733,56 +5108,89 @@
     "program_name": "Visual Culture in a Global Context Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following:",
         "required_count": 2,
         "courses": [
           "VCULT200",
           "VCULT300"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following:",
         "required_count": 1,
         "courses": [
           "VCULT100",
           "VCULT101"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       }
     ]
   },
   {
     "program_name": "Studies in Islamic and Arab Cultures Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete all the following: Complete all of the following",
+        "required_count": 2,
+        "courses": [
+          "SI121R",
+          "SI131R"
+        ],
+        "list_name": "Complete all of the following"
+      },
+      {
+        "list_description": "Complete 1.0 unit of ARABIC courses",
+        "required_count": 1,
+        "courses": [
+          "ARABIC"
+        ],
+        "list_name": "Complete 1.0 unit of ARABIC courses"
+      },
+      {
+        "list_description": "Complete 1.0 unit of additional SI courses",
+        "required_count": 1,
+        "courses": [
+          "SI"
+        ],
+        "list_name": "Complete 1.0 unit of additional SI courses"
+      }
+    ]
   },
   {
     "program_name": "Addictions, Mental Health, and Policy Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
-        "required_count": 3,
+        "list_description": "Complete all the following: HEALTH105 - Mental Health Literacy (0.50), HLTH290 - An Introduction to Health Neuroscience (0.50), HLTH358 - Social Neuroscience 1: Mental Health and Addiction (0.50), HLTH392 - Mental Health Systems and Policy (0.50)",
+        "required_count": 4,
         "courses": [
+          "HEALTH105",
           "HLTH290",
           "HLTH358",
           "HLTH392"
-        ]
+        ],
+        "list_name": "Complete all of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: GSJ260 - Social Determinants of Health (0.50), HLTH260 - Social Determinants of Health (0.50)",
         "required_count": 1,
         "courses": [
           "GSJ260",
           "HLTH260"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: PSYCH257 - Psychopathology (0.50), PSYCH257R - Psychopathology (0.50)",
         "required_count": 1,
         "courses": [
-          "PSYCH257"
-        ]
+          "PSYCH257",
+          "PSYCH257R"
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: BIOL361 - Biostatistics and Experimental Design (0.50), HLTH205 - Introduction to Health Research (0.50), HLTH333 - Principles of Epidemiology (0.50), LS221 - Research Methods (0.50), PSYCH291 - Basic Research Methods (0.50), REC373 - Qualitative Approaches to Leisure Research (0.50), SDS251R - Social Research (0.50), SOC221 - Research Methods (0.50)",
         "required_count": 1,
         "courses": [
           "BIOL361",
@@ -2791,11 +5199,13 @@
           "LS221",
           "PSYCH291",
           "REC373",
+          "SDS251R",
           "SOC221"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ARTS280 - Statistics for Arts Students (0.50), HLTH204 - Quantitative Approaches to Health Science (0.50), KIN232 - Research Design and Statistics (0.50), LS280 - Social Statistics (0.50), PSYCH292 - Basic Data Analysis (0.50), REC371 - Quantitative Data Analysis and Mobilization (0.50), SDS250R - Social Statistics (0.50), SOC280 - Social Statistics (0.50), STAT202 - Introductory Statistics for Scientists (0.50), STAT221 - Statistics (Non-Specialist Level) (0.50), STAT231 - Statistics (0.50)",
         "required_count": 1,
         "courses": [
           "ARTS280",
@@ -2804,20 +5214,24 @@
           "LS280",
           "PSYCH292",
           "REC371",
+          "SDS250R",
           "SOC280",
           "STAT202",
           "STAT221",
           "STAT231"
-        ]
+        ],
+        "list_name": "Complete 1 of the following"
       },
       {
-        "list_description": "Complete 2 of the following",
+        "list_description": "Complete 2 of the following: BIOL476 - Systems Neuroscience: From Neurons to Behaviour (0.50), HLTH373 - Contemporary Issues in Health 3 (0.50), HLTH410 - Health Policy (0.50), HLTH427 - Dementia Care (0.50), HLTH432A - Honours Thesis (A) (0.50), HLTH432B - Honours Thesis (B) (0.50), HLTH448 - Advanced Studies in Social Determinants of Health (0.50), HLTH449 - Substance use in Contemporary Society (0.50), HLTH458 - Social Neuroscience 2: Lifestyle and Chronic Illness (0.50), HLTH461 - Experimental Methods in Behavioural Neuroscience (0.50), HLTH465 - Epigenetics and Health (0.50), HLTH471 - Neuropharmacology (0.50), HLTH472 - Independent Study (0.50), HLTH473 - Contemporary Issues in Health 4 (0.50), HLTH479 - Child Mental Health Epidemiology (0.50), KIN431 - Research Proposal (0.50), KIN432 - Research Project (0.50), KIN433 - Senior Essay (0.50), KIN472 - Directed Study in Special Topics (0.50), LS226 - Sociology of Mental Disorder (0.50), PSYCH317 - Child Psychopathology (0.50), PSYCH335 - Developmental Neuropsychology (0.50), PSYCH451 - Honours Seminar - Child and Adolescent Psychopathology (0.50), PSYCH483 - Directed Studies - Natural Science Research (0.50), PSYCH484 - Directed Studies - Social Science Research (0.50), PSYCH499A - Honours Thesis - Part 1 (0.50), PSYCH499B - Honours Thesis - Part 2 (0.50), PSYCH499C - Honours Thesis - Part 3 (0.50), REC251 - Therapeutic Recreation: Developmental and Emotional Disabilities (0.50), REC455 - Advanced Seminar in Therapeutic Recreation (0.50), REC471A - Honours Thesis Proposal (0.50), REC471B - Honours Thesis (0.50), REC472 - Special Topics in Recreation and Leisure Studies 4 (0.50), SDS312R - Homelessness and Public Policy (0.50), SDS450R - Senior Seminar in Special Topics (0.50), SDS499A - Senior Honours Essay/Thesis (0.50), SDS499B - Senior Honours Essay/Thesis (0.50), SOC249 - Sociology of Mental Disorder (0.50), SOC498 - Directed Studies (0.50), SOC499A - Senior Honours Essay (0.50), SOC499B - Senior Honours Essay (0.50), SOCWK365R - Social Work in Health Care (0.50)",
         "required_count": 2,
         "courses": [
           "BIOL476",
           "HLTH373",
           "HLTH410",
           "HLTH427",
+          "HLTH432A",
+          "HLTH432B",
           "HLTH448",
           "HLTH449",
           "HLTH458",
@@ -2837,51 +5251,75 @@
           "PSYCH451",
           "PSYCH483",
           "PSYCH484",
+          "PSYCH499A",
+          "PSYCH499B",
+          "PSYCH499C",
           "REC251",
           "REC455",
+          "REC471A",
+          "REC471B",
           "REC472",
+          "SDS312R",
+          "SDS450R",
+          "SDS499A",
+          "SDS499B",
           "SOC249",
-          "SOC498"
-        ]
+          "SOC498",
+          "SOC499A",
+          "SOC499B",
+          "SOCWK365R"
+        ],
+        "list_name": "Complete 2 of the following"
       }
     ]
   },
   {
     "program_name": "Geography and Environmental Management Minor",
-    "course_lists": []
+    "course_lists": [
+      {
+        "list_description": "Complete a total of 5.0 units in GEOG and ENVS courses.",
+        "required_count": 5,
+        "courses": [],
+        "list_name": "List 1"
+      }
+    ]
   },
   {
     "program_name": "Sexualities, Relationships, and Families Minor",
     "course_lists": [
       {
-        "list_description": "Complete all the following",
+        "list_description": "Complete all the following: ",
         "required_count": 3,
         "courses": [
           "SRF101",
           "SRF207",
           "SRF310"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "PSYCH236",
           "SRF204"
-        ]
+        ],
+        "list_name": "Required Courses"
       },
       {
-        "list_description": "Complete 1 of the following",
+        "list_description": "Complete 1 of the following: ",
         "required_count": 1,
         "courses": [
           "PSYCH354",
+          "PSYCH354R",
           "SRF304",
           "SRF305",
           "SRF306",
           "SRF307",
           "SRF365",
           "SRF366"
-        ]
+        ],
+        "list_name": "Required Courses"
       }
     ]
   },
