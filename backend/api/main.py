@@ -12,6 +12,7 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum
 import json
+import re
 import time
 import os
 import tempfile
@@ -188,6 +189,164 @@ def load_course_dependencies() -> Dict[str, Dict[str, Optional[str]]]:
     _COURSE_DEPENDENCIES_CACHE = cache
     return _COURSE_DEPENDENCIES_CACHE
 
+
+_THREE_PLUS_DIGITS_PATTERN = re.compile(r"\d{3,}")
+
+
+def _is_course_code_query(query: str) -> bool:
+    """True if query looks like a course code (e.g. MSE446, MSE 446, CS 135)."""
+    if not query or not query.strip():
+        return False
+    normalized = query.strip().upper().replace(" ", "")
+    # Must have letters + 3+ digits
+    return bool(re.match(r"^[A-Z]{2,}[0-9]{3}[A-Z]*$", normalized))
+
+
+def _has_three_plus_consecutive_digits(query: str) -> bool:
+    """True if query contains 3 or more consecutive digits."""
+    return bool(_THREE_PLUS_DIGITS_PATTERN.search(query or ""))
+
+
+_COURSE_DATA_LOOKUP_CACHE: Dict[str, Dict[str, Any]] | None = None
+
+
+def _load_course_data_for_lookup() -> Dict[str, Dict[str, Any]]:
+    """Load course JSON for lookup. Keys are canonical codes (e.g. MSE446).
+    Result is cached in-process so disk is only read once per server lifetime.
+    """
+    global _COURSE_DATA_LOOKUP_CACHE
+    if _COURSE_DATA_LOOKUP_CACHE is not None:
+        return _COURSE_DATA_LOOKUP_CACHE
+    data_json = get_abs_path("data", "courses", "course-api-new-data.json")
+    with open(data_json, "r", encoding="utf-8") as f:
+        _COURSE_DATA_LOOKUP_CACHE = json.load(f)
+    return _COURSE_DATA_LOOKUP_CACHE
+
+
+def _lookup_courses_by_code(
+    normalized_query: str,
+    filters: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """
+    Exact course code lookup. Returns courses matching the normalized code.
+    Applies department filter from filters.
+    """
+    data = _load_course_data_for_lookup()
+    departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
+    if isinstance(departments, str):
+        dept_set = {departments.upper()}
+    elif isinstance(departments, (list, tuple)):
+        dept_set = set(d.upper() for d in departments)
+    else:
+        dept_set = set(ENGINEERING_DEPARTMENTS)
+
+    results = []
+    # Direct key lookup (keys are canonical: MSE446, etc.)
+    if normalized_query in data:
+        info = data[normalized_query]
+        subject = (info.get("subjectCode") or "").upper()
+        if not dept_set or subject in dept_set:
+            results.append({
+                "course_code": normalized_query,
+                "title": info.get("title", ""),
+                "description": info.get("description", ""),
+            })
+    # Also scan for canonical_code match (in case keys differ)
+    if not results:
+        for key, info in data.items():
+            subject = (info.get("subjectCode") or "").upper()
+            catalog = info.get("catalogNumber") or ""
+            canonical = f"{subject}{catalog}" if catalog else key
+            if canonical.upper() == normalized_query:
+                if not dept_set or subject in dept_set:
+                    results.append({
+                        "course_code": canonical,
+                        "title": info.get("title", ""),
+                        "description": info.get("description", ""),
+                    })
+                break
+    return results
+
+
+def _lookup_courses_by_number_sequence(
+    query: str,
+    filters: Dict[str, Any],
+    limit: int = 50,
+) -> List[Dict[str, Any]]:
+    """
+    Find courses whose catalog number contains 3+ consecutive digits from the query.
+    Digits are matched against catalogNumber only (not the full course code string),
+    so "446" matches ECE446 but not a hypothetical subject whose letters include that
+    substring. Results are sorted by catalog number for a stable, predictable order.
+    """
+    data = _load_course_data_for_lookup()
+    departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
+    if isinstance(departments, str):
+        dept_set = {departments.upper()}
+    elif isinstance(departments, (list, tuple)):
+        dept_set = set(d.upper() for d in departments)
+    else:
+        dept_set = set(ENGINEERING_DEPARTMENTS)
+
+    digit_matches = _THREE_PLUS_DIGITS_PATTERN.findall(query)
+    if not digit_matches:
+        return []
+
+    # Use longest match (e.g. "1234" over "123")
+    search_digits = max(digit_matches, key=len)
+
+    results = []
+    seen = set()
+    for key, info in data.items():
+        subject = (info.get("subjectCode") or "").upper()
+        catalog = info.get("catalogNumber") or ""
+        canonical = f"{subject}{catalog}" if catalog else key
+        if canonical in seen:
+            continue
+        # Fix 5: match digits against catalog number only, not the full course code
+        if search_digits not in catalog:
+            continue
+        if dept_set and subject not in dept_set:
+            continue
+        seen.add(canonical)
+        results.append({
+            "course_code": canonical,
+            "title": info.get("title", ""),
+            "description": info.get("description", ""),
+            "_catalog": catalog,  # temporary sort key
+        })
+
+    # Fix 6: sort by catalog number for a stable, meaningful order
+    results.sort(key=lambda r: r["_catalog"])
+    for r in results:
+        r.pop("_catalog")
+
+    return results[:limit]
+
+
+def _course_lookup_results_to_recommend_format(
+    lookup_results: List[Dict[str, Any]],
+    deps_lookup: Dict[str, Dict[str, Optional[str]]],
+) -> List[Dict[str, Any]]:
+    """Convert lookup results to the same format as get_recommendations output."""
+    enriched = []
+    for rank, r in enumerate(lookup_results, 1):
+        code = str(r.get("course_code", "")).upper()
+        dep_info = deps_lookup.get(code, {})
+        base_course = {
+            "rank": rank,
+            "course_code": r.get("course_code", ""),
+            "title": r.get("title", ""),
+            "description": r.get("description", ""),
+            "score": 1.0,
+            "prereqs": dep_info.get("prereqs"),
+            "coreqs": dep_info.get("coreqs"),
+            "antireqs": dep_info.get("antireqs"),
+        }
+        enriched.append(_enrich_course_with_programs(base_course))
+    return enriched
+
+
 app = FastAPI(
     title="UW Course Recommendation API",
     description="API for course recommendations based on text queries, resumes, and transcripts",
@@ -245,6 +404,9 @@ def recommend(request: QueryRequest):
     """
     Get course recommendations based on text queries.
     
+    If a query looks like a course code (e.g. MSE446) or contains 3+ consecutive
+    digits, returns matching courses directly. Otherwise uses semantic search.
+    
     Args:
         request: QueryRequest with queries and optional filters
         
@@ -256,40 +418,77 @@ def recommend(request: QueryRequest):
     print(f"[endpoint] Filters: {request.filters}")
 
     filters = dict(request.filters) if request.filters else {}
-    
     t1 = time.time()
+    if not filters.get("department"):
+        filters["department"] = list(ENGINEERING_DEPARTMENTS)
+
     deps_lookup = load_course_dependencies()
-    results = get_recommendations(
-        request.queries,
-        data_file='course-api-new-data.json',
-        method='cosine',
-        filters=filters
-    )
-    t2 = time.time()
-    print(f"[endpoint] Recommendation call: {t2-t1:.4f}s")
-    
-    # Formatting
     formatted: Dict[str, Any] = {}
-    for q, q_results in zip(request.queries, results):
-        cosine_results = [r for r in q_results if r["method"] == "cosine"]
-        enriched_courses = []
-        for r in cosine_results:
-            dep_info = deps_lookup.get(str(r["course_code"]).upper(), {})
-            base_course = {
-                "rank": r["rank"],
-                "course_code": r["course_code"],
-                "title": r["title"],
-                "description": r["description"],
-                "score": r["score"],
-                "prereqs": dep_info.get("prereqs"),
-                "coreqs": dep_info.get("coreqs"),
-                "antireqs": dep_info.get("antireqs"),
-            }
-            enriched_courses.append(_enrich_course_with_programs(base_course))
-        formatted[q] = enriched_courses
-    
+
+    # Queries that used course lookup (skip semantic search)
+    queries_for_semantic = []
+    query_to_lookup_results: Dict[str, List[Dict[str, Any]]] = {}
+
+    for q in request.queries:
+        # Fix 3: normalize once and use consistently across all lookup paths
+        q_clean = (q or "").strip().upper().replace(" ", "")
+        lookup_results = []
+        attempted_code_lookup = False
+
+        # Priority 1: Exact course code match
+        if _is_course_code_query(q_clean):
+            attempted_code_lookup = True
+            lookup_results = _lookup_courses_by_code(q_clean, filters)
+
+        # Fix 4: only try digit search when the query was NOT a course-code pattern.
+        # If it looked like a code (e.g. MSE446) but returned nothing (dept mismatch),
+        # fall through to semantic rather than returning unrelated courses like ECE446.
+        # Fix 3: pass q_clean so digit detection and lookup see the same normalised string.
+        if not lookup_results and not attempted_code_lookup and _has_three_plus_consecutive_digits(q_clean):
+            lookup_results = _lookup_courses_by_number_sequence(q_clean, filters)
+
+        if lookup_results:
+            query_to_lookup_results[q] = lookup_results
+        else:
+            queries_for_semantic.append(q)
+
+    # Process course lookup results
+    for q, lookup_results in query_to_lookup_results.items():
+        formatted[q] = _course_lookup_results_to_recommend_format(
+            lookup_results, deps_lookup
+        )
+
+    # Semantic search for remaining queries
+    if queries_for_semantic:
+        t1 = time.time()
+        results = get_recommendations(
+            queries_for_semantic,
+            data_file="course-api-new-data.json",
+            method="cosine",
+            filters=filters,
+        )
+        t2 = time.time()
+        print(f"[endpoint] Recommendation call: {t2-t1:.4f}s")
+
+        for q, q_results in zip(queries_for_semantic, results):
+            cosine_results = [r for r in q_results if r["method"] == "cosine"]
+            enriched_courses = []
+            for r in cosine_results:
+                dep_info = deps_lookup.get(str(r["course_code"]).upper(), {})
+                base_course = {
+                    "rank": r["rank"],
+                    "course_code": r["course_code"],
+                    "title": r["title"],
+                    "description": r["description"],
+                    "score": r["score"],
+                    "prereqs": dep_info.get("prereqs"),
+                    "coreqs": dep_info.get("coreqs"),
+                    "antireqs": dep_info.get("antireqs"),
+                }
+                enriched_courses.append(_enrich_course_with_programs(base_course))
+            formatted[q] = enriched_courses
+
     t3 = time.time()
-    print(f"[endpoint] Formatting: {t3-t2:.4f}s")
     print(f"[endpoint] Total endpoint time: {t3-t0:.4f}s")
     return {"results": formatted}
 
@@ -534,4 +733,3 @@ def transcript_parse(file: UploadFile = File(...)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
