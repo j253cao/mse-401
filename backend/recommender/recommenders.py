@@ -175,7 +175,12 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
         filters_applied.update(load_grad_courses())
     if filters and filters.get('department'):
         departments = set(filters['department'])
-        filters_applied = {s for s in filters_applied if _get_course_dept(s) in departments}
+        include_other = filters.get('include_other_depts', False)
+        eng_depts = {'AE', 'BME', 'CHE', 'CIVE', 'ECE', 'ENVE', 'GENE', 'GEOE', 'ME', 'MTE', 'MSE', 'NE', 'SE', 'SYDE'}
+        filters_applied = {
+            s for s in filters_applied
+            if _get_course_dept(s) in departments or (include_other and _get_course_dept(s) not in eng_depts)
+        }
 
     # Filter by options/minors when specified
     if filters and filters.get('options'):

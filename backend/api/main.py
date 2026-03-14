@@ -232,6 +232,7 @@ def _lookup_courses_by_code(
     Applies department filter from filters.
     """
     data = _load_course_data_for_lookup()
+    include_other = filters.get("include_other_depts", False)
     departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
     if isinstance(departments, str):
         dept_set = {departments.upper()}
@@ -240,12 +241,22 @@ def _lookup_courses_by_code(
     else:
         dept_set = set(ENGINEERING_DEPARTMENTS)
 
+    def _dept_ok(subject: str) -> bool:
+        if not dept_set:
+            return True
+        if subject in dept_set:
+            return True
+        # include_other: allow non-engineering departments
+        if include_other and subject not in ENGINEERING_DEPARTMENTS:
+            return True
+        return False
+
     results = []
     # Direct key lookup (keys are canonical: MSE446, etc.)
     if normalized_query in data:
         info = data[normalized_query]
         subject = (info.get("subjectCode") or "").upper()
-        if not dept_set or subject in dept_set:
+        if _dept_ok(subject):
             results.append({
                 "course_code": normalized_query,
                 "title": info.get("title", ""),
@@ -258,7 +269,7 @@ def _lookup_courses_by_code(
             catalog = info.get("catalogNumber") or ""
             canonical = f"{subject}{catalog}" if catalog else key
             if canonical.upper() == normalized_query:
-                if not dept_set or subject in dept_set:
+                if _dept_ok(subject):
                     results.append({
                         "course_code": canonical,
                         "title": info.get("title", ""),
@@ -280,6 +291,7 @@ def _lookup_courses_by_number_sequence(
     substring. Results are sorted by catalog number for a stable, predictable order.
     """
     data = _load_course_data_for_lookup()
+    include_other = filters.get("include_other_depts", False)
     departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
     if isinstance(departments, str):
         dept_set = {departments.upper()}
@@ -287,6 +299,15 @@ def _lookup_courses_by_number_sequence(
         dept_set = set(d.upper() for d in departments)
     else:
         dept_set = set(ENGINEERING_DEPARTMENTS)
+
+    def _dept_ok(subject: str) -> bool:
+        if not dept_set:
+            return True
+        if subject in dept_set:
+            return True
+        if include_other and subject not in ENGINEERING_DEPARTMENTS:
+            return True
+        return False
 
     digit_matches = _THREE_PLUS_DIGITS_PATTERN.findall(query)
     if not digit_matches:
@@ -306,7 +327,7 @@ def _lookup_courses_by_number_sequence(
         # Fix 5: match digits against catalog number only, not the full course code
         if search_digits not in catalog:
             continue
-        if dept_set and subject not in dept_set:
+        if not _dept_ok(subject):
             continue
         seen.add(canonical)
         results.append({
@@ -419,8 +440,11 @@ def recommend(request: QueryRequest):
 
     filters = dict(request.filters) if request.filters else {}
     t1 = time.time()
+    include_other = filters.pop("include_other_depts", False)
     if not filters.get("department"):
         filters["department"] = list(ENGINEERING_DEPARTMENTS)
+    if include_other:
+        filters["include_other_depts"] = True
 
     deps_lookup = load_course_dependencies()
     formatted: Dict[str, Any] = {}
@@ -533,8 +557,11 @@ def resume_recommend(
 
         # Default to engineering departments only when no department filter provided
         res_filters = dict(filters) if filters else {}
+        include_other = res_filters.pop("include_other_depts", False)
         if not res_filters.get("department"):
             res_filters["department"] = list(ENGINEERING_DEPARTMENTS)
+        if include_other:
+            res_filters["include_other_depts"] = True
         
         deps_lookup = load_course_dependencies()
 
