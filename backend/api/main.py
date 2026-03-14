@@ -32,7 +32,7 @@ ENGINEERING_DEPARTMENTS = (
     "ME", "MTE", "MSE", "NE", "SE", "SYDE",
 )
 
-from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path
+from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
 from recommender.data_loader import load_course_data
 from recommender.weights import load_course_to_programs
 from parsers.resume_parser import ResumeParser
@@ -59,6 +59,27 @@ def _enrich_course_with_programs(course: dict) -> dict:
     lookup = _get_course_to_programs()
     programs = lookup.get(code, [])
     return {**course, 'contributing_programs': programs}
+
+
+def _enrich_results_with_deps(results: List[Dict[str, Any]], deps_lookup: Dict) -> List[Dict[str, Any]]:
+    """Enrich a list of course result dicts with prereqs, coreqs, antireqs, and contributing programs."""
+    enriched = []
+    for r in results:
+        dep_info = deps_lookup.get(str(r["course_code"]).upper(), {})
+        base_course = {
+            "rank": r["rank"],
+            "course_code": r["course_code"],
+            "title": r["title"],
+            "description": r["description"],
+            "score": r["score"],
+            "prereqs": dep_info.get("prereqs"),
+            "coreqs": dep_info.get("coreqs"),
+            "antireqs": dep_info.get("antireqs"),
+        }
+        enriched.append(_enrich_course_with_programs(base_course))
+    return enriched
+
+
 from parsers.transcript_parser import parse_transcript_bytes, term_id_to_name, get_all_courses
 
 
@@ -454,6 +475,13 @@ def recommend(request: QueryRequest):
     query_to_lookup_results: Dict[str, List[Dict[str, Any]]] = {}
 
     for q in request.queries:
+        # Empty query with filters: use filter-only path
+        if not (q or "").strip():
+            formatted[q] = _enrich_results_with_deps(
+                get_filtered_courses(filters=filters), deps_lookup
+            )
+            continue
+
         # Fix 3: normalize once and use consistently across all lookup paths
         q_clean = (q or "").strip().upper().replace(" ", "")
         lookup_results = []
@@ -496,21 +524,7 @@ def recommend(request: QueryRequest):
 
         for q, q_results in zip(queries_for_semantic, results):
             cosine_results = [r for r in q_results if r["method"] == "cosine"]
-            enriched_courses = []
-            for r in cosine_results:
-                dep_info = deps_lookup.get(str(r["course_code"]).upper(), {})
-                base_course = {
-                    "rank": r["rank"],
-                    "course_code": r["course_code"],
-                    "title": r["title"],
-                    "description": r["description"],
-                    "score": r["score"],
-                    "prereqs": dep_info.get("prereqs"),
-                    "coreqs": dep_info.get("coreqs"),
-                    "antireqs": dep_info.get("antireqs"),
-                }
-                enriched_courses.append(_enrich_course_with_programs(base_course))
-            formatted[q] = enriched_courses
+            formatted[q] = _enrich_results_with_deps(cosine_results, deps_lookup)
 
     t3 = time.time()
     print(f"[endpoint] Total endpoint time: {t3-t0:.4f}s")

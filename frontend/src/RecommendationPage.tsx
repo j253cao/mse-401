@@ -214,7 +214,7 @@ export default function RecommendationPage() {
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!search.trim()) {
+    if (!search.trim() && selectedOptions.length === 0) {
       setHasSearched(false);
       setFilteredCourses([]);
       setError(null);
@@ -238,7 +238,7 @@ export default function RecommendationPage() {
         ...(incomingLevel && { incoming_level: incomingLevel }),
       };
 
-      const courses = await api.recommend([search], filters);
+      const courses = await api.recommend([search.trim() || ""], filters);
       setFilteredCourses(courses);
     } catch {
       setFilteredCourses([]);
