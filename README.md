@@ -1,6 +1,6 @@
 # UW Course Recommendation System
 
-A course recommendation system for University of Waterloo students. Features text-based search, resume analysis, and transcript parsing to suggest relevant courses.
+This project is a course recommendation system for University of Waterloo students. Features text-based search, resume analysis, and transcript parsing to suggest relevant courses.
 
 ## Project Structure
 
