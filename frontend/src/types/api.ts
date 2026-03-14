@@ -106,6 +106,19 @@ export interface StudentProfile {
 // Program and term selection (items 1 & 2)
 export type IncomingLevel = "1A" | "1B" | "2A" | "2B" | "3A" | "3B" | "4A" | "4B";
 
+// Options/minors progress tracking
+export interface OptionCourseList {
+  list_name: string;
+  list_description?: string;
+  required_count: number;
+  courses: string[];
+}
+
+export interface OptionDefinition {
+  option_name: string;
+  course_lists: OptionCourseList[];
+}
+
 export interface StoredProfile {
   programCode: string;
   incomingLevel: IncomingLevel;
