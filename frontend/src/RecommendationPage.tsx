@@ -62,12 +62,6 @@ function needsOverride(prereqs: string | null | undefined, programCode: string):
 const OVERRIDE_BADGE_CLASS =
   "bg-red-500/15 text-red-400 border border-red-500/30";
 
-type DepartmentFilters = Record<string, boolean>;
-
-const INITIAL_DEPARTMENTS: DepartmentFilters = Object.fromEntries(
-  FILTER_DEPARTMENTS.map((d) => [d.code, true]),
-);
-
 export default function RecommendationPage() {
   const {
     recommendedCourses,
@@ -75,27 +69,36 @@ export default function RecommendationPage() {
     setCompletedCourses,
     incomingLevel,
     programCode,
+    search,
+    setSearch,
+    filteredCourses,
+    setFilteredCourses,
+    departments,
+    setDepartments,
+    includeOtherDepts,
+    setIncludeOtherDepts,
+    includeUndergrad,
+    setIncludeUndergrad,
+    includeGrad,
+    setIncludeGrad,
+    selectedOptions,
+    setSelectedOptions,
+    explorationMode,
+    setExplorationMode,
+    hasSearched,
+    setHasSearched,
   } = useContext(RecommendationsContext);
 
   const isUndergrad = !!incomingLevel;
 
-  const [search, setSearch] = useState("");
   const [randomCourse, setRandomCourse] = useState<Course | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [randomLoading, setRandomLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [includeUndergrad, setIncludeUndergrad] = useState(true);
-  const [includeGrad, setIncludeGrad] = useState(!isUndergrad);
-  const [explorationMode, setExplorationMode] = useState(false);
-  const [departments, setDepartments] =
-    useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
-  const [includeOtherDepts, setIncludeOtherDepts] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [similarCourses, setSimilarCourses] = useState<Course[]>([]);
   const [similarLoading, setSimilarLoading] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [optionSearch, setOptionSearch] = useState("");
   const [optionsAndMinors, setOptionsAndMinors] = useState<{
     options: { name: string }[];
@@ -105,7 +108,6 @@ export default function RecommendationPage() {
   const [highValueCourses, setHighValueCourses] = useState<Course[]>([]);
   const [highValueLoading, setHighValueLoading] = useState(false);
   const [highValueError, setHighValueError] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
 
   // Only show high-value block for first-year (1A/1B) or new users (no level set)
   const showHighValueBlock =
