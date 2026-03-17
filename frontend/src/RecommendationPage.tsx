@@ -718,13 +718,8 @@ export default function RecommendationPage() {
                       ) : highValueError ? (
                         <div className="text-center py-8 space-y-4">
                           <p className="text-sm text-muted-foreground">
-                            Could not load suggestions. Make sure the backend is
-                            running at{" "}
-                            <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
-                              {import.meta.env.VITE_API_URL ||
-                                "http://localhost:8000"}
-                            </code>
-                            , or try a search above.
+                            Could not load suggestions. Please try again later
+                            or try a search above.
                           </p>
                           <Button
                             variant="outline"

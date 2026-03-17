@@ -6,13 +6,14 @@ Run with:
     uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 """
 
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, Request, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum
 import json
+import logging
 import re
 import time
 import os
@@ -398,6 +399,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+logger = logging.getLogger("uvicorn.access")
+
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start = time.time()
+    response = await call_next(request)
+    elapsed = (time.time() - start) * 1000
+    logger.info(
+        "%s %s %s %.0fms",
+        request.method,
+        request.url.path,
+        response.status_code,
+        elapsed,
+    )
+    return response
+
 
 class CourseLevel(str, Enum):
     UNDERGRAD = "undergrad"
@@ -450,12 +468,7 @@ def recommend(request: QueryRequest):
     Returns:
         Dictionary with recommendation results for each query
     """
-    t0 = time.time()
-    print(f"[endpoint] Request received: {request.queries}")
-    print(f"[endpoint] Filters: {request.filters}")
-
     filters = dict(request.filters) if request.filters else {}
-    t1 = time.time()
     include_other = filters.pop("include_other_depts", False)
     if not filters.get("department"):
         filters["department"] = list(ENGINEERING_DEPARTMENTS)
@@ -500,15 +513,12 @@ def recommend(request: QueryRequest):
 
     # Semantic search for remaining queries
     if queries_for_semantic:
-        t1 = time.time()
         results = get_recommendations(
             queries_for_semantic,
             data_file="course-api-new-data.json",
             method="cosine",
             filters=filters,
         )
-        t2 = time.time()
-        print(f"[endpoint] Recommendation call: {t2-t1:.4f}s")
 
         for q, q_results in zip(queries_for_semantic, results):
             cosine_results = [r for r in q_results if r["method"] == "cosine"]
@@ -528,8 +538,6 @@ def recommend(request: QueryRequest):
                 enriched_courses.append(_enrich_course_with_programs(base_course))
             formatted[q] = enriched_courses
 
-    t3 = time.time()
-    print(f"[endpoint] Total endpoint time: {t3-t0:.4f}s")
     return {"results": formatted}
 
 
@@ -548,8 +556,6 @@ def resume_recommend(
     Returns:
         List of recommended courses based on resume analysis
     """
-    t0 = time.time()
-
     # Feature-flag: allow deploying without GEMINI_API_KEY.
     if not os.getenv("GEMINI_API_KEY"):
         raise HTTPException(status_code=503, detail="Resume recommendations are disabled (GEMINI_API_KEY not set).")
@@ -610,8 +616,6 @@ def resume_recommend(
             }
             formatted.append(_enrich_course_with_programs(base_course))
         
-        t1 = time.time()
-        print(f"[resume-recommend] Total endpoint time: {t1-t0:.4f}s")
         return formatted
     finally:
         os.remove(tmp_path)
@@ -735,8 +739,6 @@ def transcript_parse(file: UploadFile = File(...)):
     Returns:
         Dictionary with courses, latest_term, program, student_number, term_summaries
     """
-    t0 = time.time()
-    
     try:
         pdf_bytes = file.file.read()
         result = parse_transcript_bytes(pdf_bytes)
@@ -762,9 +764,6 @@ def transcript_parse(file: UploadFile = File(...)):
             for term in result.term_summaries
         ]
         
-        t1 = time.time()
-        print(f"[transcript-parse] Total endpoint time: {t1-t0:.4f}s")
-        
         return {
             "courses": all_courses,
             "latest_term": latest_term,
@@ -774,7 +773,7 @@ def transcript_parse(file: UploadFile = File(...)):
         }
         
     except Exception as e:
-        print(f"[transcript-parse] Error: {e}")
+        logger.error("transcript-parse error: %s", e)
         return {"error": str(e)}
 
 
