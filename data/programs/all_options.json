@@ -51,7 +51,7 @@
         },
         {
           "type": "OR",
-          "required_count": 3,
+          "required_count": 5,
           "description": "List 3",
           "children": [
             { "type": "course", "code": "CS480" },
