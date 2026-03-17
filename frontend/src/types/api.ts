@@ -106,6 +106,26 @@ export interface StudentProfile {
 // Program and term selection (items 1 & 2)
 export type IncomingLevel = "1A" | "1B" | "2A" | "2B" | "3A" | "3B" | "4A" | "4B";
 
+// Options/minors progress tracking
+export interface CourseNode {
+  type: "course";
+  code: string;
+}
+
+export interface GroupNode {
+  type: "AND" | "OR";
+  required_count: number | null; // null = all required (AND)
+  description: string;
+  children: RequirementNode[];
+}
+
+export type RequirementNode = CourseNode | GroupNode;
+
+export interface OptionDefinition {
+  option_name: string;
+  course_requirements: GroupNode;
+}
+
 export interface StoredProfile {
   programCode: string;
   incomingLevel: IncomingLevel;

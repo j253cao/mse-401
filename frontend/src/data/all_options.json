@@ -1,0 +1,2188 @@
+[
+  {
+    "option_name": "Artificial Intelligence",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "graduation_requirements": {
+      "total_units": 3.0,
+      "notes": "Complete a total of 6 courses"
+    },
+    "additional_constraints": [
+      "At least one course must be from the Faculty of Mathematics and at least one course must be from the Faculty of Engineering. Exceptions may be granted by the option co-ordinator if logistically infeasible.",
+      "Five of the courses must be considered elective (not required courses) in the student's major. A course a student could choose to graduate without is considered elective.",
+      "Special topics courses, independent project courses, and capstone project courses may sometimes be appropriate with approval of the AI option co-ordinator and the course instructor."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete a total of 6 courses",
+      "children": [
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "HIST212" },
+            { "type": "course", "code": "MSE442" },
+            { "type": "course", "code": "STV205" },
+            { "type": "course", "code": "STV208" },
+            { "type": "course", "code": "STV210" },
+            { "type": "course", "code": "STV302" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "CS480" },
+            { "type": "course", "code": "CS485" },
+            { "type": "course", "code": "CS486" },
+            { "type": "course", "code": "ECE457A" },
+            { "type": "course", "code": "ECE457B" },
+            { "type": "course", "code": "ECE457C" },
+            { "type": "course", "code": "MSE435" },
+            { "type": "course", "code": "MSE446" },
+            { "type": "course", "code": "SYDE522" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 3,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "CS480" },
+            { "type": "course", "code": "CS485" },
+            { "type": "course", "code": "CS486" },
+            { "type": "course", "code": "ECE457A" },
+            { "type": "course", "code": "ECE457B" },
+            { "type": "course", "code": "ECE457C" },
+            { "type": "course", "code": "MSE435" },
+            { "type": "course", "code": "MSE446" },
+            { "type": "course", "code": "SYDE522" },
+            { "type": "course", "code": "AMATH449" },
+            { "type": "course", "code": "BIOL487" },
+            { "type": "course", "code": "CHE521" },
+            { "type": "course", "code": "CHE522" },
+            { "type": "course", "code": "CHE524" },
+            { "type": "course", "code": "CO367" },
+            { "type": "course", "code": "CO456" },
+            { "type": "course", "code": "CO463" },
+            { "type": "course", "code": "CO466" },
+            { "type": "course", "code": "CS452" },
+            { "type": "course", "code": "CS479" },
+            { "type": "course", "code": "CS484" },
+            { "type": "course", "code": "ECE423" },
+            { "type": "course", "code": "ECE455" },
+            { "type": "course", "code": "ECE481" },
+            { "type": "course", "code": "ECE484" },
+            { "type": "course", "code": "ECE486" },
+            { "type": "course", "code": "ECE488" },
+            { "type": "course", "code": "ECE495" },
+            { "type": "course", "code": "MSE546" },
+            { "type": "course", "code": "MTE544" },
+            { "type": "course", "code": "MTE546" },
+            { "type": "course", "code": "STAT341" },
+            { "type": "course", "code": "STAT440" },
+            { "type": "course", "code": "STAT441" },
+            { "type": "course", "code": "STAT444" },
+            { "type": "course", "code": "SYDE552" },
+            { "type": "course", "code": "SYDE556" },
+            { "type": "course", "code": "SYDE572" },
+            { "type": "course", "code": "SYDE577" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Biomechanics",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "graduation_requirements": {
+      "total_units": 3.5
+    },
+    "additional_constraints": [
+      "To use BME588 towards this Option, the topic title must be 'Introductory Mechanics of Biomedical and Biological Materials'.",
+      "KIN420 may count only towards one requirement.",
+      "The two-term project topic must be in the area of biomechanics and students are encouraged to have their projects supervised or co-supervised by a faculty member outside of their home department.",
+      "One course must be considered 'extra' to your degree. Contact the Option co-ordinator for information on requirements and restrictions."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "BME588" },
+            { "type": "course", "code": "CIVE460" },
+            { "type": "course", "code": "ME574" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete 1 of the following",
+              "children": [
+                {
+                  "type": "OR",
+                  "required_count": 1,
+                  "description": "Complete 1 of the following",
+                  "children": [
+                    { "type": "course", "code": "BIOL201" },
+                    { "type": "course", "code": "BIOL273" },
+                    { "type": "course", "code": "BME284" },
+                    { "type": "course", "code": "SYDE584" }
+                  ]
+                },
+                {
+                  "type": "AND",
+                  "required_count": null,
+                  "description": "Complete all of the following",
+                  "children": [
+                    { "type": "course", "code": "KIN100" },
+                    { "type": "course", "code": "KIN100L" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 3",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following (sub-group)",
+              "children": [
+                {
+                  "type": "OR",
+                  "required_count": 1,
+                  "description": "Complete 1 of the following",
+                  "children": [
+                    { "type": "course", "code": "KIN320" },
+                    { "type": "course", "code": "KIN420" },
+                    { "type": "course", "code": "SYDE162" },
+                    { "type": "course", "code": "SYDE543" },
+                    { "type": "course", "code": "SYDE548" }
+                  ]
+                },
+                {
+                  "type": "AND",
+                  "required_count": null,
+                  "description": "Complete all of the following",
+                  "children": [
+                    { "type": "course", "code": "KIN121" },
+                    { "type": "course", "code": "KIN121L" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 4",
+          "children": [
+            { "type": "course", "code": "CHE341" },
+            { "type": "course", "code": "CIVE306" },
+            { "type": "course", "code": "CIVE422" },
+            { "type": "course", "code": "ECE380" },
+            { "type": "course", "code": "ECE486" },
+            { "type": "course", "code": "ME322" },
+            { "type": "course", "code": "ME360" },
+            { "type": "course", "code": "ME423" },
+            { "type": "course", "code": "ME547" },
+            { "type": "course", "code": "ME555" },
+            { "type": "course", "code": "ME559" },
+            { "type": "course", "code": "ME566" },
+            { "type": "course", "code": "MTE360" },
+            { "type": "course", "code": "NE336" },
+            { "type": "course", "code": "PHYS395" },
+            { "type": "course", "code": "SYDE352" },
+            { "type": "course", "code": "SYDE543" },
+            { "type": "course", "code": "SYDE544" },
+            { "type": "course", "code": "SYDE553" },
+            { "type": "course", "code": "SYDE572" },
+            { "type": "course", "code": "SYDE575" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 5",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following (sub-group)",
+              "children": [
+                {
+                  "type": "OR",
+                  "required_count": 1,
+                  "description": "Complete 1 of the following",
+                  "children": [
+                    { "type": "course", "code": "BME551" },
+                    { "type": "course", "code": "KIN312" },
+                    { "type": "course", "code": "KIN340" },
+                    { "type": "course", "code": "KIN356" },
+                    { "type": "course", "code": "KIN416" },
+                    { "type": "course", "code": "KIN420" },
+                    { "type": "course", "code": "KIN422" },
+                    { "type": "course", "code": "KIN425" },
+                    { "type": "course", "code": "KIN472" }
+                  ]
+                },
+                {
+                  "type": "AND",
+                  "required_count": null,
+                  "description": "Complete all of the following",
+                  "children": [
+                    { "type": "course", "code": "KIN221" },
+                    { "type": "course", "code": "KIN221L" }
+                  ]
+                },
+                {
+                  "type": "AND",
+                  "required_count": null,
+                  "description": "Complete all of the following",
+                  "children": [
+                    { "type": "course", "code": "KIN255" },
+                    { "type": "course", "code": "KIN255L" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 6",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "CHE482" },
+                { "type": "course", "code": "CHE483" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "CIVE400" },
+                { "type": "course", "code": "CIVE401" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "ECE498A" },
+                { "type": "course", "code": "ECE498B" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "ENVE400" },
+                { "type": "course", "code": "ENVE401" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "GENE403" },
+                { "type": "course", "code": "GENE404" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "ME481" },
+                { "type": "course", "code": "ME482" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "MTE481" },
+                { "type": "course", "code": "MTE482" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "NE408" },
+                { "type": "course", "code": "NE409" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "SYDE461" },
+                { "type": "course", "code": "SYDE462" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Computer Engineering",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Architectural Studies",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 75.0,
+    "declaration_requirements": [
+      "Before declaring this academic plan, see invalid credential combinations.",
+      "Students may not declare this Option until they have completed a List 1 course and a List 2 course. Students must have a minimum average of 75.0% calculated across these two courses in order to declare this Option."
+    ],
+    "graduation_requirements": {
+      "total_units": 4.0,
+      "breakdown": {
+        "required_courses": 1.0,
+        "list_1": 0.5,
+        "list_2": 0.5,
+        "list_3": 1.5,
+        "list_4": 0.5
+      }
+    },
+    "additional_constraints": [
+      "Five of the courses must be considered as electives in the student's major academic plan.",
+      "Students who take CS136 or CS146 are also required to enrol in CS136L. However, passing CS136L is not a requirement for the Option and the course may be coded as NRNA.",
+      "Exceptions to the courses listed here may be approved by the Option co-ordinator."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "ECE320" },
+            { "type": "course", "code": "ECE327" },
+            { "type": "course", "code": "ECE423" },
+            { "type": "course", "code": "ECE455" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "AE121" },
+            { "type": "course", "code": "BME121" },
+            { "type": "course", "code": "CHE120" },
+            { "type": "course", "code": "CIVE121" },
+            { "type": "course", "code": "CS115" },
+            { "type": "course", "code": "CS116" },
+            { "type": "course", "code": "CS135" },
+            { "type": "course", "code": "CS137" },
+            { "type": "course", "code": "CS145" },
+            { "type": "course", "code": "ECE150" },
+            { "type": "course", "code": "ENVE121" },
+            { "type": "course", "code": "GEOE121" },
+            { "type": "course", "code": "ME101" },
+            { "type": "course", "code": "MSE121" },
+            { "type": "course", "code": "MTE121" },
+            { "type": "course", "code": "NE111" },
+            { "type": "course", "code": "SYDE121" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "BME122" },
+            { "type": "course", "code": "CS136" },
+            { "type": "course", "code": "CS138" },
+            { "type": "course", "code": "CS146" },
+            { "type": "course", "code": "CS231" },
+            { "type": "course", "code": "ECE250" },
+            { "type": "course", "code": "MSE240" },
+            { "type": "course", "code": "MTE140" },
+            { "type": "course", "code": "SYDE223" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 3,
+          "description": "List 4",
+          "children": [
+            { "type": "course", "code": "BIOL487" },
+            { "type": "course", "code": "BME393" },
+            { "type": "course", "code": "BME411" },
+            { "type": "course", "code": "CHE322" },
+            { "type": "course", "code": "CIVE422" },
+            { "type": "course", "code": "EARTH456" },
+            { "type": "course", "code": "ENVE225" },
+            { "type": "course", "code": "NE336" },
+            { "type": "course", "code": "CS230" },
+            { "type": "course", "code": "CS234" },
+            { "type": "course", "code": "CS245" },
+            { "type": "course", "code": "CS338" },
+            { "type": "course", "code": "CS445" },
+            { "type": "course", "code": "CS446" },
+            { "type": "course", "code": "CS447" },
+            { "type": "course", "code": "ECE124" },
+            { "type": "course", "code": "ECE204" },
+            { "type": "course", "code": "ECE208" },
+            { "type": "course", "code": "ECE222" },
+            { "type": "course", "code": "ECE224" },
+            { "type": "course", "code": "ECE252" },
+            { "type": "course", "code": "ECE320" },
+            { "type": "course", "code": "ECE327" },
+            { "type": "course", "code": "ECE350" },
+            { "type": "course", "code": "ECE351" },
+            { "type": "course", "code": "ECE356" },
+            { "type": "course", "code": "ECE358" },
+            { "type": "course", "code": "ECE406" },
+            { "type": "course", "code": "ECE409" },
+            { "type": "course", "code": "ECE417" },
+            { "type": "course", "code": "ECE423" },
+            { "type": "course", "code": "ECE451" },
+            { "type": "course", "code": "ECE452" },
+            { "type": "course", "code": "ECE453" },
+            { "type": "course", "code": "ECE454" },
+            { "type": "course", "code": "ECE455" },
+            { "type": "course", "code": "ECE457A" },
+            { "type": "course", "code": "ECE457B" },
+            { "type": "course", "code": "ECE457C" },
+            { "type": "course", "code": "ECE458" },
+            { "type": "course", "code": "ECE459" },
+            { "type": "course", "code": "ME262" },
+            { "type": "course", "code": "ME559" },
+            { "type": "course", "code": "ME566" },
+            { "type": "course", "code": "MSE245" },
+            { "type": "course", "code": "MSE342" },
+            { "type": "course", "code": "MSE343" },
+            { "type": "course", "code": "MSE436" },
+            { "type": "course", "code": "MSE446" },
+            { "type": "course", "code": "MSE541" },
+            { "type": "course", "code": "MSE543" },
+            { "type": "course", "code": "MSE546" },
+            { "type": "course", "code": "MTE204" },
+            { "type": "course", "code": "MTE241" },
+            { "type": "course", "code": "MTE262" },
+            { "type": "course", "code": "MTE325" },
+            { "type": "course", "code": "MTE544" },
+            { "type": "course", "code": "MTE546" },
+            { "type": "course", "code": "SE212" },
+            { "type": "course", "code": "SE350" },
+            { "type": "course", "code": "SE463" },
+            { "type": "course", "code": "SE464" },
+            { "type": "course", "code": "SE465" },
+            { "type": "course", "code": "SYDE192" },
+            { "type": "course", "code": "SYDE411" },
+            { "type": "course", "code": "SYDE522" },
+            { "type": "course", "code": "SYDE542" },
+            { "type": "course", "code": "SYDE543" },
+            { "type": "course", "code": "SYDE548" },
+            { "type": "course", "code": "SYDE552" },
+            { "type": "course", "code": "SYDE556" },
+            { "type": "course", "code": "SYDE572" },
+            { "type": "course", "code": "SYDE575" },
+            { "type": "course", "code": "SYDE577" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 5",
+          "children": [
+            { "type": "course", "code": "CS492" },
+            { "type": "course", "code": "HIST212" },
+            { "type": "course", "code": "MSE442" },
+            { "type": "course", "code": "SOC324" },
+            { "type": "course", "code": "STV205" },
+            { "type": "course", "code": "STV208" },
+            { "type": "course", "code": "STV210" },
+            { "type": "course", "code": "STV302" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Computing",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Architectural Studies"
+    ],
+    "minimum_average": 75.0,
+    "declaration_requirements": [
+      "Before declaring this academic plan, see invalid credential combinations.",
+      "Students may not declare this Option until they have completed both an introductory programming course (List 1) and a data structures and algorithms course (List 2). Students must have a minimum average of 75.0% calculated across these two courses in order to declare this Option."
+    ],
+    "graduation_requirements": {
+      "total_units": 3.0,
+      "breakdown": {
+        "list_1": 0.5,
+        "list_2": 0.5,
+        "list_3": 1.0,
+        "additional_from_list_1_2_or_3": 1.0
+      }
+    },
+    "additional_constraints": [
+      "Three of the courses must be considered as electives in the student's major academic plan.",
+      "Students who take CS136 or CS146 are also required to enrol in CS136L. However, passing CS136L is not a requirement for the Option and the course may be coded as NRNA.",
+      "Exceptions to the courses listed here may be approved by the Option co-ordinator."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "AE121" },
+            { "type": "course", "code": "BME121" },
+            { "type": "course", "code": "CHE120" },
+            { "type": "course", "code": "CIVE121" },
+            { "type": "course", "code": "CS115" },
+            { "type": "course", "code": "CS116" },
+            { "type": "course", "code": "CS135" },
+            { "type": "course", "code": "CS137" },
+            { "type": "course", "code": "CS145" },
+            { "type": "course", "code": "ECE150" },
+            { "type": "course", "code": "ENVE121" },
+            { "type": "course", "code": "GEOE121" },
+            { "type": "course", "code": "ME101" },
+            { "type": "course", "code": "MSE121" },
+            { "type": "course", "code": "MTE121" },
+            { "type": "course", "code": "NE111" },
+            { "type": "course", "code": "SYDE121" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "BME122" },
+            { "type": "course", "code": "CS136" },
+            { "type": "course", "code": "CS138" },
+            { "type": "course", "code": "CS146" },
+            { "type": "course", "code": "CS231" },
+            { "type": "course", "code": "ECE250" },
+            { "type": "course", "code": "MSE240" },
+            { "type": "course", "code": "MTE140" },
+            { "type": "course", "code": "SYDE223" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "BIOL487" },
+            { "type": "course", "code": "BME393" },
+            { "type": "course", "code": "BME411" },
+            { "type": "course", "code": "CHE322" },
+            { "type": "course", "code": "CIVE422" },
+            { "type": "course", "code": "EARTH456" },
+            { "type": "course", "code": "ENVE225" },
+            { "type": "course", "code": "NE336" },
+            { "type": "course", "code": "CS230" },
+            { "type": "course", "code": "CS234" },
+            { "type": "course", "code": "CS245" },
+            { "type": "course", "code": "CS338" },
+            { "type": "course", "code": "CS445" },
+            { "type": "course", "code": "CS446" },
+            { "type": "course", "code": "CS447" },
+            { "type": "course", "code": "ECE124" },
+            { "type": "course", "code": "ECE204" },
+            { "type": "course", "code": "ECE208" },
+            { "type": "course", "code": "ECE222" },
+            { "type": "course", "code": "ECE224" },
+            { "type": "course", "code": "ECE252" },
+            { "type": "course", "code": "ECE320" },
+            { "type": "course", "code": "ECE327" },
+            { "type": "course", "code": "ECE350" },
+            { "type": "course", "code": "ECE351" },
+            { "type": "course", "code": "ECE356" },
+            { "type": "course", "code": "ECE358" },
+            { "type": "course", "code": "ECE406" },
+            { "type": "course", "code": "ECE409" },
+            { "type": "course", "code": "ECE417" },
+            { "type": "course", "code": "ECE423" },
+            { "type": "course", "code": "ECE451" },
+            { "type": "course", "code": "ECE452" },
+            { "type": "course", "code": "ECE453" },
+            { "type": "course", "code": "ECE454" },
+            { "type": "course", "code": "ECE455" },
+            { "type": "course", "code": "ECE457A" },
+            { "type": "course", "code": "ECE457B" },
+            { "type": "course", "code": "ECE457C" },
+            { "type": "course", "code": "ECE458" },
+            { "type": "course", "code": "ECE459" },
+            { "type": "course", "code": "ME262" },
+            { "type": "course", "code": "ME559" },
+            { "type": "course", "code": "ME566" },
+            { "type": "course", "code": "MSE245" },
+            { "type": "course", "code": "MSE342" },
+            { "type": "course", "code": "MSE343" },
+            { "type": "course", "code": "MSE436" },
+            { "type": "course", "code": "MSE446" },
+            { "type": "course", "code": "MSE541" },
+            { "type": "course", "code": "MSE543" },
+            { "type": "course", "code": "MSE546" },
+            { "type": "course", "code": "MTE204" },
+            { "type": "course", "code": "MTE241" },
+            { "type": "course", "code": "MTE262" },
+            { "type": "course", "code": "MTE325" },
+            { "type": "course", "code": "MTE544" },
+            { "type": "course", "code": "MTE546" },
+            { "type": "course", "code": "SE212" },
+            { "type": "course", "code": "SE350" },
+            { "type": "course", "code": "SE463" },
+            { "type": "course", "code": "SE464" },
+            { "type": "course", "code": "SE465" },
+            { "type": "course", "code": "SYDE192" },
+            { "type": "course", "code": "SYDE411" },
+            { "type": "course", "code": "SYDE522" },
+            { "type": "course", "code": "SYDE542" },
+            { "type": "course", "code": "SYDE543" },
+            { "type": "course", "code": "SYDE548" },
+            { "type": "course", "code": "SYDE552" },
+            { "type": "course", "code": "SYDE556" },
+            { "type": "course", "code": "SYDE572" },
+            { "type": "course", "code": "SYDE575" },
+            { "type": "course", "code": "SYDE577" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 4",
+          "children": [
+            { "type": "course", "code": "AE121" },
+            { "type": "course", "code": "BME121" },
+            { "type": "course", "code": "CHE120" },
+            { "type": "course", "code": "CIVE121" },
+            { "type": "course", "code": "CS115" },
+            { "type": "course", "code": "CS116" },
+            { "type": "course", "code": "CS135" },
+            { "type": "course", "code": "CS137" },
+            { "type": "course", "code": "CS145" },
+            { "type": "course", "code": "ECE150" },
+            { "type": "course", "code": "ENVE121" },
+            { "type": "course", "code": "GEOE121" },
+            { "type": "course", "code": "ME101" },
+            { "type": "course", "code": "MSE121" },
+            { "type": "course", "code": "MTE121" },
+            { "type": "course", "code": "NE111" },
+            { "type": "course", "code": "SYDE121" },
+            { "type": "course", "code": "BME122" },
+            { "type": "course", "code": "CS136" },
+            { "type": "course", "code": "CS138" },
+            { "type": "course", "code": "CS146" },
+            { "type": "course", "code": "CS231" },
+            { "type": "course", "code": "ECE250" },
+            { "type": "course", "code": "MSE240" },
+            { "type": "course", "code": "MTE140" },
+            { "type": "course", "code": "SYDE223" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Entrepreneurship",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "graduation_requirements": {
+      "total_units": 3.0
+    },
+    "additional_constraints": [],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "BET100" },
+            { "type": "course", "code": "BET320" },
+            { "type": "course", "code": "BET340" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "BET201" },
+            { "type": "course", "code": "BET210" },
+            { "type": "course", "code": "BET300" },
+            { "type": "course", "code": "BET350" },
+            { "type": "course", "code": "BET360" },
+            { "type": "course", "code": "BET400" },
+            { "type": "course", "code": "BET405" },
+            { "type": "course", "code": "BET411" },
+            { "type": "course", "code": "BET412" },
+            { "type": "course", "code": "BET420" },
+            { "type": "course", "code": "BET430" },
+            { "type": "course", "code": "BET450" },
+            { "type": "course", "code": "BET460" },
+            { "type": "course", "code": "BET470" },
+            { "type": "course", "code": "BET580" },
+            { "type": "course", "code": "BET600" },
+            { "type": "course", "code": "BET601" },
+            { "type": "course", "code": "BET602" },
+            { "type": "course", "code": "BET603" },
+            { "type": "course", "code": "BET605" },
+            { "type": "course", "code": "BET607" },
+            { "type": "course", "code": "BET608" },
+            { "type": "course", "code": "BET615" },
+            { "type": "course", "code": "BET620" },
+            { "type": "course", "code": "BET630" },
+            { "type": "course", "code": "BET640" },
+            { "type": "course", "code": "BET650" },
+            { "type": "course", "code": "BET660" },
+            { "type": "course", "code": "BET670" },
+            { "type": "course", "code": "BET680" },
+            { "type": "course", "code": "BET690" },
+            { "type": "course", "code": "BET700" },
+            { "type": "course", "code": "BET710" },
+            { "type": "course", "code": "BET720" },
+            { "type": "course", "code": "BET730" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "BET201" },
+            { "type": "course", "code": "BET210" },
+            { "type": "course", "code": "BET300" },
+            { "type": "course", "code": "BET350" },
+            { "type": "course", "code": "BET360" },
+            { "type": "course", "code": "BET400" },
+            { "type": "course", "code": "BET405" },
+            { "type": "course", "code": "BET411" },
+            { "type": "course", "code": "BET412" },
+            { "type": "course", "code": "BET420" },
+            { "type": "course", "code": "BET430" },
+            { "type": "course", "code": "BET450" },
+            { "type": "course", "code": "BET460" },
+            { "type": "course", "code": "BET470" },
+            { "type": "course", "code": "BET580" },
+            { "type": "course", "code": "BET600" },
+            { "type": "course", "code": "BET601" },
+            { "type": "course", "code": "BET602" },
+            { "type": "course", "code": "BET603" },
+            { "type": "course", "code": "BET605" },
+            { "type": "course", "code": "BET607" },
+            { "type": "course", "code": "BET608" },
+            { "type": "course", "code": "BET615" },
+            { "type": "course", "code": "BET620" },
+            { "type": "course", "code": "BET630" },
+            { "type": "course", "code": "BET640" },
+            { "type": "course", "code": "BET650" },
+            { "type": "course", "code": "BET660" },
+            { "type": "course", "code": "BET670" },
+            { "type": "course", "code": "BET680" },
+            { "type": "course", "code": "BET690" },
+            { "type": "course", "code": "BET700" },
+            { "type": "course", "code": "BET710" },
+            { "type": "course", "code": "BET720" },
+            { "type": "course", "code": "BET730" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Environmental Engineering",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "declaration_requirements": [
+      "Before declaring this academic plan, see invalid credential combinations."
+    ],
+    "graduation_requirements": {
+      "total_units": 3.5,
+      "breakdown": {
+        "list_1": 0.5,
+        "list_2": 0.5,
+        "list_3": 1.0,
+        "list_4": 0.5,
+        "additional_from_list_2_3_or_4": 0.5
+      },
+      "notes": "Complete a total of 7 courses; the seventh course can be taken from List 2, List 3, or List 4."
+    },
+    "additional_constraints": [
+      "Substitution of equivalent courses, if applicable, requires the approval of the option co-ordinator."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "ENVE391" },
+            { "type": "course", "code": "ERS215" },
+            { "type": "course", "code": "ERS270" },
+            { "type": "course", "code": "ERS315" },
+            { "type": "course", "code": "ERS370" },
+            { "type": "course", "code": "ERS372" },
+            { "type": "course", "code": "ERS404" },
+            { "type": "course", "code": "GEOE391" },
+            { "type": "course", "code": "PSCI432" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "BIOL150" },
+            { "type": "course", "code": "BIOL240" },
+            { "type": "course", "code": "BIOL354" },
+            { "type": "course", "code": "BIOL383" },
+            { "type": "course", "code": "EARTH221" },
+            { "type": "course", "code": "ENVE275" },
+            { "type": "course", "code": "ENVS200" },
+            { "type": "course", "code": "ERS383" },
+            { "type": "course", "code": "GEOG432" },
+            { "type": "course", "code": "HLTH420" },
+            { "type": "course", "code": "PLAN432" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "CHE571" },
+            { "type": "course", "code": "CHE572" },
+            { "type": "course", "code": "CHE574" },
+            { "type": "course", "code": "CIVE375" },
+            { "type": "course", "code": "ENVE375" },
+            { "type": "course", "code": "ENVE376" },
+            { "type": "course", "code": "ENVE577" },
+            { "type": "course", "code": "ME452" },
+            { "type": "course", "code": "ME459" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 4",
+          "children": [
+            { "type": "course", "code": "CIVE230" },
+            { "type": "course", "code": "EARTH456" },
+            { "type": "course", "code": "EARTH458" },
+            { "type": "course", "code": "ENVE335" },
+            { "type": "course", "code": "ENVE573" },
+            { "type": "course", "code": "ME571" },
+            { "type": "course", "code": "MSE452" },
+            { "type": "course", "code": "SYDE532" },
+            { "type": "course", "code": "SYDE533" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 5",
+          "children": [
+            { "type": "course", "code": "BIOL150" },
+            { "type": "course", "code": "BIOL240" },
+            { "type": "course", "code": "BIOL354" },
+            { "type": "course", "code": "BIOL383" },
+            { "type": "course", "code": "EARTH221" },
+            { "type": "course", "code": "ENVE275" },
+            { "type": "course", "code": "ENVS200" },
+            { "type": "course", "code": "ERS383" },
+            { "type": "course", "code": "GEOG432" },
+            { "type": "course", "code": "HLTH420" },
+            { "type": "course", "code": "PLAN432" },
+            { "type": "course", "code": "CHE571" },
+            { "type": "course", "code": "CHE572" },
+            { "type": "course", "code": "CHE574" },
+            { "type": "course", "code": "CIVE375" },
+            { "type": "course", "code": "ENVE375" },
+            { "type": "course", "code": "ENVE376" },
+            { "type": "course", "code": "ENVE577" },
+            { "type": "course", "code": "ME452" },
+            { "type": "course", "code": "ME459" },
+            { "type": "course", "code": "CIVE230" },
+            { "type": "course", "code": "EARTH456" },
+            { "type": "course", "code": "EARTH458" },
+            { "type": "course", "code": "ENVE335" },
+            { "type": "course", "code": "ENVE573" },
+            { "type": "course", "code": "ME571" },
+            { "type": "course", "code": "MSE452" },
+            { "type": "course", "code": "SYDE532" },
+            { "type": "course", "code": "SYDE533" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Life Sciences",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "graduation_requirements": {
+      "total_units": 3.5,
+      "notes": "Complete the required courses for one theme. Each theme requires 3.5 units."
+    },
+    "additional_constraints": [
+      "For Theme 3, no more than one of CHEM262, CHEM266, or NE222 can be used."
+    ],
+    "course_requirements": {
+      "type": "OR",
+      "required_count": 1,
+      "description": "Complete 1 of the following themes",
+      "children": [
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 1",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "BIOL130" },
+                { "type": "course", "code": "BIOL239" },
+                { "type": "course", "code": "BIOL240" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "CHEM262" },
+                { "type": "course", "code": "CHEM266" },
+                { "type": "course", "code": "NE222" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 3,
+              "description": "Complete 3 of the following",
+              "children": [
+                { "type": "course", "code": "AMATH382" },
+                { "type": "course", "code": "BIOL266" },
+                { "type": "course", "code": "BIOL308" },
+                { "type": "course", "code": "BIOL331" },
+                { "type": "course", "code": "BIOL342" },
+                { "type": "course", "code": "BIOL349" },
+                { "type": "course", "code": "BIOL382" },
+                { "type": "course", "code": "BIOL434" },
+                { "type": "course", "code": "CHE565" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 2",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "BIOL239" },
+                { "type": "course", "code": "BIOL240" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "BME285" },
+                { "type": "course", "code": "CHE161" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "BME186" },
+                { "type": "course", "code": "CHE102" },
+                { "type": "course", "code": "CHEM123" },
+                { "type": "course", "code": "NE121" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 3,
+              "description": "Complete 3 of the following",
+              "children": [
+                { "type": "course", "code": "BIOL150" },
+                { "type": "course", "code": "BIOL241" },
+                { "type": "course", "code": "BIOL349" },
+                { "type": "course", "code": "BIOL350" },
+                { "type": "course", "code": "BIOL351" },
+                { "type": "course", "code": "BIOL354" },
+                { "type": "course", "code": "BIOL462" },
+                { "type": "course", "code": "CHE565" },
+                { "type": "course", "code": "EARTH444" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 3",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "ECE105" },
+                { "type": "course", "code": "PHYS380" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "BIOL280" },
+                { "type": "course", "code": "PHYS280" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "BME186" },
+                { "type": "course", "code": "CHE102" },
+                { "type": "course", "code": "CHEM123" },
+                { "type": "course", "code": "NE121" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 3,
+              "description": "Complete 3 of the following",
+              "children": [
+                { "type": "course", "code": "BIOL349" },
+                { "type": "course", "code": "CHE565" },
+                { "type": "course", "code": "CHEM233" },
+                { "type": "course", "code": "CHEM237" },
+                { "type": "course", "code": "CHEM262" },
+                { "type": "course", "code": "CHEM266" },
+                { "type": "course", "code": "CHEM357" },
+                { "type": "course", "code": "NE222" },
+                { "type": "course", "code": "PHYS395" },
+                { "type": "course", "code": "PHYS396" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 4",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "CHEM267" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "BME186" },
+                { "type": "course", "code": "CHE102" },
+                { "type": "course", "code": "CHEM123" },
+                { "type": "course", "code": "NE121" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "BME285" },
+                { "type": "course", "code": "CHE161" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "CHEM262" },
+                { "type": "course", "code": "CHEM266" },
+                { "type": "course", "code": "NE222" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 3,
+              "description": "Complete 3 of the following",
+              "children": [
+                { "type": "course", "code": "CHEM220" },
+                { "type": "course", "code": "CHEM233" },
+                { "type": "course", "code": "CHEM237" },
+                { "type": "course", "code": "CHEM333" },
+                { "type": "course", "code": "CHEM357" },
+                { "type": "course", "code": "CHEM430" },
+                { "type": "course", "code": "CHEM432" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Management Science",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "declaration_requirements": [
+      "Before requesting admission to this academic plan, see invalid credential combinations."
+    ],
+    "graduation_requirements": {
+      "total_units": 3.0
+    },
+    "additional_constraints": [
+      "At least three courses must be MSE-labelled courses.",
+      "A maximum of one course from outside the approved list may be counted towards the Option, subject to approval of the option co-ordinator.",
+      "Students may take both MSE211 and MSE311; each course may only be used towards one requirement."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "MSE211" },
+            { "type": "course", "code": "MSE311" },
+            { "type": "course", "code": "PSYCH238" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "BME411" },
+            { "type": "course", "code": "CHE521" },
+            { "type": "course", "code": "CIVE332" },
+            { "type": "course", "code": "CO250" },
+            { "type": "course", "code": "ENVE335" },
+            { "type": "course", "code": "MSE331" },
+            { "type": "course", "code": "SYDE411" }
+          ]
+        },
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 3",
+          "children": [
+            {
+              "type": "OR",
+              "required_count": 4,
+              "description": "Complete 4 courses from the following",
+              "children": [
+                { "type": "course", "code": "CIVE343" },
+                { "type": "course", "code": "ECON371" },
+                { "type": "course", "code": "HRM200" },
+                { "type": "course", "code": "MSE311" },
+                { "type": "course", "code": "MSE332" },
+                { "type": "course", "code": "MSE343" },
+                { "type": "course", "code": "MSE422" },
+                { "type": "course", "code": "MSE431" },
+                { "type": "course", "code": "MSE432" },
+                { "type": "course", "code": "MSE433" },
+                { "type": "course", "code": "MSE435" },
+                { "type": "course", "code": "MSE442" },
+                { "type": "course", "code": "MSE452" },
+                { "type": "course", "code": "MSE454" },
+                { "type": "course", "code": "MSE531" },
+                { "type": "course", "code": "MSE541" },
+                { "type": "course", "code": "MSE543" },
+                { "type": "course", "code": "MSE546" },
+                { "type": "course", "code": "MSE551" },
+                { "type": "course", "code": "MSE555" },
+                { "type": "course", "code": "MSE597" },
+                { "type": "course", "code": "MSE508" },
+                { "type": "course", "code": "SYDE531" },
+                { "type": "course", "code": "SYDE533" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete no more than 1 from the following (Economics)",
+              "children": [
+                { "type": "course", "code": "AE392" },
+                { "type": "course", "code": "BME364" },
+                { "type": "course", "code": "CIVE392" },
+                { "type": "course", "code": "ENVE392" },
+                { "type": "course", "code": "GEOE392" },
+                { "type": "course", "code": "MSE261" },
+                { "type": "course", "code": "SYDE262" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete no more than 1 from the following (Leadership)",
+              "children": [
+                { "type": "course", "code": "BET450" },
+                { "type": "course", "code": "MSE411" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete no more than 1 from the following (Machine Learning)",
+              "children": [
+                { "type": "course", "code": "CS480" },
+                { "type": "course", "code": "ECE457B" },
+                { "type": "course", "code": "MSE446" },
+                { "type": "course", "code": "SYDE522" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete no more than 1 from the following (Microeconomics)",
+              "children": [
+                { "type": "course", "code": "ECON201" },
+                { "type": "course", "code": "MSE263" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete no more than 1 from the following (Organizational Behaviour)",
+              "children": [
+                { "type": "course", "code": "MSE211" },
+                { "type": "course", "code": "PSYCH238" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Mechatronics",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "declaration_requirements": [
+      "Before requesting admission to this academic plan, see invalid credential combinations."
+    ],
+    "graduation_requirements": {
+      "total_units": 5.0
+    },
+    "additional_constraints": [
+      "The two-term design project/workshop requirement must have a mechatronics theme which must be approved by the faculty Mechatronics Option co-ordinator. Students must also meet the project/workshop requirements of their home department.",
+      "Exceptions to the requirements and electives listed above require approval of the Option co-ordinator."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "BME294" },
+            { "type": "course", "code": "ECE240" },
+            { "type": "course", "code": "MTE220" },
+            { "type": "course", "code": "SYDE292" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "ECE224" },
+            { "type": "course", "code": "MTE325" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "ECE260" },
+            { "type": "course", "code": "ME269" },
+            { "type": "course", "code": "MTE320" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 4",
+          "children": [
+            { "type": "course", "code": "ME321" },
+            { "type": "course", "code": "MTE321" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 5",
+          "children": [
+            { "type": "course", "code": "ECE481" },
+            { "type": "course", "code": "ECE484" },
+            { "type": "course", "code": "ECE488" },
+            { "type": "course", "code": "MTE460" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 6",
+          "children": [
+            { "type": "course", "code": "ECE486" },
+            { "type": "course", "code": "ME547" },
+            { "type": "course", "code": "MTE544" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 7",
+          "children": [
+            { "type": "course", "code": "ME322" },
+            { "type": "course", "code": "ME524" },
+            { "type": "course", "code": "MTE322" },
+            { "type": "course", "code": "SYDE553" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 8",
+          "children": [
+            { "type": "course", "code": "ECE356" },
+            { "type": "course", "code": "ECE454" },
+            { "type": "course", "code": "ECE455" },
+            { "type": "course", "code": "ECE457A" },
+            { "type": "course", "code": "ECE457B" },
+            { "type": "course", "code": "ECE459" },
+            { "type": "course", "code": "ECE463" },
+            { "type": "course", "code": "ME561" },
+            { "type": "course", "code": "SYDE522" },
+            { "type": "course", "code": "SYDE572" },
+            { "type": "course", "code": "SYDE575" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 9",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "BME461" },
+                { "type": "course", "code": "BME462" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "ECE498A" },
+                { "type": "course", "code": "ECE498B" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "GENE403" },
+                { "type": "course", "code": "GENE404" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "ME481" },
+                { "type": "course", "code": "ME482" }
+              ]
+            },
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "SYDE461" },
+                { "type": "course", "code": "SYDE462" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Physical Sciences",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "graduation_requirements": {
+      "total_units": 3.5,
+      "notes": "Complete the required courses for one theme. Theme 3 may be 3.5-3.75 units."
+    },
+    "additional_constraints": [
+      "For Theme 1: Only one of NE334 or PHYS359 may be taken.",
+      "For Theme 3: Due to the overlap, this theme is not available to Geological Engineering students."
+    ],
+    "course_requirements": {
+      "type": "OR",
+      "required_count": 1,
+      "description": "Complete 1 of the following themes",
+      "children": [
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 1",
+          "children": [
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Mechanics)",
+              "children": [
+                { "type": "course", "code": "ECE105" },
+                { "type": "course", "code": "NE131" },
+                { "type": "course", "code": "PHYS115" },
+                { "type": "course", "code": "PHYS121" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Electricity and Magnetism)",
+              "children": [
+                { "type": "course", "code": "ECE106" },
+                { "type": "course", "code": "NE241" },
+                { "type": "course", "code": "PHYS122" },
+                { "type": "course", "code": "SYDE283" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Advanced Physics)",
+              "children": [
+                { "type": "course", "code": "ECE140" },
+                { "type": "course", "code": "PHYS242" },
+                { "type": "course", "code": "PHYS263" },
+                { "type": "course", "code": "PHYS334" },
+                { "type": "course", "code": "PHYS358" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Quantum Physics)",
+              "children": [
+                { "type": "course", "code": "NE332" },
+                { "type": "course", "code": "PHYS234" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 3,
+              "description": "Complete 3 of the following (electives)",
+              "children": [
+                { "type": "course", "code": "AMATH473" },
+                { "type": "course", "code": "CO481" },
+                { "type": "course", "code": "CS467" },
+                { "type": "course", "code": "NE334" },
+                { "type": "course", "code": "PHYS275" },
+                { "type": "course", "code": "PHYS334" },
+                { "type": "course", "code": "PHYS335" },
+                { "type": "course", "code": "PHYS342" },
+                { "type": "course", "code": "PHYS359" },
+                { "type": "course", "code": "PHYS364" },
+                { "type": "course", "code": "PHYS365" },
+                { "type": "course", "code": "PHYS375" },
+                { "type": "course", "code": "PHYS434" },
+                { "type": "course", "code": "PHYS435" },
+                { "type": "course", "code": "PHYS442" },
+                { "type": "course", "code": "PHYS454" },
+                { "type": "course", "code": "PHYS467" },
+                { "type": "course", "code": "PHYS475" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 2",
+          "children": [
+            {
+              "type": "AND",
+              "required_count": null,
+              "description": "Complete all of the following",
+              "children": [
+                { "type": "course", "code": "CHEM209" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following",
+              "children": [
+                { "type": "course", "code": "CHE102" },
+                { "type": "course", "code": "CHEM123" },
+                { "type": "course", "code": "NE121" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Structure and Bonding)",
+              "children": [
+                { "type": "course", "code": "CHEM212" },
+                { "type": "course", "code": "NE225" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Organic Chemistry)",
+              "children": [
+                { "type": "course", "code": "CHEM262" },
+                { "type": "course", "code": "CHEM264" },
+                { "type": "course", "code": "NE222" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 3,
+              "description": "Complete 3 courses from the following lists",
+              "children": [
+                { "type": "course", "code": "CHEM220" },
+                { "type": "course", "code": "CHEM221" },
+                { "type": "course", "code": "CHEM265" },
+                { "type": "course", "code": "CHEM310" },
+                { "type": "course", "code": "CHEM313" },
+                { "type": "course", "code": "CHEM323" },
+                { "type": "course", "code": "CHEM340" },
+                { "type": "course", "code": "CHEM350" },
+                { "type": "course", "code": "CHEM360" },
+                { "type": "course", "code": "CHE230" },
+                { "type": "course", "code": "CHEM254" },
+                { "type": "course", "code": "ME250" },
+                { "type": "course", "code": "SYDE381" },
+                { "type": "course", "code": "CHEM356" },
+                { "type": "course", "code": "NE332" },
+                { "type": "course", "code": "PHYS234" },
+                { "type": "course", "code": "CHEM370" },
+                { "type": "course", "code": "NE333" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 3",
+          "children": [
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Chemistry)",
+              "children": [
+                { "type": "course", "code": "CHE102" },
+                { "type": "course", "code": "CHEM123" },
+                { "type": "course", "code": "NE121" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Mechanics)",
+              "children": [
+                { "type": "course", "code": "ECE105" },
+                { "type": "course", "code": "NE131" },
+                { "type": "course", "code": "PHYS115" },
+                { "type": "course", "code": "PHYS121" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Electricity and Magnetism)",
+              "children": [
+                { "type": "course", "code": "ECE106" },
+                { "type": "course", "code": "PHYS122" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Earth Sciences intro)",
+              "children": [
+                {
+                  "type": "AND",
+                  "required_count": null,
+                  "description": "Complete all of the following",
+                  "children": [
+                    { "type": "course", "code": "EARTH121" },
+                    { "type": "course", "code": "EARTH121L" }
+                  ]
+                },
+                {
+                  "type": "AND",
+                  "required_count": null,
+                  "description": "Complete all of the following",
+                  "children": [
+                    { "type": "course", "code": "EARTH122" },
+                    { "type": "course", "code": "EARTH122L" }
+                  ]
+                },
+                {
+                  "type": "OR",
+                  "required_count": 1,
+                  "description": "Complete 1 of the following",
+                  "children": [
+                    { "type": "course", "code": "CIVE153" },
+                    { "type": "course", "code": "ENVE153" },
+                    { "type": "course", "code": "GEOE153" }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 3,
+              "description": "Complete 3 of the following",
+              "children": [
+                { "type": "course", "code": "BIOL462" },
+                { "type": "course", "code": "EARTH221" },
+                { "type": "course", "code": "EARTH231" },
+                { "type": "course", "code": "EARTH232" },
+                { "type": "course", "code": "EARTH235" },
+                { "type": "course", "code": "EARTH260" },
+                { "type": "course", "code": "EARTH270" },
+                { "type": "course", "code": "EARTH281" },
+                { "type": "course", "code": "EARTH333" },
+                { "type": "course", "code": "EARTH358" },
+                { "type": "course", "code": "EARTH421" },
+                { "type": "course", "code": "EARTH438" },
+                { "type": "course", "code": "EARTH440" },
+                { "type": "course", "code": "EARTH444" },
+                { "type": "course", "code": "EARTH456" },
+                { "type": "course", "code": "EARTH458" },
+                { "type": "course", "code": "EARTH459" },
+                { "type": "course", "code": "EARTH460" },
+                { "type": "course", "code": "EARTH471" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Quantum Engineering",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 75.0,
+    "declaration_requirements": [
+      "Students may not declare this Option until they have completed both a List 1 course and a List 2 course. Students must have a minimum average of 75.0% calculated across these two courses, and a minimum cumulative average of 75.0% in order to declare this Option."
+    ],
+    "graduation_requirements": {
+      "total_units": 3.0
+    },
+    "additional_constraints": [],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "ECE405C" },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Quantum Mechanics)",
+              "children": [
+                { "type": "course", "code": "AMATH373" },
+                { "type": "course", "code": "CHEM356" },
+                { "type": "course", "code": "ECE395" },
+                { "type": "course", "code": "NE332" },
+                { "type": "course", "code": "PHYS233" },
+                { "type": "course", "code": "PHYS234" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Quantum Information Devices)",
+              "children": [
+                { "type": "course", "code": "ECE405A" },
+                { "type": "course", "code": "PHYS468" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Experimental Quantum)",
+              "children": [
+                { "type": "course", "code": "ECE405B" },
+                { "type": "course", "code": "ECE405D" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "AE223" },
+            { "type": "course", "code": "CIVE222" },
+            { "type": "course", "code": "ECE205" },
+            { "type": "course", "code": "ENVE223" },
+            { "type": "course", "code": "GEOE223" },
+            { "type": "course", "code": "MATH211" },
+            { "type": "course", "code": "MATH213" },
+            { "type": "course", "code": "MATH217" },
+            { "type": "course", "code": "MATH218" },
+            { "type": "course", "code": "ME203" },
+            { "type": "course", "code": "MSE271" },
+            { "type": "course", "code": "MTE202" },
+            { "type": "course", "code": "NE216" },
+            { "type": "course", "code": "SYDE211" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "AE123" },
+            { "type": "course", "code": "BME294" },
+            { "type": "course", "code": "CIVE123" },
+            { "type": "course", "code": "ECE106" },
+            { "type": "course", "code": "ECE140" },
+            { "type": "course", "code": "ECE375" },
+            { "type": "course", "code": "ENVE123" },
+            { "type": "course", "code": "GENE123" },
+            { "type": "course", "code": "GEOE123" },
+            { "type": "course", "code": "ME123" },
+            { "type": "course", "code": "MTE120" },
+            { "type": "course", "code": "NE241" },
+            { "type": "course", "code": "PHYS342" },
+            { "type": "course", "code": "SYDE292" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Software Engineering",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Architectural Studies"
+    ],
+    "minimum_average": 75.0,
+    "declaration_requirements": [
+      "Before declaring this academic plan, see invalid credential combinations.",
+      "Students may not declare this Option until they have completed a List 1 course and a List 2 course. Students must have a minimum average of 75.0% calculated across these two courses in order to declare this Option."
+    ],
+    "graduation_requirements": {
+      "total_units": 4.0,
+      "breakdown": {
+        "required_courses": 1.5,
+        "list_1": 0.5,
+        "list_2": 0.5,
+        "list_3": 1.0,
+        "list_4": 0.5
+      }
+    },
+    "additional_constraints": [
+      "Five of the courses must be considered as electives in the student's major academic plan.",
+      "Students who take CS136 or CS146 are also required to enrol in CS136L. However, passing CS136L is not a requirement for the Option and the course may be coded as NRNA.",
+      "Exceptions to these courses can be made by the Option co-ordinator."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 1",
+          "children": [
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Software Requirements)",
+              "children": [
+                { "type": "course", "code": "CS445" },
+                { "type": "course", "code": "ECE451" },
+                { "type": "course", "code": "SE463" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Software Design)",
+              "children": [
+                { "type": "course", "code": "CS446" },
+                { "type": "course", "code": "ECE452" },
+                { "type": "course", "code": "SE464" }
+              ]
+            },
+            {
+              "type": "OR",
+              "required_count": 1,
+              "description": "Complete 1 of the following (Software Testing)",
+              "children": [
+                { "type": "course", "code": "CS447" },
+                { "type": "course", "code": "ECE453" },
+                { "type": "course", "code": "SE465" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "AE121" },
+            { "type": "course", "code": "BME121" },
+            { "type": "course", "code": "CHE120" },
+            { "type": "course", "code": "CIVE121" },
+            { "type": "course", "code": "CS115" },
+            { "type": "course", "code": "CS116" },
+            { "type": "course", "code": "CS135" },
+            { "type": "course", "code": "CS137" },
+            { "type": "course", "code": "CS145" },
+            { "type": "course", "code": "ECE150" },
+            { "type": "course", "code": "ENVE121" },
+            { "type": "course", "code": "GEOE121" },
+            { "type": "course", "code": "ME101" },
+            { "type": "course", "code": "MSE121" },
+            { "type": "course", "code": "MTE121" },
+            { "type": "course", "code": "NE111" },
+            { "type": "course", "code": "SYDE121" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "BME122" },
+            { "type": "course", "code": "CS136" },
+            { "type": "course", "code": "CS138" },
+            { "type": "course", "code": "CS146" },
+            { "type": "course", "code": "CS231" },
+            { "type": "course", "code": "ECE250" },
+            { "type": "course", "code": "MSE240" },
+            { "type": "course", "code": "MTE140" },
+            { "type": "course", "code": "SYDE223" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 2,
+          "description": "List 4",
+          "children": [
+            { "type": "course", "code": "BIOL487" },
+            { "type": "course", "code": "BME393" },
+            { "type": "course", "code": "BME411" },
+            { "type": "course", "code": "CHE322" },
+            { "type": "course", "code": "CIVE422" },
+            { "type": "course", "code": "EARTH456" },
+            { "type": "course", "code": "ENVE225" },
+            { "type": "course", "code": "NE336" },
+            { "type": "course", "code": "CS230" },
+            { "type": "course", "code": "CS234" },
+            { "type": "course", "code": "CS245" },
+            { "type": "course", "code": "CS338" },
+            { "type": "course", "code": "CS445" },
+            { "type": "course", "code": "CS446" },
+            { "type": "course", "code": "CS447" },
+            { "type": "course", "code": "ECE124" },
+            { "type": "course", "code": "ECE204" },
+            { "type": "course", "code": "ECE208" },
+            { "type": "course", "code": "ECE222" },
+            { "type": "course", "code": "ECE224" },
+            { "type": "course", "code": "ECE252" },
+            { "type": "course", "code": "ECE320" },
+            { "type": "course", "code": "ECE327" },
+            { "type": "course", "code": "ECE350" },
+            { "type": "course", "code": "ECE351" },
+            { "type": "course", "code": "ECE356" },
+            { "type": "course", "code": "ECE358" },
+            { "type": "course", "code": "ECE406" },
+            { "type": "course", "code": "ECE409" },
+            { "type": "course", "code": "ECE417" },
+            { "type": "course", "code": "ECE423" },
+            { "type": "course", "code": "ECE451" },
+            { "type": "course", "code": "ECE452" },
+            { "type": "course", "code": "ECE453" },
+            { "type": "course", "code": "ECE454" },
+            { "type": "course", "code": "ECE455" },
+            { "type": "course", "code": "ECE457A" },
+            { "type": "course", "code": "ECE457B" },
+            { "type": "course", "code": "ECE457C" },
+            { "type": "course", "code": "ECE458" },
+            { "type": "course", "code": "ECE459" },
+            { "type": "course", "code": "ME262" },
+            { "type": "course", "code": "ME559" },
+            { "type": "course", "code": "ME566" },
+            { "type": "course", "code": "MSE245" },
+            { "type": "course", "code": "MSE342" },
+            { "type": "course", "code": "MSE343" },
+            { "type": "course", "code": "MSE436" },
+            { "type": "course", "code": "MSE446" },
+            { "type": "course", "code": "MSE541" },
+            { "type": "course", "code": "MSE543" },
+            { "type": "course", "code": "MSE546" },
+            { "type": "course", "code": "MTE204" },
+            { "type": "course", "code": "MTE241" },
+            { "type": "course", "code": "MTE262" },
+            { "type": "course", "code": "MTE325" },
+            { "type": "course", "code": "MTE544" },
+            { "type": "course", "code": "MTE546" },
+            { "type": "course", "code": "SE212" },
+            { "type": "course", "code": "SE350" },
+            { "type": "course", "code": "SE463" },
+            { "type": "course", "code": "SE464" },
+            { "type": "course", "code": "SE465" },
+            { "type": "course", "code": "SYDE192" },
+            { "type": "course", "code": "SYDE411" },
+            { "type": "course", "code": "SYDE522" },
+            { "type": "course", "code": "SYDE542" },
+            { "type": "course", "code": "SYDE543" },
+            { "type": "course", "code": "SYDE548" },
+            { "type": "course", "code": "SYDE552" },
+            { "type": "course", "code": "SYDE556" },
+            { "type": "course", "code": "SYDE572" },
+            { "type": "course", "code": "SYDE575" },
+            { "type": "course", "code": "SYDE577" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 5",
+          "children": [
+            { "type": "course", "code": "CS492" },
+            { "type": "course", "code": "HIST212" },
+            { "type": "course", "code": "MSE442" },
+            { "type": "course", "code": "SOC324" },
+            { "type": "course", "code": "STV205" },
+            { "type": "course", "code": "STV208" },
+            { "type": "course", "code": "STV210" },
+            { "type": "course", "code": "STV302" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "option_name": "Statistics",
+    "available_for_degrees": [
+      "Bachelor of Applied Science",
+      "Bachelor of Software Engineering"
+    ],
+    "minimum_average": 60.0,
+    "graduation_requirements": {
+      "total_units": 3.5
+    },
+    "additional_constraints": [
+      "Only one of MSE431 or SYDE531 may be taken."
+    ],
+    "course_requirements": {
+      "type": "AND",
+      "required_count": null,
+      "description": "Complete all of the following",
+      "children": [
+        {
+          "type": "AND",
+          "required_count": null,
+          "description": "List 1",
+          "children": [
+            { "type": "course", "code": "STAT435" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 2",
+          "children": [
+            { "type": "course", "code": "CHE220" },
+            { "type": "course", "code": "CIVE224" },
+            { "type": "course", "code": "ENVE224" },
+            { "type": "course", "code": "GEOE224" },
+            { "type": "course", "code": "ME202" },
+            { "type": "course", "code": "MSE251" },
+            { "type": "course", "code": "MTE201" },
+            { "type": "course", "code": "NE215" },
+            { "type": "course", "code": "STAT231" },
+            { "type": "course", "code": "SYDE212" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 3",
+          "children": [
+            { "type": "course", "code": "CHE225" },
+            { "type": "course", "code": "CHE425" },
+            { "type": "course", "code": "MSE253" },
+            { "type": "course", "code": "STAT332" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 1,
+          "description": "List 4",
+          "children": [
+            { "type": "course", "code": "STAT331" },
+            { "type": "course", "code": "SYDE334" }
+          ]
+        },
+        {
+          "type": "OR",
+          "required_count": 3,
+          "description": "List 5",
+          "children": [
+            { "type": "course", "code": "CHE341" },
+            { "type": "course", "code": "CHE522" },
+            { "type": "course", "code": "CHE524" },
+            { "type": "course", "code": "CIVE343" },
+            { "type": "course", "code": "CIVE375" },
+            { "type": "course", "code": "CIVE440" },
+            { "type": "course", "code": "ENVE573" },
+            { "type": "course", "code": "ME340" },
+            { "type": "course", "code": "MSE431" },
+            { "type": "course", "code": "MSE432" },
+            { "type": "course", "code": "MSE452" },
+            { "type": "course", "code": "PLAN478" },
+            { "type": "course", "code": "STAT230" },
+            { "type": "course", "code": "STAT333" },
+            { "type": "course", "code": "STAT430" },
+            { "type": "course", "code": "STAT431" },
+            { "type": "course", "code": "STAT433" },
+            { "type": "course", "code": "STAT443" },
+            { "type": "course", "code": "SYDE531" },
+            { "type": "course", "code": "SYDE533" },
+            { "type": "course", "code": "SYDE572" }
+          ]
+        }
+      ]
+    }
+  }
+]
