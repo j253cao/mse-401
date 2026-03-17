@@ -431,8 +431,8 @@ class QueryRequest(BaseModel):
     filters: Optional[Dict[str, Any]] = None
 
 
-@app.get("/")
-def root():
+@app.get("/health")
+def health():
     """Health check endpoint."""
     return {"status": "ok", "message": "UW Course Recommendation API"}
 
