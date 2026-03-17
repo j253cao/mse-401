@@ -6,8 +6,9 @@
 .pytest_cache/
 .mypy_cache/
 
-# Frontend (not needed for backend image)
-frontend/
+# Frontend build artifacts (source is needed for Docker build stage)
+frontend/node_modules/
+frontend/dist/
 
 # Git / IDE
 .git/
