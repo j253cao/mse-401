@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useCallback, useRef } from "
 import type { Course, TermSummary, StudentProfile, IncomingLevel } from "@/types/api";
 import { useStoredProfile } from "@/hooks/useStoredProfile";
 import { getCoreCoursesBeforeLevel } from "@/constants/engineeringPrograms";
+import { type DepartmentFilters, INITIAL_DEPARTMENTS } from "@/constants/filterDepartments";
 
 export type { Course, TermSummary, StudentProfile };
 
@@ -19,6 +20,24 @@ export const RecommendationsContext = createContext<{
   incomingLevel: IncomingLevel | "";
   setIncomingLevel: React.Dispatch<React.SetStateAction<IncomingLevel | "">>;
   clearProfile: () => void;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  filteredCourses: Course[];
+  setFilteredCourses: React.Dispatch<React.SetStateAction<Course[]>>;
+  departments: DepartmentFilters;
+  setDepartments: React.Dispatch<React.SetStateAction<DepartmentFilters>>;
+  includeOtherDepts: boolean;
+  setIncludeOtherDepts: React.Dispatch<React.SetStateAction<boolean>>;
+  includeUndergrad: boolean;
+  setIncludeUndergrad: React.Dispatch<React.SetStateAction<boolean>>;
+  includeGrad: boolean;
+  setIncludeGrad: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedOptions: string[];
+  setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>;
+  explorationMode: boolean;
+  setExplorationMode: React.Dispatch<React.SetStateAction<boolean>>;
+  hasSearched: boolean;
+  setHasSearched: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   recommendedCourses: [],
   setRecommendedCourses: () => {},
@@ -33,6 +52,24 @@ export const RecommendationsContext = createContext<{
   incomingLevel: "",
   setIncomingLevel: () => {},
   clearProfile: () => {},
+  search: "",
+  setSearch: () => {},
+  filteredCourses: [],
+  setFilteredCourses: () => {},
+  departments: INITIAL_DEPARTMENTS,
+  setDepartments: () => {},
+  includeOtherDepts: false,
+  setIncludeOtherDepts: () => {},
+  includeUndergrad: true,
+  setIncludeUndergrad: () => {},
+  includeGrad: true,
+  setIncludeGrad: () => {},
+  selectedOptions: [],
+  setSelectedOptions: () => {},
+  explorationMode: false,
+  setExplorationMode: () => {},
+  hasSearched: false,
+  setHasSearched: () => {},
 });
 
 export const RecommendationsProvider: React.FC<{
@@ -45,6 +82,15 @@ export const RecommendationsProvider: React.FC<{
   const [termSummaries, setTermSummaries] = useState<TermSummary[]>([]);
   const [programCode, setProgramCode] = useState("");
   const [incomingLevel, setIncomingLevel] = useState<IncomingLevel | "">("");
+  const [search, setSearch] = useState("");
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
+  const [departments, setDepartments] = useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
+  const [includeOtherDepts, setIncludeOtherDepts] = useState(false);
+  const [includeUndergrad, setIncludeUndergrad] = useState(true);
+  const [includeGrad, setIncludeGrad] = useState(true);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [explorationMode, setExplorationMode] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const hasLoadedFromStorage = useRef(false);
   const skipNextAutoPopulate = useRef(false);
 
@@ -54,6 +100,7 @@ export const RecommendationsProvider: React.FC<{
     if (stored) {
       setProgramCode(stored.programCode);
       setIncomingLevel(stored.incomingLevel);
+      setIncludeGrad(!stored.incomingLevel);
       if (stored.completedCourses && stored.completedCourses.length > 0) {
         setCompletedCourses(stored.completedCourses);
         skipNextAutoPopulate.current = true;
@@ -96,6 +143,15 @@ export const RecommendationsProvider: React.FC<{
     setRecommendedCourses([]);
     setStudentProfile(null);
     setTermSummaries([]);
+    setSearch("");
+    setFilteredCourses([]);
+    setDepartments(INITIAL_DEPARTMENTS);
+    setIncludeOtherDepts(false);
+    setIncludeUndergrad(true);
+    setIncludeGrad(true);
+    setSelectedOptions([]);
+    setExplorationMode(false);
+    setHasSearched(false);
     skipNextAutoPopulate.current = true;
     write(null);
   }, [write]);
@@ -116,6 +172,24 @@ export const RecommendationsProvider: React.FC<{
         incomingLevel,
         setIncomingLevel,
         clearProfile,
+        search,
+        setSearch,
+        filteredCourses,
+        setFilteredCourses,
+        departments,
+        setDepartments,
+        includeOtherDepts,
+        setIncludeOtherDepts,
+        includeUndergrad,
+        setIncludeUndergrad,
+        includeGrad,
+        setIncludeGrad,
+        selectedOptions,
+        setSelectedOptions,
+        explorationMode,
+        setExplorationMode,
+        hasSearched,
+        setHasSearched,
       }}
     >
       {children}
