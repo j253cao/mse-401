@@ -11,16 +11,18 @@ from .resume_llm_client import ResumeLLMClient
 class ResumeParser:
     """Parser for extracting and analyzing resume PDFs."""
     
-    def __init__(self, output_file: str = "parsed_resumes.json"):
+    def __init__(self, output_file: Optional[str] = None):
         self.llm_client = ResumeLLMClient()
-        self.output_file = output_file
-        self.parsed_resumes = self._load_existing_resumes()
+        self.output_file = Path(output_file) if output_file else None
+        self.parsed_resumes = self._load_existing_resumes() if self.output_file else []
     
     def _load_existing_resumes(self) -> List[Dict[str, Any]]:
         """Load existing parsed resumes if any."""
+        if not self.output_file:
+            return []
         try:
-            if Path(self.output_file).exists():
-                with open(self.output_file, 'r') as f:
+            if self.output_file.exists():
+                with open(self.output_file, 'r', encoding="utf-8") as f:
                     return json.load(f)
             return []
         except Exception as e:
@@ -29,8 +31,10 @@ class ResumeParser:
     
     def _save_resumes(self):
         """Save parsed resumes to JSON file."""
+        if not self.output_file:
+            return
         try:
-            with open(self.output_file, 'w') as f:
+            with open(self.output_file, 'w', encoding="utf-8") as f:
                 json.dump(self.parsed_resumes, f, indent=2)
         except Exception as e:
             print(f"Warning: Could not save resumes: {e}")
@@ -158,7 +162,8 @@ def main():
     # Show all parsed resumes
     print("\nAll Parsed Resumes:")
     print(json.dumps(parser.parsed_resumes, indent=2))
-    print(f"\nResults saved to: {parser.output_file}")
+    if parser.output_file:
+        print(f"\nResults saved to: {parser.output_file}")
 
 
 if __name__ == "__main__":

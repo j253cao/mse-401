@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -25,7 +25,6 @@ import {
   Filter,
   X,
   Sparkles,
-  Unlock,
   RefreshCw,
   ArrowRight,
   ExternalLink,
@@ -718,13 +717,8 @@ export default function RecommendationPage() {
                       ) : highValueError ? (
                         <div className="text-center py-8 space-y-4">
                           <p className="text-sm text-muted-foreground">
-                            Could not load suggestions. Make sure the backend is
-                            running at{" "}
-                            <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
-                              {import.meta.env.VITE_API_URL ||
-                                "http://localhost:8000"}
-                            </code>
-                            , or try a search above.
+                            Could not load suggestions. Please try again later
+                            or try a search above.
                           </p>
                           <Button
                             variant="outline"

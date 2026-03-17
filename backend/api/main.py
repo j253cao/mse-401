@@ -6,24 +6,29 @@ Run with:
     uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 """
 
-from fastapi import FastAPI, File, UploadFile
+from pathlib import Path
+
+from fastapi import FastAPI, File, Request, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum
 import json
+import logging
 import re
 import time
 import os
 import tempfile
-import sys
 from dotenv import load_dotenv
 
-# Add backend to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-# Load environment variables from project root .env file
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+# Load environment variables from backend/.env (preferred for deployment)
+# Fallback to project root .env for compatibility.
+BACKEND_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+PROJECT_ROOT = os.path.abspath(os.path.join(BACKEND_ROOT, '..'))
+load_dotenv(os.path.join(BACKEND_ROOT, '.env'))
 load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
 # 14 UW Engineering departments (matches course_dependency_parser)
@@ -34,7 +39,7 @@ ENGINEERING_DEPARTMENTS = (
 
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
 from recommender.data_loader import load_course_data
-from recommender.weights import load_course_to_programs
+from recommender.weights import load_course_to_programs, compute_options_progress
 from parsers.resume_parser import ResumeParser
 
 # Cached course-to-programs lookup for enriching responses
@@ -395,13 +400,46 @@ app = FastAPI(
     version="1.0.0"
 )
 
+def _env_csv(name: str) -> List[str]:
+    raw = os.getenv(name, "").strip()
+    if not raw:
+        return []
+    return [v.strip() for v in raw.split(",") if v.strip()]
+
+
+# Security defaults:
+# - Explicit CORS origins (no "*" + credentials)
+# - Trusted hosts (set ALLOWED_HOSTS in production)
+environment = (os.getenv("ENVIRONMENT") or os.getenv("ENV") or "development").strip().lower()
+allowed_hosts = _env_csv("ALLOWED_HOSTS") or (["*"] if environment != "production" else [])
+if allowed_hosts:
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
+
+allowed_origins = _env_csv("ALLOWED_ORIGINS") or (["http://localhost:5173"] if environment != "production" else [])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=allowed_origins,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+logger = logging.getLogger("api")
+
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start = time.time()
+    response = await call_next(request)
+    elapsed = (time.time() - start) * 1000
+    logger.info(
+        "%s %s %s %.0fms",
+        request.method,
+        request.url.path,
+        response.status_code,
+        elapsed,
+    )
+    return response
 
 
 class CourseLevel(str, Enum):
@@ -414,8 +452,8 @@ class QueryRequest(BaseModel):
     filters: Optional[Dict[str, Any]] = None
 
 
-@app.get("/")
-def root():
+@app.get("/health")
+def health():
     """Health check endpoint."""
     return {"status": "ok", "message": "UW Course Recommendation API"}
 
@@ -441,6 +479,33 @@ def options_and_minors():
     return {"options": options, "minors": minors}
 
 
+class OptionsProgressRequest(BaseModel):
+    completed_courses: List[str]
+
+
+_OPTIONS_DATA_CACHE: Optional[List[Dict[str, Any]]] = None
+
+
+def _load_options_data() -> List[Dict[str, Any]]:
+    global _OPTIONS_DATA_CACHE
+    if _OPTIONS_DATA_CACHE is None:
+        options_path = get_abs_path('data', 'programs', 'all_options.json')
+        with open(options_path, 'r', encoding='utf-8') as f:
+            _OPTIONS_DATA_CACHE = json.load(f)
+    return _OPTIONS_DATA_CACHE
+
+
+@app.post("/options-progress")
+def options_progress(request: OptionsProgressRequest):
+    """
+    Compute option completion progress for a set of completed courses.
+
+    Returns a list of OptionProgress objects sorted by completion_ratio descending.
+    """
+    options_data = _load_options_data()
+    return compute_options_progress(request.completed_courses, options_data)
+
+
 @app.post("/recommend")
 def recommend(request: QueryRequest):
     """
@@ -455,12 +520,7 @@ def recommend(request: QueryRequest):
     Returns:
         Dictionary with recommendation results for each query
     """
-    t0 = time.time()
-    print(f"[endpoint] Request received: {request.queries}")
-    print(f"[endpoint] Filters: {request.filters}")
-
     filters = dict(request.filters) if request.filters else {}
-    t1 = time.time()
     include_other = filters.pop("include_other_depts", False)
     if not filters.get("department"):
         filters["department"] = list(ENGINEERING_DEPARTMENTS)
@@ -512,22 +572,17 @@ def recommend(request: QueryRequest):
 
     # Semantic search for remaining queries
     if queries_for_semantic:
-        t1 = time.time()
         results = get_recommendations(
             queries_for_semantic,
             data_file="course-api-new-data.json",
             method="cosine",
             filters=filters,
         )
-        t2 = time.time()
-        print(f"[endpoint] Recommendation call: {t2-t1:.4f}s")
 
         for q, q_results in zip(queries_for_semantic, results):
             cosine_results = [r for r in q_results if r["method"] == "cosine"]
             formatted[q] = _enrich_results_with_deps(cosine_results, deps_lookup)
 
-    t3 = time.time()
-    print(f"[endpoint] Total endpoint time: {t3-t0:.4f}s")
     return {"results": formatted}
 
 
@@ -546,7 +601,9 @@ def resume_recommend(
     Returns:
         List of recommended courses based on resume analysis
     """
-    t0 = time.time()
+    # Feature-flag: allow deploying without GEMINI_API_KEY.
+    if not os.getenv("GEMINI_API_KEY"):
+        raise HTTPException(status_code=503, detail="Resume recommendations are disabled (GEMINI_API_KEY not set).")
     
     # Save uploaded PDF to a temp file
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp:
@@ -554,7 +611,8 @@ def resume_recommend(
         tmp_path = tmp.name
     
     try:
-        parser = ResumeParser()
+        # Avoid writing parsed resumes by default on ephemeral disks.
+        parser = ResumeParser(output_file=None)
         parsed_resume = parser.parse(tmp_path)
         if not parsed_resume:
             return {"error": "Failed to parse resume."}
@@ -603,8 +661,6 @@ def resume_recommend(
             }
             formatted.append(_enrich_course_with_programs(base_course))
         
-        t1 = time.time()
-        print(f"[resume-recommend] Total endpoint time: {t1-t0:.4f}s")
         return formatted
     finally:
         os.remove(tmp_path)
@@ -728,8 +784,6 @@ def transcript_parse(file: UploadFile = File(...)):
     Returns:
         Dictionary with courses, latest_term, program, student_number, term_summaries
     """
-    t0 = time.time()
-    
     try:
         pdf_bytes = file.file.read()
         result = parse_transcript_bytes(pdf_bytes)
@@ -755,9 +809,6 @@ def transcript_parse(file: UploadFile = File(...)):
             for term in result.term_summaries
         ]
         
-        t1 = time.time()
-        print(f"[transcript-parse] Total endpoint time: {t1-t0:.4f}s")
-        
         return {
             "courses": all_courses,
             "latest_term": latest_term,
@@ -767,8 +818,21 @@ def transcript_parse(file: UploadFile = File(...)):
         }
         
     except Exception as e:
-        print(f"[transcript-parse] Error: {e}")
+        logger.error("transcript-parse error: %s", e)
         return {"error": str(e)}
+
+
+FRONTEND_DIST = Path(__file__).resolve().parent.parent.parent / "frontend-dist"
+
+if FRONTEND_DIST.is_dir():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="static-assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        file_path = FRONTEND_DIST / full_path
+        if file_path.is_file():
+            return FileResponse(file_path)
+        return FileResponse(FRONTEND_DIST / "index.html")
 
 
 if __name__ == "__main__":

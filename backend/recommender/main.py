@@ -7,8 +7,8 @@ import re
 import numpy as np
 import pandas as pd
 from typing import List, Dict, Any, Optional
-from .data_loader import load_course_data, save_embeddings, load_embeddings, embedding_file_exists
-from .embedding_generators import generate_tfidf_svd_embeddings, generate_bert_embeddings
+from .data_loader import load_course_data, save_embeddings, load_embeddings
+from .embedding_generators import generate_tfidf_svd_embeddings
 from .recommenders import (
     recommend_cosine, recommend_faiss, recommend_mmr, recommend_graph,
     recommend_fuzzy_multi, recommend_keyword_overlap, recommend_bert, recommend_hybrid_ensemble,
@@ -22,7 +22,7 @@ from .weights import (
     apply_bucket_normalization,
     compute_global_weight,
 )
-from .data_loader import load_undergrad_courses, load_grad_courses
+from .data_loader import load_undergrad_courses
 
 
 def get_abs_path(*parts):
@@ -37,8 +37,6 @@ _cached = {
     'embeddings': None,
     'tfidf': None,
     'svd': None,
-    'model': None,
-    'bert_embeddings': None,
     'data_file': None
 }
 
@@ -51,8 +49,6 @@ def _load_all(data_file):
         _cached['embeddings'] = None
         _cached['tfidf'] = None
         _cached['svd'] = None
-        _cached['model'] = None
-        _cached['bert_embeddings'] = None
         _cached['data_file'] = data_file
     
     data_json = get_abs_path('data', 'courses', data_file)
@@ -60,7 +56,6 @@ def _load_all(data_file):
     svd_pkl = get_abs_path('data', 'embeddings', 'svd_model.pkl')
     emb_pkl = get_abs_path('data', 'embeddings', 'course_embeddings.pkl')
     emb_npy = get_abs_path('data', 'embeddings', 'course_embeddings.npy')
-    bert_npy = get_abs_path('data', 'embeddings', 'course_bert_embeddings.npy')
     
     # Filter function for work terms and seminars
     def is_regular_course(row):
@@ -115,7 +110,8 @@ def _load_all(data_file):
         df = pd.concat([df, meta_df], axis=1)
 
         # Compute graph-based features from dependencies
-        deps_path = get_abs_path('data', 'dependencies', 'course_dependencies.json')
+        # Use the deployed canonical dependency file (LLM-parsed).
+        deps_path = get_abs_path('data', 'dependencies', 'course_dependencies_llm.json')
         graph = build_dependency_graph(deps_path)
         df = compute_graph_features(df, graph)
 
@@ -142,22 +138,7 @@ def _load_all(data_file):
         with open(svd_pkl, 'rb') as f:
             _cached['svd'] = pickle.load(f)
     
-    # BERT model and embeddings
-    if _cached['bert_embeddings'] is None:
-        if not embedding_file_exists(bert_npy):
-            model, bert_embeddings = generate_bert_embeddings(_cached['df']['description'].fillna('').tolist())
-            np.save(bert_npy, bert_embeddings)
-            _cached['model'] = model
-            _cached['bert_embeddings'] = bert_embeddings
-        else:
-            from sentence_transformers import SentenceTransformer
-            _cached['model'] = SentenceTransformer('all-MiniLM-L6-v2')
-            _cached['bert_embeddings'] = np.load(bert_npy)
-    elif _cached['model'] is None:
-        from sentence_transformers import SentenceTransformer
-        _cached['model'] = SentenceTransformer('all-MiniLM-L6-v2')
-    
-    return _cached['df'], _cached['embeddings'], _cached['tfidf'], _cached['svd'], _cached['model'], _cached['bert_embeddings']
+    return _cached['df'], _cached['embeddings'], _cached['tfidf'], _cached['svd']
 
 
 def get_recommendations(
@@ -184,7 +165,7 @@ def get_recommendations(
     Returns:
         List of results for each query, where each result is a list of course recommendations
     """
-    df, embeddings, tfidf, svd, model, bert_embeddings = _load_all(data_file)
+    df, embeddings, tfidf, svd = _load_all(data_file)
     all_methods = [
         ("cosine", lambda q: recommend_cosine(q, tfidf, svd, embeddings, df, filters=filters)),
         ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, df)),
@@ -192,8 +173,6 @@ def get_recommendations(
         ("graph", lambda q: recommend_graph(q, tfidf, svd, embeddings, df)),
         ("fuzzy_multi", lambda q: recommend_fuzzy_multi(q, df)),
         ("keyword_overlap", lambda q: recommend_keyword_overlap(q, df)),
-        ("bert", lambda q: recommend_bert(q, model, bert_embeddings, df)),
-        ("hybrid_ensemble", lambda q: recommend_hybrid_ensemble(q, df, tfidf, svd, embeddings, embeddings, model, bert_embeddings)),
     ]
     
     if method is not None:
@@ -214,7 +193,7 @@ def get_recommendations(
                 # Convert results to list format
                 for rank, (_, row) in enumerate(results.iterrows(), 1):
                     score_col = None
-                    for col in ['similarity', 'fuzzy_score', 'keyword_score', 'bert_score', 'hybrid_score', 'score']:
+                    for col in ['similarity', 'fuzzy_score', 'keyword_score', 'score']:
                         if col in row.index:
                             score_col = col
                             break
@@ -231,7 +210,7 @@ def get_recommendations(
                     
                     # Add any additional fields from the DataFrame that might be needed for filtering
                     for col in row.index:
-                        if col not in result and col not in ['similarity', 'fuzzy_score', 'keyword_score', 'bert_score', 'hybrid_score', 'score']:
+                        if col not in result and col not in ['similarity', 'fuzzy_score', 'keyword_score', 'score']:
                             result[col] = row[col]
                     
                     query_results.append(result)
@@ -315,7 +294,7 @@ def get_high_value_courses(
     Returns:
         List of course dicts with course_code, title, description, score.
     """
-    df, _, _, _, _, _ = _load_all(data_file)
+    df, _, _, _ = _load_all(data_file)
     undergrad = load_undergrad_courses()
 
     # Filter: engineering depts (subjectCode or courseCode prefix), undergrad only
@@ -405,7 +384,7 @@ def get_similar_courses(
 
     Returns a list of dicts: [{course_code, title, description, score}, ...]
     """
-    df, embeddings, *_ = _load_all(data_file)
+    df, embeddings, _, _ = _load_all(data_file)
 
     code_upper = course_code.strip().upper().replace(' ', '')
     matches = df.index[df['courseCode'].str.upper().str.replace(' ', '', regex=False) == code_upper]

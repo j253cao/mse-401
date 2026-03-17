@@ -3,7 +3,6 @@
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
-from sentence_transformers import SentenceTransformer
 
 
 def generate_tfidf_svd_embeddings(descriptions, max_features=5000, n_components=100, random_state=42):
@@ -16,7 +15,10 @@ def generate_tfidf_svd_embeddings(descriptions, max_features=5000, n_components=
 
 
 def generate_bert_embeddings(descriptions, model_name='all-MiniLM-L6-v2'):
-    """Generate BERT embeddings for course descriptions."""
+    """Generate BERT embeddings for course descriptions.
+    Requires sentence-transformers: pip install sentence-transformers
+    """
+    from sentence_transformers import SentenceTransformer
     model = SentenceTransformer(model_name)
     bert_embeddings = model.encode(descriptions, show_progress_bar=True)
     return model, bert_embeddings

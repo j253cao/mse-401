@@ -1,15 +1,13 @@
 """
-Batch LOCAL LLM parser for course prerequisites using Ollama.
+Batch LLM parser for course prerequisites using Claude Haiku 3.
 
-Mirrors batch_llm_parser.py but runs entirely locally via Ollama — no API keys,
-no rate limits, no cloud costs.
+Processes courses from course-api-new-data.json with rate limiting, checkpointing, and error recovery.
 
 CODE FLOW EXPLANATION:
 =====================
 
 1. INITIALIZATION (main() function)
-   - Parse command-line arguments (test mode, batch size, departments, model, etc.)
-   - Verify Ollama is running and the chosen model is available
+   - Parse command-line arguments (test mode, batch size, departments, etc.)
    - Load course data from course-api-new-data.json
    - Create BatchCourseProcessor instance
 
@@ -17,68 +15,73 @@ CODE FLOW EXPLANATION:
    - Load courses with requirements from JSON file
    - Filter by departments if specified
    - Sort courses by priority (engineering departments first)
-   - Split remaining courses into batches (default: 6 courses per batch)
+   - Split remaining courses into batches (default: 12 courses per batch)
    - For each batch:
-     a. Call OllamaPrereqParser.parse_batch()
-     b. Parse and validate JSON response
-     c. Save results to checkpoint and output files
-     d. Continue to next batch
+     a. Call RateLimitedParser.parse_batch_async()
+     b. Rate limiting ensures we don't exceed API limits
+     c. Claude API processes the batch
+     d. Parse and validate JSON response
+     e. Save results to checkpoint and output files
+     f. Continue to next batch
 
-3. LLM CALL (OllamaPrereqParser._process_single_batch())
+3. RATE LIMITING (RateLimitedParser)
+   - Enforces Claude Haiku 3 Free Tier limits:
+     * 5 requests/min (regular API)
+     * 5 batch requests/min (batch API)
+     * 25,000 input tokens/min
+     * 5,000 output tokens/min (BOTTLENECK)
+   - Calculates minimum interval between batches (30 seconds)
+   - Waits if needed before making next request
+   - Handles rate limit errors with exponential backoff retry
+
+4. API CALL (ClaudePrereqParser._process_single_batch())
    - Formats course batch as JSON input
-   - Sends to local Ollama server with system prompt (parsing instructions)
+   - Sends to Claude API with system prompt (parsing instructions)
    - Receives structured JSON response
    - Cleans response (removes markdown code blocks if present)
    - Validates JSON structure and ensures all courses are present
 
-4. CHECKPOINTING
+5. CHECKPOINTING
    - Saves progress after each successful batch
    - Tracks: last_processed_index, successful count, failed count
    - Allows resuming from last checkpoint if script is interrupted
-   - Results saved incrementally to course_dependencies_local_llm.json
+   - Results saved incrementally to course_dependencies_llm.json
 
-5. ERROR HANDLING
-   - Ollama connection errors: Prompt user to start Ollama
+6. ERROR HANDLING
+   - Rate limit errors: Retry with exponential backoff
    - JSON parsing errors: Reduce batch size and retry
    - Missing courses: Log error and continue
    - Critical errors: Stop processing and save error log
 
-Prerequisites:
-    1. Install Ollama: https://ollama.com/download
-    2. Pull a model:  ollama pull llama3.1:8b
-    3. Ollama runs automatically as a service once installed
-
 Usage:
-    python batch_local_llm_parser.py [--test] [--batch-size N] [--departments DEPT1,DEPT2]
+    python batch_llm_parser.py [--test] [--batch-size N] [--departments DEPT1,DEPT2]
 
 Examples:
-    # Test with 3 batches using default model (llama3.1:8b)
-    python batch_local_llm_parser.py --test
-
-    # Use a different model
-    python batch_local_llm_parser.py --model mistral:7b --test
+    # Test with 3 batches
+    python batch_llm_parser.py --test
 
     # Process all courses
-    python batch_local_llm_parser.py
+    python batch_llm_parser.py
 
     # Process specific departments
-    python batch_local_llm_parser.py --departments MSE,ECE,SYDE
+    python batch_llm_parser.py --departments MSE,ECE,SYDE
 
     # Process engineering departments only
-    python batch_local_llm_parser.py --engineering
+    python batch_llm_parser.py --engineering
 
-    # List available Ollama models
-    python batch_local_llm_parser.py --list-models
+API Key:
+    Set ANTHROPIC_API_KEY in your .env file.
+    Get your key from: https://console.anthropic.com/
 
-Recommended models (sorted by quality for structured JSON output):
-    - llama3.1:8b      (good balance of speed and quality)
-    - mistral:7b       (fast, decent at JSON)
-    - phi3:medium      (14B params, slower but more accurate)
-    - qwen2.5:7b       (strong at structured output)
-    - gemma2:9b        (good general purpose)
+Rate Limits (Claude Haiku 3 Free Tier):
+    - 5 requests/min
+    - 5 batch requests/min
+    - 25,000 input tokens/min
+    - 5,000 output tokens/min (bottleneck - limits to ~2 batches/min)
 """
 
 import json
+import os
 import sys
 import asyncio
 import time
@@ -87,20 +90,26 @@ import re
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional, Any
+from dotenv import load_dotenv
+from concurrent.futures import TimeoutError as FutureTimeoutError
 
 try:
-    import ollama
-    HAS_OLLAMA = True
+    from anthropic import Anthropic
+    HAS_ANTHROPIC = True
 except ImportError:
-    HAS_OLLAMA = False
+    HAS_ANTHROPIC = False
 
+# Ensure output is flushed immediately
 sys.stdout.reconfigure(line_buffering=True) if hasattr(sys.stdout, 'reconfigure') else None
 
+# Load environment variables
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+load_dotenv(PROJECT_ROOT / '.env')
 
-RAW_RESPONSE_DEBUG_PATH = PROJECT_ROOT / 'data' / 'dependencies' / 'local_llm_raw_response_debug.json'
+# Debug output path for raw LLM responses
+RAW_RESPONSE_DEBUG_PATH = PROJECT_ROOT / 'data' / 'dependencies' / 'llm_raw_response_debug.json'
 
-# Reuse the same system prompt as the API version for identical output format
+# System context for the LLM - defines the parsing rules and output format
 PREREQ_PARSER_CONTEXT = """# Course Prerequisites Parser - System Context
 
 You are a specialized parser that converts university course prerequisite strings into structured JSON data. Your job is to analyze prerequisite text and output a specific JSON structure that captures all the requirements, logical relationships, and constraints.
@@ -239,56 +248,27 @@ def _save_raw_response_debug(raw_response: str, courses_batch: List[Tuple[str, s
         json.dump(debug_data, f, indent=2)
 
 
-def check_ollama_available() -> bool:
-    """Check if Ollama server is running and reachable."""
-    try:
-        ollama.list()
-        return True
-    except Exception:
-        return False
+class ClaudePrereqParser:
+    """LLM-based prerequisite parser using Claude Haiku 3."""
 
+    def __init__(self, model_name: str = 'claude-haiku-4-5-20251001', api_key: Optional[str] = None):
+        if not HAS_ANTHROPIC:
+            raise ImportError("Anthropic package not installed. Run: pip install anthropic")
 
-def list_ollama_models() -> List[str]:
-    """List locally available Ollama models."""
-    try:
-        response = ollama.list()
-        return [m.model for m in response.models]
-    except Exception:
-        return []
+        self.api_key = api_key or os.getenv('ANTHROPIC_API_KEY')
+        if not self.api_key:
+            raise ValueError("No Anthropic API key found. Set ANTHROPIC_API_KEY in .env file")
 
-
-class OllamaPrereqParser:
-    """LLM-based prerequisite parser using a local Ollama model."""
-
-    def __init__(self, model_name: str = 'qwen2.5:7b'):
-        if not HAS_OLLAMA:
-            raise ImportError(
-                "ollama package not installed. Run: pip install ollama\n"
-                "Also install Ollama itself: https://ollama.com/download"
-            )
-
-        if not check_ollama_available():
-            raise ConnectionError(
-                "Cannot connect to Ollama. Make sure it's running:\n"
-                "  - Install from https://ollama.com/download\n"
-                "  - It runs as a background service automatically\n"
-                "  - Or start manually: ollama serve"
-            )
-
+        self.client = Anthropic(api_key=self.api_key)
         self.model_name = model_name
-        available = list_ollama_models()
+        self.api_keys = [self.api_key]
 
-        if not any(model_name in m for m in available):
-            print(f"Model '{model_name}' not found locally. Pulling it now (this may take a while)...")
-            ollama.pull(model_name)
-
-        print(f"Ollama initialized with model: {model_name}")
+        print(f"Claude initialized with model: {model_name}")
 
         self.min_batch_size = 1
         self.reduction_factor = 2
 
     def _clean_json_response(self, response: str) -> Optional[str]:
-        """Clean markdown code blocks from LLM response."""
         if not response:
             return None
 
@@ -314,23 +294,6 @@ class OllamaPrereqParser:
                 except json.JSONDecodeError:
                     continue
 
-        # Try to find a top-level JSON object in the raw text
-        brace_start = cleaned.find('{')
-        if brace_start != -1:
-            depth = 0
-            for i in range(brace_start, len(cleaned)):
-                if cleaned[i] == '{':
-                    depth += 1
-                elif cleaned[i] == '}':
-                    depth -= 1
-                    if depth == 0:
-                        candidate = cleaned[brace_start:i + 1]
-                        try:
-                            json.loads(candidate)
-                            return candidate
-                        except json.JSONDecodeError:
-                            break
-
         try:
             json.loads(cleaned)
             return cleaned
@@ -340,12 +303,6 @@ class OllamaPrereqParser:
         return None
 
     def _process_single_batch(self, courses_batch: List[Tuple[str, str]]) -> Tuple[bool, str]:
-        """
-        Process a single batch of courses using the local Ollama model.
-
-        Returns:
-            Tuple of (success: bool, result_json_string_or_error: str)
-        """
         try:
             batch_input = {
                 "courses": [
@@ -356,19 +313,21 @@ class OllamaPrereqParser:
 
             prompt = json.dumps(batch_input, indent=2)
 
-            response = ollama.chat(
+            response = self.client.messages.create(
                 model=self.model_name,
+                max_tokens=8192,
+                system=PREREQ_PARSER_CONTEXT,
                 messages=[
-                    {"role": "system", "content": PREREQ_PARSER_CONTEXT},
-                    {"role": "user", "content": prompt},
+                    {"role": "user", "content": prompt}
                 ],
-                options={
-                    "temperature": 0.1,
-                    "num_predict": 8192,
-                },
+                temperature=0.1
             )
 
-            raw_response = response.get("message", {}).get("content", "")
+            raw_response = (
+                response.content[0].text
+                if response.content and len(response.content) > 0
+                else ""
+            )
 
             _save_raw_response_debug(raw_response, courses_batch)
 
@@ -394,10 +353,14 @@ class OllamaPrereqParser:
                 return False, f"Invalid JSON: {str(e)}"
 
         except Exception as e:
-            return False, str(e)
+            error_str = str(e)
+            if '429' in error_str or 'rate' in error_str.lower():
+                return False, f"RATE_LIMITED: {error_str}"
+            elif 'credit' in error_str.lower() or 'billing' in error_str.lower() or 'balance' in error_str.lower():
+                return False, f"BILLING_ERROR: {error_str}"
+            return False, error_str
 
     def parse_batch(self, courses_batch: List[Tuple[str, str]]) -> Optional[Dict[str, Any]]:
-        """Parse a batch of courses with automatic retry and batch size reduction."""
         current_batch_size = len(courses_batch)
 
         while current_batch_size >= self.min_batch_size:
@@ -407,7 +370,6 @@ class OllamaPrereqParser:
                 success, result = self._process_single_batch(courses_batch)
                 if success:
                     return json.loads(result)
-                print(f"    Batch failed: {result}")
             else:
                 sub_batches = [
                     courses_batch[i:i + current_batch_size]
@@ -441,7 +403,6 @@ class OllamaPrereqParser:
         return None
 
 
-# Priority departments for processing (processed first)
 PRIORITY_DEPARTMENTS = ['MSE', 'ECE', 'SYDE', 'BME', 'ME', 'MTE', 'SE', 'NE', 'CHE', 'CIVE', 'ENVE', 'GEOE']
 
 ENGINEERING_DEPARTMENTS = [
@@ -451,7 +412,6 @@ ENGINEERING_DEPARTMENTS = [
 
 
 def get_department_from_code(code: str) -> str:
-    """Extract department from course code."""
     for i, char in enumerate(code):
         if char.isdigit():
             return code[:i]
@@ -459,7 +419,6 @@ def get_department_from_code(code: str) -> str:
 
 
 def get_course_priority(course_tuple: Tuple[str, str]) -> Tuple[int, str]:
-    """Get priority level for sorting courses."""
     code = course_tuple[0]
     dept = get_department_from_code(code)
     try:
@@ -469,28 +428,105 @@ def get_course_priority(course_tuple: Tuple[str, str]) -> Tuple[int, str]:
         return (len(PRIORITY_DEPARTMENTS), dept)
 
 
-class BatchCourseProcessor:
-    """Batch processor for course prerequisites with checkpointing."""
+class RateLimitedParser:
+    def __init__(self, batch_size: int = 12):
+        self.parser = ClaudePrereqParser()
+        self.num_keys = 1
 
+        self.max_requests_per_minute = 5
+        self.max_batch_requests_per_minute = 5
+        self.max_input_tokens_per_minute = 25000
+        self.max_output_tokens_per_minute = 5000
+
+        self.estimated_input_tokens_per_batch = 2846
+        self.estimated_output_tokens_per_batch = 2000
+
+        self.effective_batches_per_minute = min(
+            self.max_batch_requests_per_minute,
+            self.max_output_tokens_per_minute // self.estimated_output_tokens_per_batch
+        )
+
+        self.requests_per_minute = self.effective_batches_per_minute
+        self.min_interval = 60.0 / self.requests_per_minute
+        self.last_request_time = 0
+        self.batch_size = batch_size
+        self.max_retries = 3
+        self.base_retry_delay = 5
+
+        print(f"Claude Haiku 3 Rate Limits:")
+        print(f"  - Requests/min: {self.max_requests_per_minute}")
+        print(f"  - Batch requests/min: {self.max_batch_requests_per_minute}")
+        print(f"  - Input tokens/min: {self.max_input_tokens_per_minute:,}")
+        print(f"  - Output tokens/min: {self.max_output_tokens_per_minute:,} (BOTTLENECK)")
+        print(f"  - Effective rate: {self.requests_per_minute} batches/min ({self.min_interval:.1f}s between batches)")
+
+    async def parse_batch_async(self, courses_batch: List[Tuple[str, str]]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+        last_error_type = None
+
+        for retry in range(self.max_retries):
+            current_time = time.time()
+            if self.last_request_time > 0:
+                time_since_last = current_time - self.last_request_time
+                if time_since_last < self.min_interval:
+                    wait_time = self.min_interval - time_since_last
+                    print(f"  Rate limiting: waiting {wait_time:.2f}s...")
+                    await asyncio.sleep(wait_time)
+
+            loop = asyncio.get_event_loop()
+            try:
+                result = await loop.run_in_executor(None, self.parser.parse_batch, courses_batch)
+
+                if result is not None:
+                    self.last_request_time = time.time()
+                    return result, None
+
+                await asyncio.sleep(self.base_retry_delay)
+                continue
+
+            except Exception as e:
+                error_str = str(e)
+
+                if '429' in error_str or 'rate' in error_str.lower() or 'quota' in error_str.lower():
+                    is_daily_quota = 'daily' in error_str.lower() or 'per day' in error_str.lower()
+
+                    if is_daily_quota:
+                        print(f"  ⚠️  Daily quota exceeded. This resets at midnight UTC.")
+                        return None, "DAILY_QUOTA"
+
+                    last_error_type = "RATE_LIMIT"
+                    retry_delay = self.base_retry_delay * (2 ** retry)
+                    print(f"  ⚠️  Rate limit exceeded (429). Retry {retry + 1}/{self.max_retries} in {retry_delay}s...")
+                    print(f"  ⚠️  Note: These are PER MINUTE limits - if all retries fail, wait 1-2 min and resume")
+                    print(f"  ⚠️  Error details: {error_str[:200]}")
+                    await asyncio.sleep(retry_delay)
+                elif 'credit' in error_str.lower() or 'billing' in error_str.lower() or 'balance' in error_str.lower():
+                    print(f"  ⚠️  Billing/Credit error detected. Please add credits to your Anthropic account.")
+                    print(f"  ⚠️  Visit: https://console.anthropic.com/settings/billing")
+                    return None, "BILLING_ERROR"
+                else:
+                    raise
+
+        print(f"  ✗ Max retries exceeded (likely rate limit)")
+        print(f"  💡 Rate limits are PER MINUTE - wait 1-2 minutes and resume")
+        return None, last_error_type
+
+
+class BatchCourseProcessor:
     def __init__(self,
                  api_data_path: Path,
                  output_dir: Path,
-                 batch_size: int = 6,
-                 departments: Optional[List[str]] = None,
-                 exclude_departments: Optional[List[str]] = None,
-                 model_name: str = 'qwen2.5:7b'):
+                 batch_size: int = 12,
+                 departments: Optional[List[str]] = None):
         self.api_data_path = api_data_path
         self.output_dir = output_dir
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        self.checkpoint_file = output_dir / 'local_llm_checkpoint.json'
-        self.output_file = output_dir / 'course_dependencies_local_llm.json'
-        self.error_log_file = output_dir / 'local_llm_error_log.json'
+        self.checkpoint_file = output_dir / 'llm_checkpoint.json'
+        self.output_file = output_dir / 'course_dependencies_llm.json'
+        self.error_log_file = output_dir / 'llm_error_log.json'
 
-        self.parser = OllamaPrereqParser(model_name=model_name)
-        self.batch_size = batch_size
+        self.parser = RateLimitedParser(batch_size=batch_size)
         self.departments = departments
-        self.exclude_departments = exclude_departments
 
         self.checkpoint = self._load_checkpoint()
         self.results = self._load_results()
@@ -501,7 +537,7 @@ class BatchCourseProcessor:
             'error_type': None,
             'error_details': None,
             'failed_courses': [],
-            'checkpoint_state': self.checkpoint,
+            'checkpoint_state': self.checkpoint
         }
 
     def _load_checkpoint(self) -> Dict[str, Any]:
@@ -512,7 +548,7 @@ class BatchCourseProcessor:
             'last_processed_index': 0,
             'successful': 0,
             'failed': 0,
-            'total_courses': 0,
+            'total_courses': 0
         }
 
     def _load_results(self) -> Dict[str, Any]:
@@ -536,7 +572,7 @@ class BatchCourseProcessor:
             'error_type': error_type,
             'error_details': str(error_details),
             'failed_courses': affected_courses,
-            'checkpoint_state': self.checkpoint,
+            'checkpoint_state': self.checkpoint
         }
 
         with open(self.error_log_file, 'w') as f:
@@ -563,18 +599,16 @@ class BatchCourseProcessor:
         for course_code, course_data in api_data.items():
             req = course_data.get('requirementsDescription', '')
             if req:
-                dept = get_department_from_code(course_code)
-                if self.departments and dept not in self.departments:
-                    continue
-                if self.exclude_departments and dept in self.exclude_departments:
-                    continue
+                if self.departments:
+                    dept = get_department_from_code(course_code)
+                    if dept not in self.departments:
+                        continue
                 courses.append((course_code, req))
 
         courses.sort(key=get_course_priority)
         return courses
 
     async def process_courses(self, test_mode: bool = False, test_batches: int = 3):
-        """Process all courses with checkpointing."""
         print(f"Loading courses from {self.api_data_path}...")
         courses = self._get_courses_with_requirements()
 
@@ -592,7 +626,7 @@ class BatchCourseProcessor:
             self._save_checkpoint()
 
         if test_mode:
-            max_courses = test_batches * self.batch_size
+            max_courses = test_batches * self.parser.batch_size
             courses = courses[:max_courses]
             self.checkpoint['total_courses'] = len(courses)
             self.checkpoint['last_processed_index'] = 0
@@ -610,39 +644,53 @@ class BatchCourseProcessor:
         remaining = courses[self.checkpoint['last_processed_index']:]
 
         batches = [
-            remaining[i:i + self.batch_size]
-            for i in range(0, len(remaining), self.batch_size)
+            remaining[i:i + self.parser.batch_size]
+            for i in range(0, len(remaining), self.parser.batch_size)
         ]
 
-        print(f"\nProcessing {len(batches)} batches of {self.batch_size} courses each...")
+        print(f"\nProcessing {len(batches)} batches...")
 
         for batch_num, batch in enumerate(batches, 1):
-            current_batch_num = batch_num + (self.checkpoint['last_processed_index'] // self.batch_size)
+            current_batch_num = batch_num + (self.checkpoint['last_processed_index'] // self.parser.batch_size)
 
             print(f"\n--- Batch {current_batch_num} ---")
             print(f"Courses: {[code for code, _ in batch]}")
 
-            batch_start = time.time()
-
             try:
-                # Local models don't need async — run directly
-                loop = asyncio.get_event_loop()
-                result = await loop.run_in_executor(None, self.parser.parse_batch, batch)
-
-                batch_elapsed = time.time() - batch_start
+                result, error_type = await self.parser.parse_batch_async(batch)
 
                 if result is None:
+                    if error_type == "RATE_LIMIT":
+                        error_msg = "Rate limit exceeded (429). These are PER MINUTE limits - wait 1-2 minutes and resume."
+                        print("\n⚠️  Rate limit exceeded - stopping gracefully")
+                        print("💡 These are PER MINUTE limits (not daily)")
+                        print("💡 Wait 1-2 minutes, then run the script again to resume")
+                    elif error_type == "DAILY_QUOTA":
+                        error_msg = "Daily quota exceeded. This resets at midnight UTC."
+                        print("\n⚠️  Daily quota exceeded - stopping")
+                        print("💡 This resets at midnight UTC - resume tomorrow")
+                    elif error_type == "BILLING_ERROR":
+                        error_msg = "Insufficient credits/billing issue. Please add credits to your Anthropic account."
+                        print("\n⚠️  Billing/Credit Error - stopping")
+                        print("💡 Your Anthropic account needs credits to use the API")
+                        print("💡 Visit: https://console.anthropic.com/settings/billing")
+                        print("💡 After adding credits, run the script again to resume")
+                    else:
+                        error_msg = "No response from LLM after retries"
+                        print("\n⚠️  Critical error - stopping")
+
                     self._log_error(
                         current_batch_num,
-                        "LLM_NO_RESPONSE",
-                        "No valid response from local LLM after retries",
-                        [code for code, _ in batch],
+                        error_type or "LLM_NO_RESPONSE",
+                        error_msg,
+                        [code for code, _ in batch]
                     )
-                    print(f"\n  Failed after {batch_elapsed:.1f}s - stopping gracefully")
+
                     self._save_checkpoint()
                     self._save_results()
-                    print(f"  Progress saved: {self.checkpoint['successful']} courses processed")
-                    print(f"  Next run will resume from batch {current_batch_num}")
+
+                    print(f"💡 Progress saved: {self.checkpoint['successful']} courses processed")
+                    print(f"💡 Next run will resume from batch {current_batch_num}")
                     self._print_courses_summary()
                     return
 
@@ -651,33 +699,31 @@ class BatchCourseProcessor:
                     if code in result:
                         self.results[code] = result[code]
                         self.checkpoint['successful'] += 1
-                        print(f"  + {code}")
+                        print(f"  ✓ {code}")
                     else:
                         missing_courses.append(code)
                         self.checkpoint['failed'] += 1
-                        print(f"  x {code} (missing from response)")
+                        print(f"  ✗ {code} (missing from response)")
 
                 if len(missing_courses) > len(batch) / 2:
                     self._log_error(
                         current_batch_num,
                         "BATCH_MAJORITY_MISSING",
                         f"More than 50% missing ({len(missing_courses)}/{len(batch)})",
-                        missing_courses,
+                        missing_courses
                     )
-                    print(f"\n  Critical error - too many missing courses, stopping")
+                    print("\n⚠️  Critical error - stopping")
                     self._print_courses_summary()
                     return
-
-                print(f"  Batch completed in {batch_elapsed:.1f}s")
 
             except Exception as e:
                 self._log_error(
                     current_batch_num,
                     "UNEXPECTED_ERROR",
                     str(e),
-                    [code for code, _ in batch],
+                    [code for code, _ in batch]
                 )
-                print(f"\n  Unexpected error: {e}")
+                print(f"\n⚠️  Unexpected error: {e}")
                 self._print_courses_summary()
                 return
 
@@ -697,12 +743,11 @@ class BatchCourseProcessor:
         self._print_courses_summary()
 
     def reset_checkpoint(self):
-        """Reset checkpoint to start fresh."""
         self.checkpoint = {
             'last_processed_index': 0,
             'successful': 0,
             'failed': 0,
-            'total_courses': 0,
+            'total_courses': 0
         }
         self._save_checkpoint()
         self.results = {}
@@ -711,39 +756,16 @@ class BatchCourseProcessor:
 
 
 async def main():
-    """Main entry point."""
-    parser = argparse.ArgumentParser(
-        description='Batch LOCAL LLM parser for course prerequisites using Ollama'
-    )
+    parser = argparse.ArgumentParser(description='Batch LLM parser for course prerequisites using Claude')
     parser.add_argument('--test', action='store_true', help='Run in test mode (3 batches)')
-    parser.add_argument('--batch-size', type=int, default=6,
-                        help='Batch size (default: 6, smaller than API version for local models)')
+    parser.add_argument('--batch-size', type=int, default=12, help='Batch size (default: 12)')
     parser.add_argument('--departments', type=str, help='Comma-separated list of departments to process')
     parser.add_argument('--engineering', action='store_true',
-                        help='Process only engineering departments')
-    parser.add_argument('--non-engineering', action='store_true',
-                        help='Process only non-engineering departments')
+                        help='Process only engineering departments (default: all departments)')
     parser.add_argument('--reset', action='store_true', help='Reset checkpoint and start fresh')
     parser.add_argument('--input', type=str, default='new', choices=['old', 'new'],
                         help='Input data format (default: new)')
-    parser.add_argument('--model', type=str, default='qwen2.5:7b',
-                        help='Ollama model to use (default: qwen2.5:7b)')
-    parser.add_argument('--list-models', action='store_true',
-                        help='List available Ollama models and exit')
     args = parser.parse_args()
-
-    if args.list_models:
-        if not HAS_OLLAMA:
-            print("ollama package not installed. Run: pip install ollama")
-            sys.exit(1)
-        models = list_ollama_models()
-        if models:
-            print("Available Ollama models:")
-            for m in models:
-                print(f"  - {m}")
-        else:
-            print("No models found. Pull one with: ollama pull llama3.1:8b")
-        sys.exit(0)
 
     if args.input == 'new':
         api_data_path = PROJECT_ROOT / 'data' / 'courses' / 'course-api-new-data.json'
@@ -753,31 +775,20 @@ async def main():
     output_dir = PROJECT_ROOT / 'data' / 'dependencies'
 
     departments = None
-    exclude_departments = None
-    non_eng = getattr(args, 'non_engineering', False)
-    if args.engineering and non_eng:
-        print("Error: --engineering and --non-engineering are mutually exclusive")
-        sys.exit(1)
-    elif args.engineering:
+    if args.engineering:
         departments = ENGINEERING_DEPARTMENTS
         print(f"Filtering to engineering departments: {departments}")
-    elif non_eng:
-        exclude_departments = ENGINEERING_DEPARTMENTS
-        print(f"Excluding engineering departments: {exclude_departments}")
     elif args.departments:
         departments = [d.strip().upper() for d in args.departments.split(',')]
 
     print(f"API data: {api_data_path}")
     print(f"Output dir: {output_dir}")
-    print(f"Model: {args.model}")
 
     processor = BatchCourseProcessor(
         api_data_path=api_data_path,
         output_dir=output_dir,
         batch_size=args.batch_size,
-        departments=departments,
-        exclude_departments=exclude_departments,
-        model_name=args.model,
+        departments=departments
     )
 
     if args.reset:
@@ -788,3 +799,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+

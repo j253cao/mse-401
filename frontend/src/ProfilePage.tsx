@@ -27,6 +27,7 @@ import {
 import { ProgramSelector } from "@/components/ProgramSelector";
 import { AcademicTermSelector } from "@/components/AcademicTermSelector";
 import { CompletedCoursesManager } from "@/components/CompletedCoursesManager";
+import { OptionsTracker } from "@/components/OptionsTracker";
 import { ENGINEERING_PROGRAMS } from "@/constants/engineeringPrograms";
 import { cn } from "@/lib/utils";
 import { api, ApiError } from "@/services/api";
@@ -222,8 +223,7 @@ export default function ProfilePage() {
               <DialogTitle>Clear profile data?</DialogTitle>
               <DialogDescription>
                 This will remove your program, course level, completed courses,
-                resume recommendations, and transcript data. This cannot be
-                undone.
+                and transcript data. This cannot be undone.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="gap-2 sm:gap-0">
@@ -497,6 +497,9 @@ export default function ProfilePage() {
                 />
               </CardContent>
             </Card>
+
+            {/* Options Progress Tracker */}
+            <OptionsTracker completedCourses={completedCourses} />
           </div>
 
           {/* Right Column - Profile Card */}
@@ -566,7 +569,6 @@ export default function ProfilePage() {
                     </div>
                   </div>
                 </div>
-
               </CardContent>
             </Card>
           </div>
