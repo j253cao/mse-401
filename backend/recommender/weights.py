@@ -186,6 +186,19 @@ def load_minor_option_counts(programs_paths: Iterable[str]) -> Dict[str, int]:
     return counts
 
 
+def _extract_codes_from_requirements(node: dict) -> List[str]:
+    """Recursively extract course codes from a course_requirements tree."""
+    if not isinstance(node, dict):
+        return []
+    if node.get("type") == "course":
+        code = node.get("code", "")
+        return [code] if code else []
+    codes = []
+    for child in node.get("children") or []:
+        codes.extend(_extract_codes_from_requirements(child))
+    return codes
+
+
 def load_course_to_programs(
     programs_paths: Iterable[Tuple[str, str]],
 ) -> Dict[str, List[Dict[str, str]]]:
@@ -193,7 +206,8 @@ def load_course_to_programs(
     Load minors/options JSON files and return per-course program membership.
 
     Each path is (file_path, program_type) where program_type is "option" or "minor".
-    Options use "option_name"; minors use "program_name".
+    Options use "option_name" and "course_requirements" (nested children tree).
+    Minors use "program_name" and "course_lists".
 
     Returns:
         Dict mapping normalized course_code -> [{ "name": str, "type": "option"|"minor" }]
@@ -211,17 +225,27 @@ def load_course_to_programs(
             if not name:
                 continue
             entry = {"name": name, "type": prog_type}
+
+            # Collect codes from flat course_lists (minors format)
+            codes: List[str] = []
             for cl in item.get("course_lists") or []:
-                for code in cl.get("courses") or []:
-                    norm = _normalize_code(code)
-                    if not norm:
-                        continue
-                    if norm not in result:
-                        result[norm] = []
-                    # Avoid duplicate entries for same course in same program
-                    existing = {(e["name"], e["type"]) for e in result[norm]}
-                    if (name, prog_type) not in existing:
-                        result[norm].append(entry)
+                codes.extend(cl.get("courses") or [])
+
+            # Collect codes from nested course_requirements tree (options format)
+            course_reqs = item.get("course_requirements")
+            if isinstance(course_reqs, dict):
+                codes.extend(_extract_codes_from_requirements(course_reqs))
+
+            for code in codes:
+                norm = _normalize_code(code)
+                if not norm:
+                    continue
+                if norm not in result:
+                    result[norm] = []
+                # Avoid duplicate entries for same course in same program
+                existing = {(e["name"], e["type"]) for e in result[norm]}
+                if (name, prog_type) not in existing:
+                    result[norm].append(entry)
 
     return result
 

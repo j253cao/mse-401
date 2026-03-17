@@ -13,6 +13,21 @@ import re
 from .data_loader import load_undergrad_courses, load_grad_courses, find_project_root
 from .weights import load_course_to_programs
 
+_COURSE_TO_PROGRAMS_CACHE = None
+
+
+def _get_course_to_programs_cached():
+    global _COURSE_TO_PROGRAMS_CACHE
+    if _COURSE_TO_PROGRAMS_CACHE is None:
+        project_root = find_project_root()
+        options_path = os.path.join(project_root, 'data', 'programs', 'all_options.json')
+        programs_path = os.path.join(project_root, 'data', 'programs', 'all_programs.json')
+        _COURSE_TO_PROGRAMS_CACHE = load_course_to_programs([
+            (options_path, 'option'),
+            (programs_path, 'minor'),
+        ])
+    return _COURSE_TO_PROGRAMS_CACHE
+
 TERM_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"]
 
 _DEPT_PREFIX_RE = re.compile(r'^([A-Za-z]+)')
@@ -194,13 +209,7 @@ def _apply_course_filters(filters, df):
     if filters and filters.get('options'):
         selected_names = set(filters['options'])
         if selected_names:
-            project_root = find_project_root()
-            options_path = os.path.join(project_root, 'data', 'programs', 'all_options.json')
-            programs_path = os.path.join(project_root, 'data', 'programs', 'all_programs.json')
-            course_to_programs = load_course_to_programs([
-                (options_path, 'option'),
-                (programs_path, 'minor'),
-            ])
+            course_to_programs = _get_course_to_programs_cached()
             courses_in_options = {
                 code for code, progs in course_to_programs.items()
                 if any(p['name'] in selected_names for p in progs)
