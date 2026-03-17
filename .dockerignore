@@ -1,0 +1,28 @@
+# Python caches
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Frontend (not needed for backend image)
+frontend/
+
+# Git / IDE
+.git/
+.cursor/
+
+# Non-runtime backend scripts
+backend/scripts/
+
+# Non-runtime data artifacts (debug/checkpoints/backups)
+data/non_runtime/
+data/dependencies/*checkpoint*.json
+data/dependencies/*error_log*.json
+data/dependencies/*raw_response*.json
+data/dependencies/*.backup
+
+# Large raw scraped text (not needed at runtime)
+data/programs/raw_scraped_text/
+

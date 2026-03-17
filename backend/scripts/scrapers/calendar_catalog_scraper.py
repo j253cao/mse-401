@@ -50,7 +50,7 @@ KNOWN_MINOR_URLS: List[tuple[str, str]] = [
 
 def get_data_dir() -> Path:
     """Return path to data/programs directory (repo root relative to backend)."""
-    backend_dir = Path(__file__).resolve().parent.parent
+    backend_dir = Path(__file__).resolve().parent.parent.parent
     repo_root = backend_dir.parent
     return repo_root / "data" / "programs"
 
@@ -1030,7 +1030,7 @@ def main():
         model_name=args.model,
     )
     if args.single_url:
-        data = scraper.run_single_page(args.single_url)
+        scraper.run_single_page(args.single_url)
         out_file = scraper.output_dir / "single_program.json"
         print(f"Done. Saved 1 program to {out_file}")
     else:
@@ -1046,3 +1046,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

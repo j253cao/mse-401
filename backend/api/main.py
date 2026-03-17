@@ -6,8 +6,9 @@ Run with:
     uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 """
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum
@@ -16,14 +17,13 @@ import re
 import time
 import os
 import tempfile
-import sys
 from dotenv import load_dotenv
 
-# Add backend to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-# Load environment variables from project root .env file
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+# Load environment variables from backend/.env (preferred for deployment)
+# Fallback to project root .env for compatibility.
+BACKEND_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+PROJECT_ROOT = os.path.abspath(os.path.join(BACKEND_ROOT, '..'))
+load_dotenv(os.path.join(BACKEND_ROOT, '.env'))
 load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
 # 14 UW Engineering departments (matches course_dependency_parser)
@@ -374,10 +374,26 @@ app = FastAPI(
     version="1.0.0"
 )
 
+def _env_csv(name: str) -> List[str]:
+    raw = os.getenv(name, "").strip()
+    if not raw:
+        return []
+    return [v.strip() for v in raw.split(",") if v.strip()]
+
+
+# Security defaults:
+# - Explicit CORS origins (no "*" + credentials)
+# - Trusted hosts (set ALLOWED_HOSTS in production)
+environment = (os.getenv("ENVIRONMENT") or os.getenv("ENV") or "development").strip().lower()
+allowed_hosts = _env_csv("ALLOWED_HOSTS") or (["*"] if environment != "production" else [])
+if allowed_hosts:
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
+
+allowed_origins = _env_csv("ALLOWED_ORIGINS") or (["http://localhost:5173"] if environment != "production" else [])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=allowed_origins,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -533,6 +549,10 @@ def resume_recommend(
         List of recommended courses based on resume analysis
     """
     t0 = time.time()
+
+    # Feature-flag: allow deploying without GEMINI_API_KEY.
+    if not os.getenv("GEMINI_API_KEY"):
+        raise HTTPException(status_code=503, detail="Resume recommendations are disabled (GEMINI_API_KEY not set).")
     
     # Save uploaded PDF to a temp file
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp:
@@ -540,7 +560,8 @@ def resume_recommend(
         tmp_path = tmp.name
     
     try:
-        parser = ResumeParser()
+        # Avoid writing parsed resumes by default on ephemeral disks.
+        parser = ResumeParser(output_file=None)
         parsed_resume = parser.parse(tmp_path)
         if not parsed_resume:
             return {"error": "Failed to parse resume."}

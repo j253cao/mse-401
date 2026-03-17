@@ -2,7 +2,7 @@
 Fetch course data from Waterloo OpenData API and save to course-api-new-data.json
 
 Usage:
-    python backend/parsers/fetch_course_data.py
+    python backend/scripts/parsers/fetch_course_data.py
 """
 
 import json
@@ -13,7 +13,7 @@ from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
 
 # Load environment variables from project root .env file
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
 # API Configuration
@@ -34,11 +34,11 @@ if not API_KEY:
 def make_api_request(endpoint: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict]:
     """
     Make a request to the Waterloo OpenData API.
-    
+
     Args:
         endpoint: API endpoint (e.g., '/courses' or '/subjects')
         params: Optional query parameters
-        
+
     Returns:
         JSON response as dictionary, or None if request failed
     """
@@ -47,11 +47,11 @@ def make_api_request(endpoint: str, params: Optional[Dict[str, Any]] = None) -> 
         'X-API-KEY': API_KEY,
         'Accept': 'application/json'
     }
-    
+
     try:
         print(f"Fetching: {url}")
         response = requests.get(url, headers=headers, params=params, timeout=30)
-        
+
         if response.status_code == 200:
             return response.json()
         elif response.status_code == 429:
@@ -61,7 +61,7 @@ def make_api_request(endpoint: str, params: Optional[Dict[str, Any]] = None) -> 
         else:
             print(f"Error {response.status_code}: {response.text}")
             return None
-            
+
     except requests.exceptions.RequestException as e:
         print(f"Request error: {e}")
         return None
@@ -71,7 +71,7 @@ def get_all_subjects() -> List[Dict[str, Any]]:
     """Fetch all subject codes from the API."""
     print("Fetching all subjects...")
     data = make_api_request('/subjects')
-    
+
     if data and isinstance(data, list):
         print(f"Found {len(data)} subjects")
         return data
@@ -87,7 +87,7 @@ def get_courses_for_subject(subject_code: str) -> List[Dict[str, Any]]:
     """Fetch all courses for a given subject code."""
     endpoint = f'/subjects/{subject_code}/courses'
     data = make_api_request(endpoint)
-    
+
     if data and isinstance(data, list):
         return data
     elif data and isinstance(data, dict) and 'data' in data:
@@ -100,7 +100,7 @@ def get_terms() -> List[Dict[str, Any]]:
     """Fetch available terms from the API."""
     print("Fetching available terms...")
     data = make_api_request('/terms')
-    
+
     if data and isinstance(data, list):
         return data
     elif data and isinstance(data, dict) and 'data' in data:
@@ -114,7 +114,7 @@ def get_all_courses() -> Optional[List[Dict[str, Any]]]:
     """Try to fetch all courses directly if endpoint exists."""
     print("Attempting to fetch all courses directly...")
     data = make_api_request('/courses')
-    
+
     if data and isinstance(data, list):
         print(f"Found {len(data)} courses")
         return data
@@ -136,9 +136,9 @@ def get_courses_by_term(term_code: Optional[str] = None) -> List[Dict[str, Any]]
     else:
         # Try to get current term courses
         endpoint = '/courses'  # May need term parameter
-    
+
     data = make_api_request(endpoint)
-    
+
     if data and isinstance(data, list):
         return data
     elif data and isinstance(data, dict) and 'data' in data:
@@ -154,7 +154,7 @@ def format_course_key(course: Dict[str, Any]) -> str:
     """
     subject_code = course.get('subjectCode', '')
     catalog_number = course.get('catalogNumber', '')
-    
+
     if subject_code and catalog_number:
         return f"{subject_code}{catalog_number}"
     else:
@@ -167,7 +167,7 @@ def get_courses_for_term(term_code: str) -> List[Dict[str, Any]]:
     """Fetch all courses for a specific term."""
     endpoint = f'/Courses/{term_code}'
     data = make_api_request(endpoint)
-    
+
     if data and isinstance(data, list):
         return data
     elif data and isinstance(data, dict) and 'data' in data:
@@ -179,25 +179,25 @@ def get_courses_for_term(term_code: str) -> List[Dict[str, Any]]:
 def fetch_all_courses() -> Dict[str, Dict[str, Any]]:
     """
     Fetch all courses for Winter 2026 (term 1261).
-    
+
     Returns:
         Dictionary mapping course codes to course data
     """
     all_courses = {}
-    
+
     print(f"Fetching courses for {TERM_NAME} (term {TERM_CODE})...")
     courses = get_courses_for_term(TERM_CODE)
-    
+
     if not courses:
         print(f"ERROR: No courses found for term {TERM_CODE}")
         return {}
-    
+
     print(f"Found {len(courses)} courses for term {TERM_CODE}")
-    
+
     for course in courses:
         course_key = format_course_key(course)
         all_courses[course_key] = course
-    
+
     return all_courses
 
 
@@ -210,26 +210,26 @@ def main():
     print(f"Term: {TERM_NAME} ({TERM_CODE})")
     print(f"Output file: {OUTPUT_FILE}")
     print()
-    
+
     # Fetch all courses
     courses = fetch_all_courses()
-    
+
     if not courses:
         print("ERROR: No courses fetched. Exiting.")
         return
-    
+
     print(f"\nSuccessfully fetched {len(courses)} courses")
-    
+
     # Ensure output directory exists
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-    
+
     # Save to JSON file
     print(f"Saving to {OUTPUT_FILE}...")
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(courses, f, indent=2, ensure_ascii=False)
-    
+
     print(f"✓ Successfully saved {len(courses)} courses to {OUTPUT_FILE}")
-    
+
     # Print sample course
     if courses:
         sample_key = list(courses.keys())[0]
@@ -239,3 +239,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
