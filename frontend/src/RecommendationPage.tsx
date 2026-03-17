@@ -28,6 +28,7 @@ import {
   RefreshCw,
   ArrowRight,
   ExternalLink,
+  Compass,
 } from "lucide-react";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
@@ -267,7 +268,6 @@ export default function RecommendationPage() {
     ...Object.values(departments).filter((v) => !v),
     !includeOtherDepts,
     completedCourses.length > 0,
-    explorationMode,
     selectedOptions.length > 0,
   ].filter(Boolean).length;
 
@@ -328,7 +328,21 @@ export default function RecommendationPage() {
                   </div>
 
                   {/* Filter Toggle */}
+                  <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-4">
+                    <Button
+                      type="button"
+                      variant={explorationMode ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setExplorationMode(!explorationMode)}
+                      className={cn(
+                        "gap-2",
+                        explorationMode && "bg-amber-500 hover:bg-amber-600 text-white border-amber-500 shadow-amber-500/25 shadow-md"
+                      )}
+                    >
+                      <Compass className="w-4 h-4" />
+                      {explorationMode ? "Exploring" : "Explore"}
+                    </Button>
                     <Button
                       type="button"
                       variant="outline"
@@ -404,6 +418,12 @@ export default function RecommendationPage() {
                         </Badge>
                       )}
                     </div>
+                  </div>
+                  {explorationMode && (
+                    <p className="text-xs text-amber-500 font-medium mt-1">
+                      Explore mode on — prerequisites are being ignored
+                    </p>
+                  )}
                   </div>
 
                   {/* Filters Panel */}
@@ -630,33 +650,6 @@ export default function RecommendationPage() {
                             )}
                           </div>
                         )}
-
-                        {/* Exploration Mode */}
-                        <div className="space-y-2">
-                          <Label className="text-sm font-medium">
-                            Exploration Mode
-                          </Label>
-                          <div className="flex items-center justify-between rounded-lg border border-input px-3 py-2 bg-muted/20">
-                            <div className="space-y-0.5">
-                              <p className="text-sm font-medium">
-                                Ignore prerequisites
-                              </p>
-                              <p className="text-xs text-muted-foreground">
-                                Show courses even if pre-, co-, or
-                                anti-requisites are not satisfied.
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                id="exploration-mode"
-                                checked={explorationMode}
-                                onCheckedChange={(checked) =>
-                                  setExplorationMode(!!checked)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
 
                         {/* Completed Courses - compact with expand */}
                         <CompletedCoursesManager
