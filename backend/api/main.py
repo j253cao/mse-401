@@ -6,8 +6,12 @@ Run with:
     uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 """
 
+from pathlib import Path
+
 from fastapi import FastAPI, File, Request, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
@@ -775,6 +779,19 @@ def transcript_parse(file: UploadFile = File(...)):
     except Exception as e:
         logger.error("transcript-parse error: %s", e)
         return {"error": str(e)}
+
+
+FRONTEND_DIST = Path(__file__).resolve().parent.parent.parent / "frontend-dist"
+
+if FRONTEND_DIST.is_dir():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="static-assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        file_path = FRONTEND_DIST / full_path
+        if file_path.is_file():
+            return FileResponse(file_path)
+        return FileResponse(FRONTEND_DIST / "index.html")
 
 
 if __name__ == "__main__":
