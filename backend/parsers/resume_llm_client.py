@@ -6,8 +6,11 @@ import json
 from typing import Dict, Optional, Any
 from dotenv import load_dotenv
 
-# Load environment variables from project root .env file
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+# Load environment variables from backend/.env (preferred for deployment)
+# Fallback to project root .env for compatibility.
+BACKEND_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+PROJECT_ROOT = os.path.abspath(os.path.join(BACKEND_ROOT, '..'))
+load_dotenv(os.path.join(BACKEND_ROOT, '.env'))
 load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
 

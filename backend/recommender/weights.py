@@ -39,7 +39,7 @@ def _normalize_code(code: str) -> str:
 
 def build_dependency_graph(deps_json_path: str) -> CourseGraph:
     """
-    Build prerequisite graph from course_dependencies.json.
+    Build prerequisite graph from course_dependencies_llm.json (canonical).
 
     The JSON shape is:
         {
@@ -75,20 +75,27 @@ def build_dependency_graph(deps_json_path: str) -> CourseGraph:
         children.setdefault(t, children.get(t, set()))
         parents.setdefault(p, parents.get(p, set()))
 
-    def walk_groups(groups: List[dict], target_code: str) -> None:
+    def walk_groups(groups: list, target_code: str) -> None:
         for g in groups or []:
+            if isinstance(g, str):
+                add_edge(g, target_code)
+                continue
             g_type = g.get("type")
             if g_type == "course":
                 code = g.get("code") or ""
                 add_edge(code, target_code)
             elif g_type == "prerequisite_group":
-                # Nested group: recurse on its courses
                 walk_groups(g.get("courses") or [], target_code)
 
     for raw_code, info in raw.items():
         target_code = _normalize_code(raw_code)
-        prereq_section = (info or {}).get("prerequisites") or {}
-        groups = prereq_section.get("groups") or []
+        prereq_section = (info or {}).get("prerequisites")
+        if isinstance(prereq_section, list):
+            for item in prereq_section:
+                if isinstance(item, str):
+                    add_edge(item, target_code)
+            continue
+        groups = (prereq_section or {}).get("groups") or []
         walk_groups(groups, target_code)
         # Ensure every course appears in the dicts even if it has no edges
         children.setdefault(target_code, set())
