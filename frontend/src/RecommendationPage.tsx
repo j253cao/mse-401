@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -25,7 +25,6 @@ import {
   Filter,
   X,
   Sparkles,
-  Unlock,
   RefreshCw,
   ArrowRight,
   ExternalLink,
@@ -92,6 +91,7 @@ export default function RecommendationPage() {
   const [explorationMode, setExplorationMode] = useState(false);
   const [departments, setDepartments] =
     useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
+  const [includeOtherDepts, setIncludeOtherDepts] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [similarCourses, setSimilarCourses] = useState<Course[]>([]);
   const [similarLoading, setSimilarLoading] = useState(false);
@@ -226,13 +226,11 @@ export default function RecommendationPage() {
       const selectedDepts = Object.entries(departments)
         .filter(([, v]) => v)
         .map(([k]) => k);
-      // All departments selected = no dept restriction (show all courses incl. non-engineering)
-      const departmentFilter =
-        selectedDepts.length === FILTER_DEPARTMENTS.length ? [] : selectedDepts;
       const filters = {
         include_undergrad: includeUndergrad,
         include_grad: includeGrad,
-        department: departmentFilter,
+        department: selectedDepts,
+        include_other_depts: includeOtherDepts,
         completed_courses: completedCourses,
         ignore_dependencies: explorationMode,
         ...(selectedOptions.length > 0 && { options: selectedOptions }),
@@ -267,6 +265,7 @@ export default function RecommendationPage() {
     !includeUndergrad,
     !includeGrad && !isUndergrad,
     ...Object.values(departments).filter((v) => !v),
+    !includeOtherDepts,
     completedCourses.length > 0,
     explorationMode,
     selectedOptions.length > 0,
@@ -368,22 +367,27 @@ export default function RecommendationPage() {
                           <X className="w-3 h-3" />
                         </Badge>
                       )}
-                      {Object.values(departments).filter(Boolean).length <
-                        FILTER_DEPARTMENTS.length && (
+                      {(Object.values(departments).filter(Boolean).length <
+                        FILTER_DEPARTMENTS.length ||
+                        !includeOtherDepts) && (
                         <Badge
                           variant="secondary"
                           className="gap-1 cursor-pointer hover:bg-destructive/20"
-                          onClick={() =>
+                          onClick={() => {
                             setDepartments(
                               Object.fromEntries(
-                                FILTER_DEPARTMENTS.map((d) => [d.code, true]),
+                                FILTER_DEPARTMENTS.map((d) => [
+                                  d.code,
+                                  true,
+                                ]),
                               ),
-                            )
-                          }
+                            );
+                            setIncludeOtherDepts(true);
+                          }}
                         >
                           {FILTER_DEPARTMENTS.length -
-                            Object.values(departments).filter(Boolean)
-                              .length}{" "}
+                            Object.values(departments).filter(Boolean).length +
+                            (includeOtherDepts ? 0 : 1)}{" "}
                           depts excluded
                           <X className="w-3 h-3" />
                         </Badge>
@@ -517,6 +521,26 @@ export default function RecommendationPage() {
                                 </Label>
                               </div>
                             ))}
+                            <div className="flex items-center gap-2 min-w-0 col-span-2 sm:col-span-3 border-t border-input pt-2 mt-1">
+                              <Checkbox
+                                id="other-depts"
+                                checked={includeOtherDepts}
+                                onCheckedChange={(checked) =>
+                                  setIncludeOtherDepts(checked as boolean)
+                                }
+                              />
+                              <Label
+                                htmlFor="other-depts"
+                                className="text-sm cursor-pointer flex-1 min-w-0 truncate"
+                                title="Include non-engineering departments (CS, MATH, ECON, etc.)"
+                              >
+                                <span className="font-medium">Other</span>
+                                <span className="text-muted-foreground">
+                                  {" "}
+                                  All non-engineering
+                                </span>
+                              </Label>
+                            </div>
                           </div>
                         </div>
 
@@ -693,13 +717,8 @@ export default function RecommendationPage() {
                       ) : highValueError ? (
                         <div className="text-center py-8 space-y-4">
                           <p className="text-sm text-muted-foreground">
-                            Could not load suggestions. Make sure the backend is
-                            running at{" "}
-                            <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
-                              {import.meta.env.VITE_API_URL ||
-                                "http://localhost:8000"}
-                            </code>
-                            , or try a search above.
+                            Could not load suggestions. Please try again later
+                            or try a search above.
                           </p>
                           <Button
                             variant="outline"
@@ -884,7 +903,8 @@ export default function RecommendationPage() {
                   <div className="text-center p-3 rounded-lg bg-background/50">
                     <BookOpen className="w-5 h-5 text-accent mx-auto mb-1" />
                     <div className="text-lg font-bold">
-                      {Object.values(departments).filter(Boolean).length}
+                      {Object.values(departments).filter(Boolean).length +
+                        (includeOtherDepts ? 1 : 0)}
                     </div>
                     <div className="text-xs text-muted-foreground">Depts</div>
                   </div>

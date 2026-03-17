@@ -6,24 +6,29 @@ Run with:
     uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 """
 
-from fastapi import FastAPI, File, UploadFile
+from pathlib import Path
+
+from fastapi import FastAPI, File, Request, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum
 import json
+import logging
 import re
 import time
 import os
 import tempfile
-import sys
 from dotenv import load_dotenv
 
-# Add backend to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-# Load environment variables from project root .env file
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+# Load environment variables from backend/.env (preferred for deployment)
+# Fallback to project root .env for compatibility.
+BACKEND_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+PROJECT_ROOT = os.path.abspath(os.path.join(BACKEND_ROOT, '..'))
+load_dotenv(os.path.join(BACKEND_ROOT, '.env'))
 load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
 # 14 UW Engineering departments (matches course_dependency_parser)
@@ -232,6 +237,7 @@ def _lookup_courses_by_code(
     Applies department filter from filters.
     """
     data = _load_course_data_for_lookup()
+    include_other = filters.get("include_other_depts", False)
     departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
     if isinstance(departments, str):
         dept_set = {departments.upper()}
@@ -240,12 +246,22 @@ def _lookup_courses_by_code(
     else:
         dept_set = set(ENGINEERING_DEPARTMENTS)
 
+    def _dept_ok(subject: str) -> bool:
+        if not dept_set:
+            return True
+        if subject in dept_set:
+            return True
+        # include_other: allow non-engineering departments
+        if include_other and subject not in ENGINEERING_DEPARTMENTS:
+            return True
+        return False
+
     results = []
     # Direct key lookup (keys are canonical: MSE446, etc.)
     if normalized_query in data:
         info = data[normalized_query]
         subject = (info.get("subjectCode") or "").upper()
-        if not dept_set or subject in dept_set:
+        if _dept_ok(subject):
             results.append({
                 "course_code": normalized_query,
                 "title": info.get("title", ""),
@@ -258,7 +274,7 @@ def _lookup_courses_by_code(
             catalog = info.get("catalogNumber") or ""
             canonical = f"{subject}{catalog}" if catalog else key
             if canonical.upper() == normalized_query:
-                if not dept_set or subject in dept_set:
+                if _dept_ok(subject):
                     results.append({
                         "course_code": canonical,
                         "title": info.get("title", ""),
@@ -280,6 +296,7 @@ def _lookup_courses_by_number_sequence(
     substring. Results are sorted by catalog number for a stable, predictable order.
     """
     data = _load_course_data_for_lookup()
+    include_other = filters.get("include_other_depts", False)
     departments = filters.get("department") or list(ENGINEERING_DEPARTMENTS)
     if isinstance(departments, str):
         dept_set = {departments.upper()}
@@ -287,6 +304,15 @@ def _lookup_courses_by_number_sequence(
         dept_set = set(d.upper() for d in departments)
     else:
         dept_set = set(ENGINEERING_DEPARTMENTS)
+
+    def _dept_ok(subject: str) -> bool:
+        if not dept_set:
+            return True
+        if subject in dept_set:
+            return True
+        if include_other and subject not in ENGINEERING_DEPARTMENTS:
+            return True
+        return False
 
     digit_matches = _THREE_PLUS_DIGITS_PATTERN.findall(query)
     if not digit_matches:
@@ -306,7 +332,7 @@ def _lookup_courses_by_number_sequence(
         # Fix 5: match digits against catalog number only, not the full course code
         if search_digits not in catalog:
             continue
-        if dept_set and subject not in dept_set:
+        if not _dept_ok(subject):
             continue
         seen.add(canonical)
         results.append({
@@ -353,13 +379,46 @@ app = FastAPI(
     version="1.0.0"
 )
 
+def _env_csv(name: str) -> List[str]:
+    raw = os.getenv(name, "").strip()
+    if not raw:
+        return []
+    return [v.strip() for v in raw.split(",") if v.strip()]
+
+
+# Security defaults:
+# - Explicit CORS origins (no "*" + credentials)
+# - Trusted hosts (set ALLOWED_HOSTS in production)
+environment = (os.getenv("ENVIRONMENT") or os.getenv("ENV") or "development").strip().lower()
+allowed_hosts = _env_csv("ALLOWED_HOSTS") or (["*"] if environment != "production" else [])
+if allowed_hosts:
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
+
+allowed_origins = _env_csv("ALLOWED_ORIGINS") or (["http://localhost:5173"] if environment != "production" else [])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=allowed_origins,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+logger = logging.getLogger("api")
+
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start = time.time()
+    response = await call_next(request)
+    elapsed = (time.time() - start) * 1000
+    logger.info(
+        "%s %s %s %.0fms",
+        request.method,
+        request.url.path,
+        response.status_code,
+        elapsed,
+    )
+    return response
 
 
 class CourseLevel(str, Enum):
@@ -372,8 +431,8 @@ class QueryRequest(BaseModel):
     filters: Optional[Dict[str, Any]] = None
 
 
-@app.get("/")
-def root():
+@app.get("/health")
+def health():
     """Health check endpoint."""
     return {"status": "ok", "message": "UW Course Recommendation API"}
 
@@ -413,14 +472,12 @@ def recommend(request: QueryRequest):
     Returns:
         Dictionary with recommendation results for each query
     """
-    t0 = time.time()
-    print(f"[endpoint] Request received: {request.queries}")
-    print(f"[endpoint] Filters: {request.filters}")
-
     filters = dict(request.filters) if request.filters else {}
-    t1 = time.time()
+    include_other = filters.pop("include_other_depts", False)
     if not filters.get("department"):
         filters["department"] = list(ENGINEERING_DEPARTMENTS)
+    if include_other:
+        filters["include_other_depts"] = True
 
     deps_lookup = load_course_dependencies()
     formatted: Dict[str, Any] = {}
@@ -460,15 +517,12 @@ def recommend(request: QueryRequest):
 
     # Semantic search for remaining queries
     if queries_for_semantic:
-        t1 = time.time()
         results = get_recommendations(
             queries_for_semantic,
             data_file="course-api-new-data.json",
             method="cosine",
             filters=filters,
         )
-        t2 = time.time()
-        print(f"[endpoint] Recommendation call: {t2-t1:.4f}s")
 
         for q, q_results in zip(queries_for_semantic, results):
             cosine_results = [r for r in q_results if r["method"] == "cosine"]
@@ -488,8 +542,6 @@ def recommend(request: QueryRequest):
                 enriched_courses.append(_enrich_course_with_programs(base_course))
             formatted[q] = enriched_courses
 
-    t3 = time.time()
-    print(f"[endpoint] Total endpoint time: {t3-t0:.4f}s")
     return {"results": formatted}
 
 
@@ -508,7 +560,9 @@ def resume_recommend(
     Returns:
         List of recommended courses based on resume analysis
     """
-    t0 = time.time()
+    # Feature-flag: allow deploying without GEMINI_API_KEY.
+    if not os.getenv("GEMINI_API_KEY"):
+        raise HTTPException(status_code=503, detail="Resume recommendations are disabled (GEMINI_API_KEY not set).")
     
     # Save uploaded PDF to a temp file
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp:
@@ -516,7 +570,8 @@ def resume_recommend(
         tmp_path = tmp.name
     
     try:
-        parser = ResumeParser()
+        # Avoid writing parsed resumes by default on ephemeral disks.
+        parser = ResumeParser(output_file=None)
         parsed_resume = parser.parse(tmp_path)
         if not parsed_resume:
             return {"error": "Failed to parse resume."}
@@ -533,8 +588,11 @@ def resume_recommend(
 
         # Default to engineering departments only when no department filter provided
         res_filters = dict(filters) if filters else {}
+        include_other = res_filters.pop("include_other_depts", False)
         if not res_filters.get("department"):
             res_filters["department"] = list(ENGINEERING_DEPARTMENTS)
+        if include_other:
+            res_filters["include_other_depts"] = True
         
         deps_lookup = load_course_dependencies()
 
@@ -562,8 +620,6 @@ def resume_recommend(
             }
             formatted.append(_enrich_course_with_programs(base_course))
         
-        t1 = time.time()
-        print(f"[resume-recommend] Total endpoint time: {t1-t0:.4f}s")
         return formatted
     finally:
         os.remove(tmp_path)
@@ -687,8 +743,6 @@ def transcript_parse(file: UploadFile = File(...)):
     Returns:
         Dictionary with courses, latest_term, program, student_number, term_summaries
     """
-    t0 = time.time()
-    
     try:
         pdf_bytes = file.file.read()
         result = parse_transcript_bytes(pdf_bytes)
@@ -714,9 +768,6 @@ def transcript_parse(file: UploadFile = File(...)):
             for term in result.term_summaries
         ]
         
-        t1 = time.time()
-        print(f"[transcript-parse] Total endpoint time: {t1-t0:.4f}s")
-        
         return {
             "courses": all_courses,
             "latest_term": latest_term,
@@ -726,8 +777,21 @@ def transcript_parse(file: UploadFile = File(...)):
         }
         
     except Exception as e:
-        print(f"[transcript-parse] Error: {e}")
+        logger.error("transcript-parse error: %s", e)
         return {"error": str(e)}
+
+
+FRONTEND_DIST = Path(__file__).resolve().parent.parent.parent / "frontend-dist"
+
+if FRONTEND_DIST.is_dir():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="static-assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        file_path = FRONTEND_DIST / full_path
+        if file_path.is_file():
+            return FileResponse(file_path)
+        return FileResponse(FRONTEND_DIST / "index.html")
 
 
 if __name__ == "__main__":

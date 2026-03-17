@@ -223,8 +223,7 @@ export default function ProfilePage() {
               <DialogTitle>Clear profile data?</DialogTitle>
               <DialogDescription>
                 This will remove your program, course level, completed courses,
-                resume recommendations, and transcript data. This cannot be
-                undone.
+                and transcript data. This cannot be undone.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="gap-2 sm:gap-0">
