@@ -399,7 +399,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-logger = logging.getLogger("uvicorn.access")
+logger = logging.getLogger("api")
 
 
 @app.middleware("http")
