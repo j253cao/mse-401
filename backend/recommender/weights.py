@@ -299,6 +299,98 @@ def apply_bucket_normalization(
     return df
 
 
+def _evaluate_node(node: dict, completed_set: set) -> tuple:
+    """Recursively evaluate a requirement tree node.
+
+    Returns (satisfied: bool, completed_courses: list[str])
+    """
+    if node.get("type") == "course":
+        code = (node.get("code") or "").upper().replace(" ", "")
+        satisfied = code in completed_set
+        return satisfied, ([node["code"]] if satisfied else [])
+
+    children = node.get("children") or []
+    child_results = [_evaluate_node(c, completed_set) for c in children]
+    all_completed = [course for _, courses in child_results for course in courses]
+
+    if node.get("type") == "AND":
+        satisfied = all(r[0] for r in child_results)
+        return satisfied, all_completed
+
+    # OR node
+    required = node.get("required_count")
+    if required is None:
+        required = len(children)
+    satisfied_count = sum(1 for r in child_results if r[0])
+    return satisfied_count >= required, all_completed
+
+
+def _count_leaf_courses(node: dict) -> int:
+    """Count the number of leaf course nodes in a requirement subtree."""
+    if node.get("type") == "course":
+        return 1
+    return sum(_count_leaf_courses(c) for c in (node.get("children") or []))
+
+
+def compute_options_progress(
+    completed_courses: List[str],
+    options_data: List[dict],
+) -> List[dict]:
+    """
+    Compute per-option progress for a student's completed courses.
+
+    Args:
+        completed_courses: List of course codes the student has completed.
+        options_data: Parsed contents of all_options.json.
+
+    Returns:
+        List of dicts matching the frontend OptionProgress shape, sorted
+        descending by completion_ratio.
+    """
+    completed_set = {c.upper().replace(" ", "") for c in completed_courses}
+
+    results = []
+    for option in options_data:
+        course_requirements = option.get("course_requirements") or {}
+        children = course_requirements.get("children") or []
+        if not children:
+            continue
+
+        lists = []
+        for child in children:
+            satisfied, completed = _evaluate_node(child, completed_set)
+            if child.get("type") == "course":
+                required_count = 1
+                list_name = child.get("code", "")
+            elif child.get("type") == "AND":
+                required_count = len(child.get("children") or [])
+                list_name = child.get("description", "")
+            else:  # OR
+                required_count = child.get("required_count") or len(child.get("children") or [])
+                list_name = child.get("description", "")
+
+            lists.append({
+                "list_name": list_name,
+                "required_count": required_count,
+                "total_courses": _count_leaf_courses(child),
+                "completed_courses": completed,
+                "is_satisfied": satisfied,
+            })
+
+        satisfied_count = sum(1 for lst in lists if lst["is_satisfied"])
+        total_lists = len(lists)
+        results.append({
+            "option_name": option.get("option_name", ""),
+            "lists": lists,
+            "satisfied_count": satisfied_count,
+            "total_lists": total_lists,
+            "completion_ratio": satisfied_count / total_lists if total_lists > 0 else 0.0,
+        })
+
+    results.sort(key=lambda x: x["completion_ratio"], reverse=True)
+    return results
+
+
 def compute_global_weight(
     df: pd.DataFrame,
     gamma_prereq: float = 1.0,

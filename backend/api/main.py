@@ -39,7 +39,7 @@ ENGINEERING_DEPARTMENTS = (
 
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path
 from recommender.data_loader import load_course_data
-from recommender.weights import load_course_to_programs
+from recommender.weights import load_course_to_programs, compute_options_progress
 from parsers.resume_parser import ResumeParser
 
 # Cached course-to-programs lookup for enriching responses
@@ -456,6 +456,33 @@ def options_and_minors():
             items = json.load(f)
         minors = [{"name": item.get("program_name", "")} for item in items if item.get("program_name")]
     return {"options": options, "minors": minors}
+
+
+class OptionsProgressRequest(BaseModel):
+    completed_courses: List[str]
+
+
+_OPTIONS_DATA_CACHE: Optional[List[Dict[str, Any]]] = None
+
+
+def _load_options_data() -> List[Dict[str, Any]]:
+    global _OPTIONS_DATA_CACHE
+    if _OPTIONS_DATA_CACHE is None:
+        options_path = get_abs_path('data', 'programs', 'all_options.json')
+        with open(options_path, 'r', encoding='utf-8') as f:
+            _OPTIONS_DATA_CACHE = json.load(f)
+    return _OPTIONS_DATA_CACHE
+
+
+@app.post("/options-progress")
+def options_progress(request: OptionsProgressRequest):
+    """
+    Compute option completion progress for a set of completed courses.
+
+    Returns a list of OptionProgress objects sorted by completion_ratio descending.
+    """
+    options_data = _load_options_data()
+    return compute_options_progress(request.completed_courses, options_data)
 
 
 @app.post("/recommend")
