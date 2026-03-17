@@ -11,7 +11,8 @@ from .data_loader import load_course_data, save_embeddings, load_embeddings
 from .embedding_generators import generate_tfidf_svd_embeddings
 from .recommenders import (
     recommend_cosine, recommend_faiss, recommend_mmr, recommend_graph,
-    recommend_fuzzy_multi, recommend_keyword_overlap,
+    recommend_fuzzy_multi, recommend_keyword_overlap, recommend_bert, recommend_hybrid_ensemble,
+    recommend_filter_only
 )
 from .utils import export_results_to_excel
 from .weights import (
@@ -221,6 +222,32 @@ def get_recommendations(
         all_results.append(query_results)
     
     return all_results
+
+
+def get_filtered_courses(
+    filters: Optional[Dict[str, Any]] = None,
+    data_file: str = 'course-api-new-data.json',
+    top_k: int = 30,
+) -> List[Dict[str, Any]]:
+    """Return courses based solely on filters (no search query), sorted by global_weight.
+
+    Used when an empty query is submitted with active filters (e.g. option/minor selected).
+    """
+    df, *_ = _load_all(data_file)
+    results = recommend_filter_only(df, filters=filters, top_k=top_k)
+
+    course_list = []
+    for rank, (_, row) in enumerate(results.iterrows(), 1):
+        course_list.append({
+            "search_query": "",
+            "method": "filter_only",
+            "rank": rank,
+            "course_code": row["courseCode"],
+            "title": row["title"],
+            "description": row["description"],
+            "score": float(row["score"]),
+        })
+    return course_list
 
 
 # Engineering departments for high-value course filtering (matches API)

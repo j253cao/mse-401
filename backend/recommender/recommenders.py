@@ -166,8 +166,17 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
     return eligible_courses
 
 
-def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
-    """Recommend courses using cosine similarity."""
+_ENG_DEPTS = frozenset({
+    'AE', 'BME', 'CHE', 'CIVE', 'ECE', 'ENVE', 'GENE', 'GEOE',
+    'ME', 'MTE', 'MSE', 'NE', 'SE', 'SYDE',
+})
+
+
+def _apply_course_filters(filters, df):
+    """Apply undergrad/grad, department, options, and prerequisite filters.
+
+    Returns a set of course codes that pass all active filters (empty set means no filtering).
+    """
     filters_applied = set()
     if filters and filters.get('include_undergrad'):
         filters_applied.update(load_undergrad_courses())
@@ -176,10 +185,9 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     if filters and filters.get('department'):
         departments = set(filters['department'])
         include_other = filters.get('include_other_depts', False)
-        eng_depts = {'AE', 'BME', 'CHE', 'CIVE', 'ECE', 'ENVE', 'GENE', 'GEOE', 'ME', 'MTE', 'MSE', 'NE', 'SE', 'SYDE'}
         filters_applied = {
             s for s in filters_applied
-            if _get_course_dept(s) in departments or (include_other and _get_course_dept(s) not in eng_depts)
+            if _get_course_dept(s) in departments or (include_other and _get_course_dept(s) not in _ENG_DEPTS)
         }
 
     # Filter by options/minors when specified
@@ -214,7 +222,14 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
                 incoming_level=filters.get('incoming_level'),
             )
             filters_applied = eligible_courses
-    
+
+    return filters_applied
+
+
+def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
+    """Recommend courses using cosine similarity."""
+    filters_applied = _apply_course_filters(filters, df)
+
     t0 = time.time()
     # Vectorize query
     q_vec = svd.transform(tfidf.transform([query]))
@@ -294,6 +309,28 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     
     print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
     print(len(result))
+    return result
+
+
+def recommend_filter_only(df, filters=None, top_k=30):
+    """Return courses based solely on filters, sorted by global_weight descending.
+
+    Used when the user submits an empty query but has filters (e.g. options) selected.
+    """
+    filters_applied = _apply_course_filters(filters, df)
+
+    if filters_applied:
+        filtered = df[df['courseCode'].isin(filters_applied)]
+    else:
+        filtered = df
+
+    if 'global_weight' in filtered.columns:
+        filtered = filtered.sort_values('global_weight', ascending=False)
+
+    filtered = filtered.head(top_k)
+
+    result = filtered[['courseCode', 'title', 'description']].copy()
+    result['score'] = filtered['global_weight'] if 'global_weight' in filtered.columns else 0.0
     return result
 
 
