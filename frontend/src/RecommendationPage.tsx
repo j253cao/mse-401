@@ -55,9 +55,21 @@ function needsOverride(prereqs: string | null | undefined, programCode: string):
   if (programStudentParts.length === 0) return false;
   const program = ENGINEERING_PROGRAMS.find((p) => p.code === programCode);
   if (!program) return false;
-  return !programStudentParts.some((part) =>
-    part.toLowerCase().includes(program.displayName.toLowerCase())
-  );
+  const nameLower = program.displayName.toLowerCase();
+  const codeLower = program.code.toLowerCase();
+  // Match full display name, program code, or any leading word subset
+  // (e.g. "Mechatronics" matches "Mechatronics Engineering")
+  const nameWords = nameLower.split(" ");
+  return !programStudentParts.some((part) => {
+    const p = part.toLowerCase();
+    if (p.includes(nameLower) || p.includes(codeLower)) return true;
+    // Check if part contains any prefix of the display name words
+    // e.g. "mechatronics" should match "mechatronics engineering"
+    for (let i = nameWords.length; i >= 1; i--) {
+      if (p.includes(nameWords.slice(0, i).join(" "))) return true;
+    }
+    return false;
+  });
 }
 
 const OVERRIDE_BADGE_CLASS =
