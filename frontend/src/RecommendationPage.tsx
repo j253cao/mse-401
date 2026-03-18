@@ -223,6 +223,7 @@ export default function RecommendationPage() {
     setLoading(true);
     setError(null);
     try {
+      // Search page filter: which departments to include in results (checkboxes)
       const selectedDepts = Object.entries(departments)
         .filter(([, v]) => v)
         .map(([k]) => k);
@@ -234,7 +235,10 @@ export default function RecommendationPage() {
         completed_courses: completedCourses,
         ignore_dependencies: explorationMode,
         ...(selectedOptions.length > 0 && { options: selectedOptions }),
+        // Profile (major + current term) — from context, not search filters
         ...(incomingLevel && { incoming_level: incomingLevel }),
+        // Same-department boost uses user's major from profile only (when major + term are set)
+        ...(programCode && incomingLevel && { user_department: programCode }),
       };
 
       const courses = await api.recommend([search], filters);

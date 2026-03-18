@@ -1,5 +1,4 @@
-from .resume_parser import ResumeParser
-from .resume_llm_client import ResumeLLMClient
+# ResumeParser / ResumeLLMClient imported lazily where needed (avoid pdfplumber/crypto at startup)
 from .transcript_parser import (
     parse_transcript,
     parse_transcript_pdf,

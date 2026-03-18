@@ -40,7 +40,6 @@ ENGINEERING_DEPARTMENTS = (
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path
 from recommender.data_loader import load_course_data
 from recommender.weights import load_course_to_programs, compute_options_progress
-from parsers.resume_parser import ResumeParser
 
 # Cached course-to-programs lookup for enriching responses
 _course_to_programs_cache = None
@@ -67,7 +66,7 @@ def _enrich_course_with_programs(course: dict) -> dict:
 from parsers.transcript_parser import parse_transcript_bytes, term_id_to_name, get_all_courses
 
 
-_COURSE_DEPENDENCIES_CACHE: Dict[str, Dict[str, Optional[str]]] | None = None
+_COURSE_DEPENDENCIES_CACHE: Optional[Dict[str, Dict[str, Optional[str]]]] = None
 
 
 def _flatten_groups(groups: list) -> str:
@@ -212,7 +211,7 @@ def _has_three_plus_consecutive_digits(query: str) -> bool:
     return bool(_THREE_PLUS_DIGITS_PATTERN.search(query or ""))
 
 
-_COURSE_DATA_LOOKUP_CACHE: Dict[str, Dict[str, Any]] | None = None
+_COURSE_DATA_LOOKUP_CACHE: Optional[Dict[str, Dict[str, Any]]] = None
 
 
 def _load_course_data_for_lookup() -> Dict[str, Dict[str, Any]]:
@@ -598,6 +597,7 @@ def resume_recommend(
     
     try:
         # Avoid writing parsed resumes by default on ephemeral disks.
+        from parsers.resume_parser import ResumeParser
         parser = ResumeParser(output_file=None)
         parsed_resume = parser.parse(tmp_path)
         if not parsed_resume:

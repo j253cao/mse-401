@@ -16,11 +16,31 @@ from .weights import load_course_to_programs
 TERM_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"]
 
 _DEPT_PREFIX_RE = re.compile(r'^([A-Za-z]+)')
+# Minimum raw similarity cutoff (before weights). Suggestions: 0.2=permissive, 0.25=moderate, 0.3=stricter, 0.35=strict
+MIN_SIMILARITY_CUTOFF = 0.25
 
 def _get_course_dept(course_code: str) -> str:
     """Extract department prefix from a course code (e.g. 'ME101' -> 'ME', 'MEDVL330' -> 'MEDVL')."""
     m = _DEPT_PREFIX_RE.match(course_code)
     return m.group(1).upper() if m else ''
+
+
+def _title_word_boost(query: str, titles: pd.Series) -> np.ndarray:
+    """Return per-row boost when query words appear in course title (exact word match).
+    Helps exact course title searches rank higher."""
+    query_words = set(re.findall(r'\w+', query.lower()))
+    if not query_words:
+        return np.zeros(len(titles), dtype=float)
+    # Vectorized: for each title, count how many query words appear
+    def overlap_count(title):
+        if not isinstance(title, str):
+            return 0
+        title_words = set(re.findall(r'\w+', title.lower()))
+        return len(query_words & title_words)
+    overlaps = titles.apply(overlap_count).to_numpy(dtype=float)
+    # Stronger boost when query words appear in title; higher per-word and cap for title matches
+    boosts = np.minimum(overlaps * 0.28, 0.75)
+    return boosts
 
 
 def meets_level_requirement(user_level, required_level, comparison="at_least"):
@@ -166,8 +186,17 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
     return eligible_courses
 
 
-def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
-    """Recommend courses using cosine similarity."""
+def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_similarity=None):
+    """Recommend courses using cosine similarity.
+
+    Same-department boost uses filters.user_department only (user's major from profile).
+    Do not use filters['department'] for the boost — that is the search page filter (which
+    departments to include). user_department must come from the user's selected program/term.
+    min_similarity: minimum raw similarity (before weights); candidates below this are dropped.
+    Suggested cutoffs: 0.2=permissive, 0.25=moderate, 0.3=stricter, 0.35=strict.
+    """
+    if min_similarity is None:
+        min_similarity = MIN_SIMILARITY_CUTOFF
     filters_applied = set()
     if filters and filters.get('include_undergrad'):
         filters_applied.update(load_undergrad_courses())
@@ -227,15 +256,17 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     q_norm = q_vec / np.linalg.norm(q_vec)
     # Compute cosine similarity (vectorized)
     sims = np.dot(emb_norm, q_norm.flatten())
-    # Phrase-boost step
+    # Phrase-boost: full query substring in title
     title_lower = df['title'].str.lower()
     phrase_mask = title_lower.str.contains(query.lower(), regex=False)
-    boost_factor = 0.3
+    boost_factor = 0.5  # full query phrase in title gets a strong boost
     sims = sims + boost_factor * phrase_mask.astype(float)
+    # Title-word boost: query words that appear in course title (exact title words in query rank higher)
+    sims = sims + _title_word_boost(query, df['title'])
     # Replace NaN and inf with 0
     sims = np.nan_to_num(sims, nan=0.0, posinf=0.0, neginf=0.0)
 
-    # Stage 1: Retrieval (pure semantic relevance / cosine similarity).
+    # Stage 1: Retrieval (semantic + phrase + title-word).
     sims_raw = sims.copy()
 
     t2 = time.time()
@@ -264,13 +295,26 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
             candidate_idxs = np.argsort(-sims_all)
     t3 = time.time()
 
-    # Stage 2: Ranking (apply universal weights on the retrieved candidate set).
+    # Minimum similarity cutoff (before weights): drop candidates below threshold
+    if len(candidate_idxs) > 0:
+        above_cutoff = sims_raw[candidate_idxs] >= min_similarity
+        candidate_idxs = candidate_idxs[above_cutoff]
+
+    # Stage 2: Ranking (apply universal weights and optional same-department boost).
     if 'global_weight' in df.columns and len(candidate_idxs) > 0:
         global_w = df['global_weight'].to_numpy(dtype=float)
         alpha = 0.3
         weighted_scores = sims_raw[candidate_idxs] * (1.0 + alpha * global_w[candidate_idxs])
     else:
-        weighted_scores = sims_raw[candidate_idxs] if len(candidate_idxs) > 0 else np.array([], dtype=float)
+        weighted_scores = sims_raw[candidate_idxs].copy() if len(candidate_idxs) > 0 else np.array([], dtype=float)
+
+    # Same-department boost: uses user's major (profile), not the search page department filter
+    user_dept = (filters or {}).get('user_department')
+    if user_dept and len(candidate_idxs) > 0:
+        user_dept = str(user_dept).strip().upper()
+        codes = df['courseCode'].iloc[candidate_idxs]
+        same_dept = np.array([_get_course_dept(str(c)) == user_dept for c in codes], dtype=float)
+        weighted_scores = weighted_scores * (1.0 + 0.4 * same_dept)
 
     if len(candidate_idxs) > 0:
         order = np.argsort(-weighted_scores)
@@ -289,8 +333,8 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30):
     result['similarity'] = final_scores
     result['similarity'] = np.nan_to_num(result['similarity'], nan=0.0, posinf=0.0, neginf=0.0)
     
-    # Final filter: ensure semantic relevance threshold is applied on raw similarity
-    result = result[result['similarity_raw'] > 0.35]
+    # Final filter: ensure semantic relevance threshold on raw similarity (same as pre-weight cutoff)
+    result = result[result['similarity_raw'] >= min_similarity]
     
     print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
     print(len(result))
