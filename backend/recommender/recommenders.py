@@ -13,6 +13,21 @@ import re
 from .data_loader import load_undergrad_courses, load_grad_courses, find_project_root
 from .weights import load_course_to_programs
 
+_COURSE_TO_PROGRAMS_CACHE = None
+
+
+def _get_course_to_programs_cached():
+    global _COURSE_TO_PROGRAMS_CACHE
+    if _COURSE_TO_PROGRAMS_CACHE is None:
+        project_root = find_project_root()
+        options_path = os.path.join(project_root, 'data', 'programs', 'all_options.json')
+        programs_path = os.path.join(project_root, 'data', 'programs', 'all_programs.json')
+        _COURSE_TO_PROGRAMS_CACHE = load_course_to_programs([
+            (options_path, 'option'),
+            (programs_path, 'minor'),
+        ])
+    return _COURSE_TO_PROGRAMS_CACHE
+
 TERM_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"]
 
 _DEPT_PREFIX_RE = re.compile(r'^([A-Za-z]+)')
@@ -186,17 +201,17 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
     return eligible_courses
 
 
-def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_similarity=None):
-    """Recommend courses using cosine similarity.
+_ENG_DEPTS = frozenset({
+    'AE', 'BME', 'CHE', 'CIVE', 'ECE', 'ENVE', 'GENE', 'GEOE',
+    'ME', 'MTE', 'MSE', 'NE', 'SE', 'SYDE',
+})
 
-    Same-department boost uses filters.user_department only (user's major from profile).
-    Do not use filters['department'] for the boost — that is the search page filter (which
-    departments to include). user_department must come from the user's selected program/term.
-    min_similarity: minimum raw similarity (before weights); candidates below this are dropped.
-    Suggested cutoffs: 0.2=permissive, 0.25=moderate, 0.3=stricter, 0.35=strict.
+
+def _apply_course_filters(filters, df):
+    """Apply undergrad/grad, department, options, and prerequisite filters.
+
+    Returns a set of course codes that pass all active filters (empty set means no filtering).
     """
-    if min_similarity is None:
-        min_similarity = MIN_SIMILARITY_CUTOFF
     filters_applied = set()
     if filters and filters.get('include_undergrad'):
         filters_applied.update(load_undergrad_courses())
@@ -205,23 +220,16 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_sim
     if filters and filters.get('department'):
         departments = set(filters['department'])
         include_other = filters.get('include_other_depts', False)
-        eng_depts = {'AE', 'BME', 'CHE', 'CIVE', 'ECE', 'ENVE', 'GENE', 'GEOE', 'ME', 'MTE', 'MSE', 'NE', 'SE', 'SYDE'}
         filters_applied = {
             s for s in filters_applied
-            if _get_course_dept(s) in departments or (include_other and _get_course_dept(s) not in eng_depts)
+            if _get_course_dept(s) in departments or (include_other and _get_course_dept(s) not in _ENG_DEPTS)
         }
 
     # Filter by options/minors when specified
     if filters and filters.get('options'):
         selected_names = set(filters['options'])
         if selected_names:
-            project_root = find_project_root()
-            options_path = os.path.join(project_root, 'data', 'programs', 'all_options.json')
-            programs_path = os.path.join(project_root, 'data', 'programs', 'all_programs.json')
-            course_to_programs = load_course_to_programs([
-                (options_path, 'option'),
-                (programs_path, 'minor'),
-            ])
+            course_to_programs = _get_course_to_programs_cached()
             courses_in_options = {
                 code for code, progs in course_to_programs.items()
                 if any(p['name'] in selected_names for p in progs)
@@ -243,7 +251,23 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_sim
                 incoming_level=filters.get('incoming_level'),
             )
             filters_applied = eligible_courses
-    
+
+    return filters_applied
+
+
+def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_similarity=None):
+    """Recommend courses using cosine similarity.
+
+    Same-department boost uses filters.user_department only (user's major from profile).
+    Do not use filters['department'] for the boost — that is the search page filter (which
+    departments to include). user_department must come from the user's selected program/term.
+    min_similarity: minimum raw similarity (before weights); candidates below this are dropped.
+    Suggested cutoffs: 0.2=permissive, 0.25=moderate, 0.3=stricter, 0.35=strict.
+    """
+    if min_similarity is None:
+        min_similarity = MIN_SIMILARITY_CUTOFF
+    filters_applied = _apply_course_filters(filters, df)
+
     t0 = time.time()
     # Vectorize query
     q_vec = svd.transform(tfidf.transform([query]))
@@ -338,6 +362,28 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_sim
     
     print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
     print(len(result))
+    return result
+
+
+def recommend_filter_only(df, filters=None, top_k=30):
+    """Return courses based solely on filters, sorted by global_weight descending.
+
+    Used when the user submits an empty query but has filters (e.g. options) selected.
+    """
+    filters_applied = _apply_course_filters(filters, df)
+
+    if filters_applied:
+        filtered = df[df['courseCode'].isin(filters_applied)]
+    else:
+        filtered = df
+
+    if 'global_weight' in filtered.columns:
+        filtered = filtered.sort_values('global_weight', ascending=False)
+
+    filtered = filtered.head(top_k)
+
+    result = filtered[['courseCode', 'title', 'description']].copy()
+    result['score'] = filtered['global_weight'] if 'global_weight' in filtered.columns else 0.0
     return result
 
 

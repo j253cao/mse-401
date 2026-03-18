@@ -22,3 +22,9 @@ export const FILTER_DEPARTMENTS = [
 ] as const;
 
 export type FilterDepartmentCode = (typeof FILTER_DEPARTMENTS)[number]["code"];
+
+export type DepartmentFilters = Record<string, boolean>;
+
+export const INITIAL_DEPARTMENTS: DepartmentFilters = Object.fromEntries(
+  FILTER_DEPARTMENTS.map((d) => [d.code, true]),
+);

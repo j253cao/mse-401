@@ -28,6 +28,7 @@ import {
   RefreshCw,
   ArrowRight,
   ExternalLink,
+  Compass,
 } from "lucide-react";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
@@ -62,12 +63,6 @@ function needsOverride(prereqs: string | null | undefined, programCode: string):
 const OVERRIDE_BADGE_CLASS =
   "bg-red-500/15 text-red-400 border border-red-500/30";
 
-type DepartmentFilters = Record<string, boolean>;
-
-const INITIAL_DEPARTMENTS: DepartmentFilters = Object.fromEntries(
-  FILTER_DEPARTMENTS.map((d) => [d.code, true]),
-);
-
 export default function RecommendationPage() {
   const {
     recommendedCourses,
@@ -75,27 +70,36 @@ export default function RecommendationPage() {
     setCompletedCourses,
     incomingLevel,
     programCode,
+    search,
+    setSearch,
+    filteredCourses,
+    setFilteredCourses,
+    departments,
+    setDepartments,
+    includeOtherDepts,
+    setIncludeOtherDepts,
+    includeUndergrad,
+    setIncludeUndergrad,
+    includeGrad,
+    setIncludeGrad,
+    selectedOptions,
+    setSelectedOptions,
+    explorationMode,
+    setExplorationMode,
+    hasSearched,
+    setHasSearched,
   } = useContext(RecommendationsContext);
 
   const isUndergrad = !!incomingLevel;
 
-  const [search, setSearch] = useState("");
   const [randomCourse, setRandomCourse] = useState<Course | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [randomLoading, setRandomLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [includeUndergrad, setIncludeUndergrad] = useState(true);
-  const [includeGrad, setIncludeGrad] = useState(!isUndergrad);
-  const [explorationMode, setExplorationMode] = useState(false);
-  const [departments, setDepartments] =
-    useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
-  const [includeOtherDepts, setIncludeOtherDepts] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [similarCourses, setSimilarCourses] = useState<Course[]>([]);
   const [similarLoading, setSimilarLoading] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [optionSearch, setOptionSearch] = useState("");
   const [optionsAndMinors, setOptionsAndMinors] = useState<{
     options: { name: string }[];
@@ -105,7 +109,6 @@ export default function RecommendationPage() {
   const [highValueCourses, setHighValueCourses] = useState<Course[]>([]);
   const [highValueLoading, setHighValueLoading] = useState(false);
   const [highValueError, setHighValueError] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
 
   // Only show high-value block for first-year (1A/1B) or new users (no level set)
   const showHighValueBlock =
@@ -213,7 +216,7 @@ export default function RecommendationPage() {
 
   async function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!search.trim()) {
+    if (!search.trim() && selectedOptions.length === 0) {
       setHasSearched(false);
       setFilteredCourses([]);
       setError(null);
@@ -241,7 +244,7 @@ export default function RecommendationPage() {
         ...(programCode && incomingLevel && { user_department: programCode }),
       };
 
-      const courses = await api.recommend([search], filters);
+      const courses = await api.recommend([search.trim() || ""], filters);
       setFilteredCourses(courses);
     } catch {
       setFilteredCourses([]);
@@ -271,7 +274,6 @@ export default function RecommendationPage() {
     ...Object.values(departments).filter((v) => !v),
     !includeOtherDepts,
     completedCourses.length > 0,
-    explorationMode,
     selectedOptions.length > 0,
   ].filter(Boolean).length;
 
@@ -332,7 +334,21 @@ export default function RecommendationPage() {
                   </div>
 
                   {/* Filter Toggle */}
+                  <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-4">
+                    <Button
+                      type="button"
+                      variant={explorationMode ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setExplorationMode(!explorationMode)}
+                      className={cn(
+                        "gap-2",
+                        explorationMode && "bg-amber-500 hover:bg-amber-600 text-white border-amber-500 shadow-amber-500/25 shadow-md"
+                      )}
+                    >
+                      <Compass className="w-4 h-4" />
+                      {explorationMode ? "Exploring" : "Explore"}
+                    </Button>
                     <Button
                       type="button"
                       variant="outline"
@@ -408,6 +424,12 @@ export default function RecommendationPage() {
                         </Badge>
                       )}
                     </div>
+                  </div>
+                  {explorationMode && (
+                    <p className="text-xs text-amber-500 font-medium mt-1">
+                      Explore mode on — prerequisites are being ignored
+                    </p>
+                  )}
                   </div>
 
                   {/* Filters Panel */}
@@ -634,33 +656,6 @@ export default function RecommendationPage() {
                             )}
                           </div>
                         )}
-
-                        {/* Exploration Mode */}
-                        <div className="space-y-2">
-                          <Label className="text-sm font-medium">
-                            Exploration Mode
-                          </Label>
-                          <div className="flex items-center justify-between rounded-lg border border-input px-3 py-2 bg-muted/20">
-                            <div className="space-y-0.5">
-                              <p className="text-sm font-medium">
-                                Ignore prerequisites
-                              </p>
-                              <p className="text-xs text-muted-foreground">
-                                Show courses even if pre-, co-, or
-                                anti-requisites are not satisfied.
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                id="exploration-mode"
-                                checked={explorationMode}
-                                onCheckedChange={(checked) =>
-                                  setExplorationMode(!!checked)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
 
                         {/* Completed Courses - compact with expand */}
                         <CompletedCoursesManager
