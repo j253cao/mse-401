@@ -39,7 +39,7 @@ ENGINEERING_DEPARTMENTS = (
 
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
 from recommender.data_loader import load_course_data
-from recommender.weights import load_course_to_programs, compute_options_progress
+from recommender.weights import load_course_to_programs, compute_options_progress, get_option_boost_multipliers
 
 # Cached course-to-programs lookup for enriching responses
 _course_to_programs_cache = None
@@ -525,6 +525,11 @@ def recommend(request: QueryRequest):
         filters["department"] = list(ENGINEERING_DEPARTMENTS)
     if include_other:
         filters["include_other_depts"] = True
+
+    # Option-completion boost: tiered by option + list progress (for ranking)
+    options_data = _load_options_data()
+    completed = filters.get("completed_courses") or []
+    filters["option_boost_multipliers"] = get_option_boost_multipliers(options_data, completed)
 
     deps_lookup = load_course_dependencies()
     formatted: Dict[str, Any] = {}

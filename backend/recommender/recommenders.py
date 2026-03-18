@@ -40,20 +40,56 @@ def _get_course_dept(course_code: str) -> str:
     return m.group(1).upper() if m else ''
 
 
+# Filler/stop words: not required to appear in title for word-overlap boost.
+# Full-query and phrase-in-title boosts still apply regardless.
+_TITLE_BOOST_STOP_WORDS = frozenset({
+    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'been', 'being', 'by', 'for',
+    'from', 'has', 'have', 'had', 'in', 'is', 'it', 'its', 'of', 'on', 'or',
+    'that', 'the', 'these', 'they', 'this', 'those', 'to', 'was', 'were',
+    'will', 'with', 'would', 'could', 'should', 'may', 'might', 'must', 'can',
+    'do', 'does', 'did', 'into', 'through', 'during', 'before', 'after',
+})
+
+
+def _content_words_only(query: str) -> set:
+    """Return set of query words excluding stop words (for title-word boost)."""
+    words = set(re.findall(r'\w+', query.lower()))
+    return words - _TITLE_BOOST_STOP_WORDS
+
+
+def _query_phrases(query: str) -> list:
+    """Return list of non-empty phrase strings (runs of non-stop words) for phrase-in-title boost."""
+    tokens = re.findall(r'\w+', query.lower())
+    phrases = []
+    current = []
+    for w in tokens:
+        if w in _TITLE_BOOST_STOP_WORDS:
+            if current:
+                phrases.append(' '.join(current))
+                current = []
+        else:
+            current.append(w)
+    if current:
+        phrases.append(' '.join(current))
+    return phrases
+
+
 def _title_word_boost(query: str, titles: pd.Series) -> np.ndarray:
-    """Return per-row boost when query words appear in course title (exact word match).
-    Helps exact course title searches rank higher."""
-    query_words = set(re.findall(r'\w+', query.lower()))
+    """Return per-row boost when query *content* words appear in course title.
+
+    Filler words (e.g. and, the, of) are ignored: we only require non-stop words
+    to appear in the title for this boost. Full-query and phrase-in-title boosts
+    are applied separately and do consider the full query/phrases.
+    """
+    query_words = _content_words_only(query)
     if not query_words:
         return np.zeros(len(titles), dtype=float)
-    # Vectorized: for each title, count how many query words appear
     def overlap_count(title):
         if not isinstance(title, str):
             return 0
         title_words = set(re.findall(r'\w+', title.lower()))
         return len(query_words & title_words)
     overlaps = titles.apply(overlap_count).to_numpy(dtype=float)
-    # Stronger boost when query words appear in title; higher per-word and cap for title matches
     boosts = np.minimum(overlaps * 0.28, 0.75)
     return boosts
 
@@ -256,14 +292,7 @@ def _apply_course_filters(filters, df):
 
 
 def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_similarity=None):
-    """Recommend courses using cosine similarity.
-
-    Same-department boost uses filters.user_department only (user's major from profile).
-    Do not use filters['department'] for the boost — that is the search page filter (which
-    departments to include). user_department must come from the user's selected program/term.
-    min_similarity: minimum raw similarity (before weights); candidates below this are dropped.
-    Suggested cutoffs: 0.2=permissive, 0.25=moderate, 0.3=stricter, 0.35=strict.
-    """
+    """Recommend courses using cosine similarity."""
     if min_similarity is None:
         min_similarity = MIN_SIMILARITY_CUTOFF
     filters_applied = _apply_course_filters(filters, df)
@@ -280,12 +309,18 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_sim
     q_norm = q_vec / np.linalg.norm(q_vec)
     # Compute cosine similarity (vectorized)
     sims = np.dot(emb_norm, q_norm.flatten())
-    # Phrase-boost: full query substring in title
+    # Phrase-boost: full query substring in title (no stop-word filtering; whole query matters)
     title_lower = df['title'].str.lower()
-    phrase_mask = title_lower.str.contains(query.lower(), regex=False)
-    boost_factor = 0.5  # full query phrase in title gets a strong boost
-    sims = sims + boost_factor * phrase_mask.astype(float)
-    # Title-word boost: query words that appear in course title (exact title words in query rank higher)
+    query_lower = query.lower().strip()
+    if query_lower:
+        phrase_mask = title_lower.str.contains(query_lower, regex=False)
+        boost_factor = 0.5  # full query phrase in title gets a strong boost
+        sims = sims + boost_factor * phrase_mask.astype(float)
+    # Phrase boost: each run of non-filler words from the query that appears in title (e.g. "machine learning")
+    for phrase in _query_phrases(query):
+        if len(phrase) > 1:  # skip single-word phrases (handled by title-word boost)
+            sims = sims + 0.35 * title_lower.str.contains(phrase, regex=False).astype(float)
+    # Title-word boost: only content words (filler words like "and", "the" are ignored)
     sims = sims + _title_word_boost(query, df['title'])
     # Replace NaN and inf with 0
     sims = np.nan_to_num(sims, nan=0.0, posinf=0.0, neginf=0.0)
@@ -339,6 +374,14 @@ def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_sim
         codes = df['courseCode'].iloc[candidate_idxs]
         same_dept = np.array([_get_course_dept(str(c)) == user_dept for c in codes], dtype=float)
         weighted_scores = weighted_scores * (1.0 + 0.4 * same_dept)
+
+    # Option-completion boost: tiered by option + list progress (multiplier per course)
+    option_boost = (filters or {}).get("option_boost_multipliers") or {}
+    if option_boost and len(candidate_idxs) > 0:
+        codes = df['courseCode'].iloc[candidate_idxs]
+        norm = lambda c: (str(c) or "").strip().upper().replace(" ", "")
+        mults = np.array([option_boost.get(norm(c), 1.0) for c in codes], dtype=float)
+        weighted_scores = weighted_scores * mults
 
     if len(candidate_idxs) > 0:
         order = np.argsort(-weighted_scores)

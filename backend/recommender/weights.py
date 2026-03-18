@@ -415,6 +415,86 @@ def compute_options_progress(
     return results
 
 
+def _option_list_courses(options_data: List[dict]) -> List[tuple]:
+    """Build (option_name, list_name, set of normalized course codes) for each list in each option."""
+    out = []
+    for option in options_data:
+        option_name = option.get("option_name", "")
+        course_requirements = option.get("course_requirements") or {}
+        children = course_requirements.get("children") or []
+        for child in children:
+            list_name = (child.get("description") or child.get("code") or "").strip()
+            codes = _extract_codes_from_requirements(child)
+            norm_set = {_normalize_code(c) for c in codes if _normalize_code(c)}
+            if option_name and norm_set:
+                out.append((option_name, list_name, norm_set))
+    return out
+
+
+# Option-completion boost tiers: (option_lists_remaining, list_remaining) -> multiplier (1 + boost)
+# Only options with at least one list completed are considered.
+# Tier 1: one list left for option AND that list has ≤2 courses left (biggest boost).
+# Tier 2: one list left for option OR list has ≤2 courses left.
+# Tier 3: any other incomplete list in an option with ≥1 list done.
+OPTION_BOOST_TIER1 = 0.15   # 15% — last list to finish option, list almost done
+OPTION_BOOST_TIER2 = 0.10  # 10% — last list for option, or list almost done
+OPTION_BOOST_TIER3 = 0.05  # 5%  — other incomplete lists in started options
+
+
+def get_option_boost_multipliers(
+    options_data: List[dict],
+    completed_courses: List[str],
+) -> Dict[str, float]:
+    """
+    Return per-course multipliers (1.0 + boost) for option-completion boosting.
+
+    Only considers options where the user has completed at least one list.
+    Boosts combine option-level progress (how many lists left for the option)
+    and list-level progress (how many courses left in that list). Completed
+    lists are ignored. If a course appears in multiple lists, the highest
+    multiplier is used.
+    """
+    progress = compute_options_progress(completed_courses, options_data)
+    option_list_courses = _option_list_courses(options_data)
+    list_codes_map = {(opt, lst): codes for opt, lst, codes in option_list_courses}
+
+    multipliers: Dict[str, float] = {}
+
+    for opt in progress:
+        option_name = opt.get("option_name", "")
+        satisfied_count = opt.get("satisfied_count", 0)
+        total_lists = opt.get("total_lists", 0)
+        # Only options where user has completed at least one list
+        if satisfied_count < 1 or total_lists < 1:
+            continue
+        option_lists_remaining = total_lists - satisfied_count
+
+        for lst in opt.get("lists") or []:
+            if lst.get("is_satisfied"):
+                continue
+            required = lst.get("required_count", 0)
+            completed_list = lst.get("completed_courses") or []
+            completed_count = min(required, len(completed_list))
+            list_remaining = max(0, required - completed_count)
+            list_name = lst.get("list_name", "")
+
+            # Tier: bigger boost when option is 1 list away and list is almost done
+            if option_lists_remaining == 1 and list_remaining <= 2:
+                mult = 1.0 + OPTION_BOOST_TIER1
+            elif option_lists_remaining == 1 or list_remaining <= 2:
+                mult = 1.0 + OPTION_BOOST_TIER2
+            else:
+                mult = 1.0 + OPTION_BOOST_TIER3
+
+            key = (option_name, list_name)
+            if key not in list_codes_map:
+                continue
+            for code in list_codes_map[key]:
+                multipliers[code] = max(multipliers.get(code, 1.0), mult)
+
+    return multipliers
+
+
 def compute_global_weight(
     df: pd.DataFrame,
     gamma_prereq: float = 1.0,
