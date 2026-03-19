@@ -35,6 +35,7 @@ def get_abs_path(*parts):
 _cached = {
     'df': None,
     'embeddings': None,
+    'emb_norm': None,
     'tfidf': None,
     'svd': None,
     'data_file': None
@@ -47,6 +48,7 @@ def _load_all(data_file):
     if _cached['data_file'] != data_file:
         _cached['df'] = None
         _cached['embeddings'] = None
+        _cached['emb_norm'] = None
         _cached['tfidf'] = None
         _cached['svd'] = None
         _cached['data_file'] = data_file
@@ -89,10 +91,10 @@ def _load_all(data_file):
                 pickle.dump(svd, f)
         else:
             df, embeddings = load_embeddings(emb_pkl, emb_npy)
-            # Apply filtering to loaded data as well
             df = df[df.apply(is_regular_course, axis=1)].reset_index(drop=True)
-            # Filter embeddings to match filtered dataframe
             embeddings = embeddings[:len(df)]
+
+        embeddings = embeddings.astype(np.float32)
 
         # Attach additional metadata and global weights
         # Load full course JSON to enrich df with subject/faculty information
@@ -129,6 +131,11 @@ def _load_all(data_file):
 
         _cached['df'] = df
         _cached['embeddings'] = embeddings
+
+        # Pre-compute row-normalized embeddings (used by cosine similarity paths)
+        norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+        norms[norms == 0] = 1
+        _cached['emb_norm'] = embeddings / norms
     
     # TFIDF and SVD
     if _cached['tfidf'] is None:
@@ -138,7 +145,7 @@ def _load_all(data_file):
         with open(svd_pkl, 'rb') as f:
             _cached['svd'] = pickle.load(f)
     
-    return _cached['df'], _cached['embeddings'], _cached['tfidf'], _cached['svd']
+    return _cached['df'], _cached['embeddings'], _cached['emb_norm'], _cached['tfidf'], _cached['svd']
 
 
 def get_recommendations(
@@ -165,9 +172,9 @@ def get_recommendations(
     Returns:
         List of results for each query, where each result is a list of course recommendations
     """
-    df, embeddings, tfidf, svd = _load_all(data_file)
+    df, embeddings, emb_norm, tfidf, svd = _load_all(data_file)
     all_methods = [
-        ("cosine", lambda q: recommend_cosine(q, tfidf, svd, embeddings, df, filters=filters)),
+        ("cosine", lambda q: recommend_cosine(q, tfidf, svd, embeddings, df, emb_norm=emb_norm, filters=filters)),
         ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, df)),
         ("mmr", lambda q: recommend_mmr(q, tfidf, svd, embeddings, df)),
         ("graph", lambda q: recommend_graph(q, tfidf, svd, embeddings, df)),
@@ -297,7 +304,7 @@ def get_high_value_courses(
     Returns:
         List of course dicts with course_code, title, description, score.
     """
-    df, _, _, _ = _load_all(data_file)
+    df, _, _, _, _ = _load_all(data_file)
     undergrad = load_undergrad_courses()
 
     # Filter: engineering depts (subjectCode or courseCode prefix), undergrad only
@@ -387,7 +394,7 @@ def get_similar_courses(
 
     Returns a list of dicts: [{course_code, title, description, score}, ...]
     """
-    df, embeddings, _, _ = _load_all(data_file)
+    df, _embeddings, emb_norm, _, _ = _load_all(data_file)
 
     code_upper = _normalize_course_code(course_code)
     matches = df.index[df['courseCode'].apply(_normalize_course_code) == code_upper]
@@ -395,12 +402,8 @@ def get_similar_courses(
         return []
     idx = matches[0]
 
-    query_vec = embeddings[idx].reshape(1, -1)
-    norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
-    norms[norms == 0] = 1
-    emb_norm = embeddings / norms
-    q_norm = query_vec / max(np.linalg.norm(query_vec), 1e-10)
-    sims = np.dot(emb_norm, q_norm.flatten())
+    q_norm = emb_norm[idx]
+    sims = np.dot(emb_norm, q_norm)
 
     # Zero out the query course itself
     sims[idx] = -1.0

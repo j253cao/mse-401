@@ -290,23 +290,21 @@ def _apply_course_filters(filters, df):
     return filters_applied
 
 
-def recommend_cosine(query, tfidf, svd, emb, df, filters=None, top_k=30, min_similarity=None):
+def recommend_cosine(query, tfidf, svd, emb, df, emb_norm=None, filters=None, top_k=30, min_similarity=None):
     """Recommend courses using cosine similarity."""
     if min_similarity is None:
         min_similarity = MIN_SIMILARITY_CUTOFF
     filters_applied = _apply_course_filters(filters, df)
 
     t0 = time.time()
-    # Vectorize query
     q_vec = svd.transform(tfidf.transform([query]))
     t1 = time.time()
     q_vec = q_vec.reshape(1, -1)
-    # Normalize embeddings and query, avoid division by zero
-    norms = np.linalg.norm(emb, axis=1, keepdims=True)
-    norms[norms == 0] = 1
-    emb_norm = emb / norms
+    if emb_norm is None:
+        norms = np.linalg.norm(emb, axis=1, keepdims=True)
+        norms[norms == 0] = 1
+        emb_norm = emb / norms
     q_norm = q_vec / np.linalg.norm(q_vec)
-    # Compute cosine similarity (vectorized)
     sims = np.dot(emb_norm, q_norm.flatten())
     # Phrase-boost: full query substring in title (no stop-word filtering; whole query matters)
     title_lower = df['title'].str.lower()

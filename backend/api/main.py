@@ -31,6 +31,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(BACKEND_ROOT, '..'))
 load_dotenv(os.path.join(BACKEND_ROOT, '.env'))
 load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
+MAX_UPLOAD_BYTES = 10 * 1024 * 1024  # 10 MB
+
 # 14 UW Engineering departments (matches course_dependency_parser)
 ENGINEERING_DEPARTMENTS = (
     "AE", "BME", "CHE", "CIVE", "ECE", "ENVE", "GENE", "GEOE",
@@ -38,7 +40,6 @@ ENGINEERING_DEPARTMENTS = (
 )
 
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
-from recommender.data_loader import load_course_data
 from recommender.weights import load_course_to_programs, compute_options_progress, get_option_boost_multipliers
 
 # Cached course-to-programs lookup for enriching responses
@@ -469,20 +470,12 @@ def health():
 def options_and_minors():
     """
     Return lists of option and minor names for filter UI.
-    Loads from all_options.json and all_programs.json.
+    Uses cached data from all_options.json and all_programs.json.
     """
-    options_path = get_abs_path('data', 'programs', 'all_options.json')
-    programs_path = get_abs_path('data', 'programs', 'all_programs.json')
-    options = []
-    minors = []
-    if os.path.exists(options_path):
-        with open(options_path, 'r', encoding='utf-8') as f:
-            items = json.load(f)
-        options = [{"name": item.get("option_name", "")} for item in items if item.get("option_name")]
-    if os.path.exists(programs_path):
-        with open(programs_path, 'r', encoding='utf-8') as f:
-            items = json.load(f)
-        minors = [{"name": item.get("program_name", "")} for item in items if item.get("program_name")]
+    options_items = _load_options_data()
+    programs_items = _load_programs_data()
+    options = [{"name": item.get("option_name", "")} for item in options_items if item.get("option_name")]
+    minors = [{"name": item.get("program_name", "")} for item in programs_items if item.get("program_name")]
     return {"options": options, "minors": minors}
 
 
@@ -491,6 +484,7 @@ class OptionsProgressRequest(BaseModel):
 
 
 _OPTIONS_DATA_CACHE: Optional[List[Dict[str, Any]]] = None
+_PROGRAMS_DATA_CACHE: Optional[List[Dict[str, Any]]] = None
 
 
 def _load_options_data() -> List[Dict[str, Any]]:
@@ -500,6 +494,15 @@ def _load_options_data() -> List[Dict[str, Any]]:
         with open(options_path, 'r', encoding='utf-8') as f:
             _OPTIONS_DATA_CACHE = json.load(f)
     return _OPTIONS_DATA_CACHE
+
+
+def _load_programs_data() -> List[Dict[str, Any]]:
+    global _PROGRAMS_DATA_CACHE
+    if _PROGRAMS_DATA_CACHE is None:
+        programs_path = get_abs_path('data', 'programs', 'all_programs.json')
+        with open(programs_path, 'r', encoding='utf-8') as f:
+            _PROGRAMS_DATA_CACHE = json.load(f)
+    return _PROGRAMS_DATA_CACHE
 
 
 @app.post("/options-progress")
@@ -613,13 +616,15 @@ def resume_recommend(
     Returns:
         List of recommended courses based on resume analysis
     """
-    # Feature-flag: allow deploying without GEMINI_API_KEY.
     if not os.getenv("GEMINI_API_KEY"):
         raise HTTPException(status_code=503, detail="Resume recommendations are disabled (GEMINI_API_KEY not set).")
     
-    # Save uploaded PDF to a temp file
+    pdf_bytes = file.file.read(MAX_UPLOAD_BYTES + 1)
+    if len(pdf_bytes) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="File too large (max 10 MB).")
+
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp:
-        tmp.write(file.file.read())
+        tmp.write(pdf_bytes)
         tmp_path = tmp.name
     
     try:
@@ -691,20 +696,16 @@ def courses_search(q: str = "", limit: int = 20):
     if not q or len(q.strip()) < 2:
         return []
     query = q.strip().upper()
-    data_json = get_abs_path('data', 'courses', 'course-api-new-data.json')
-    with open(data_json, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    data = _load_course_data_for_lookup()
     results = []
     seen = set()
     for key, info in data.items():
         if len(results) >= limit:
             break
-        # Use subjectCode for department (keys like ENGDEAN583 have subjectCode ENVE)
         subject = (info.get('subjectCode') or '').upper()
         catalog = info.get('catalogNumber') or ''
         if subject not in ENGINEERING_DEPARTMENTS:
             continue
-        # Canonical code matches undergrad/grad lists (e.g. ENVE223)
         canonical_code = f"{subject}{catalog}" if catalog else key
         if canonical_code in seen:
             continue
@@ -769,16 +770,17 @@ def similar_courses(course_code: str, limit: int = 6):
 @app.get("/random-course")
 def random_course():
     """Get a random course from the database."""
-    data_json = get_abs_path('data', 'courses', 'course-api-new-data.json')
-    df = load_course_data(data_json)
-    row = df.sample(1).iloc[0]
+    import random
+    data = _load_course_data_for_lookup()
+    key = random.choice(list(data.keys()))
+    info = data[key]
     deps_lookup = load_course_dependencies()
-    code = str(row["courseCode"])
+    code = str(key)
     dep_info = deps_lookup.get(code.upper(), {})
     base_course = {
         "course_code": code,
-        "title": row["title"],
-        "description": row["description"],
+        "title": info.get("title", ""),
+        "description": info.get("description", ""),
         "prereqs": dep_info.get("prereqs"),
         "coreqs": dep_info.get("coreqs"),
         "antireqs": dep_info.get("antireqs"),
@@ -798,7 +800,9 @@ def transcript_parse(file: UploadFile = File(...)):
         Dictionary with courses, latest_term, program, student_number, term_summaries
     """
     try:
-        pdf_bytes = file.file.read()
+        pdf_bytes = file.file.read(MAX_UPLOAD_BYTES + 1)
+        if len(pdf_bytes) > MAX_UPLOAD_BYTES:
+            raise HTTPException(status_code=413, detail="File too large (max 10 MB).")
         result = parse_transcript_bytes(pdf_bytes)
         all_courses = get_all_courses(result)
         

@@ -36,8 +36,14 @@ def save_embeddings(df, embeddings, pkl_path, npy_path):
 
 
 def load_embeddings(pkl_path, npy_path):
-    """Load embeddings from disk."""
+    """Load embeddings from disk.
+
+    The pkl contains a DataFrame with an 'embedding' column (Python lists of floats)
+    that duplicates the .npy data at ~10x memory cost. Drop it immediately.
+    """
     df = pd.read_pickle(pkl_path)
+    if 'embedding' in df.columns:
+        df = df.drop(columns=['embedding'])
     embeddings = np.load(npy_path)
     return df, embeddings
 
