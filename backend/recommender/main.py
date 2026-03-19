@@ -120,7 +120,7 @@ def _load_all(data_file):
         options_path = get_abs_path('data', 'programs', 'all_options.json')
         minor_counts = load_minor_option_counts([programs_path, options_path])
         df['minor_count'] = df['courseCode'].astype(str).map(
-            lambda c: minor_counts.get(c.upper().replace(' ', ''), 0)
+            lambda c: minor_counts.get(_normalize_course_code(c), 0)
         ).astype(int)
 
         # Normalize features within subject buckets and compute final global_weight
@@ -267,8 +267,11 @@ def _is_100_level(course_code: str) -> bool:
 
 
 def _normalize_course_code(code: str) -> str:
-    """Normalize to uppercase, no spaces."""
-    return (code or "").strip().upper().replace(" ", "")
+    """Normalize to uppercase, no spaces, with legacy prefix remapping."""
+    result = (code or "").strip().upper().replace(" ", "")
+    if result.startswith("MSCI"):
+        result = "MSE" + result[4:]
+    return result
 
 
 def get_high_value_courses(
@@ -386,8 +389,8 @@ def get_similar_courses(
     """
     df, embeddings, _, _ = _load_all(data_file)
 
-    code_upper = course_code.strip().upper().replace(' ', '')
-    matches = df.index[df['courseCode'].str.upper().str.replace(' ', '', regex=False) == code_upper]
+    code_upper = _normalize_course_code(course_code)
+    matches = df.index[df['courseCode'].apply(_normalize_course_code) == code_upper]
     if len(matches) == 0:
         return []
     idx = matches[0]

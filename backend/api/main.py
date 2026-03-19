@@ -45,6 +45,14 @@ from recommender.weights import load_course_to_programs, compute_options_progres
 _course_to_programs_cache = None
 
 
+def _normalize_course_code(code: str) -> str:
+    """Normalize to uppercase/no-spaces and map legacy MSCI -> MSE."""
+    result = (code or "").strip().upper().replace(" ", "")
+    if result.startswith("MSCI"):
+        result = "MSE" + result[4:]
+    return result
+
+
 def _get_course_to_programs():
     global _course_to_programs_cache
     if _course_to_programs_cache is None:
@@ -59,7 +67,7 @@ def _get_course_to_programs():
 
 def _enrich_course_with_programs(course: dict) -> dict:
     """Add contributing_programs to a course dict keyed by course_code."""
-    code = (course.get('course_code') or '').strip().upper().replace(' ', '')
+    code = _normalize_course_code(course.get('course_code') or '')
     lookup = _get_course_to_programs()
     programs = lookup.get(code, [])
     return {**course, 'contributing_programs': programs}
@@ -69,7 +77,7 @@ def _enrich_results_with_deps(results: List[Dict[str, Any]], deps_lookup: Dict) 
     """Enrich a list of course result dicts with prereqs, coreqs, antireqs, and contributing programs."""
     enriched = []
     for r in results:
-        dep_info = deps_lookup.get(str(r["course_code"]).upper(), {})
+        dep_info = deps_lookup.get(_normalize_course_code(str(r["course_code"])), {})
         base_course = {
             "rank": r["rank"],
             "course_code": r["course_code"],
@@ -205,7 +213,7 @@ def load_course_dependencies() -> Dict[str, Dict[str, Optional[str]]]:
             antireq_parts.append(restrict_text)
         antireqs = "; ".join(antireq_parts) or None
 
-        cache[code.upper()] = {
+        cache[_normalize_course_code(code)] = {
             "prereqs": prereqs,
             "coreqs": coreqs,
             "antireqs": antireqs,
@@ -222,7 +230,7 @@ def _is_course_code_query(query: str) -> bool:
     """True if query looks like a course code (e.g. MSE446, MSE 446, CS 135)."""
     if not query or not query.strip():
         return False
-    normalized = query.strip().upper().replace(" ", "")
+    normalized = _normalize_course_code(query)
     # Must have letters + 3+ digits
     return bool(re.match(r"^[A-Z]{2,}[0-9]{3}[A-Z]*$", normalized))
 
@@ -547,7 +555,7 @@ def recommend(request: QueryRequest):
             continue
 
         # Fix 3: normalize once and use consistently across all lookup paths
-        q_clean = (q or "").strip().upper().replace(" ", "")
+        q_clean = _normalize_course_code(q)
         lookup_results = []
         attempted_code_lookup = False
 

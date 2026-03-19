@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useState, useContext, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { RecommendationsContext } from "./RecommendationsContext";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,8 @@ import {
   ArrowRight,
   ExternalLink,
   Compass,
+  LayoutGrid,
+  ChevronDown,
 } from "lucide-react";
 import { api } from "@/services/api";
 import type { Course } from "@/types/api";
@@ -36,6 +38,14 @@ import { CompletedCoursesManager } from "@/components/CompletedCoursesManager";
 import { FILTER_DEPARTMENTS } from "@/constants/filterDepartments";
 import { ENGINEERING_PROGRAMS } from "@/constants/engineeringPrograms";
 import { OptionBadges } from "@/components/OptionBadge";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 function uwFlowUrl(code: string) {
@@ -121,6 +131,7 @@ export default function RecommendationPage() {
   const [highValueCourses, setHighValueCourses] = useState<Course[]>([]);
   const [highValueLoading, setHighValueLoading] = useState(false);
   const [highValueError, setHighValueError] = useState(false);
+  const searchRequestSeq = useRef(0);
 
   // Only show high-value block for first-year (1A/1B) or new users (no level set)
   const showHighValueBlock =
@@ -151,13 +162,13 @@ export default function RecommendationPage() {
   }, [showHighValueBlock, incomingLevel, fetchHighValueCourses]);
 
   useEffect(() => {
-    if (showFilters && !optionsAndMinors) {
+    if (!optionsAndMinors) {
       api
         .getOptionsAndMinors()
         .then(setOptionsAndMinors)
         .catch(() => setOptionsAndMinors({ options: [], minors: [] }));
     }
-  }, [showFilters, optionsAndMinors]);
+  }, [optionsAndMinors]);
 
   useEffect(() => {
     if (!selectedCourse) {
@@ -196,15 +207,6 @@ export default function RecommendationPage() {
     };
   }, [selectedCourse, isUndergrad]);
 
-  function addOption(name: string) {
-    if (!name.trim() || selectedOptions.includes(name)) return;
-    setSelectedOptions((prev) => [...prev, name]);
-  }
-
-  function removeOption(name: string) {
-    setSelectedOptions((prev) => prev.filter((n) => n !== name));
-  }
-
   const allPrograms = optionsAndMinors
     ? [
         ...optionsAndMinors.options.map((o) => ({
@@ -226,19 +228,21 @@ export default function RecommendationPage() {
       )
     : [];
 
-  async function handleSearchSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!search.trim() && selectedOptions.length === 0) {
+  const executeSearch = useCallback(async (optionsOverride?: string[]) => {
+    const requestId = ++searchRequestSeq.current;
+    const opts = optionsOverride ?? selectedOptions;
+    if (!search.trim() && opts.length === 0) {
+      // Invalidate in-flight searches when the active filter/query set is empty.
       setHasSearched(false);
       setFilteredCourses([]);
       setError(null);
+      setLoading(false);
       return;
     }
     setHasSearched(true);
     setLoading(true);
     setError(null);
     try {
-      // Search page filter: which departments to include in results (checkboxes)
       const selectedDepts = Object.entries(departments)
         .filter(([, v]) => v)
         .map(([k]) => k);
@@ -249,21 +253,49 @@ export default function RecommendationPage() {
         include_other_depts: includeOtherDepts,
         completed_courses: completedCourses,
         ignore_dependencies: explorationMode,
-        ...(selectedOptions.length > 0 && { options: selectedOptions }),
-        // Profile (major + current term) — from context, not search filters
+        ...(opts.length > 0 && { options: opts }),
         ...(incomingLevel && { incoming_level: incomingLevel }),
-        // Same-department boost uses user's major from profile only (when major + term are set)
         ...(programCode && incomingLevel && { user_department: programCode }),
       };
 
       const courses = await api.recommend([search.trim() || ""], filters);
+      if (requestId !== searchRequestSeq.current) return;
       setFilteredCourses(courses);
     } catch {
+      if (requestId !== searchRequestSeq.current) return;
       setFilteredCourses([]);
       setError("Could not fetch recommendations.");
     } finally {
+      if (requestId !== searchRequestSeq.current) return;
       setLoading(false);
     }
+  }, [search, selectedOptions, departments, includeUndergrad, includeGrad, includeOtherDepts, completedCourses, explorationMode, incomingLevel, programCode, setHasSearched, setFilteredCourses]);
+
+  function setOptionsAndSearch(nextOptions: string[]) {
+    setSelectedOptions(nextOptions);
+    executeSearch(nextOptions);
+  }
+
+  function addOption(name: string) {
+    const trimmed = name.trim();
+    if (!trimmed || selectedOptions.includes(trimmed)) return;
+    setOptionsAndSearch([...selectedOptions, trimmed]);
+  }
+
+  function removeOption(name: string) {
+    setOptionsAndSearch(selectedOptions.filter((n) => n !== name));
+  }
+
+  async function handleSearchSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    executeSearch();
+  }
+
+  function toggleOption(name: string) {
+    const next = selectedOptions.includes(name)
+      ? selectedOptions.filter((n) => n !== name)
+      : [...selectedOptions, name];
+    setOptionsAndSearch(next);
   }
 
   async function handleRandomCourse() {
@@ -361,6 +393,61 @@ export default function RecommendationPage() {
                       <Compass className="w-4 h-4" />
                       {explorationMode ? "Exploring" : "Explore"}
                     </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="gap-2"
+                        >
+                          <LayoutGrid className="w-4 h-4" />
+                          Options
+                          <ChevronDown className="w-3 h-3 opacity-50" />
+                          {selectedOptions.length > 0 && (
+                            <Badge variant="default" className="h-5 px-1.5">
+                              {selectedOptions.length}
+                            </Badge>
+                          )}
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start" className="w-56">
+                        <DropdownMenuLabel>Engineering Options</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {optionsAndMinors ? (
+                          optionsAndMinors.options.map((opt) => (
+                            <DropdownMenuCheckboxItem
+                              key={opt.name}
+                              checked={selectedOptions.includes(opt.name)}
+                              onCheckedChange={() => toggleOption(opt.name)}
+                              onSelect={(e) => e.preventDefault()}
+                            >
+                              {opt.name}
+                            </DropdownMenuCheckboxItem>
+                          ))
+                        ) : (
+                          <div className="px-2 py-3 text-sm text-muted-foreground text-center">
+                            <Loader2 className="w-4 h-4 animate-spin mx-auto mb-1" />
+                            Loading...
+                          </div>
+                        )}
+                        {selectedOptions.length > 0 && (
+                          <>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuCheckboxItem
+                              checked={false}
+                              onCheckedChange={() => {
+                                setOptionsAndSearch([]);
+                              }}
+                              onSelect={(e) => e.preventDefault()}
+                              className="text-muted-foreground"
+                            >
+                              Clear all
+                            </DropdownMenuCheckboxItem>
+                          </>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                     <Button
                       type="button"
                       variant="outline"
@@ -428,7 +515,9 @@ export default function RecommendationPage() {
                         <Badge
                           variant="secondary"
                           className="gap-1 cursor-pointer hover:bg-destructive/20"
-                          onClick={() => setSelectedOptions([])}
+                          onClick={() => {
+                            setOptionsAndSearch([]);
+                          }}
                         >
                           {selectedOptions.length} option
                           {selectedOptions.length !== 1 ? "s" : ""} selected

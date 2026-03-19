@@ -34,7 +34,10 @@ class CourseGraph:
 
 def _normalize_code(code: str) -> str:
     """Normalize course code to canonical uppercase/no-space form."""
-    return (code or "").strip().upper().replace(" ", "")
+    result = (code or "").strip().upper().replace(" ", "")
+    if result.startswith("MSCI"):
+        result = "MSE" + result[4:]
+    return result
 
 
 def build_dependency_graph(deps_json_path: str) -> CourseGraph:

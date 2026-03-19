@@ -13,7 +13,7 @@
       "courses": [
         {
           "type": "course",
-          "code": "MSCI700",
+          "code": "MSE700",
           "name": null,
           "grade_requirement": null
         }
@@ -35,7 +35,7 @@
       "courses": [
         {
           "type": "course",
-          "code": "MSCI760",
+          "code": "MSE760",
           "name": null,
           "grade_requirement": null
         }
@@ -75,7 +75,7 @@
         },
         {
           "type": "course",
-          "code": "MSCI723",
+          "code": "MSE723",
           "name": null,
           "grade_requirement": null
         }
@@ -95,8 +95,8 @@
     },
     "antirequisites": {
       "courses": [
-        "MSCI603",
-        "MSCI760"
+        "MSE603",
+        "MSE760"
       ],
       "program_restrictions": []
     }
@@ -113,8 +113,8 @@
     },
     "antirequisites": {
       "courses": [
-        "MSCI760",
-        "MSCI700"
+        "MSE760",
+        "MSE700"
       ],
       "program_restrictions": []
     }
@@ -127,7 +127,7 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI605",
+              "code": "MSE605",
               "name": null,
               "grade_requirement": null
             }
@@ -145,7 +145,7 @@
     },
     "antirequisites": {
       "courses": [
-        "MSCI730",
+        "MSE730",
         "CS649"
       ],
       "program_restrictions": []
@@ -159,7 +159,7 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI605",
+              "code": "MSE605",
               "name": null,
               "grade_requirement": null
             }
@@ -188,7 +188,7 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI607",
+              "code": "MSE607",
               "name": null,
               "grade_requirement": null
             }
@@ -239,13 +239,13 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI603",
+              "code": "MSE603",
               "name": null,
               "grade_requirement": null
             },
             {
               "type": "course",
-              "code": "MSCI634",
+              "code": "MSE634",
               "name": null,
               "grade_requirement": null
             }
@@ -273,13 +273,13 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI603",
+              "code": "MSE603",
               "name": null,
               "grade_requirement": null
             },
             {
               "type": "course",
-              "code": "MSCI634",
+              "code": "MSE634",
               "name": null,
               "grade_requirement": null
             }
@@ -307,7 +307,7 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI603",
+              "code": "MSE603",
               "name": null,
               "grade_requirement": null
             }
@@ -358,13 +358,13 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI603",
+              "code": "MSE603",
               "name": null,
               "grade_requirement": null
             },
             {
               "type": "course",
-              "code": "MSCI634",
+              "code": "MSE634",
               "name": null,
               "grade_requirement": null
             }
@@ -383,7 +383,7 @@
       "courses": [
         {
           "type": "course",
-          "code": "MSCI700",
+          "code": "MSE700",
           "name": null,
           "grade_requirement": null
         }
@@ -405,7 +405,7 @@
       "courses": [
         {
           "type": "course",
-          "code": "MSCI634",
+          "code": "MSE634",
           "name": null,
           "grade_requirement": null
         }
@@ -463,7 +463,7 @@
         },
         {
           "type": "course",
-          "code": "MSCI232",
+          "code": "MSE232",
           "name": null,
           "grade_requirement": null
         },
@@ -491,7 +491,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI332",
+              "code": "MSE332",
               "name": null,
               "grade_requirement": null
             }
@@ -510,7 +510,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI333",
+              "code": "MSE333",
               "name": null,
               "grade_requirement": null
             }
@@ -529,7 +529,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI431",
+              "code": "MSE431",
               "name": null,
               "grade_requirement": null
             }
@@ -548,7 +548,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI334",
+              "code": "MSE334",
               "name": null,
               "grade_requirement": null
             },
@@ -560,7 +560,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI432",
+              "code": "MSE432",
               "name": null,
               "grade_requirement": null
             }
@@ -679,13 +679,13 @@
             },
             {
               "type": "course",
-              "code": "MSCI251",
+              "code": "MSE251",
               "name": null,
               "grade_requirement": null
             },
             {
               "type": "course",
-              "code": "MSCI252",
+              "code": "MSE252",
               "name": null,
               "grade_requirement": null
             },
@@ -938,7 +938,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI240",
+              "code": "MSE240",
               "name": null,
               "grade_requirement": null
             }
@@ -1035,13 +1035,13 @@
             },
             {
               "type": "course",
-              "code": "MSCI252",
+              "code": "MSE252",
               "name": null,
               "grade_requirement": null
             },
             {
               "type": "course",
-              "code": "MSCI253",
+              "code": "MSE253",
               "name": null,
               "grade_requirement": null
             }
@@ -1107,7 +1107,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI332",
+              "code": "MSE332",
               "name": null,
               "grade_requirement": null
             }
@@ -1177,7 +1177,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI261",
+              "code": "MSE261",
               "name": null,
               "grade_requirement": null
             },
@@ -1262,7 +1262,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI251",
+              "code": "MSE251",
               "name": null,
               "grade_requirement": null
             },
@@ -1274,7 +1274,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI252",
+              "code": "MSE252",
               "name": null,
               "grade_requirement": null
             },
@@ -1435,7 +1435,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI253",
+              "code": "MSE253",
               "name": null,
               "grade_requirement": null
             },
@@ -1496,7 +1496,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI343",
+              "code": "MSE343",
               "name": null,
               "grade_requirement": null
             },
@@ -1959,13 +1959,13 @@
             },
             {
               "type": "course",
-              "code": "MSCI251",
+              "code": "MSE251",
               "name": null,
               "grade_requirement": null
             },
             {
               "type": "course",
-              "code": "MSCI252",
+              "code": "MSE252",
               "name": null,
               "grade_requirement": null
             },
@@ -2814,13 +2814,13 @@
             },
             {
               "type": "course",
-              "code": "MSCI232",
+              "code": "MSE232",
               "name": null,
               "grade_requirement": null
             },
             {
               "type": "course",
-              "code": "MSCI331",
+              "code": "MSE331",
               "name": null,
               "grade_requirement": null
             },
@@ -3208,7 +3208,7 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI251",
+              "code": "MSE251",
               "name": null,
               "grade_requirement": null
             }
@@ -3335,7 +3335,7 @@
         },
         {
           "type": "course",
-          "code": "MSCI331",
+          "code": "MSE331",
           "name": null,
           "grade_requirement": null
         }
@@ -3384,7 +3384,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI302",
+              "code": "MSE302",
               "name": null,
               "grade_requirement": null
             }
@@ -17126,7 +17126,7 @@
         },
         {
           "type": "course",
-          "code": "MSCI252",
+          "code": "MSE252",
           "name": null,
           "grade_requirement": null
         },
@@ -22944,7 +22944,7 @@
         },
         {
           "type": "course",
-          "code": "MSCI252",
+          "code": "MSE252",
           "name": null,
           "grade_requirement": null
         },
@@ -24304,7 +24304,7 @@
             },
             {
               "type": "course",
-              "code": "MSCI342",
+              "code": "MSE342",
               "name": null,
               "grade_requirement": null
             },
@@ -40079,7 +40079,7 @@
         "AFM 191",
         "BUS 127W/227W",
         "BUS 247W",
-        "MSCI 262"
+        "MSE 262"
       ],
       "program_restrictions": []
     }
@@ -40110,7 +40110,7 @@
         "AFM 182",
         "AFM 123/ARBUS 102",
         "BUS 247W",
-        "MSCI 262"
+        "MSE 262"
       ],
       "program_restrictions": []
     }
@@ -40380,7 +40380,7 @@
         "AFM121",
         "BUS127W/227W",
         "BUS247W",
-        "MSCI262"
+        "MSE262"
       ],
       "program_restrictions": []
     }
@@ -40835,7 +40835,7 @@
     "corequisites": {},
     "antirequisites": {
       "courses": [
-        "MSCI211",
+        "MSE211",
         "PSYCH238",
         "PSYCH338"
       ],
@@ -41319,7 +41319,7 @@
         "AFM123",
         "ARBUS102",
         "BUS247W",
-        "MSCI262"
+        "MSE262"
       ],
       "program_restrictions": []
     }
@@ -41990,7 +41990,7 @@
         "ARBUS102",
         "BUS127W",
         "BUS227W",
-        "MSCI262"
+        "MSE262"
       ],
       "program_restrictions": []
     }
@@ -46465,7 +46465,7 @@
         "BUS127W",
         "BUS227W",
         "BUS247W",
-        "MSCI262"
+        "MSE262"
       ],
       "program_restrictions": []
     }
@@ -49769,7 +49769,7 @@
     },
     "antirequisites": {
       "courses": [
-        "MSCI651"
+        "MSE651"
       ],
       "program_restrictions": []
     }
@@ -53609,8 +53609,8 @@
             "BUS121W",
             "AFM131",
             "BUS111W",
-            "MSCI311",
-            "MSCI211",
+            "MSE311",
+            "MSE211",
             "PSYCH238",
             "PSYCH338"
           ],
@@ -53734,7 +53734,7 @@
           "type": "course_group",
           "courses": [
             "BUS288W",
-            "MSCI211",
+            "MSE211",
             "PSYCH238/338"
           ],
           "operator": "OR",
@@ -53771,12 +53771,12 @@
             {
               "type": "course_group",
               "courses": [
-                "MSCI311",
+                "MSE311",
                 {
                   "type": "course_group",
                   "courses": [
                     "BUS288W",
-                    "MSCI211",
+                    "MSE211",
                     "PSYCH238/338"
                   ],
                   "operator": "OR",
@@ -53926,7 +53926,7 @@
         "CO227",
         "CO250350",
         "CO255355",
-        "MSCI331"
+        "MSE331"
       ],
       "program_restrictions": []
     }
@@ -53976,7 +53976,7 @@
             "AFM131",
             "BUS111W",
             "BUS288W",
-            "MSCI211",
+            "MSE211",
             "PSYCH238338"
           ],
           "operator": "OR",
@@ -54093,7 +54093,7 @@
     "antirequisites": {
       "courses": [
         "BUS285W",
-        "MSCI432"
+        "MSE432"
       ],
       "program_restrictions": []
     }
@@ -54206,7 +54206,7 @@
     "antirequisites": {
       "courses": [
         "BUS285W",
-        "MSCI432"
+        "MSE432"
       ],
       "program_restrictions": []
     }
@@ -54289,7 +54289,7 @@
           "type": "prerequisite_group",
           "courses": [
             "BUS135",
-            "MSCI432"
+            "MSE432"
           ],
           "operator": "AND",
           "quantity": 1
@@ -54299,7 +54299,7 @@
           "courses": [
             "CO250",
             "CO255",
-            "MSCI331"
+            "MSE331"
           ],
           "operator": "OR",
           "quantity": 1
@@ -54403,7 +54403,7 @@
         "AFM281",
         "BUS227W",
         "BUS247W",
-        "MSCI262"
+        "MSE262"
       ],
       "program_restrictions": []
     }
@@ -55168,7 +55168,7 @@
         "AFM102",
         "AFM122",
         "AFM123",
-        "MSCI262"
+        "MSE262"
       ],
       "program_restrictions": []
     }
@@ -55681,7 +55681,7 @@
         {
           "type": "prerequisite_group",
           "courses": [
-            "MSCI432",
+            "MSE432",
             "BUS352W",
             "ECON344",
             "ACTSC291",
@@ -56167,7 +56167,7 @@
         "CS330",
         "CS480",
         "CS490",
-        "MSCI444"
+        "MSE444"
       ],
       "program_restrictions": [
         {
@@ -56206,7 +56206,7 @@
             "ARBUS101",
             "BUS111W",
             "BUS288W",
-            "MSCI211",
+            "MSE211",
             "PSYCH238",
             "PSYCH338"
           ],
@@ -56242,8 +56242,8 @@
             "BUS121W",
             "AFM131",
             "BUS111W",
-            "MSCI311",
-            "MSCI211",
+            "MSE311",
+            "MSE211",
             "PSYCH238",
             "PSYCH338"
           ],
@@ -56319,7 +56319,7 @@
             "BUS121W",
             "AFM131",
             "BUS111W",
-            "MSCI211",
+            "MSE211",
             "PSYCH238",
             "PSYCH338"
           ],
@@ -56430,7 +56430,7 @@
         "CS330",
         "CS480",
         "CS490",
-        "MSCI441"
+        "MSE441"
       ],
       "program_restrictions": [
         {
@@ -56725,14 +56725,14 @@
                 },
                 {
                   "type": "course",
-                  "code": "MSCI311W"
+                  "code": "MSE311W"
                 },
                 {
                   "type": "prerequisite_group",
                   "courses": [
                     {
                       "type": "course",
-                      "code": "MSCI211W"
+                      "code": "MSE211W"
                     },
                     {
                       "type": "course",
@@ -57114,7 +57114,7 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI311"
+              "code": "MSE311"
             }
           ],
           "operator": "AND",
@@ -57125,7 +57125,7 @@
           "courses": [
             {
               "type": "course",
-              "code": "MSCI211"
+              "code": "MSE211"
             },
             {
               "type": "course",
@@ -57165,7 +57165,7 @@
             "AFM131",
             "BUS111W",
             "BUS288W",
-            "MSCI211",
+            "MSE211",
             "PSYCH238",
             "PSYCH338"
           ],
@@ -57210,7 +57210,7 @@
           "type": "prerequisite_group",
           "courses": [
             "BUS288W",
-            "MSCI211",
+            "MSE211",
             "PSYCH338"
           ],
           "operator": "OR",
@@ -57507,7 +57507,7 @@
       "courses": [
         "BUS288W",
         "BUS398W",
-        "MSCI211",
+        "MSE211",
         "PSYCH238",
         "PSYCH338"
       ],
@@ -57553,7 +57553,7 @@
           "type": "prerequisite_group",
           "courses": [
             "BUS288W",
-            "MSCI211",
+            "MSE211",
             "PSYCH338"
           ],
           "operator": "OR",
@@ -57600,7 +57600,7 @@
               "type": "prerequisite_group",
               "courses": [
                 "BUS288W",
-                "MSCI211",
+                "MSE211",
                 "PSYCH238",
                 "PSYCH338"
               ],
@@ -57649,7 +57649,7 @@
               "type": "prerequisite_group",
               "courses": [
                 "BUS288W",
-                "MSCI211",
+                "MSE211",
                 "PSYCH238",
                 "PSYCH338"
               ],
@@ -65221,7 +65221,7 @@
       "courses": [
         "CS348",
         "CS448",
-        "MSCI346"
+        "MSE346"
       ],
       "program_restrictions": [
         {
@@ -65507,7 +65507,7 @@
         "CS338",
         "ECE356",
         "ECE456",
-        "MSCI346"
+        "MSE346"
       ],
       "program_restrictions": []
     }
@@ -66172,7 +66172,7 @@
         "BUS486W",
         "CS480",
         "CS490",
-        "MSCI441"
+        "MSE441"
       ],
       "program_restrictions": []
     }
