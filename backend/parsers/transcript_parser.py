@@ -122,7 +122,9 @@ def _extract_program_name(text: str) -> str:
     
     for end in range(start, len(text)):
         if text[end] in (',', '\n'):
-            return text[start:end].strip()
+            name = text[start:end].strip()
+            name = re.sub(r'([a-z])([A-Z])', r'\1 \2', name)
+            return name
     
     raise TranscriptParseError('Unexpected end of transcript while parsing program name')
 
@@ -166,6 +168,8 @@ def _extract_term_summaries(text: str) -> List[TermSummary]:
             department = course_match.group(1)
             number = course_match.group(2)
             course_code = f'{department}{number}'.upper()
+            if course_code.startswith('MSCI'):
+                course_code = 'MSE' + course_code[4:]
             
             term_summary.courses.append(course_code)
             course_idx += 1

@@ -1,8 +1,22 @@
-import React, { createContext, useState, useEffect, useCallback, useRef } from "react";
-import type { Course, TermSummary, StudentProfile, IncomingLevel } from "@/types/api";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
+import type {
+  Course,
+  TermSummary,
+  StudentProfile,
+  IncomingLevel,
+} from "@/types/api";
 import { useStoredProfile } from "@/hooks/useStoredProfile";
 import { getCoreCoursesBeforeLevel } from "@/constants/engineeringPrograms";
-import { type DepartmentFilters, INITIAL_DEPARTMENTS } from "@/constants/filterDepartments";
+import {
+  type DepartmentFilters,
+  INITIAL_DEPARTMENTS,
+} from "@/constants/filterDepartments";
 
 export type { Course, TermSummary, StudentProfile };
 
@@ -12,7 +26,9 @@ export const RecommendationsContext = createContext<{
   completedCourses: string[];
   setCompletedCourses: React.Dispatch<React.SetStateAction<string[]>>;
   studentProfile: StudentProfile | null;
-  setStudentProfile: React.Dispatch<React.SetStateAction<StudentProfile | null>>;
+  setStudentProfile: React.Dispatch<
+    React.SetStateAction<StudentProfile | null>
+  >;
   termSummaries: TermSummary[];
   setTermSummaries: React.Dispatch<React.SetStateAction<TermSummary[]>>;
   programCode: string;
@@ -66,7 +82,7 @@ export const RecommendationsContext = createContext<{
   setIncludeGrad: () => {},
   selectedOptions: [],
   setSelectedOptions: () => {},
-  explorationMode: false,
+  explorationMode: true,
   setExplorationMode: () => {},
   hasSearched: false,
   setHasSearched: () => {},
@@ -78,18 +94,21 @@ export const RecommendationsProvider: React.FC<{
   const { read, write } = useStoredProfile();
   const [recommendedCourses, setRecommendedCourses] = useState<Course[]>([]);
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
-  const [studentProfile, setStudentProfile] = useState<StudentProfile | null>(null);
+  const [studentProfile, setStudentProfile] = useState<StudentProfile | null>(
+    null,
+  );
   const [termSummaries, setTermSummaries] = useState<TermSummary[]>([]);
   const [programCode, setProgramCode] = useState("");
   const [incomingLevel, setIncomingLevel] = useState<IncomingLevel | "">("");
   const [search, setSearch] = useState("");
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
-  const [departments, setDepartments] = useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
+  const [departments, setDepartments] =
+    useState<DepartmentFilters>(INITIAL_DEPARTMENTS);
   const [includeOtherDepts, setIncludeOtherDepts] = useState(false);
   const [includeUndergrad, setIncludeUndergrad] = useState(true);
   const [includeGrad, setIncludeGrad] = useState(true);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [explorationMode, setExplorationMode] = useState(false);
+  const [explorationMode, setExplorationMode] = useState(true);
   const [hasSearched, setHasSearched] = useState(false);
   const hasLoadedFromStorage = useRef(false);
   const skipNextAutoPopulate = useRef(false);
@@ -122,19 +141,22 @@ export const RecommendationsProvider: React.FC<{
     persistProfile();
   }, [persistProfile]);
 
-  // Auto-populate completedCourses with core courses when program+term selected (no transcript)
-  // Skip on initial load when we restored completedCourses from storage
+  // Auto-populate completedCourses with core courses when program+term selected.
+  // Clears any transcript-derived state so manual setup fully overrides transcript.
+  // Skip on initial load when we restored completedCourses from storage.
   useEffect(() => {
     if (!hasLoadedFromStorage.current) return;
     if (skipNextAutoPopulate.current) {
       skipNextAutoPopulate.current = false;
       return;
     }
-    if (programCode && incomingLevel && termSummaries.length === 0) {
+    if (programCode && incomingLevel) {
       const coreCourses = getCoreCoursesBeforeLevel(programCode, incomingLevel);
       setCompletedCourses(coreCourses);
+      setTermSummaries([]);
+      setStudentProfile(null);
     }
-  }, [programCode, incomingLevel, termSummaries.length]);
+  }, [programCode, incomingLevel]);
 
   const clearProfile = useCallback(() => {
     setProgramCode("");
@@ -150,7 +172,7 @@ export const RecommendationsProvider: React.FC<{
     setIncludeUndergrad(true);
     setIncludeGrad(true);
     setSelectedOptions([]);
-    setExplorationMode(false);
+    setExplorationMode(true);
     setHasSearched(false);
     skipNextAutoPopulate.current = true;
     write(null);

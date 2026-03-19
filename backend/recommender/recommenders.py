@@ -105,6 +105,14 @@ def meets_level_requirement(user_level, required_level, comparison="at_least"):
     return user_idx == req_idx
 
 
+def _normalize_code(code: str) -> str:
+    """Normalize course code to canonical uppercase/no-space form."""
+    result = (code or "").strip().upper().replace(" ", "")
+    if result.startswith("MSCI"):
+        result = "MSE" + result[4:]
+    return result
+
+
 def get_valid_course_set(completed_courses, available_courses, incoming_level=None):
     """
     Given a list of completed courses and available courses, return a set of courses 
@@ -129,23 +137,18 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
         print(f"Warning: Course dependencies file not found at {dependencies_path}")
         return set()
     
-    # Convert completed courses to a set for faster lookup (normalize to uppercase, no spaces)
-    completed_set = {c.upper().replace(' ', '') for c in completed_courses} if completed_courses else set()
-    # Convert available courses to a set for faster lookup (normalize to uppercase, no spaces)
-    available_set = {c.upper().replace(' ', '') for c in available_courses} if available_courses else set()
+    completed_set = {_normalize_code(c) for c in completed_courses} if completed_courses else set()
+    available_set = {_normalize_code(c) for c in available_courses} if available_courses else set()
     eligible_courses = set()
     
     def check_prerequisite_group(group, completed_courses_set):
         """Check if a prerequisite group is satisfied by completed courses"""
         if isinstance(group, str):
-            return group.strip().upper().replace(' ', '') in completed_courses_set
+            return _normalize_code(group) in completed_courses_set
         if group.get('type') == 'course':
-            # Single course requirement (normalize to uppercase, no spaces)
-            course_code = group.get('code', '').strip().upper().replace(' ', '')
-            return course_code in completed_courses_set
+            return _normalize_code(group.get('code', '')) in completed_courses_set
         
         elif group.get('type') == 'prerequisite_group':
-            # Group of courses with AND/OR logic
             courses = group.get('courses', [])
             operator = group.get('operator', 'AND')
             quantity = group.get('quantity')
@@ -153,13 +156,10 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
             satisfied_count = 0
             for course in courses:
                 if isinstance(course, str):
-                    course_code = course.strip().upper().replace(' ', '')
-                    if course_code in completed_courses_set:
+                    if _normalize_code(course) in completed_courses_set:
                         satisfied_count += 1
                 elif course.get('type') == 'course':
-                    # Normalize to uppercase, no spaces
-                    course_code = course.get('code', '').strip().upper().replace(' ', '')
-                    if course_code in completed_courses_set:
+                    if _normalize_code(course.get('code', '')) in completed_courses_set:
                         satisfied_count += 1
                 elif course.get('type') == 'prerequisite_group':
                     # Nested group - recursively check
@@ -215,8 +215,7 @@ def get_valid_course_set(completed_courses, available_courses, incoming_level=No
         else:
             return satisfied_groups == len(groups)
     
-    # Build a normalized lookup for dependencies (keys may have spaces)
-    dependencies_normalized = {k.upper().replace(' ', ''): v for k, v in dependencies.items()}
+    dependencies_normalized = {_normalize_code(k): v for k, v in dependencies.items()}
     
     # Check each course in the available courses
     for course_code in available_set:

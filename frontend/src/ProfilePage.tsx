@@ -117,21 +117,16 @@ export default function ProfilePage() {
     try {
       const data = await api.parseTranscript(file);
 
-      // Merge completed courses (dedupe) instead of replacing
-      setCompletedCourses((prev) => {
-        const merged = new Set([...prev, ...(data.courses || [])]);
-        return [...merged];
-      });
-
-      // Update term summaries
+      setCompletedCourses(data.courses || []);
       setTermSummaries(data.term_summaries || []);
-
-      // Update student profile
       setStudentProfile({
         program: data.program,
         studentNumber: data.student_number,
         latestTerm: data.latest_term,
       });
+
+      setProgramCode("");
+      setIncomingLevel("");
 
       setShowTranscriptConfirmation(true);
     } catch (err) {
@@ -254,6 +249,11 @@ export default function ProfilePage() {
                   Select your program and incoming term to auto-populate
                   required courses
                 </p>
+                {studentProfile && (
+                  <p className="text-xs text-amber-600">
+                    Manual selection will replace transcript-derived courses and profile details.
+                  </p>
+                )}
               </CardHeader>
               <CardContent className="space-y-4">
                 <ProgramSelector
@@ -396,6 +396,7 @@ export default function ProfilePage() {
                       if (e.target.files && e.target.files[0]) {
                         handleTranscriptUpload(e.target.files[0]);
                       }
+                      e.target.value = "";
                     }}
                   />
                   <div className="space-y-4">
