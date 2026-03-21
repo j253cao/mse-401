@@ -379,7 +379,7 @@ export default function RecommendationPage() {
 
                   {/* Filter Toggle */}
                   <div className="flex flex-col gap-1">
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Button
                       type="button"
                       variant={explorationMode ? "default" : "outline"}
@@ -465,7 +465,7 @@ export default function RecommendationPage() {
                     </Button>
 
                     {/* Active filter badges */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                       {!includeUndergrad && (
                         <Badge
                           variant="secondary"
@@ -831,7 +831,7 @@ export default function RecommendationPage() {
                           </Button>
                         </div>
                       ) : highValueCourses.length > 0 ? (
-                        <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid md:grid-cols-2 gap-4">
                           {highValueCourses.map((course) => (
                             <CourseCard
                               key={course.code}
@@ -863,7 +863,7 @@ export default function RecommendationPage() {
                       </CardContent>
                     </Card>
                   ) : (
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                       {filteredCourses.map((course) => (
                         <CourseCard
                           key={course.code}
@@ -885,7 +885,7 @@ export default function RecommendationPage() {
                       Based on your resume, here are courses that match your
                       background:
                     </p>
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                       {recommendedCourses.map((course) => (
                         <CourseCard
                           key={course.code}
@@ -1020,7 +1020,7 @@ export default function RecommendationPage() {
         open={!!selectedCourse}
         onOpenChange={() => setSelectedCourse(null)}
       >
-        <DialogContent className="glass-card sm:max-w-3xl">
+        <DialogContent className="glass-card p-4 sm:p-6 sm:max-w-3xl">
           <DialogHeader>
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <Badge variant="default" className="text-sm">
@@ -1062,7 +1062,7 @@ export default function RecommendationPage() {
               )}
             </div>
           </DialogHeader>
-          <div className="mt-4 grid gap-6 sm:grid-cols-[minmax(0,2fr),minmax(0,1.4fr)] items-start">
+          <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,2fr),minmax(0,1.4fr)] items-start">
             <div className="rounded-lg border border-border bg-muted/20 p-4">
               {selectedCourse?.description ? (
                 <DialogDescription className="text-foreground leading-relaxed">
@@ -1120,7 +1120,7 @@ export default function RecommendationPage() {
                 Finding similar courses…
               </div>
             ) : similarCourses.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {similarCourses.map((c) => (
                   <button
                     key={c.code}
