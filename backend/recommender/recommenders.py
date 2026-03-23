@@ -47,6 +47,32 @@ def _get_course_dept(course_code: str) -> str:
     return m.group(1).upper() if m else ''
 
 
+# --- Course search only: same-department ranking boost ---
+# Maps profile `user_department` (program codes from the UI) to course subject prefixes used
+# on catalog codes (e.g. MGTE student -> boost MSE* courses). Do NOT reuse for degree rules,
+# transcript parsing, department filters, or any other subsystem—those may use different code meanings.
+_SAME_DEPT_SEARCH_BOOST_PROGRAM_TO_SUBJECT_PREFIXES = {
+    "COMPE": ("ECE",),
+    "ELE": ("ECE",),
+    "MGTE": ("MSE",),
+}
+
+
+def _subject_prefixes_for_same_dept_search_boost(program_code: str) -> frozenset:
+    """Resolve which course subject prefixes get the search same-department multiplier.
+
+    Used only inside ``recommend_cosine`` when applying ``same_department_boost``. Not a global
+    definition of program vs department elsewhere in the app.
+    """
+    code = (program_code or "").strip().upper()
+    if not code:
+        return frozenset()
+    mapped = _SAME_DEPT_SEARCH_BOOST_PROGRAM_TO_SUBJECT_PREFIXES.get(code)
+    if mapped is not None:
+        return frozenset(mapped)
+    return frozenset({code})
+
+
 # Filler/stop words: not required to appear in title for word-overlap boost.
 # Full-query and phrase-in-title boosts still apply regardless.
 _TITLE_BOOST_STOP_WORDS = frozenset({
@@ -402,12 +428,18 @@ def recommend_cosine(
     else:
         weighted_scores = sims_raw[candidate_idxs].copy() if len(candidate_idxs) > 0 else np.array([], dtype=float)
 
-    # Same-department boost: uses user's major (profile), not the search page department filter
-    user_dept = (filters or {}).get('user_department')
-    if user_dept and len(candidate_idxs) > 0:
-        user_dept = str(user_dept).strip().upper()
-        codes = df['courseCode'].iloc[candidate_idxs]
-        same_dept = np.array([_get_course_dept(str(c)) == user_dept for c in codes], dtype=float)
+    # Same-department boost (course search only): profile program code vs course subject prefix;
+    # see _SAME_DEPT_SEARCH_BOOST_PROGRAM_TO_SUBJECT_PREFIXES — not used elsewhere.
+    user_dept = (filters or {}).get("user_department")
+    subject_prefixes = _subject_prefixes_for_same_dept_search_boost(
+        str(user_dept) if user_dept else ""
+    )
+    if subject_prefixes and len(candidate_idxs) > 0:
+        codes = df["courseCode"].iloc[candidate_idxs]
+        same_dept = np.array(
+            [_get_course_dept(str(c)) in subject_prefixes for c in codes],
+            dtype=float,
+        )
         weighted_scores = weighted_scores * (1.0 + same_department_boost * same_dept)
 
     # Option-completion boost: tiered by option + list progress (multiplier per course)
