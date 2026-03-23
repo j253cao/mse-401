@@ -21,6 +21,8 @@ import os
 import numpy as np
 import pandas as pd
 
+from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
+
 
 @dataclass
 class CourseGraph:
@@ -439,14 +441,17 @@ def _option_list_courses(options_data: List[dict]) -> List[tuple]:
 # Tier 1: one list left for option AND that list has ≤2 courses left (biggest boost).
 # Tier 2: one list left for option OR list has ≤2 courses left.
 # Tier 3: any other incomplete list in an option with ≥1 list done.
-OPTION_BOOST_TIER1 = 0.15   # 15% — last list to finish option, list almost done
-OPTION_BOOST_TIER2 = 0.10  # 10% — last list for option, or list almost done
-OPTION_BOOST_TIER3 = 0.05  # 5%  — other incomplete lists in started options
+OPTION_BOOST_TIER1 = DEFAULT_SEARCH_WEIGHTS["option_boost"]["tier1"]   # 15% — last list to finish option, list almost done
+OPTION_BOOST_TIER2 = DEFAULT_SEARCH_WEIGHTS["option_boost"]["tier2"]  # 10% — last list for option, or list almost done
+OPTION_BOOST_TIER3 = DEFAULT_SEARCH_WEIGHTS["option_boost"]["tier3"]  # 5%  — other incomplete lists in started options
 
 
 def get_option_boost_multipliers(
     options_data: List[dict],
     completed_courses: List[str],
+    tier1: float = OPTION_BOOST_TIER1,
+    tier2: float = OPTION_BOOST_TIER2,
+    tier3: float = OPTION_BOOST_TIER3,
 ) -> Dict[str, float]:
     """
     Return per-course multipliers (1.0 + boost) for option-completion boosting.
@@ -483,11 +488,11 @@ def get_option_boost_multipliers(
 
             # Tier: bigger boost when option is 1 list away and list is almost done
             if option_lists_remaining == 1 and list_remaining <= 2:
-                mult = 1.0 + OPTION_BOOST_TIER1
+                mult = 1.0 + tier1
             elif option_lists_remaining == 1 or list_remaining <= 2:
-                mult = 1.0 + OPTION_BOOST_TIER2
+                mult = 1.0 + tier2
             else:
-                mult = 1.0 + OPTION_BOOST_TIER3
+                mult = 1.0 + tier3
 
             key = (option_name, list_name)
             if key not in list_codes_map:
@@ -500,9 +505,9 @@ def get_option_boost_multipliers(
 
 def compute_global_weight(
     df: pd.DataFrame,
-    gamma_prereq: float = 1.0,
-    gamma_depth: float = 0.3,
-    gamma_minor: float = 0.5,
+    gamma_prereq: float = DEFAULT_SEARCH_WEIGHTS["global_weight"]["gamma_prereq"],
+    gamma_depth: float = DEFAULT_SEARCH_WEIGHTS["global_weight"]["gamma_depth"],
+    gamma_minor: float = DEFAULT_SEARCH_WEIGHTS["global_weight"]["gamma_minor"],
 ) -> pd.Series:
     """
     Combine normalized features into a single global_weight Series:

@@ -21,8 +21,10 @@ from .weights import (
     load_minor_option_counts,
     apply_bucket_normalization,
     compute_global_weight,
+    get_option_boost_multipliers,
 )
 from .data_loader import load_undergrad_courses
+from .search_weight_config import DEFAULT_SEARCH_WEIGHTS, merge_weight_overrides
 
 
 def get_abs_path(*parts):
@@ -40,6 +42,7 @@ _cached = {
     'svd': None,
     'data_file': None
 }
+_options_data_cache = None
 
 
 def _load_all(data_file):
@@ -148,11 +151,22 @@ def _load_all(data_file):
     return _cached['df'], _cached['embeddings'], _cached['emb_norm'], _cached['tfidf'], _cached['svd']
 
 
+def _load_options_data_cached():
+    """Load all_options.json once for option boost calculations."""
+    global _options_data_cache
+    if _options_data_cache is None:
+        options_path = get_abs_path('data', 'programs', 'all_options.json')
+        with open(options_path, 'r', encoding='utf-8') as f:
+            _options_data_cache = json.load(f)
+    return _options_data_cache
+
+
 def get_recommendations(
     search_queries: List[str],
     data_file: str = 'course-api-new-data.json',
     method: Optional[str] = None,
-    filters: Optional[Dict[str, Any]] = None
+    filters: Optional[Dict[str, Any]] = None,
+    weight_overrides: Optional[Dict[str, Dict[str, float]]] = None,
 ) -> List[List[Dict[str, Any]]]:
     """
     Get course recommendations based on search queries and optional filters.
@@ -172,14 +186,59 @@ def get_recommendations(
     Returns:
         List of results for each query, where each result is a list of course recommendations
     """
+    resolved_weights = merge_weight_overrides(weight_overrides)
+    ranking_weights = resolved_weights["ranking"]
+    global_weights = resolved_weights["global_weight"]
+    option_weights = resolved_weights["option_boost"]
+
     df, embeddings, emb_norm, tfidf, svd = _load_all(data_file)
+    effective_df = df
+
+    # Recompute global_weight only when non-default gamma values are requested.
+    default_global = DEFAULT_SEARCH_WEIGHTS["global_weight"]
+    if any(
+        abs(global_weights[k] - default_global[k]) > 1e-12
+        for k in ("gamma_prereq", "gamma_depth", "gamma_minor")
+    ):
+        effective_df = df.copy()
+        effective_df["global_weight"] = compute_global_weight(
+            effective_df,
+            gamma_prereq=global_weights["gamma_prereq"],
+            gamma_depth=global_weights["gamma_depth"],
+            gamma_minor=global_weights["gamma_minor"],
+        )
+
+    effective_filters = dict(filters or {})
+    completed_courses = effective_filters.get("completed_courses") or []
+    if completed_courses and not effective_filters.get("option_boost_multipliers"):
+        options_data = _load_options_data_cached()
+        effective_filters["option_boost_multipliers"] = get_option_boost_multipliers(
+            options_data,
+            completed_courses,
+            tier1=option_weights["tier1"],
+            tier2=option_weights["tier2"],
+            tier3=option_weights["tier3"],
+        )
+
     all_methods = [
-        ("cosine", lambda q: recommend_cosine(q, tfidf, svd, embeddings, df, emb_norm=emb_norm, filters=filters)),
-        ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, df)),
-        ("mmr", lambda q: recommend_mmr(q, tfidf, svd, embeddings, df)),
-        ("graph", lambda q: recommend_graph(q, tfidf, svd, embeddings, df)),
-        ("fuzzy_multi", lambda q: recommend_fuzzy_multi(q, df)),
-        ("keyword_overlap", lambda q: recommend_keyword_overlap(q, df)),
+        (
+            "cosine",
+            lambda q: recommend_cosine(
+                q,
+                tfidf,
+                svd,
+                embeddings,
+                effective_df,
+                emb_norm=emb_norm,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+            ),
+        ),
+        ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, effective_df)),
+        ("mmr", lambda q: recommend_mmr(q, tfidf, svd, embeddings, effective_df)),
+        ("graph", lambda q: recommend_graph(q, tfidf, svd, embeddings, effective_df)),
+        ("fuzzy_multi", lambda q: recommend_fuzzy_multi(q, effective_df)),
+        ("keyword_overlap", lambda q: recommend_keyword_overlap(q, effective_df)),
     ]
     
     if method is not None:
@@ -285,8 +344,8 @@ def get_high_value_courses(
     level: Optional[str] = None,
     limit: int = 12,
     program: Optional[str] = None,
-    depth_penalty: float = 0.15,
-    temperature: float = 0.5,
+    depth_penalty: Optional[float] = None,
+    temperature: Optional[float] = None,
     data_file: str = "course-api-new-data.json",
 ) -> List[Dict[str, Any]]:
     """
@@ -304,6 +363,11 @@ def get_high_value_courses(
     Returns:
         List of course dicts with course_code, title, description, score.
     """
+    if depth_penalty is None:
+        depth_penalty = DEFAULT_SEARCH_WEIGHTS["explore"]["depth_penalty"]
+    if temperature is None:
+        temperature = DEFAULT_SEARCH_WEIGHTS["explore"]["temperature"]
+
     df, _, _, _, _ = _load_all(data_file)
     undergrad = load_undergrad_courses()
 

@@ -4,14 +4,21 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from difflib import SequenceMatcher
-import faiss
-import networkx as nx
+try:
+    import faiss
+except ImportError:  # pragma: no cover - optional dependency at runtime
+    faiss = None
+try:
+    import networkx as nx
+except ImportError:  # pragma: no cover - optional dependency at runtime
+    nx = None
 import time
 import json
 import os
 import re
 from .data_loader import load_undergrad_courses, load_grad_courses, find_project_root
 from .weights import load_course_to_programs
+from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
 
 _COURSE_TO_PROGRAMS_CACHE = None
 
@@ -32,7 +39,7 @@ TERM_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"]
 
 _DEPT_PREFIX_RE = re.compile(r'^([A-Za-z]+)')
 # Minimum raw similarity cutoff (before weights). Suggestions: 0.2=permissive, 0.25=moderate, 0.3=stricter, 0.35=strict
-MIN_SIMILARITY_CUTOFF = 0.25
+MIN_SIMILARITY_CUTOFF = DEFAULT_SEARCH_WEIGHTS["ranking"]["min_similarity_cutoff"]
 
 def _get_course_dept(course_code: str) -> str:
     """Extract department prefix from a course code (e.g. 'ME101' -> 'ME', 'MEDVL330' -> 'MEDVL')."""
@@ -74,7 +81,12 @@ def _query_phrases(query: str) -> list:
     return phrases
 
 
-def _title_word_boost(query: str, titles: pd.Series) -> np.ndarray:
+def _title_word_boost(
+    query: str,
+    titles: pd.Series,
+    per_overlap: float = DEFAULT_SEARCH_WEIGHTS["ranking"]["title_word_boost_per_overlap"],
+    cap: float = DEFAULT_SEARCH_WEIGHTS["ranking"]["title_word_boost_cap"],
+) -> np.ndarray:
     """Return per-row boost when query *content* words appear in course title.
 
     Filler words (e.g. and, the, of) are ignored: we only require non-stop words
@@ -90,7 +102,7 @@ def _title_word_boost(query: str, titles: pd.Series) -> np.ndarray:
         title_words = set(re.findall(r'\w+', title.lower()))
         return len(query_words & title_words)
     overlaps = titles.apply(overlap_count).to_numpy(dtype=float)
-    boosts = np.minimum(overlaps * 0.28, 0.75)
+    boosts = np.minimum(overlaps * per_overlap, cap)
     return boosts
 
 
@@ -290,10 +302,33 @@ def _apply_course_filters(filters, df):
     return filters_applied
 
 
-def recommend_cosine(query, tfidf, svd, emb, df, emb_norm=None, filters=None, top_k=30, min_similarity=None):
+def recommend_cosine(
+    query,
+    tfidf,
+    svd,
+    emb,
+    df,
+    emb_norm=None,
+    filters=None,
+    top_k=30,
+    min_similarity=None,
+    ranking_weights=None,
+):
     """Recommend courses using cosine similarity."""
+    ranking_weights = ranking_weights or {}
+    default_ranking = DEFAULT_SEARCH_WEIGHTS["ranking"]
+    full_query_title_boost = ranking_weights.get("full_query_title_boost", default_ranking["full_query_title_boost"])
+    phrase_title_boost = ranking_weights.get("phrase_title_boost", default_ranking["phrase_title_boost"])
+    title_word_boost_per_overlap = ranking_weights.get(
+        "title_word_boost_per_overlap",
+        default_ranking["title_word_boost_per_overlap"],
+    )
+    title_word_boost_cap = ranking_weights.get("title_word_boost_cap", default_ranking["title_word_boost_cap"])
+    alpha = ranking_weights.get("alpha", default_ranking["alpha"])
+    same_department_boost = ranking_weights.get("same_department_boost", default_ranking["same_department_boost"])
+
     if min_similarity is None:
-        min_similarity = MIN_SIMILARITY_CUTOFF
+        min_similarity = ranking_weights.get("min_similarity_cutoff", MIN_SIMILARITY_CUTOFF)
     filters_applied = _apply_course_filters(filters, df)
 
     t0 = time.time()
@@ -311,14 +346,18 @@ def recommend_cosine(query, tfidf, svd, emb, df, emb_norm=None, filters=None, to
     query_lower = query.lower().strip()
     if query_lower:
         phrase_mask = title_lower.str.contains(query_lower, regex=False)
-        boost_factor = 0.5  # full query phrase in title gets a strong boost
-        sims = sims + boost_factor * phrase_mask.astype(float)
+        sims = sims + full_query_title_boost * phrase_mask.astype(float)
     # Phrase boost: each run of non-filler words from the query that appears in title (e.g. "machine learning")
     for phrase in _query_phrases(query):
         if len(phrase) > 1:  # skip single-word phrases (handled by title-word boost)
-            sims = sims + 0.35 * title_lower.str.contains(phrase, regex=False).astype(float)
+            sims = sims + phrase_title_boost * title_lower.str.contains(phrase, regex=False).astype(float)
     # Title-word boost: only content words (filler words like "and", "the" are ignored)
-    sims = sims + _title_word_boost(query, df['title'])
+    sims = sims + _title_word_boost(
+        query,
+        df['title'],
+        per_overlap=title_word_boost_per_overlap,
+        cap=title_word_boost_cap,
+    )
     # Replace NaN and inf with 0
     sims = np.nan_to_num(sims, nan=0.0, posinf=0.0, neginf=0.0)
 
@@ -359,7 +398,6 @@ def recommend_cosine(query, tfidf, svd, emb, df, emb_norm=None, filters=None, to
     # Stage 2: Ranking (apply universal weights and optional same-department boost).
     if 'global_weight' in df.columns and len(candidate_idxs) > 0:
         global_w = df['global_weight'].to_numpy(dtype=float)
-        alpha = 0.3
         weighted_scores = sims_raw[candidate_idxs] * (1.0 + alpha * global_w[candidate_idxs])
     else:
         weighted_scores = sims_raw[candidate_idxs].copy() if len(candidate_idxs) > 0 else np.array([], dtype=float)
@@ -370,7 +408,7 @@ def recommend_cosine(query, tfidf, svd, emb, df, emb_norm=None, filters=None, to
         user_dept = str(user_dept).strip().upper()
         codes = df['courseCode'].iloc[candidate_idxs]
         same_dept = np.array([_get_course_dept(str(c)) == user_dept for c in codes], dtype=float)
-        weighted_scores = weighted_scores * (1.0 + 0.4 * same_dept)
+        weighted_scores = weighted_scores * (1.0 + same_department_boost * same_dept)
 
     # Option-completion boost: tiered by option + list progress (multiplier per course)
     option_boost = (filters or {}).get("option_boost_multipliers") or {}
@@ -429,6 +467,8 @@ def recommend_filter_only(df, filters=None, top_k=30):
 
 def recommend_faiss(query, tfidf, svd, emb, df, top_k=10):
     """Recommend courses using FAISS similarity search."""
+    if faiss is None:
+        raise RuntimeError("FAISS is not installed. Install faiss-cpu to use recommend_faiss.")
     emb = emb.astype('float32')
     faiss.normalize_L2(emb)
     index = faiss.IndexFlatIP(emb.shape[1])
@@ -462,6 +502,8 @@ def recommend_mmr(query, tfidf, svd, emb, df, top_k=10, lmbda=0.7):
 
 def recommend_graph(query, tfidf, svd, emb, df, top_k=10):
     """Recommend courses using graph-based PageRank."""
+    if nx is None:
+        raise RuntimeError("networkx is not installed. Install networkx to use recommend_graph.")
     q_vec = svd.transform(tfidf.transform([query]))
     sims = cosine_similarity(emb, q_vec).flatten()
     G = nx.DiGraph()
