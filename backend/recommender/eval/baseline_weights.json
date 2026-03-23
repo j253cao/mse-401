@@ -1,0 +1,25 @@
+{
+  "global_weight": {
+    "gamma_prereq": 1.0,
+    "gamma_depth": 0.3,
+    "gamma_minor": 0.5
+  },
+  "ranking": {
+    "alpha": 0.4,
+    "same_department_boost": 0.6,
+    "min_similarity_cutoff": 0.25,
+    "full_query_title_boost": 0.5,
+    "phrase_title_boost": 0.35,
+    "title_word_boost_per_overlap": 0.28,
+    "title_word_boost_cap": 0.75
+  },
+  "option_boost": {
+    "tier1": 0.15,
+    "tier2": 0.1,
+    "tier3": 0.05
+  },
+  "explore": {
+    "depth_penalty": 0.15,
+    "temperature": 0.5
+  }
+}

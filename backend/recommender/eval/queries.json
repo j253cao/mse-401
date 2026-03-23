@@ -1,0 +1,220 @@
+{
+  "version": 1,
+  "description": "Labeled evaluation queries for search-weight tuning.",
+  "default_top_k": 15,
+  "cases": [
+    {
+      "id": "ml_basics_undergrad",
+      "segment": "first_year_cold_start",
+      "query": "machine learning fundamentals",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "department": ["SE", "ECE", "SYDE", "MTE"],
+        "incoming_level": "2A"
+      },
+      "graded_relevance": {
+        "ECE457C": 3,
+        "SYDE556": 2,
+        "ECE405B": 2,
+        "MTE322": 1
+      }
+    },
+    {
+      "id": "software_project_management",
+      "segment": "program_alignment",
+      "query": "software project management and teamwork",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["SE", "MSE", "SYDE"],
+        "user_department": "SE",
+        "incoming_level": "3A"
+      },
+      "graded_relevance": {
+        "SE463": 3,
+        "MSE342": 2,
+        "SE390": 2,
+        "SE350": 1
+      }
+    },
+    {
+      "id": "controls_mechatronics",
+      "segment": "option_heavy_user",
+      "query": "control systems feedback mechatronics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "department": ["MTE", "ECE", "ME"],
+        "user_department": "MTE",
+        "completed_courses": ["MATH119", "MATH120", "MTE140", "ECE105"],
+        "incoming_level": "2B"
+      },
+      "graded_relevance": {
+        "ECE252": 3,
+        "MTE252": 2,
+        "MTE182": 2,
+        "ECE124": 1
+      }
+    },
+    {
+      "id": "embedded_systems",
+      "segment": "department_mismatch",
+      "query": "real time embedded systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["ECE", "SE", "SYDE"],
+        "user_department": "SE",
+        "incoming_level": "3B"
+      },
+      "graded_relevance": {
+        "ECE380": 3,
+        "ECE350": 2,
+        "ECE252": 2,
+        "SE350": 2
+      }
+    },
+    {
+      "id": "data_systems",
+      "segment": "rich_transcript",
+      "query": "databases and distributed systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["SE", "ECE", "CS"],
+        "completed_courses": ["CS135", "CS136", "CS245", "SE212"],
+        "incoming_level": "3A"
+      },
+      "graded_relevance": {
+        "CS330": 3,
+        "CS654": 2,
+        "ECE650": 2,
+        "CS754": 1
+      }
+    },
+    {
+      "id": "product_design_hcd",
+      "segment": "exploration_mode_off",
+      "query": "human computer interaction product design",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "department": ["SYDE", "MTE", "SE"],
+        "incoming_level": "2B"
+      },
+      "graded_relevance": {
+        "SYDE362": 3,
+        "SYDE361": 2,
+        "MTE322": 2,
+        "SE464": 1
+      }
+    },
+    {
+      "id": "materials_manufacturing",
+      "segment": "program_alignment",
+      "query": "advanced manufacturing materials processing",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["MSE", "ME", "MTE"],
+        "user_department": "MSE",
+        "incoming_level": "3A"
+      },
+      "graded_relevance": {
+        "MSE435": 3,
+        "MSE332": 2,
+        "ME230": 2,
+        "ME235": 1
+      }
+    },
+    {
+      "id": "power_energy_systems",
+      "segment": "broad_query",
+      "query": "electric power energy systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["ECE", "ENVE", "ME"],
+        "incoming_level": "3A"
+      },
+      "graded_relevance": {
+        "ECE380": 3,
+        "ECE252": 2,
+        "ECE207": 2,
+        "ECE660": 1
+      }
+    },
+    {
+      "id": "biomedical_signal_processing",
+      "segment": "cross_department",
+      "query": "biomedical signal processing",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["BME", "ECE", "SYDE"],
+        "incoming_level": "3A"
+      },
+      "graded_relevance": {
+        "BME284": 3,
+        "BME564": 2,
+        "BME213": 2,
+        "ECE678": 1
+      }
+    },
+    {
+      "id": "sustainability_environment",
+      "segment": "include_other_departments",
+      "query": "sustainable energy and environment",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["ENVE", "CHE", "ME"],
+        "include_other_depts": true,
+        "incoming_level": "2B"
+      },
+      "graded_relevance": {
+        "ENVE279": 3,
+        "ENBUS102": 2,
+        "ME659": 2,
+        "EARTH122": 1
+      }
+    },
+    {
+      "id": "security_privacy",
+      "segment": "upper_year_security",
+      "query": "computer security privacy cryptography",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["SE", "ECE", "CS"],
+        "incoming_level": "3B"
+      },
+      "graded_relevance": {
+        "CS459": 3,
+        "CS453": 2,
+        "CS456": 2,
+        "ECE358": 1
+      }
+    },
+    {
+      "id": "ai_systems_personalized",
+      "segment": "personalization_boost_check",
+      "query": "artificial intelligence systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": ["SE", "ECE", "MTE", "SYDE"],
+        "user_department": "SE",
+        "completed_courses": ["CS135", "CS136", "SE101", "SE212"],
+        "incoming_level": "3A"
+      },
+      "graded_relevance": {
+        "SYDE352": 3,
+        "SYDE351": 2,
+        "SYDE554": 2,
+        "SYDE654": 1
+      }
+    }
+  ]
+}

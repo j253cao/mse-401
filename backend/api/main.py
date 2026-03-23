@@ -41,6 +41,7 @@ ENGINEERING_DEPARTMENTS = (
 
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
 from recommender.weights import load_course_to_programs, compute_options_progress, get_option_boost_multipliers
+from recommender.search_weight_config import DEFAULT_SEARCH_WEIGHTS
 
 # Cached course-to-programs lookup for enriching responses
 _course_to_programs_cache = None
@@ -540,7 +541,13 @@ def recommend(request: QueryRequest):
     # Option-completion boost: tiered by option + list progress (for ranking)
     options_data = _load_options_data()
     completed = filters.get("completed_courses") or []
-    filters["option_boost_multipliers"] = get_option_boost_multipliers(options_data, completed)
+    filters["option_boost_multipliers"] = get_option_boost_multipliers(
+        options_data,
+        completed,
+        tier1=DEFAULT_SEARCH_WEIGHTS["option_boost"]["tier1"],
+        tier2=DEFAULT_SEARCH_WEIGHTS["option_boost"]["tier2"],
+        tier3=DEFAULT_SEARCH_WEIGHTS["option_boost"]["tier3"],
+    )
 
     deps_lookup = load_course_dependencies()
     formatted: Dict[str, Any] = {}
@@ -723,8 +730,8 @@ def explore_high_value(
     level: Optional[str] = None,
     limit: int = 12,
     program: Optional[str] = None,
-    depth_penalty: float = 0.15,
-    temperature: float = 0.5,
+    depth_penalty: float = DEFAULT_SEARCH_WEIGHTS["explore"]["depth_penalty"],
+    temperature: float = DEFAULT_SEARCH_WEIGHTS["explore"]["temperature"],
 ):
     """
     Get high-value courses (common prereqs, many options/minors).
