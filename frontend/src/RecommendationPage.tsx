@@ -695,7 +695,7 @@ export default function RecommendationPage() {
                                 Minor
                               </span>
                             </div>
-                            <div className="relative">
+                            <div className={cn("relative", optionSearch.trim() && optionMatches.length > 0 && "pb-52")}>
                               <Input
                                 type="text"
                                 placeholder="Search options or minors..."
@@ -963,7 +963,7 @@ export default function RecommendationPage() {
                     <CardContent className="p-4 space-y-2">
                       <div className="flex items-center gap-2">
                         <Badge variant="secondary">{randomCourse.code}</Badge>
-                        {needsOverride(randomCourse.prereqs, programCode) && (
+                        {false && needsOverride(randomCourse.prereqs, programCode) && (
                           <Badge className={OVERRIDE_BADGE_CLASS}>
                             Override required
                           </Badge>
@@ -1026,7 +1026,7 @@ export default function RecommendationPage() {
               <Badge variant="default" className="text-sm">
                 {selectedCourse?.code}
               </Badge>
-              {needsOverride(selectedCourse?.prereqs, programCode) && (
+              {false && needsOverride(selectedCourse?.prereqs, programCode) && (
                 <Badge className={OVERRIDE_BADGE_CLASS}>
                   Override required
                 </Badge>
@@ -1191,7 +1191,7 @@ function CourseCard({
             >
               {course.code}
             </Badge>
-            {overrideRequired && (
+            {false && overrideRequired && (
               <Badge className={OVERRIDE_BADGE_CLASS}>
                 Override required
               </Badge>
