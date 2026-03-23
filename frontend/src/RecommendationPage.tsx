@@ -240,6 +240,7 @@ export default function RecommendationPage() {
       return;
     }
     setHasSearched(true);
+    setShowFilters(false);
     setLoading(true);
     setError(null);
     try {
