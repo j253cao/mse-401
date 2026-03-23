@@ -134,7 +134,7 @@ function OptionRow({ option }: { option: OptionProgress }) {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors flex-shrink-0"
+            className="p-1.5 rounded-md text-yellow-400 hover:text-amber-500 hover:bg-muted/50 transition-colors flex-shrink-0"
             title="View in academic calendar"
             onClick={(e) => e.stopPropagation()}
           >
