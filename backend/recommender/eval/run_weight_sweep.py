@@ -4,6 +4,8 @@
 Usage examples:
   python recommender/eval/run_weight_sweep.py
   python recommender/eval/run_weight_sweep.py --candidates recommender/eval/candidates.json
+  python recommender/eval/run_weight_sweep.py --method dense
+  python recommender/eval/run_weight_sweep.py --compare-methods --num-random 0
 """
 
 from __future__ import annotations
@@ -214,6 +216,7 @@ def evaluate_case(
     case: Dict[str, Any],
     weight_overrides: Dict[str, Dict[str, float]],
     top_k: int,
+    method: str = "cosine",
 ) -> Dict[str, Any]:
     query = case["query"]
     filters = case.get("filters", {})
@@ -222,11 +225,11 @@ def evaluate_case(
     results = get_recommendations(
         [query],
         data_file="course-api-new-data.json",
-        method="cosine",
+        method=method,
         filters=filters,
         weight_overrides=weight_overrides,
     )
-    ranked = [normalize_code(item["course_code"]) for item in results[0] if item.get("method") == "cosine"]
+    ranked = [normalize_code(item["course_code"]) for item in results[0] if item.get("method") == method]
 
     return {
         "id": case.get("id"),
@@ -260,19 +263,21 @@ def run_sweep(
     cases: List[Dict[str, Any]],
     top_k: int,
     candidate_overrides: List[Dict[str, Dict[str, float]]],
+    method: str = "cosine",
 ) -> List[Dict[str, Any]]:
     baseline = default_search_weights()
     outputs: List[Dict[str, Any]] = []
     for idx, override in enumerate(candidate_overrides):
         merged = deep_merge(baseline, override)
         candidate_name = f"candidate_{idx:02d}_{make_candidate_id(merged)}"
-        per_case = [evaluate_case(case, merged, top_k=top_k) for case in cases]
+        per_case = [evaluate_case(case, merged, top_k=top_k, method=method) for case in cases]
         macro = aggregate_metrics(per_case)
         outputs.append(
             {
                 "candidate": candidate_name,
                 "override": override,
                 "resolved_weights": merged,
+                "method": method,
                 "metrics": macro,
                 "segment_metrics": segment_metrics(per_case),
                 "per_case": per_case,
@@ -349,6 +354,18 @@ def parse_args() -> argparse.Namespace:
         default=Path(__file__).resolve().parent / "weight_sweep_leaderboard.csv",
         help="Output CSV leaderboard path.",
     )
+    parser.add_argument(
+        "--method",
+        type=str,
+        default="cosine",
+        choices=["cosine", "dense"],
+        help="Retrieval backend to evaluate (default: cosine).",
+    )
+    parser.add_argument(
+        "--compare-methods",
+        action="store_true",
+        help="Print NDCG/Recall/MRR for cosine vs dense with baseline weights only (use e.g. --num-random 0).",
+    )
     return parser.parse_args()
 
 
@@ -368,7 +385,12 @@ def main() -> None:
     else:
         candidate_overrides = default_candidate_overrides(seed=args.seed, num_random=args.num_random)
 
-    results = run_sweep(cases, top_k=args.top_k, candidate_overrides=candidate_overrides)
+    results = run_sweep(
+        cases,
+        top_k=args.top_k,
+        candidate_overrides=candidate_overrides,
+        method=args.method,
+    )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_csv.parent.mkdir(parents=True, exist_ok=True)
 
@@ -378,6 +400,7 @@ def main() -> None:
                 "top_k": args.top_k,
                 "eval_set": str(args.eval_set),
                 "candidates_evaluated": len(candidate_overrides),
+                "method": args.method,
                 "results": results,
             },
             handle,
@@ -404,6 +427,18 @@ def main() -> None:
             f"Recall@{args.top_k}={row['metrics']['recall_at_k']:.4f}, "
             f"MRR={row['metrics']['mrr']:.4f}"
         )
+
+    if args.compare_methods:
+        print("Method comparison (baseline weights, top candidate each):")
+        for m in ("cosine", "dense"):
+            baseline_rows = run_sweep(cases, args.top_k, [{}], method=m)
+            row0 = baseline_rows[0]
+            print(
+                f"  {m}: "
+                f"NDCG@{args.top_k}={row0['metrics']['ndcg_at_k']:.4f}, "
+                f"Recall@{args.top_k}={row0['metrics']['recall_at_k']:.4f}, "
+                f"MRR={row0['metrics']['mrr']:.4f}"
+            )
 
 
 if __name__ == "__main__":

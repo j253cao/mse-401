@@ -10,9 +10,16 @@ from typing import List, Dict, Any, Optional
 from .data_loader import load_course_data, save_embeddings, load_embeddings
 from .embedding_generators import generate_tfidf_svd_embeddings
 from .recommenders import (
-    recommend_cosine, recommend_faiss, recommend_mmr, recommend_graph,
-    recommend_fuzzy_multi, recommend_keyword_overlap, recommend_bert, recommend_hybrid_ensemble,
-    recommend_filter_only
+    recommend_cosine,
+    recommend_dense,
+    recommend_faiss,
+    recommend_mmr,
+    recommend_graph,
+    recommend_fuzzy_multi,
+    recommend_keyword_overlap,
+    recommend_bert,
+    recommend_hybrid_ensemble,
+    recommend_filter_only,
 )
 from .utils import export_results_to_excel
 from .weights import (
@@ -26,6 +33,9 @@ from .weights import (
 from .data_loader import load_undergrad_courses
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS, merge_weight_overrides
 
+# Sentence-transformer model for dense retrieval (must match dense_model_name.txt when cached)
+DEFAULT_DENSE_MODEL_NAME = "all-MiniLM-L6-v2"
+
 
 def get_abs_path(*parts):
     """Get absolute path relative to project root."""
@@ -35,26 +45,40 @@ def get_abs_path(*parts):
 
 # Module-level cache
 _cached = {
-    'df': None,
-    'embeddings': None,
-    'emb_norm': None,
-    'tfidf': None,
-    'svd': None,
-    'data_file': None
+    "df": None,
+    "embeddings": None,
+    "emb_norm": None,
+    "tfidf": None,
+    "svd": None,
+    "data_file": None,
+    "dense_embeddings": None,
+    "dense_emb_norm": None,
+    "dense_sentence_model": None,
 }
 _options_data_cache = None
+
+
+def _get_dense_sentence_model():
+    """Lazy-load ST model (only needed for ``dense`` search)."""
+    if _cached["dense_sentence_model"] is None:
+        from sentence_transformers import SentenceTransformer
+
+        _cached["dense_sentence_model"] = SentenceTransformer(DEFAULT_DENSE_MODEL_NAME)
+    return _cached["dense_sentence_model"]
 
 
 def _load_all(data_file):
     """Load all required data and models."""
     # Only reload if data_file changes
-    if _cached['data_file'] != data_file:
-        _cached['df'] = None
-        _cached['embeddings'] = None
-        _cached['emb_norm'] = None
-        _cached['tfidf'] = None
-        _cached['svd'] = None
-        _cached['data_file'] = data_file
+    if _cached["data_file"] != data_file:
+        _cached["df"] = None
+        _cached["embeddings"] = None
+        _cached["emb_norm"] = None
+        _cached["tfidf"] = None
+        _cached["svd"] = None
+        _cached["dense_embeddings"] = None
+        _cached["dense_emb_norm"] = None
+        _cached["data_file"] = data_file
     
     data_json = get_abs_path('data', 'courses', data_file)
     tfidf_pkl = get_abs_path('data', 'embeddings', 'tfidf_vectorizer.pkl')
@@ -138,17 +162,58 @@ def _load_all(data_file):
         # Pre-compute row-normalized embeddings (used by cosine similarity paths)
         norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
         norms[norms == 0] = 1
-        _cached['emb_norm'] = embeddings / norms
-    
+        _cached["emb_norm"] = embeddings / norms
+
+    # Dense (sentence-transformer) embeddings: multifield text; invalidate on shape/model mismatch
+    if _cached["dense_emb_norm"] is None:
+        dense_npy = get_abs_path("data", "embeddings", "dense_embeddings.npy")
+        dense_meta = get_abs_path("data", "embeddings", "dense_model_name.txt")
+        n_courses = len(_cached["df"])
+        need_regen = True
+        if os.path.exists(dense_npy) and os.path.exists(dense_meta):
+            with open(dense_meta, "r", encoding="utf-8") as f:
+                stored = f.read().strip()
+            if stored == DEFAULT_DENSE_MODEL_NAME:
+                arr = np.load(dense_npy)
+                if arr.shape[0] == n_courses:
+                    _cached["dense_embeddings"] = arr.astype(np.float32)
+                    need_regen = False
+        if need_regen:
+            from .embedding_generators import build_multifield_course_texts, generate_dense_embeddings
+
+            texts = build_multifield_course_texts(_cached["df"])
+            _model, emb = generate_dense_embeddings(
+                texts,
+                model_name=DEFAULT_DENSE_MODEL_NAME,
+                show_progress_bar=True,
+            )
+            del _model
+            emb = emb.astype(np.float32)
+            os.makedirs(os.path.dirname(dense_npy), exist_ok=True)
+            np.save(dense_npy, emb)
+            with open(dense_meta, "w", encoding="utf-8") as f:
+                f.write(DEFAULT_DENSE_MODEL_NAME)
+            _cached["dense_embeddings"] = emb
+        dnorms = np.linalg.norm(_cached["dense_embeddings"], axis=1, keepdims=True)
+        dnorms[dnorms == 0] = 1
+        _cached["dense_emb_norm"] = _cached["dense_embeddings"] / dnorms
+
     # TFIDF and SVD
-    if _cached['tfidf'] is None:
-        with open(tfidf_pkl, 'rb') as f:
-            _cached['tfidf'] = pickle.load(f)
-    if _cached['svd'] is None:
-        with open(svd_pkl, 'rb') as f:
-            _cached['svd'] = pickle.load(f)
-    
-    return _cached['df'], _cached['embeddings'], _cached['emb_norm'], _cached['tfidf'], _cached['svd']
+    if _cached["tfidf"] is None:
+        with open(tfidf_pkl, "rb") as f:
+            _cached["tfidf"] = pickle.load(f)
+    if _cached["svd"] is None:
+        with open(svd_pkl, "rb") as f:
+            _cached["svd"] = pickle.load(f)
+
+    return (
+        _cached["df"],
+        _cached["embeddings"],
+        _cached["emb_norm"],
+        _cached["tfidf"],
+        _cached["svd"],
+        _cached["dense_emb_norm"],
+    )
 
 
 def _load_options_data_cached():
@@ -191,7 +256,7 @@ def get_recommendations(
     global_weights = resolved_weights["global_weight"]
     option_weights = resolved_weights["option_boost"]
 
-    df, embeddings, emb_norm, tfidf, svd = _load_all(data_file)
+    df, embeddings, emb_norm, tfidf, svd, dense_emb_norm = _load_all(data_file)
     effective_df = df
 
     # Recompute global_weight only when non-default gamma values are requested.
@@ -220,6 +285,31 @@ def get_recommendations(
             tier3=option_weights["tier3"],
         )
 
+    _score_detail_cols = frozenset(
+        {
+            "score_semantic",
+            "score_title_boost",
+            "score_global_mult",
+            "score_dept_mult",
+            "score_option_mult",
+            "similarity_raw",
+        }
+    )
+
+    def _score_breakdown_from_row(row) -> Optional[Dict[str, float]]:
+        if "score_semantic" not in row.index:
+            return None
+        try:
+            return {
+                "semantic": float(row["score_semantic"]),
+                "title_boost": float(row["score_title_boost"]),
+                "global_weight_mult": float(row["score_global_mult"]),
+                "dept_boost_mult": float(row["score_dept_mult"]),
+                "option_boost_mult": float(row["score_option_mult"]),
+            }
+        except (TypeError, ValueError, KeyError):
+            return None
+
     all_methods = [
         (
             "cosine",
@@ -230,6 +320,17 @@ def get_recommendations(
                 embeddings,
                 effective_df,
                 emb_norm=emb_norm,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+            ),
+        ),
+        (
+            "dense",
+            lambda q: recommend_dense(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                effective_df,
                 filters=effective_filters,
                 ranking_weights=ranking_weights,
             ),
@@ -268,17 +369,20 @@ def get_recommendations(
                         "search_query": search_query,
                         "method": method_name,
                         "rank": rank,
-                        "course_code": row['courseCode'],
-                        "title": row['title'],
-                        "description": row['description'],
-                        "score": row[score_col] if score_col else 0
+                        "course_code": row["courseCode"],
+                        "title": row["title"],
+                        "description": row["description"],
+                        "score": row[score_col] if score_col else 0,
                     }
-                    
-                    # Add any additional fields from the DataFrame that might be needed for filtering
+
+                    _skip_cols = _score_detail_cols | {"similarity", "fuzzy_score", "keyword_score", "score"}
                     for col in row.index:
-                        if col not in result and col not in ['similarity', 'fuzzy_score', 'keyword_score', 'score']:
+                        if col not in result and col not in _skip_cols:
                             result[col] = row[col]
-                    
+                    _bd = _score_breakdown_from_row(row)
+                    if _bd is not None:
+                        result["score_breakdown"] = _bd
+
                     query_results.append(result)
                     
             except Exception as e:
@@ -299,7 +403,7 @@ def get_filtered_courses(
 
     Used when an empty query is submitted with active filters (e.g. option/minor selected).
     """
-    df, *_ = _load_all(data_file)
+    df, *_rest = _load_all(data_file)
     results = recommend_filter_only(df, filters=filters, top_k=top_k)
 
     course_list = []
@@ -368,7 +472,7 @@ def get_high_value_courses(
     if temperature is None:
         temperature = DEFAULT_SEARCH_WEIGHTS["explore"]["temperature"]
 
-    df, _, _, _, _ = _load_all(data_file)
+    df, _, _, _, _, _ = _load_all(data_file)
     undergrad = load_undergrad_courses()
 
     # Filter: engineering depts (subjectCode or courseCode prefix), undergrad only
@@ -458,7 +562,7 @@ def get_similar_courses(
 
     Returns a list of dicts: [{course_code, title, description, score}, ...]
     """
-    df, _embeddings, emb_norm, _, _ = _load_all(data_file)
+    df, _embeddings, emb_norm, _, _, _ = _load_all(data_file)
 
     code_upper = _normalize_course_code(course_code)
     matches = df.index[df['courseCode'].apply(_normalize_course_code) == code_upper]

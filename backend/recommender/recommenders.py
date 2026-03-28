@@ -61,8 +61,8 @@ _SAME_DEPT_SEARCH_BOOST_PROGRAM_TO_SUBJECT_PREFIXES = {
 def _subject_prefixes_for_same_dept_search_boost(program_code: str) -> frozenset:
     """Resolve which course subject prefixes get the search same-department multiplier.
 
-    Used only inside ``recommend_cosine`` when applying ``same_department_boost``. Not a global
-    definition of program vs department elsewhere in the app.
+    Used only in course-search recommenders (``recommend_cosine``, ``recommend_dense``) when
+    applying ``same_department_boost``. Not a global program vs department definition elsewhere.
     """
     code = (program_code or "").strip().upper()
     if not code:
@@ -366,29 +366,30 @@ def recommend_cosine(
         norms[norms == 0] = 1
         emb_norm = emb / norms
     q_norm = q_vec / np.linalg.norm(q_vec)
-    sims = np.dot(emb_norm, q_norm.flatten())
-    # Phrase-boost: full query substring in title (no stop-word filtering; whole query matters)
-    title_lower = df['title'].str.lower()
+    semantic = np.dot(emb_norm, q_norm.flatten())
+    semantic = np.nan_to_num(semantic, nan=0.0, posinf=0.0, neginf=0.0)
+    # Title boosts (additive); kept separate from semantic for score_breakdown.
+    title_lower = df["title"].str.lower()
     query_lower = query.lower().strip()
+    title_boost = np.zeros(len(df), dtype=float)
     if query_lower:
         phrase_mask = title_lower.str.contains(query_lower, regex=False)
-        sims = sims + full_query_title_boost * phrase_mask.astype(float)
-    # Phrase boost: each run of non-filler words from the query that appears in title (e.g. "machine learning")
+        title_boost = title_boost + full_query_title_boost * phrase_mask.astype(float)
     for phrase in _query_phrases(query):
-        if len(phrase) > 1:  # skip single-word phrases (handled by title-word boost)
-            sims = sims + phrase_title_boost * title_lower.str.contains(phrase, regex=False).astype(float)
-    # Title-word boost: only content words (filler words like "and", "the" are ignored)
-    sims = sims + _title_word_boost(
+        if len(phrase) > 1:
+            title_boost = title_boost + phrase_title_boost * title_lower.str.contains(
+                phrase, regex=False
+            ).astype(float)
+    title_boost = title_boost + _title_word_boost(
         query,
-        df['title'],
+        df["title"],
         per_overlap=title_word_boost_per_overlap,
         cap=title_word_boost_cap,
     )
-    # Replace NaN and inf with 0
-    sims = np.nan_to_num(sims, nan=0.0, posinf=0.0, neginf=0.0)
+    title_boost = np.nan_to_num(title_boost, nan=0.0, posinf=0.0, neginf=0.0)
 
-    # Stage 1: Retrieval (semantic + phrase + title-word).
-    sims_raw = sims.copy()
+    # Stage 1: Retrieval (semantic + title boosts).
+    sims_raw = semantic + title_boost
 
     t2 = time.time()
 
@@ -422,55 +423,252 @@ def recommend_cosine(
         candidate_idxs = candidate_idxs[above_cutoff]
 
     # Stage 2: Ranking (apply universal weights and optional same-department boost).
-    if 'global_weight' in df.columns and len(candidate_idxs) > 0:
-        global_w = df['global_weight'].to_numpy(dtype=float)
-        weighted_scores = sims_raw[candidate_idxs] * (1.0 + alpha * global_w[candidate_idxs])
-    else:
-        weighted_scores = sims_raw[candidate_idxs].copy() if len(candidate_idxs) > 0 else np.array([], dtype=float)
+    global_mult = np.array([], dtype=float)
+    dept_mult = np.array([], dtype=float)
+    option_mult = np.array([], dtype=float)
+    if len(candidate_idxs) > 0:
+        if "global_weight" in df.columns:
+            global_w = df["global_weight"].to_numpy(dtype=float)
+            global_mult = 1.0 + alpha * global_w[candidate_idxs]
+        else:
+            global_mult = np.ones(len(candidate_idxs), dtype=float)
+        weighted_scores = sims_raw[candidate_idxs] * global_mult
 
-    # Same-department boost (course search only): profile program code vs course subject prefix;
-    # see _SAME_DEPT_SEARCH_BOOST_PROGRAM_TO_SUBJECT_PREFIXES — not used elsewhere.
-    user_dept = (filters or {}).get("user_department")
-    subject_prefixes = _subject_prefixes_for_same_dept_search_boost(
-        str(user_dept) if user_dept else ""
-    )
-    if subject_prefixes and len(candidate_idxs) > 0:
-        codes = df["courseCode"].iloc[candidate_idxs]
-        same_dept = np.array(
-            [_get_course_dept(str(c)) in subject_prefixes for c in codes],
-            dtype=float,
+        user_dept = (filters or {}).get("user_department")
+        subject_prefixes = _subject_prefixes_for_same_dept_search_boost(
+            str(user_dept) if user_dept else ""
         )
-        weighted_scores = weighted_scores * (1.0 + same_department_boost * same_dept)
+        if subject_prefixes:
+            codes_cd = df["courseCode"].iloc[candidate_idxs]
+            same_dept = np.array(
+                [_get_course_dept(str(c)) in subject_prefixes for c in codes_cd],
+                dtype=float,
+            )
+            dept_mult = 1.0 + same_department_boost * same_dept
+        else:
+            dept_mult = np.ones(len(candidate_idxs), dtype=float)
+        weighted_scores = weighted_scores * dept_mult
 
-    # Option-completion boost: tiered by option + list progress (multiplier per course)
-    option_boost = (filters or {}).get("option_boost_multipliers") or {}
-    if option_boost and len(candidate_idxs) > 0:
-        codes = df['courseCode'].iloc[candidate_idxs]
-        norm = lambda c: (str(c) or "").strip().upper().replace(" ", "")
-        mults = np.array([option_boost.get(norm(c), 1.0) for c in codes], dtype=float)
-        weighted_scores = weighted_scores * mults
+        option_boost_map = (filters or {}).get("option_boost_multipliers") or {}
+        if option_boost_map:
+            codes_ob = df["courseCode"].iloc[candidate_idxs]
+            norm_c = lambda c: (str(c) or "").strip().upper().replace(" ", "")
+            option_mult = np.array(
+                [option_boost_map.get(norm_c(c), 1.0) for c in codes_ob],
+                dtype=float,
+            )
+        else:
+            option_mult = np.ones(len(candidate_idxs), dtype=float)
+        weighted_scores = weighted_scores * option_mult
+    else:
+        weighted_scores = np.array([], dtype=float)
 
     if len(candidate_idxs) > 0:
         order = np.argsort(-weighted_scores)
         candidate_idxs = candidate_idxs[order]
         weighted_scores = weighted_scores[order]
+        global_mult = global_mult[order]
+        dept_mult = dept_mult[order]
+        option_mult = option_mult[order]
 
     # Keep final top_k after weighting re-rank
     idxs = candidate_idxs[:top_k]
     final_scores = weighted_scores[:top_k]
+    global_mult_k = global_mult[:top_k] if len(global_mult) else np.array([])
+    dept_mult_k = dept_mult[:top_k] if len(dept_mult) else np.array([])
+    option_mult_k = option_mult[:top_k] if len(option_mult) else np.array([])
 
     # Build result DataFrame
-    result = df.iloc[idxs][['courseCode', 'title', 'description']].copy()
+    result = df.iloc[idxs][["courseCode", "title", "description"]].copy()
     # Expose both: raw similarity (retrieval) and final weighted similarity (ranking)
-    result['similarity_raw'] = sims_raw[idxs]
-    result['similarity_raw'] = np.nan_to_num(result['similarity_raw'], nan=0.0, posinf=0.0, neginf=0.0)
-    result['similarity'] = final_scores
-    result['similarity'] = np.nan_to_num(result['similarity'], nan=0.0, posinf=0.0, neginf=0.0)
-    
+    result["similarity_raw"] = sims_raw[idxs]
+    result["similarity_raw"] = np.nan_to_num(
+        result["similarity_raw"], nan=0.0, posinf=0.0, neginf=0.0
+    )
+    result["similarity"] = final_scores
+    result["similarity"] = np.nan_to_num(result["similarity"], nan=0.0, posinf=0.0, neginf=0.0)
+    if len(idxs) > 0:
+        result["score_semantic"] = semantic[idxs].astype(np.float64)
+        result["score_title_boost"] = title_boost[idxs].astype(np.float64)
+        result["score_global_mult"] = global_mult_k.astype(np.float64)
+        result["score_dept_mult"] = dept_mult_k.astype(np.float64)
+        result["score_option_mult"] = option_mult_k.astype(np.float64)
+
     # Final filter: ensure semantic relevance threshold on raw similarity (same as pre-weight cutoff)
-    result = result[result['similarity_raw'] >= min_similarity]
-    
-    print(f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s")
+    result = result[result["similarity_raw"] >= min_similarity]
+
+    print(
+        f"[recommend_cosine] Vectorization: {t1-t0:.4f}s, Cosine: {t2-t1:.4f}s, "
+        f"Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s"
+    )
+    print(len(result))
+    return result
+
+
+def recommend_dense(
+    query,
+    dense_model,
+    dense_emb_norm,
+    df,
+    filters=None,
+    top_k=30,
+    min_similarity=None,
+    ranking_weights=None,
+):
+    """Course search using sentence-transformer cosine similarity + same re-ranking as ``recommend_cosine``."""
+    ranking_weights = ranking_weights or {}
+    default_ranking = DEFAULT_SEARCH_WEIGHTS["ranking"]
+    full_query_title_boost = ranking_weights.get(
+        "full_query_title_boost", default_ranking["full_query_title_boost"]
+    )
+    phrase_title_boost = ranking_weights.get("phrase_title_boost", default_ranking["phrase_title_boost"])
+    title_word_boost_per_overlap = ranking_weights.get(
+        "title_word_boost_per_overlap",
+        default_ranking["title_word_boost_per_overlap"],
+    )
+    title_word_boost_cap = ranking_weights.get(
+        "title_word_boost_cap", default_ranking["title_word_boost_cap"]
+    )
+    alpha = ranking_weights.get("alpha", default_ranking["alpha"])
+    same_department_boost = ranking_weights.get(
+        "same_department_boost", default_ranking["same_department_boost"]
+    )
+    if min_similarity is None:
+        min_similarity = ranking_weights.get("min_similarity_cutoff", MIN_SIMILARITY_CUTOFF)
+    filters_applied = _apply_course_filters(filters, df)
+
+    t0 = time.time()
+    q_emb = dense_model.encode(
+        [query],
+        convert_to_numpy=True,
+        normalize_embeddings=True,
+    )
+    q_norm = q_emb[0]
+    t1 = time.time()
+    semantic = np.dot(dense_emb_norm, q_norm)
+    semantic = np.nan_to_num(semantic, nan=0.0, posinf=0.0, neginf=0.0)
+
+    title_lower = df["title"].str.lower()
+    query_lower = query.lower().strip()
+    title_boost = np.zeros(len(df), dtype=float)
+    if query_lower:
+        phrase_mask = title_lower.str.contains(query_lower, regex=False)
+        title_boost = title_boost + full_query_title_boost * phrase_mask.astype(float)
+    for phrase in _query_phrases(query):
+        if len(phrase) > 1:
+            title_boost = title_boost + phrase_title_boost * title_lower.str.contains(
+                phrase, regex=False
+            ).astype(float)
+    title_boost = title_boost + _title_word_boost(
+        query,
+        df["title"],
+        per_overlap=title_word_boost_per_overlap,
+        cap=title_word_boost_cap,
+    )
+    title_boost = np.nan_to_num(title_boost, nan=0.0, posinf=0.0, neginf=0.0)
+    sims_raw = semantic + title_boost
+
+    t2 = time.time()
+
+    if filters_applied:
+        mask = df["courseCode"].isin(filters_applied)
+        filtered_idxs = np.where(mask)[0]
+        sims_filtered = sims_raw[filtered_idxs]
+        retrieval_k = min(len(sims_filtered), max(top_k * 5, top_k))
+        if retrieval_k < len(sims_filtered):
+            idxs_in_filtered = np.argpartition(-sims_filtered, retrieval_k)[:retrieval_k]
+            idxs_in_filtered = idxs_in_filtered[np.argsort(-sims_filtered[idxs_in_filtered])]
+        else:
+            idxs_in_filtered = np.argsort(-sims_filtered)
+        candidate_idxs = filtered_idxs[idxs_in_filtered]
+    else:
+        sims_all = sims_raw
+        retrieval_k = min(len(sims_all), max(top_k * 5, top_k))
+        if retrieval_k < len(sims_all):
+            candidate_idxs = np.argpartition(-sims_all, retrieval_k)[:retrieval_k]
+            candidate_idxs = candidate_idxs[np.argsort(-sims_all[candidate_idxs])]
+        else:
+            candidate_idxs = np.argsort(-sims_all)
+    t3 = time.time()
+
+    if len(candidate_idxs) > 0:
+        above_cutoff = sims_raw[candidate_idxs] >= min_similarity
+        candidate_idxs = candidate_idxs[above_cutoff]
+
+    global_mult = np.array([], dtype=float)
+    dept_mult = np.array([], dtype=float)
+    option_mult = np.array([], dtype=float)
+    if len(candidate_idxs) > 0:
+        if "global_weight" in df.columns:
+            global_w = df["global_weight"].to_numpy(dtype=float)
+            global_mult = 1.0 + alpha * global_w[candidate_idxs]
+        else:
+            global_mult = np.ones(len(candidate_idxs), dtype=float)
+        weighted_scores = sims_raw[candidate_idxs] * global_mult
+
+        user_dept = (filters or {}).get("user_department")
+        subject_prefixes = _subject_prefixes_for_same_dept_search_boost(
+            str(user_dept) if user_dept else ""
+        )
+        if subject_prefixes:
+            codes_cd = df["courseCode"].iloc[candidate_idxs]
+            same_dept = np.array(
+                [_get_course_dept(str(c)) in subject_prefixes for c in codes_cd],
+                dtype=float,
+            )
+            dept_mult = 1.0 + same_department_boost * same_dept
+        else:
+            dept_mult = np.ones(len(candidate_idxs), dtype=float)
+        weighted_scores = weighted_scores * dept_mult
+
+        option_boost_map = (filters or {}).get("option_boost_multipliers") or {}
+        if option_boost_map:
+            codes_ob = df["courseCode"].iloc[candidate_idxs]
+            norm_c = lambda c: (str(c) or "").strip().upper().replace(" ", "")
+            option_mult = np.array(
+                [option_boost_map.get(norm_c(c), 1.0) for c in codes_ob],
+                dtype=float,
+            )
+        else:
+            option_mult = np.ones(len(candidate_idxs), dtype=float)
+        weighted_scores = weighted_scores * option_mult
+    else:
+        weighted_scores = np.array([], dtype=float)
+
+    if len(candidate_idxs) > 0:
+        order = np.argsort(-weighted_scores)
+        candidate_idxs = candidate_idxs[order]
+        weighted_scores = weighted_scores[order]
+        global_mult = global_mult[order]
+        dept_mult = dept_mult[order]
+        option_mult = option_mult[order]
+
+    idxs = candidate_idxs[:top_k]
+    final_scores = weighted_scores[:top_k]
+    global_mult_k = global_mult[:top_k] if len(global_mult) else np.array([])
+    dept_mult_k = dept_mult[:top_k] if len(dept_mult) else np.array([])
+    option_mult_k = option_mult[:top_k] if len(option_mult) else np.array([])
+
+    result = df.iloc[idxs][["courseCode", "title", "description"]].copy()
+    result["similarity_raw"] = sims_raw[idxs]
+    result["similarity_raw"] = np.nan_to_num(
+        result["similarity_raw"], nan=0.0, posinf=0.0, neginf=0.0
+    )
+    result["similarity"] = final_scores
+    result["similarity"] = np.nan_to_num(result["similarity"], nan=0.0, posinf=0.0, neginf=0.0)
+    if len(idxs) > 0:
+        result["score_semantic"] = semantic[idxs].astype(np.float64)
+        result["score_title_boost"] = title_boost[idxs].astype(np.float64)
+        result["score_global_mult"] = global_mult_k.astype(np.float64)
+        result["score_dept_mult"] = dept_mult_k.astype(np.float64)
+        result["score_option_mult"] = option_mult_k.astype(np.float64)
+
+    result = result[result["similarity_raw"] >= min_similarity]
+
+    print(
+        f"[recommend_dense] Encode: {t1-t0:.4f}s, Sim+title: {t2-t1:.4f}s, "
+        f"Top-k: {t3-t2:.4f}s, Total: {t3-t0:.4f}s"
+    )
     print(len(result))
     return result
 

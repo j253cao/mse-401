@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from enum import Enum
 import json
@@ -90,6 +90,8 @@ def _enrich_results_with_deps(results: List[Dict[str, Any]], deps_lookup: Dict) 
             "coreqs": dep_info.get("coreqs"),
             "antireqs": dep_info.get("antireqs"),
         }
+        if r.get("score_breakdown") is not None:
+            base_course["score_breakdown"] = r["score_breakdown"]
         enriched.append(_enrich_course_with_programs(base_course))
     return enriched
 
@@ -459,6 +461,10 @@ class CourseLevel(str, Enum):
 class QueryRequest(BaseModel):
     queries: List[str]
     filters: Optional[Dict[str, Any]] = None
+    method: Optional[str] = Field(
+        default="cosine",
+        description="Semantic search backend: 'cosine' (TF-IDF+SVD) or 'dense' (sentence-transformer).",
+    )
 
 
 @app.get("/health")
@@ -594,16 +600,22 @@ def recommend(request: QueryRequest):
 
     # Semantic search for remaining queries
     if queries_for_semantic:
+        search_method = (request.method or "cosine").strip().lower()
+        if search_method not in ("cosine", "dense"):
+            raise HTTPException(
+                status_code=400,
+                detail="method must be 'cosine' or 'dense'",
+            )
         results = get_recommendations(
             queries_for_semantic,
             data_file="course-api-new-data.json",
-            method="cosine",
+            method=search_method,
             filters=filters,
         )
 
         for q, q_results in zip(queries_for_semantic, results):
-            cosine_results = [r for r in q_results if r["method"] == "cosine"]
-            formatted[q] = _enrich_results_with_deps(cosine_results, deps_lookup)
+            method_results = [r for r in q_results if r["method"] == search_method]
+            formatted[q] = _enrich_results_with_deps(method_results, deps_lookup)
 
     return {"results": formatted}
 
@@ -684,8 +696,10 @@ def resume_recommend(
                 "coreqs": dep_info.get("coreqs"),
                 "antireqs": dep_info.get("antireqs"),
             }
+            if r.get("score_breakdown") is not None:
+                base_course["score_breakdown"] = r["score_breakdown"]
             formatted.append(_enrich_course_with_programs(base_course))
-        
+
         return formatted
     finally:
         os.remove(tmp_path)
