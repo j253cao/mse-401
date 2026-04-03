@@ -1,0 +1,241 @@
+﻿query_id,query_text,method,rank,course_code,title,score
+S1,machine learning and neural networks for engineering applications,cosine,1,MSE446,Introduction to Machine Learning,3.029873086681005
+S1,machine learning and neural networks for engineering applications,cosine,2,MSE546,Advanced Machine Learning,1.4846843041084368
+S1,machine learning and neural networks for engineering applications,cosine,3,CIVE341,Transportation Engineering Applications,1.453268700501981
+S1,machine learning and neural networks for engineering applications,cosine,4,CIVE354,Geotechnical Engineering 2,1.315779964974547
+S1,machine learning and neural networks for engineering applications,cosine,5,ECE657D,Neural Networks and Deep Learning,1.2227732299897782
+S1,machine learning and neural networks for engineering applications,keyword_overlap,1,PHYS449,Machine Learning in Physics,2.8577380332470415
+S1,machine learning and neural networks for engineering applications,keyword_overlap,2,CS317W,Software Engineering,2.1213203435596424
+S1,machine learning and neural networks for engineering applications,keyword_overlap,3,SYDE760,Topics in Engineering Design,1.7320508075688774
+S1,machine learning and neural networks for engineering applications,keyword_overlap,4,CIVE700,Topics in Structural Engineering,1.7320508075688774
+S1,machine learning and neural networks for engineering applications,keyword_overlap,5,CIVE750,Topics in Geotechnical Engineering,1.7320508075688774
+S2,heat transfer and thermodynamics in mechanical systems,cosine,1,ME353,Heat Transfer 1,3.401548724438772
+S2,heat transfer and thermodynamics in mechanical systems,cosine,2,MTE309,Introduction to Thermodynamics and Heat Transfer,2.0260626249689127
+S2,heat transfer and thermodynamics in mechanical systems,cosine,3,ME250,Thermodynamics 1,1.929762854936223
+S2,heat transfer and thermodynamics in mechanical systems,cosine,4,ECE224,Embedded Microprocessor Systems,1.3917518768528727
+S2,heat transfer and thermodynamics in mechanical systems,cosine,5,ME456,Heat Transfer 2,1.3345266222596914
+S2,heat transfer and thermodynamics in mechanical systems,keyword_overlap,1,SI4XX,SI Transfer Credit,2.1213203435596424
+S2,heat transfer and thermodynamics in mechanical systems,keyword_overlap,2,SI1XX,SI Transfer Credit,2.1213203435596424
+S2,heat transfer and thermodynamics in mechanical systems,keyword_overlap,3,SI2XX,SI Transfer Credit,2.1213203435596424
+S2,heat transfer and thermodynamics in mechanical systems,keyword_overlap,4,SI3XX,SI Transfer Credit,2.1213203435596424
+S2,heat transfer and thermodynamics in mechanical systems,keyword_overlap,5,JS2XX,JS Transfer Credit,2.1213203435596424
+S3,digital logic design and computer architecture,cosine,1,ME262,Introduction to Microprocessors and Digital Logic,1.6786039583589463
+S3,digital logic design and computer architecture,cosine,2,SYDE192,Digital Systems,1.6772025743956416
+S3,digital logic design and computer architecture,cosine,3,MTE262,Introduction to Digital Logic,1.5758375290060602
+S3,digital logic design and computer architecture,cosine,4,CIVE414,Structural Concrete Design,1.5142377764494472
+S3,digital logic design and computer architecture,cosine,5,BME393,Digital Systems,1.4179799489313498
+S3,digital logic design and computer architecture,keyword_overlap,1,ENGL798,Digital Design,4.242640687119285
+S3,digital logic design and computer architecture,keyword_overlap,2,CS869,Advanced Topics in Logic Design,3.0
+S3,digital logic design and computer architecture,keyword_overlap,3,CS850,Advanced Topics  in Computer Architecture,3.0
+S3,digital logic design and computer architecture,keyword_overlap,4,ENGL794,Digital Culture,2.1213203435596424
+S3,digital logic design and computer architecture,keyword_overlap,5,PMATH930,Topics in Logic,2.1213203435596424
+S4,"materials science: microstructure, phase diagrams, mechanical properties",cosine,1,ME230,Control of Properties of Materials,2.596837843225672
+S4,"materials science: microstructure, phase diagrams, mechanical properties",cosine,2,NE125,Introduction to Materials Science and Engineering,1.9991034478107577
+S4,"materials science: microstructure, phase diagrams, mechanical properties",cosine,3,ME115,Structure and Properties of Materials,1.6985173875437163
+S4,"materials science: microstructure, phase diagrams, mechanical properties",cosine,4,ECE109,Materials Chemistry for Engineers,1.6750756272536913
+S4,"materials science: microstructure, phase diagrams, mechanical properties",cosine,5,CHE541,Introduction to Polymer Science and Properties,1.656249237377755
+S4,"materials science: microstructure, phase diagrams, mechanical properties",keyword_overlap,1,ME736,Topics in Mechanical Metallurgy,1.7320508075688774
+S4,"materials science: microstructure, phase diagrams, mechanical properties",keyword_overlap,2,ME738,Special Topics in Materials,1.7320508075688774
+S4,"materials science: microstructure, phase diagrams, mechanical properties",keyword_overlap,3,ARCHL344W,Archaeological Science (WLU),1.7320508075688774
+S4,"materials science: microstructure, phase diagrams, mechanical properties",keyword_overlap,4,CIVE265,Structure and Properties of Materials,1.5434872662825794
+S4,"materials science: microstructure, phase diagrams, mechanical properties",keyword_overlap,5,ACTSC870,Short Course in Actuarial Science,1.5
+S5,fluid mechanics and aerodynamics,cosine,1,ME351,Fluid Mechanics 1,3.5540164640238636
+S5,fluid mechanics and aerodynamics,cosine,2,ME362,Fluid Mechanics 2,3.229269268827603
+S5,fluid mechanics and aerodynamics,cosine,3,CIVE280,Fluid Mechanics,3.1990951722534358
+S5,fluid mechanics and aerodynamics,cosine,4,GEOE280,Fluid Mechanics,2.9363312681956235
+S5,fluid mechanics and aerodynamics,cosine,5,ENVE280,Fluid Mechanics,2.6911465305453257
+S5,fluid mechanics and aerodynamics,keyword_overlap,1,CIVE701,Topics in Mechanics,2.1213203435596424
+S5,fluid mechanics and aerodynamics,keyword_overlap,2,AMATH463,Fluid Mechanics,1.7320508075688774
+S5,fluid mechanics and aerodynamics,keyword_overlap,3,ME720,Special Topics in Solid Mechanics,1.5
+S5,fluid mechanics and aerodynamics,keyword_overlap,4,PHYS141W,Mechanics for the Life Sciences (WLU),1.5
+S5,fluid mechanics and aerodynamics,keyword_overlap,5,ME765,Special Topics in Fluid Mechanics,1.2649110640673518
+S6,"signals and systems, Fourier analysis, DSP",cosine,1,ECE207,Signals and Systems,3.117093530080042
+S6,"signals and systems, Fourier analysis, DSP",cosine,2,SYDE252,Linear Systems and Signals,2.868840818540424
+S6,"signals and systems, Fourier analysis, DSP",cosine,3,BME252,Linear Systems and Signals,2.4141177018738107
+S6,"signals and systems, Fourier analysis, DSP",cosine,4,ECE380,Analog Control Systems,2.0576076784720514
+S6,"signals and systems, Fourier analysis, DSP",cosine,5,ECE124,Digital Circuits and Systems,1.536844304225439
+S6,"signals and systems, Fourier analysis, DSP",keyword_overlap,1,ECE207,Signals and Systems,2.138089935299395
+S6,"signals and systems, Fourier analysis, DSP",keyword_overlap,2,ENGL790,Discourse Analysis,2.1213203435596424
+S6,"signals and systems, Fourier analysis, DSP",keyword_overlap,3,PMATH950,Topics in Analysis,2.1213203435596424
+S6,"signals and systems, Fourier analysis, DSP",keyword_overlap,4,GEOG361W,Spatial Analysis,2.1213203435596424
+S6,"signals and systems, Fourier analysis, DSP",keyword_overlap,5,GER613,Topics in Discourse Analysis,1.7320508075688774
+S7,finite element analysis and structural mechanics,cosine,1,ME219,Mechanics of Deformable Solids 1,2.1964416631533275
+S7,finite element analysis and structural mechanics,cosine,2,ME559,Finite Element Methods,1.8933893237173753
+S7,finite element analysis and structural mechanics,cosine,3,CIVE105,Mechanics 2,1.889886774081546
+S7,finite element analysis and structural mechanics,cosine,4,AE303,Structural Analysis,1.8608661713823171
+S7,finite element analysis and structural mechanics,cosine,5,ME321,Dynamics of Machines and Mechanical Vibrations,1.8136973815984747
+S7,finite element analysis and structural mechanics,keyword_overlap,1,ENGL790,Discourse Analysis,2.1213203435596424
+S7,finite element analysis and structural mechanics,keyword_overlap,2,CIVE701,Topics in Mechanics,2.1213203435596424
+S7,finite element analysis and structural mechanics,keyword_overlap,3,PMATH950,Topics in Analysis,2.1213203435596424
+S7,finite element analysis and structural mechanics,keyword_overlap,4,GEOG361W,Spatial Analysis,2.1213203435596424
+S7,finite element analysis and structural mechanics,keyword_overlap,5,CIVE700,Topics in Structural Engineering,1.7320508075688774
+S8,chemistry of polymers and composite materials,cosine,1,ECE109,Materials Chemistry for Engineers,2.835241164872825
+S8,chemistry of polymers and composite materials,cosine,2,CHE102,Chemistry for Engineers,2.802049355182111
+S8,chemistry of polymers and composite materials,cosine,3,BME186,Chemistry Principles,1.7845017942466075
+S8,chemistry of polymers and composite materials,cosine,4,NE125,Introduction to Materials Science and Engineering,1.4907902389451653
+S8,chemistry of polymers and composite materials,cosine,5,NE222,Organic Chemistry for Nanotechnology Engineers,1.405930210977781
+S8,chemistry of polymers and composite materials,keyword_overlap,1,ME738,Special Topics in Materials,1.7320508075688774
+S8,chemistry of polymers and composite materials,keyword_overlap,2,CHEM212W,Physical Chemistry (WLU),1.7320508075688774
+S8,chemistry of polymers and composite materials,keyword_overlap,3,CHEM226W,Inorganic Chemistry II (WLU),1.7320508075688774
+S8,chemistry of polymers and composite materials,keyword_overlap,4,CHEM120W,Introductory Chemistry(WLU),1.7320508075688774
+S8,chemistry of polymers and composite materials,keyword_overlap,5,CHEM111W,Fundamentals of Chemistry II (WLU),1.7320508075688774
+S9,probability and statistics for data-driven design,cosine,1,NE215,Probability and Statistics,4.440002199723832
+S9,probability and statistics for data-driven design,cosine,2,ENVE224,Probability and Statistics,3.9270956866176907
+S9,probability and statistics for data-driven design,cosine,3,AE224,Probability and Statistics,3.846417984960022
+S9,probability and statistics for data-driven design,cosine,4,ECE203,Probability Theory and Statistics 1,3.7965578399713658
+S9,probability and statistics for data-driven design,cosine,5,SYDE212,Probability and Statistics,3.6783850382006222
+S9,probability and statistics for data-driven design,keyword_overlap,1,STAT890,Topics in Statistics,2.1213203435596424
+S9,probability and statistics for data-driven design,keyword_overlap,2,STAT891,Topics in Probability,2.1213203435596424
+S9,probability and statistics for data-driven design,keyword_overlap,3,ENGL798,Digital Design,2.1213203435596424
+S9,probability and statistics for data-driven design,keyword_overlap,4,STAT946,Topics in Probability and Statistics,1.7888543819998317
+S9,probability and statistics for data-driven design,keyword_overlap,5,ECON310IW,Market Design (WLU),1.7320508075688774
+S10,control systems and feedback for robotics,cosine,1,ME360,Introduction to Control Systems,4.086962802502724
+S10,control systems and feedback for robotics,cosine,2,ECE380,Analog Control Systems,4.05321581040964
+S10,control systems and feedback for robotics,cosine,3,SYDE352,Introduction to Control Systems,3.268294980392974
+S10,control systems and feedback for robotics,cosine,4,MTE360,Automatic Control Systems,2.8681096140650553
+S10,control systems and feedback for robotics,cosine,5,SE380,Introduction to Feedback Control,1.9914675007829274
+S10,control systems and feedback for robotics,keyword_overlap,1,ME710,Special Topics in Control Systems,3.0
+S10,control systems and feedback for robotics,keyword_overlap,2,SYDE750,Topics in Systems Modelling,1.7320508075688774
+S10,control systems and feedback for robotics,keyword_overlap,3,ECE780,Special Topics in Control,1.7320508075688774
+S10,control systems and feedback for robotics,keyword_overlap,4,BME356L,Control Systems Laboratory,1.5118578920369088
+S10,control systems and feedback for robotics,keyword_overlap,5,SYDE352L,Control Systems Laboratory,1.5118578920369088
+S11,"circuits, electronics, and embedded systems",cosine,1,ECE380,Analog Control Systems,2.1178797948653147
+S11,"circuits, electronics, and embedded systems",cosine,2,ECE252,Systems Programming and Concurrency,1.9950601009048694
+S11,"circuits, electronics, and embedded systems",cosine,3,ECE124,Digital Circuits and Systems,1.9678713566167993
+S11,"circuits, electronics, and embedded systems",cosine,4,ECE224,Embedded Microprocessor Systems,1.8112291880176787
+S11,"circuits, electronics, and embedded systems",cosine,5,ECE474,Radio and Wireless Systems,0.9839920593167355
+S11,"circuits, electronics, and embedded systems",keyword_overlap,1,SYDE750,Topics in Systems Modelling,1.7320508075688774
+S11,"circuits, electronics, and embedded systems",keyword_overlap,2,SYDE740,Selected Topics in Human Systems,1.5
+S11,"circuits, electronics, and embedded systems",keyword_overlap,3,CS854,Advanced Topics in Computer Systems,1.5
+S11,"circuits, electronics, and embedded systems",keyword_overlap,4,ECE740,Special Topics in Electronic Circuits,1.5
+S11,"circuits, electronics, and embedded systems",keyword_overlap,5,ME710,Special Topics in Control Systems,1.5
+S12,optimization and operations research,cosine,1,CHE521,Process Optimization,2.1502011774425602
+S12,optimization and operations research,cosine,2,MSE603,Principles of Operations Research,1.8676462153113784
+S12,optimization and operations research,cosine,3,MSE634,Deterministic Models in Operations Research,1.8129419471314547
+S12,optimization and operations research,cosine,4,MSE332,Deterministic Optimization Models and Methods,1.6934765006605186
+S12,optimization and operations research,cosine,5,MSE232,Modelling in Operations Research,1.6444249200318042
+S12,optimization and operations research,keyword_overlap,1,CO779,Topics in Operations Research,3.464101615137755
+S12,optimization and operations research,keyword_overlap,2,CO771,Mathematical Operations Research,3.464101615137755
+S12,optimization and operations research,keyword_overlap,3,BUS480RW,Independent Research (WLU),1.7320508075688774
+S12,optimization and operations research,keyword_overlap,4,BUS480NW,Independent Research (WLU),1.7320508075688774
+S12,optimization and operations research,keyword_overlap,5,BUS480IW,Independent Research (WLU),1.7320508075688774
+N1,ethics of technology and engineering in society,cosine,1,CIVE354,Geotechnical Engineering 2,1.8448488359628321
+N1,ethics of technology and engineering in society,cosine,2,CIVE491,Engineering Law and Ethics,1.5916077702325433
+N1,ethics of technology and engineering in society,cosine,3,CHE561,Biomaterials and Tissue Engineering,1.5161024402171532
+N1,ethics of technology and engineering in society,cosine,4,BME381,Biomedical Engineering Ethics,1.4572360692209838
+N1,ethics of technology and engineering in society,cosine,5,ECE192,Engineering Economics and Impact on Society,1.449983620324009
+N1,ethics of technology and engineering in society,keyword_overlap,1,COMST213W,Technology and Society (WLU),3.464101615137755
+N1,ethics of technology and engineering in society,keyword_overlap,2,CS317W,Software Engineering,2.1213203435596424
+N1,ethics of technology and engineering in society,keyword_overlap,3,BUS492JW,Marketing & Society (WLU),1.7320508075688774
+N1,ethics of technology and engineering in society,keyword_overlap,4,SYDE760,Topics in Engineering Design,1.7320508075688774
+N1,ethics of technology and engineering in society,keyword_overlap,5,CIVE700,Topics in Structural Engineering,1.7320508075688774
+N2,professional communication and technical writing for engineers,cosine,1,ECE206,Adv Calculus 2 for Electrical Engineers,1.670006365967411
+N2,professional communication and technical writing for engineers,cosine,2,ECE205,Advanced Calculus 1 for Electrical and Computer Engineers,1.580864404568031
+N2,professional communication and technical writing for engineers,cosine,3,ME202,Statistics for Engineers,1.369850532547916
+N2,professional communication and technical writing for engineers,cosine,4,CHE102,Chemistry for Engineers,1.3353882996824706
+N2,professional communication and technical writing for engineers,cosine,5,NE112,Linear Algebra for Nanotechnology Engineers,1.197616171320056
+N2,professional communication and technical writing for engineers,keyword_overlap,1,ENGL791,Professional Writing,4.242640687119285
+N2,professional communication and technical writing for engineers,keyword_overlap,2,ENGL493,Topics in Professional Writing and Communication Design,2.4961508830135313
+N2,professional communication and technical writing for engineers,keyword_overlap,3,ENGL789,Writing Studies,2.1213203435596424
+N2,professional communication and technical writing for engineers,keyword_overlap,4,COMST206W,Public Communication (WLU),1.7320508075688774
+N2,professional communication and technical writing for engineers,keyword_overlap,5,BIOL407W,Animal Communication (WLU),1.7320508075688774
+N3,psychology of decision making and human factors,cosine,1,MSE452,Decision Making Under Uncertainty,1.886289837500326
+N3,psychology of decision making and human factors,cosine,2,BME162,Human Factors in the Design of Biomedical and Health Systems,1.827985544286055
+N3,psychology of decision making and human factors,cosine,3,ENVE335,Decision Making for Environmental Engineers,1.7469956380575071
+N3,psychology of decision making and human factors,cosine,4,SYDE162,Human Factors in Design,1.6126390636900751
+N3,psychology of decision making and human factors,cosine,5,MSE343,Human-Computer Interaction,1.4575290785159347
+N3,psychology of decision making and human factors,keyword_overlap,1,HBIO210W,Human Anatomy,2.1213203435596424
+N3,psychology of decision making and human factors,keyword_overlap,2,PSYCH640,Special Topics in Psychology,1.7320508075688774
+N3,psychology of decision making and human factors,keyword_overlap,3,PLCG200W,Police Psychology (WLU),1.7320508075688774
+N3,psychology of decision making and human factors,keyword_overlap,4,PSYCH100W,Introduction to Psychology (WLU),1.7320508075688774
+N3,psychology of decision making and human factors,keyword_overlap,5,PSYCH280W,Abnormal Psychology (WLU),1.7320508075688774
+N4,economics of innovation and public policy,cosine,1,CIVE392,Economics and Life Cycle Cost Analysis,1.1850335055690617
+N4,economics of innovation and public policy,cosine,2,GEOE392,Economics and Life Cycle Cost Analysis,1.168937951395122
+N4,economics of innovation and public policy,cosine,3,ENVE392,Economics and Life Cycle Cost Analysis,1.1222605064487845
+N4,economics of innovation and public policy,cosine,4,AE392,Economics and Life Cycle Cost Analysis,1.072264899041947
+N4,economics of innovation and public policy,cosine,5,MSE261,Engineering Economics: Financial Management for Engineers,1.018333908955352
+N4,economics of innovation and public policy,keyword_overlap,1,HIST651,Historians and Public Policy,3.464101615137755
+N4,economics of innovation and public policy,keyword_overlap,2,ECON233W,Public Economics: Expenditure (WLU),3.0
+N4,economics of innovation and public policy,keyword_overlap,3,ECON313W,Public Economics:Taxation (WLU),3.0
+N4,economics of innovation and public policy,keyword_overlap,4,PSCI635,Directed Readings in Public Policy and Administration,2.6832815729997477
+N4,economics of innovation and public policy,keyword_overlap,5,PLCG206W,Public Safety Policy Analysis (WLU),2.6832815729997477
+N5,history of science and technology,cosine,1,MSE311,Organizational Design and Technology,1.4836370291301022
+N5,history of science and technology,cosine,2,NE125,Introduction to Materials Science and Engineering,0.9031301574245996
+N5,history of science and technology,cosine,3,CIVE507,Building Science and Technology,0.8777366656013004
+N5,history of science and technology,cosine,4,CHE740,Special Topics in Polymer Science and Engineering,0.8094522449336151
+N5,history of science and technology,cosine,5,NE343,Microfabrication and Thin-Film Technology,0.7649808679362611
+N5,history of science and technology,keyword_overlap,1,ANTH347W,"Science, Technology, & Culture (WLU)",3.0
+N5,history of science and technology,keyword_overlap,2,ENGL793,History of Rhetoric,2.1213203435596424
+N5,history of science and technology,keyword_overlap,3,HIST602,Canadian History II,2.1213203435596424
+N5,history of science and technology,keyword_overlap,4,HIST601,Canadian History I,2.1213203435596424
+N5,history of science and technology,keyword_overlap,5,HIST633,History of the United States II,1.7320508075688774
+N6,"sustainability, environmental policy, and climate justice",cosine,1,ENVE335,Decision Making for Environmental Engineers,0.7609496674385893
+N6,"sustainability, environmental policy, and climate justice",cosine,2,AE225,Environmental Building Systems Studio,0.6291937118922755
+N6,"sustainability, environmental policy, and climate justice",cosine,3,CIVE375,Environmental Engineering Principles,0.5563599209740933
+N6,"sustainability, environmental policy, and climate justice",cosine,4,CIVE770,Topics in Environmental Engineering,0.48564048256844317
+N6,"sustainability, environmental policy, and climate justice",cosine,5,SYDE730,Selected Topics in Societal-Environmental Systems,0.475013198697334
+N6,"sustainability, environmental policy, and climate justice",keyword_overlap,1,CIVE770,Topics in Environmental Engineering,1.7320508075688774
+N6,"sustainability, environmental policy, and climate justice",keyword_overlap,2,GGOV649,Readings in Global Justice,1.7320508075688774
+N6,"sustainability, environmental policy, and climate justice",keyword_overlap,3,HIST651,Historians and Public Policy,1.7320508075688774
+N6,"sustainability, environmental policy, and climate justice",keyword_overlap,4,CHEM234W,Environmental Aquatic (WLU),1.7320508075688774
+N6,"sustainability, environmental policy, and climate justice",keyword_overlap,5,ERS498W,Environmental Thought (WLU),1.7320508075688774
+N7,"law, regulation, and intellectual property for technology",cosine,1,MSE311,Organizational Design and Technology,1.7285747136169394
+N7,"law, regulation, and intellectual property for technology",cosine,2,ECE106,Electricity and Magnetism,1.154646074966849
+N7,"law, regulation, and intellectual property for technology",cosine,3,ECE403,Thermal Physics,1.0979846448479025
+N7,"law, regulation, and intellectual property for technology",cosine,4,CIVE491,Engineering Law and Ethics,0.9337247185500994
+N7,"law, regulation, and intellectual property for technology",cosine,5,NE343,Microfabrication and Thin-Film Technology,0.8523955218311169
+N7,"law, regulation, and intellectual property for technology",keyword_overlap,1,PSCI210W,Introduction to Law (WLU),1.7320508075688774
+N7,"law, regulation, and intellectual property for technology",keyword_overlap,2,PSCI333W,International Law (WLU),1.7320508075688774
+N7,"law, regulation, and intellectual property for technology",keyword_overlap,3,COMST213W,Technology and Society (WLU),1.7320508075688774
+N7,"law, regulation, and intellectual property for technology",keyword_overlap,4,BET700,"Topics in Business, Entrepreneurship and Technology",1.5
+N7,"law, regulation, and intellectual property for technology",keyword_overlap,5,PLCG205W,Psychology of Law Enforcement (WLU),1.5
+N8,"leadership, teamwork, and project management in organizations",cosine,1,CIVE332,Civil Systems and Project Management,2.052437260819166
+N8,"leadership, teamwork, and project management in organizations",cosine,2,GENE403,Interdisciplinary Design Project 1,1.5458046304912973
+N8,"leadership, teamwork, and project management in organizations",cosine,3,CHE482,Group Design Project,1.2709837007579763
+N8,"leadership, teamwork, and project management in organizations",cosine,4,MSE651,International Project Management,1.1994546848117873
+N8,"leadership, teamwork, and project management in organizations",cosine,5,MSE401,Management Engineering Design Project 1,1.1190550414297924
+N8,"leadership, teamwork, and project management in organizations",keyword_overlap,1,AFM444,Business Analytics Project Management,1.7320508075688774
+N8,"leadership, teamwork, and project management in organizations",keyword_overlap,2,BUS490BW,Major Project (WLU),1.7320508075688774
+N8,"leadership, teamwork, and project management in organizations",keyword_overlap,3,BUS490AW,Major Project (WLU),1.7320508075688774
+N8,"leadership, teamwork, and project management in organizations",keyword_overlap,4,BUS490W,Major Project (WLU),1.7320508075688774
+N8,"leadership, teamwork, and project management in organizations",keyword_overlap,5,BUS499W,Minor Project (WLU),1.7320508075688774
+N9,urban planning and community studies,cosine,1,MSE334,Operations Planning and Inventory Control,1.1687244448897232
+N9,urban planning and community studies,cosine,2,CIVE484,Physical Infrastructure Planning,1.1259609670073192
+N9,urban planning and community studies,cosine,3,CIVE440,Transit Planning and Operations,0.9791514224263957
+N9,urban planning and community studies,cosine,4,CIVE640,Urban Transportation Planning Models: Principles & Applications,0.8231986052765432
+N9,urban planning and community studies,cosine,5,MSE432,Production and Service Operations Management,0.6958725789976244
+N9,urban planning and community studies,keyword_overlap,1,ENGL789,Writing Studies,2.1213203435596424
+N9,urban planning and community studies,keyword_overlap,2,ENGL780,Studies in Genre,2.1213203435596424
+N9,urban planning and community studies,keyword_overlap,3,ENGL725,Studies in Romanticism,2.1213203435596424
+N9,urban planning and community studies,keyword_overlap,4,PSYCH810,Directed Studies,2.1213203435596424
+N9,urban planning and community studies,keyword_overlap,5,HIST691C,Directed Studies,2.1213203435596424
+N10,philosophy of mind and logic,cosine,1,SE212,Logic and Computation,1.5633267358702092
+N10,philosophy of mind and logic,cosine,2,ME262,Introduction to Microprocessors and Digital Logic,1.4075895295905376
+N10,philosophy of mind and logic,cosine,3,MTE262,Introduction to Digital Logic,1.2670545663986321
+N10,philosophy of mind and logic,cosine,4,ECE108,Discrete Mathematics and Logic 1,1.2598475109702365
+N10,philosophy of mind and logic,cosine,5,ECE208,Discrete Mathematics and Logic 2,1.2336404378123018
+N10,philosophy of mind and logic,keyword_overlap,1,PHIL214W,Philosophy of Mind (WLU),3.464101615137755
+N10,philosophy of mind and logic,keyword_overlap,2,PMATH930,Topics in Logic,2.1213203435596424
+N10,philosophy of mind and logic,keyword_overlap,3,PHIL220W,Indian Philosophy (WLU),1.7320508075688774
+N10,philosophy of mind and logic,keyword_overlap,4,PHIL204W,Formal Logic (WLU),1.7320508075688774
+N10,philosophy of mind and logic,keyword_overlap,5,PHIL219W,Feminist Philosophy (WLU),1.7320508075688774
+N11,Indigenous studies and reconciliation in Canada,cosine,1,CIVE153,Earth Engineering,0.5999075939242884
+N11,Indigenous studies and reconciliation in Canada,cosine,2,ECE222,Digital Computers,0.5952419661581974
+N11,Indigenous studies and reconciliation in Canada,cosine,3,GEOE153,Earth Engineering,0.5526061771911263
+N11,Indigenous studies and reconciliation in Canada,cosine,4,ENVE153,Earth Engineering,0.5240768008184516
+N11,Indigenous studies and reconciliation in Canada,cosine,5,GENE298,Special Complementary Studies Topics,0.3757192636264437
+N11,Indigenous studies and reconciliation in Canada,keyword_overlap,1,ENGL789,Writing Studies,2.1213203435596424
+N11,Indigenous studies and reconciliation in Canada,keyword_overlap,2,ENGL780,Studies in Genre,2.1213203435596424
+N11,Indigenous studies and reconciliation in Canada,keyword_overlap,3,ENGL725,Studies in Romanticism,2.1213203435596424
+N11,Indigenous studies and reconciliation in Canada,keyword_overlap,4,PSYCH810,Directed Studies,2.1213203435596424
+N11,Indigenous studies and reconciliation in Canada,keyword_overlap,5,HIST691C,Directed Studies,2.1213203435596424
+N12,film studies or creative writing elective,cosine,1,NE343,Microfabrication and Thin-Film Technology,0.5211376971707219
+N12,film studies or creative writing elective,cosine,2,CHE499,Elective Research Project,0.44068874507196665
+N12,film studies or creative writing elective,cosine,3,AE300,Architectural Engineering Studio 1,0.4145630394188064
+N12,film studies or creative writing elective,cosine,4,AE225,Environmental Building Systems Studio,0.38794013995626553
+N12,film studies or creative writing elective,cosine,5,GENE298,Special Complementary Studies Topics,0.3863710372617002
+N12,film studies or creative writing elective,keyword_overlap,1,ENGL789,Writing Studies,4.242640687119285
+N12,film studies or creative writing elective,keyword_overlap,2,ENGL272W,Introduction to Creative Writing (WLU),3.0
+N12,film studies or creative writing elective,keyword_overlap,3,FILM309W,Special Topics in Film Studies (WLU),2.6832815729997477
+N12,film studies or creative writing elective,keyword_overlap,4,ENGL791,Professional Writing,2.1213203435596424
+N12,film studies or creative writing elective,keyword_overlap,5,ENGL780,Studies in Genre,2.1213203435596424
