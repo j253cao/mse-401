@@ -463,7 +463,10 @@ class QueryRequest(BaseModel):
     filters: Optional[Dict[str, Any]] = None
     method: Optional[str] = Field(
         default="cosine",
-        description="Semantic search backend: 'cosine' (TF-IDF+SVD) or 'dense' (sentence-transformer).",
+        description=(
+            "Search backend: 'cosine', 'dense', 'hybrid_bm25_dense' (BM25+dense RRF), "
+            "'cross_encoder_rerank', or 'hybrid_rerank_graph' (cross-encoder + graph boosts)."
+        ),
     )
 
 
@@ -600,11 +603,18 @@ def recommend(request: QueryRequest):
 
     # Semantic search for remaining queries
     if queries_for_semantic:
+        _semantic_methods = (
+            "cosine",
+            "dense",
+            "hybrid_bm25_dense",
+            "cross_encoder_rerank",
+            "hybrid_rerank_graph",
+        )
         search_method = (request.method or "cosine").strip().lower()
-        if search_method not in ("cosine", "dense"):
+        if search_method not in _semantic_methods:
             raise HTTPException(
                 status_code=400,
-                detail="method must be 'cosine' or 'dense'",
+                detail=f"method must be one of: {', '.join(_semantic_methods)}",
             )
         results = get_recommendations(
             queries_for_semantic,

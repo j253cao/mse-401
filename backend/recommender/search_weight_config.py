@@ -38,6 +38,15 @@ DEFAULT_SEARCH_WEIGHTS: Dict[str, Dict[str, float]] = {
         "depth_penalty": 0.15,
         "temperature": 0.5,
     },
+    # Hybrid retrieval / cross-encoder reranking (used by recommend_* in separate modules).
+    "hybrid": {
+        "rrf_k": 60.0,
+        "rrf_weight_lexical": 1.0,
+        "rrf_weight_dense": 1.0,
+        "retrieval_k": 250.0,
+        "cross_encoder_pool": 120.0,
+        "graph_rerank_pool": 100.0,
+    },
 }
 
 

@@ -17,10 +17,11 @@ from .recommenders import (
     recommend_graph,
     recommend_fuzzy_multi,
     recommend_keyword_overlap,
-    recommend_bert,
-    recommend_hybrid_ensemble,
     recommend_filter_only,
 )
+from .recommend_bm25_dense_rrf import recommend_hybrid_bm25_dense
+from .recommend_cross_encoder_rerank import recommend_cross_encoder_rerank
+from .recommend_hybrid_rerank_graph import recommend_hybrid_rerank_graph
 from .utils import export_results_to_excel
 from .weights import (
     build_dependency_graph,
@@ -35,6 +36,7 @@ from .search_weight_config import DEFAULT_SEARCH_WEIGHTS, merge_weight_overrides
 
 # Sentence-transformer model for dense retrieval (must match dense_model_name.txt when cached)
 DEFAULT_DENSE_MODEL_NAME = "all-MiniLM-L6-v2"
+DEFAULT_CROSS_ENCODER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
 
 def get_abs_path(*parts):
@@ -54,6 +56,9 @@ _cached = {
     "dense_embeddings": None,
     "dense_emb_norm": None,
     "dense_sentence_model": None,
+    "hybrid_bundle": None,
+    "hybrid_bundle_key": None,
+    "cross_encoder": None,
 }
 _options_data_cache = None
 
@@ -67,6 +72,34 @@ def _get_dense_sentence_model():
     return _cached["dense_sentence_model"]
 
 
+def _get_cross_encoder():
+    """Lazy-load cross-encoder for ``cross_encoder_rerank`` / ``hybrid_rerank_graph``."""
+    if _cached["cross_encoder"] is None:
+        from sentence_transformers import CrossEncoder
+
+        _cached["cross_encoder"] = CrossEncoder(DEFAULT_CROSS_ENCODER_MODEL)
+    return _cached["cross_encoder"]
+
+
+def _get_hybrid_bundle(data_file: str) -> Dict[str, Any]:
+    """BM25 index + multifield texts; rebuild when catalog instance changes."""
+    from .hybrid_retrieval_common import load_prereq_snippet_map, build_bm25_index
+    from .embedding_generators import build_multifield_course_texts
+
+    df, *_ = _load_all(data_file)
+    key = (data_file, len(df))
+    if _cached.get("hybrid_bundle_key") == key and _cached.get("hybrid_bundle"):
+        return _cached["hybrid_bundle"]
+    deps_path = get_abs_path("data", "dependencies", "course_dependencies_llm.json")
+    snippets = load_prereq_snippet_map(deps_path)
+    bm25 = build_bm25_index(df, snippets)
+    texts = build_multifield_course_texts(df)
+    bundle = {"bm25": bm25, "multifield_texts": texts}
+    _cached["hybrid_bundle"] = bundle
+    _cached["hybrid_bundle_key"] = key
+    return bundle
+
+
 def _load_all(data_file):
     """Load all required data and models."""
     # Only reload if data_file changes
@@ -78,6 +111,8 @@ def _load_all(data_file):
         _cached["svd"] = None
         _cached["dense_embeddings"] = None
         _cached["dense_emb_norm"] = None
+        _cached["hybrid_bundle"] = None
+        _cached["hybrid_bundle_key"] = None
         _cached["data_file"] = data_file
     
     data_json = get_abs_path('data', 'courses', data_file)
@@ -158,6 +193,8 @@ def _load_all(data_file):
 
         _cached['df'] = df
         _cached['embeddings'] = embeddings
+        _cached["hybrid_bundle"] = None
+        _cached["hybrid_bundle_key"] = None
 
         # Pre-compute row-normalized embeddings (used by cosine similarity paths)
         norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
@@ -285,6 +322,11 @@ def get_recommendations(
             tier3=option_weights["tier3"],
         )
 
+    hybrid_bundle = _get_hybrid_bundle(data_file)
+    bm25_index = hybrid_bundle["bm25"]
+    hybrid_multifield_texts = hybrid_bundle["multifield_texts"]
+    hybrid_cfg = resolved_weights["hybrid"]
+
     _score_detail_cols = frozenset(
         {
             "score_semantic",
@@ -292,6 +334,8 @@ def get_recommendations(
             "score_global_mult",
             "score_dept_mult",
             "score_option_mult",
+            "score_rrf",
+            "score_cross_encoder",
             "similarity_raw",
         }
     )
@@ -300,13 +344,18 @@ def get_recommendations(
         if "score_semantic" not in row.index:
             return None
         try:
-            return {
+            bd: Dict[str, float] = {
                 "semantic": float(row["score_semantic"]),
                 "title_boost": float(row["score_title_boost"]),
                 "global_weight_mult": float(row["score_global_mult"]),
                 "dept_boost_mult": float(row["score_dept_mult"]),
                 "option_boost_mult": float(row["score_option_mult"]),
             }
+            if "score_rrf" in row.index:
+                bd["rrf"] = float(row["score_rrf"])
+            if "score_cross_encoder" in row.index:
+                bd["cross_encoder"] = float(row["score_cross_encoder"])
+            return bd
         except (TypeError, ValueError, KeyError):
             return None
 
@@ -340,6 +389,49 @@ def get_recommendations(
         ("graph", lambda q: recommend_graph(q, tfidf, svd, embeddings, effective_df)),
         ("fuzzy_multi", lambda q: recommend_fuzzy_multi(q, effective_df)),
         ("keyword_overlap", lambda q: recommend_keyword_overlap(q, effective_df)),
+        (
+            "hybrid_bm25_dense",
+            lambda q: recommend_hybrid_bm25_dense(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                effective_df,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+            ),
+        ),
+        (
+            "cross_encoder_rerank",
+            lambda q: recommend_cross_encoder_rerank(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                _get_cross_encoder(),
+                effective_df,
+                multifield_texts=hybrid_multifield_texts,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+            ),
+        ),
+        (
+            "hybrid_rerank_graph",
+            lambda q: recommend_hybrid_rerank_graph(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                _get_cross_encoder(),
+                effective_df,
+                multifield_texts=hybrid_multifield_texts,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+            ),
+        ),
     ]
     
     if method is not None:

@@ -52,6 +52,9 @@ ENGINEERING_DEPARTMENTS = (
 KNOWN_METHODS = (
     "cosine",
     "dense",
+    "hybrid_bm25_dense",
+    "cross_encoder_rerank",
+    "hybrid_rerank_graph",
     "faiss",
     "mmr",
     "graph",

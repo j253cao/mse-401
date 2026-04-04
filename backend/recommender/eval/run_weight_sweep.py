@@ -430,7 +430,13 @@ def main() -> None:
 
     if args.compare_methods:
         print("Method comparison (baseline weights, top candidate each):")
-        for m in ("cosine", "dense"):
+        for m in (
+            "cosine",
+            "dense",
+            "hybrid_bm25_dense",
+            "cross_encoder_rerank",
+            "hybrid_rerank_graph",
+        ):
             baseline_rows = run_sweep(cases, args.top_k, [{}], method=m)
             row0 = baseline_rows[0]
             print(

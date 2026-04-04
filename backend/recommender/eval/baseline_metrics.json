@@ -14,7 +14,7 @@
     "exploration_mode_off": 0.75,
     "broad_query": 0.9,
     "cross_department": 0.9,
-    "include_other_departments": 0.45,
+    "include_other_departments": 0.22,
     "upper_year_security": 0.9,
     "personalization_boost_check": 0.85
   }
