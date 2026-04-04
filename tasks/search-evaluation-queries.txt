@@ -1,90 +1,44 @@
 Search evaluation query bank and test plan
-==========================================
 
-How this maps to the app
-------------------------
-
-- The main text box on RecommendationPage calls api.recommend([search], filters), which hits POST /recommend and ranks courses via embeddings + filters (backend recommender).
-- For fair comparison across queries, keep filters fixed for a session (e.g. same program, incoming level, department toggles, exploration on/off) and only change the query string. Repeat the same query with filters toggled if you care about dependency / exploration behavior.
-
-Flow: Natural language query -> RecommendationPage -> POST /recommend -> get_recommendations
-
+Keep S*/N* query text in sync with backend/recommender/eval/search_evaluation_queries.json.
 
 STEM-oriented queries (technical / engineering)
------------------------------------------------
 
-Use these to test strong overlap with UW Eng/math/science catalog wording.
-
-S1   machine learning and neural networks for engineering applications
+S1   machine learning
 S2   heat transfer and thermodynamics in mechanical systems
 S3   digital logic design and computer architecture
-S4   materials science: microstructure, phase diagrams, mechanical properties
+S4   materials science
 S5   fluid mechanics and aerodynamics
-S6   signals and systems, Fourier analysis, DSP
-S7   finite element analysis and structural mechanics
+S6   signals and systems
+S7   neural networks 
 S8   chemistry of polymers and composite materials
 S9   probability and statistics for data-driven design
 S10  control systems and feedback for robotics
 S11  circuits, electronics, and embedded systems
 S12  optimization and operations research
 
-Keyword-style STEM (tests overlap-heavy / short queries):
-  thermodynamics, FEA, semiconductor, biomechanics, renewable energy
-
 
 Non-STEM-oriented queries (arts, society, breadth)
---------------------------------------------------
-
-These target arts, social science, communication, or professional skills—not lab math.
 
 N1   ethics of technology and engineering in society
 N2   professional communication and technical writing for engineers
 N3   psychology of decision making and human factors
-N4   economics of innovation and public policy
-N5   history of science and technology
+N4   economics of innovation
+N5   history of science 
 N6   sustainability, environmental policy, and climate justice
 N7   law, regulation, and intellectual property for technology
 N8   leadership, teamwork, and project management in organizations
 N9   urban planning and community studies
 N10  philosophy of mind and logic
-N11  Indigenous studies and reconciliation in Canada
-N12  film studies or creative writing elective
+N11  creative writing
+N12  modern film studies 
 
-Vague breadth:
-  easy elective
-  interesting humanities course
-  something about startups
+Score subjectively e.g. 1–5.
 
-
-Stress / edge queries
----------------------
-
-Very short:
-  math, design, energy, AI
-
-Multi-intent:
-  I want to learn C++ and also read about philosophy
-
-Jargon mismatch:
-  how do I build a website (may pull CS or broad software courses)
-
-Typo / informal:
-  thermo dyamics, lin alg
-
-Non-course intent:
-  co-op interview tips (expect weak or noisy matches—good for calibration)
-
-
-Questions to ask for each query (quick rubric)
-----------------------------------------------
-
-Score subjectively (e.g. 1–5) or pass/fail.
-
-1. Top-3 relevance: Are the top three results clearly related to what you meant?
+1. Top-5 relevance: Are the top five results clearly related to what you meant?
 2. False positives: Any highly ranked course that feels clearly off? Note the course code.
 3. Coverage: Did something you know exists at UW for this topic fail to appear in the top ~15?
 4. Title vs description: Does ranking seem driven by buzzwords in the title vs actual syllabus fit?
 5. Filters interaction: If you turn exploration / department filters on or off, does ranking stay sensible?
 
-Optional columns for a spreadsheet:
-  query_id, query_text, filter_snapshot, top1_code, top5_notes, score_relevance, notes
+Test between: UW calendar vs our algorithms with different raw scoring (cosine, BM25, word embeddings (eg. BERT))
