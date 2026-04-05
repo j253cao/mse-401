@@ -465,7 +465,8 @@ class QueryRequest(BaseModel):
         default="cosine",
         description=(
             "Search backend: 'cosine', 'dense', 'hybrid_bm25_dense' (BM25+dense RRF), "
-            "'cross_encoder_rerank', or 'hybrid_rerank_graph' (cross-encoder + graph boosts)."
+            "'cross_encoder_rerank', 'hybrid_ce_rrf_fused' (CE + RRF + retrieval fusion), "
+            "or 'hybrid_rerank_graph' (cross-encoder + graph boosts)."
         ),
     )
 
@@ -608,6 +609,7 @@ def recommend(request: QueryRequest):
             "dense",
             "hybrid_bm25_dense",
             "cross_encoder_rerank",
+            "hybrid_ce_rrf_fused",
             "hybrid_rerank_graph",
         )
         search_method = (request.method or "cosine").strip().lower()

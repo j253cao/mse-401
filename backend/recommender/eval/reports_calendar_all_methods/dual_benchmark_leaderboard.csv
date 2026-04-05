@@ -1,0 +1,12 @@
+method,internal_ndcg,internal_recall,internal_mrr,internal_nonstem_ndcg,pass_gate_internal,calendar_win_rate,calendar_weighted_win_rate,calendar_non_stem_win_rate,mean_jaccard_at_k,mean_calendar_set_recall,non_stem_mean_jaccard,non_stem_mean_calendar_set_recall,pass_gate_overall_calendar,pass_gate_non_stem_calendar
+cosine,,,,,True,0.791667,0.783333,0.750000,0.059741,0.104167,0.054581,0.091667,True,True
+dense,,,,,True,0.791667,0.766667,0.666667,0.060028,0.104167,0.064413,0.108333,True,True
+hybrid_bm25_dense,,,,,True,0.958333,0.950000,0.916667,0.041509,0.075000,0.041996,0.075000,True,True
+cross_encoder_rerank,,,,,True,1.000000,1.000000,1.000000,0.063091,0.112500,0.064901,0.116667,True,True
+hybrid_ce_rrf_fused,,,,,True,0.916667,0.916667,0.916667,0.064901,0.116667,0.060028,0.108333,True,True
+hybrid_rerank_graph,,,,,True,0.958333,0.966667,1.000000,0.057591,0.104167,0.060028,0.108333,True,True
+faiss,,,,,True,0.916667,0.916667,0.916667,0.039961,0.075000,0.026316,0.050000,True,True
+mmr,,,,,True,0.750000,0.733333,0.666667,0.035819,0.066667,0.031189,0.058333,True,True
+graph,,,,,True,0.875000,0.883333,0.916667,0.039961,0.075000,0.026316,0.050000,True,True
+fuzzy_multi,,,,,True,0.083333,0.083333,0.083333,0.004386,0.008333,0.004386,0.008333,False,False
+keyword_overlap,,,,,True,0.458333,0.466667,0.500000,0.015351,0.029167,0.004386,0.008333,False,False

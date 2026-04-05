@@ -1,0 +1,520 @@
+{
+  "top_k": 10,
+  "methods": [
+    "cosine",
+    "dense",
+    "hybrid_bm25_dense",
+    "cross_encoder_rerank",
+    "hybrid_ce_rrf_fused",
+    "hybrid_rerank_graph",
+    "faiss",
+    "mmr",
+    "graph",
+    "fuzzy_multi",
+    "keyword_overlap"
+  ],
+  "calendar_scoring": {
+    "mode": "symmetric_jaccard_mror_lex",
+    "diagnostics": [
+      "jaccard_at_k",
+      "calendar_set_recall",
+      "method_set_recall_vs_calendar"
+    ],
+    "weak_baseline_note": "Calendar export ignores per-user major/term; use Track A for quality and these metrics for overlap diagnostics."
+  },
+  "tracks": {
+    "skip_internal": true,
+    "skip_calendar": false
+  },
+  "weights": {
+    "w_overlap": 2.0,
+    "w_mror": 1.0,
+    "w_lex": 1.0,
+    "composite_epsilon": 1e-06,
+    "non_stem_query_weight": 1.5
+  },
+  "gates": {
+    "internal_baseline": "cosine",
+    "internal_tolerance": 0.0,
+    "threshold_non_stem_win_rate": 0.55,
+    "threshold_overall_win_rate": 0.5,
+    "per_method": {
+      "cosine": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.7916666666666666,
+          "non_stem_win_rate": 0.75
+        }
+      },
+      "dense": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.7916666666666666,
+          "non_stem_win_rate": 0.6666666666666666
+        }
+      },
+      "hybrid_bm25_dense": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.9583333333333334,
+          "non_stem_win_rate": 0.9166666666666666
+        }
+      },
+      "cross_encoder_rerank": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 1.0,
+          "non_stem_win_rate": 1.0
+        }
+      },
+      "hybrid_ce_rrf_fused": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.9166666666666666,
+          "non_stem_win_rate": 0.9166666666666666
+        }
+      },
+      "hybrid_rerank_graph": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.9583333333333334,
+          "non_stem_win_rate": 1.0
+        }
+      },
+      "faiss": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.9166666666666666,
+          "non_stem_win_rate": 0.9166666666666666
+        }
+      },
+      "mmr": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.75,
+          "non_stem_win_rate": 0.6666666666666666
+        }
+      },
+      "graph": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "win_rate": 0.875,
+          "non_stem_win_rate": 0.9166666666666666
+        }
+      },
+      "fuzzy_multi": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": false,
+          "pass_non_stem_calendar": false,
+          "win_rate": 0.08333333333333333,
+          "non_stem_win_rate": 0.08333333333333333
+        }
+      },
+      "keyword_overlap": {
+        "internal": {
+          "pass_internal": true,
+          "skipped_track_a": true
+        },
+        "calendar": {
+          "pass_overall_calendar": false,
+          "pass_non_stem_calendar": false,
+          "win_rate": 0.4583333333333333,
+          "non_stem_win_rate": 0.5
+        }
+      }
+    }
+  },
+  "recommended_winner": "cross_encoder_rerank",
+  "internal_track": {
+    "skipped": true
+  },
+  "calendar_track": {
+    "search_eval_set": "C:\\Users\\Abhishek\\Documents\\Coding\\402\\mse-401\\backend\\recommender\\eval\\search_evaluation_queries.json",
+    "calendar_csv": "C:\\Users\\Abhishek\\Documents\\Coding\\402\\mse-401\\backend\\recommender\\eval\\uw_calendar_top10.csv",
+    "per_method": {
+      "cosine": {
+        "queries_compared": 24,
+        "win_rate": 0.7916666666666666,
+        "weighted_win_rate": 0.7833333333333333,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.75,
+        "non_stem_weighted_win_rate": 0.75,
+        "mean_jaccard_at_k": 0.059740855406490066,
+        "mean_calendar_set_recall": 0.10416666666666669,
+        "non_stem_mean_jaccard_at_k": 0.05458089668615984,
+        "non_stem_mean_calendar_set_recall": 0.09166666666666666
+      },
+      "dense": {
+        "queries_compared": 24,
+        "win_rate": 0.7916666666666666,
+        "weighted_win_rate": 0.7666666666666667,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.6666666666666666,
+        "non_stem_weighted_win_rate": 0.6666666666666666,
+        "mean_jaccard_at_k": 0.06002751977984175,
+        "mean_calendar_set_recall": 0.10416666666666669,
+        "non_stem_mean_jaccard_at_k": 0.06441348469212245,
+        "non_stem_mean_calendar_set_recall": 0.10833333333333334
+      },
+      "hybrid_bm25_dense": {
+        "queries_compared": 24,
+        "win_rate": 0.9583333333333334,
+        "weighted_win_rate": 0.95,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.9166666666666666,
+        "non_stem_weighted_win_rate": 0.9166666666666666,
+        "mean_jaccard_at_k": 0.04150900126132325,
+        "mean_calendar_set_recall": 0.075,
+        "non_stem_mean_jaccard_at_k": 0.0419963306960211,
+        "non_stem_mean_calendar_set_recall": 0.075
+      },
+      "cross_encoder_rerank": {
+        "queries_compared": 24,
+        "win_rate": 1.0,
+        "weighted_win_rate": 1.0,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 1.0,
+        "non_stem_weighted_win_rate": 1.0,
+        "mean_jaccard_at_k": 0.06309124527003783,
+        "mean_calendar_set_recall": 0.11250000000000004,
+        "non_stem_mean_jaccard_at_k": 0.0649008141268203,
+        "non_stem_mean_calendar_set_recall": 0.11666666666666665
+      },
+      "hybrid_ce_rrf_fused": {
+        "queries_compared": 24,
+        "win_rate": 0.9166666666666666,
+        "weighted_win_rate": 0.9166666666666666,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.9166666666666666,
+        "non_stem_weighted_win_rate": 0.9166666666666666,
+        "mean_jaccard_at_k": 0.06490081412682032,
+        "mean_calendar_set_recall": 0.1166666666666667,
+        "non_stem_mean_jaccard_at_k": 0.060027519779841755,
+        "non_stem_mean_calendar_set_recall": 0.10833333333333334
+      },
+      "hybrid_rerank_graph": {
+        "queries_compared": 24,
+        "win_rate": 0.9583333333333334,
+        "weighted_win_rate": 0.9666666666666667,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 1.0,
+        "non_stem_weighted_win_rate": 1.0,
+        "mean_jaccard_at_k": 0.057590872606352476,
+        "mean_calendar_set_recall": 0.1041666666666667,
+        "non_stem_mean_jaccard_at_k": 0.060027519779841755,
+        "non_stem_mean_calendar_set_recall": 0.10833333333333334
+      },
+      "faiss": {
+        "queries_compared": 24,
+        "win_rate": 0.9166666666666666,
+        "weighted_win_rate": 0.9166666666666666,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.9166666666666666,
+        "non_stem_weighted_win_rate": 0.9166666666666666,
+        "mean_jaccard_at_k": 0.03996101364522415,
+        "mean_calendar_set_recall": 0.07500000000000002,
+        "non_stem_mean_jaccard_at_k": 0.02631578947368421,
+        "non_stem_mean_calendar_set_recall": 0.049999999999999996
+      },
+      "mmr": {
+        "queries_compared": 24,
+        "win_rate": 0.75,
+        "weighted_win_rate": 0.7333333333333333,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.6666666666666666,
+        "non_stem_weighted_win_rate": 0.6666666666666666,
+        "mean_jaccard_at_k": 0.03581871345029239,
+        "mean_calendar_set_recall": 0.06666666666666668,
+        "non_stem_mean_jaccard_at_k": 0.031189083820662766,
+        "non_stem_mean_calendar_set_recall": 0.05833333333333333
+      },
+      "graph": {
+        "queries_compared": 24,
+        "win_rate": 0.875,
+        "weighted_win_rate": 0.8833333333333333,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.9166666666666666,
+        "non_stem_weighted_win_rate": 0.9166666666666666,
+        "mean_jaccard_at_k": 0.03996101364522415,
+        "mean_calendar_set_recall": 0.07500000000000002,
+        "non_stem_mean_jaccard_at_k": 0.02631578947368421,
+        "non_stem_mean_calendar_set_recall": 0.049999999999999996
+      },
+      "fuzzy_multi": {
+        "queries_compared": 24,
+        "win_rate": 0.08333333333333333,
+        "weighted_win_rate": 0.08333333333333333,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.08333333333333333,
+        "non_stem_weighted_win_rate": 0.08333333333333333,
+        "mean_jaccard_at_k": 0.0043859649122807015,
+        "mean_calendar_set_recall": 0.008333333333333333,
+        "non_stem_mean_jaccard_at_k": 0.0043859649122807015,
+        "non_stem_mean_calendar_set_recall": 0.008333333333333333
+      },
+      "keyword_overlap": {
+        "queries_compared": 24,
+        "win_rate": 0.4583333333333333,
+        "weighted_win_rate": 0.4666666666666667,
+        "non_stem_queries": 12,
+        "non_stem_win_rate": 0.5,
+        "non_stem_weighted_win_rate": 0.5,
+        "mean_jaccard_at_k": 0.015350877192982455,
+        "mean_calendar_set_recall": 0.029166666666666664,
+        "non_stem_mean_jaccard_at_k": 0.0043859649122807015,
+        "non_stem_mean_calendar_set_recall": 0.008333333333333333
+      }
+    },
+    "non_stem_losses_by_method": {
+      "cosine": [
+        {
+          "query_id": "breadth_n1_ethics_technology_society",
+          "query": "ethics of technology and engineering in society",
+          "outcome": "loss",
+          "method_composite": 0.749999999625,
+          "calendar_composite": 0.7999999996
+        },
+        {
+          "query_id": "breadth_n3_psychology_decision_human_factors",
+          "query": "psychology of decision making and human factors",
+          "outcome": "loss",
+          "method_composite": 0.8980288579813446,
+          "calendar_composite": 1.1419194722546866
+        },
+        {
+          "query_id": "breadth_n10_philosophy_mind_logic",
+          "query": "philosophy of mind and logic",
+          "outcome": "loss",
+          "method_composite": 1.0128630735196995,
+          "calendar_composite": 1.2162391577451814
+        }
+      ],
+      "dense": [
+        {
+          "query_id": "breadth_n3_psychology_decision_human_factors",
+          "query": "psychology of decision making and human factors",
+          "outcome": "loss",
+          "method_composite": 0.786640831784682,
+          "calendar_composite": 1.1419194722546866
+        },
+        {
+          "query_id": "breadth_n6_sustainability_policy_climate",
+          "query": "sustainability, environmental policy, and climate justice",
+          "outcome": "loss",
+          "method_composite": 0.7155417524799328,
+          "calendar_composite": 0.7602631120099286
+        },
+        {
+          "query_id": "breadth_n10_philosophy_mind_logic",
+          "query": "philosophy of mind and logic",
+          "outcome": "loss",
+          "method_composite": 1.1393492235352616,
+          "calendar_composite": 1.163624778660214
+        }
+      ],
+      "hybrid_bm25_dense": [
+        {
+          "query_id": "breadth_n12_modern_film_studies",
+          "query": "modern film studies",
+          "outcome": "loss",
+          "method_composite": 1.211068154176587,
+          "calendar_composite": 1.4650425448497733
+        }
+      ],
+      "cross_encoder_rerank": [],
+      "hybrid_ce_rrf_fused": [
+        {
+          "query_id": "breadth_n12_modern_film_studies",
+          "query": "modern film studies",
+          "outcome": "loss",
+          "method_composite": 1.4471792652876985,
+          "calendar_composite": 1.4650425448497733
+        }
+      ],
+      "hybrid_rerank_graph": [],
+      "faiss": [],
+      "mmr": [
+        {
+          "query_id": "breadth_n6_sustainability_policy_climate",
+          "query": "sustainability, environmental policy, and climate justice",
+          "outcome": "loss",
+          "method_composite": 1.3930185056746276,
+          "calendar_composite": 1.8655262699046653
+        },
+        {
+          "query_id": "breadth_n7_law_ip_technology",
+          "query": "law, regulation, and intellectual property for technology",
+          "outcome": "loss",
+          "method_composite": 0.9319160214857807,
+          "calendar_composite": 0.9813621913146781
+        },
+        {
+          "query_id": "breadth_n11_creative_writing",
+          "query": "creative writing",
+          "outcome": "loss",
+          "method_composite": 1.3497943704480673,
+          "calendar_composite": 1.4300468962686863
+        }
+      ],
+      "graph": [],
+      "fuzzy_multi": [
+        {
+          "query_id": "breadth_n1_ethics_technology_society",
+          "query": "ethics of technology and engineering in society",
+          "outcome": "loss",
+          "method_composite": 0.549999999725,
+          "calendar_composite": 0.7999999996
+        },
+        {
+          "query_id": "breadth_n2_professional_communication",
+          "query": "professional communication and technical writing for engineers",
+          "outcome": "loss",
+          "method_composite": 0.31304951670997055,
+          "calendar_composite": 0.35777087623996634
+        },
+        {
+          "query_id": "breadth_n3_psychology_decision_human_factors",
+          "query": "psychology of decision making and human factors",
+          "outcome": "loss",
+          "method_composite": 0.17888543811998317,
+          "calendar_composite": 0.5366563143599496
+        },
+        {
+          "query_id": "breadth_n4_economics_innovation",
+          "query": "economics of innovation",
+          "outcome": "loss",
+          "method_composite": 0.49497474648058315,
+          "calendar_composite": 0.7071067806865475
+        },
+        {
+          "query_id": "breadth_n6_sustainability_policy_climate",
+          "query": "sustainability, environmental policy, and climate justice",
+          "outcome": "loss",
+          "method_composite": 0.4024922357699621,
+          "calendar_composite": 0.7602631120099286
+        },
+        {
+          "query_id": "breadth_n7_law_ip_technology",
+          "query": "law, regulation, and intellectual property for technology",
+          "outcome": "loss",
+          "method_composite": 0.0,
+          "calendar_composite": 0.6260990334199412
+        },
+        {
+          "query_id": "breadth_n8_leadership_teamwork_pm",
+          "query": "leadership, teamwork, and project management in organizations",
+          "outcome": "loss",
+          "method_composite": 0.5630340341347032,
+          "calendar_composite": 1.1866408317846822
+        },
+        {
+          "query_id": "breadth_n9_urban_planning_community",
+          "query": "urban planning and community studies",
+          "outcome": "loss",
+          "method_composite": 0.29999999985,
+          "calendar_composite": 0.5999999997
+        },
+        {
+          "query_id": "breadth_n10_philosophy_mind_logic",
+          "query": "philosophy of mind and logic",
+          "outcome": "loss",
+          "method_composite": 0.4041451881994047,
+          "calendar_composite": 0.5773502688562926
+        },
+        {
+          "query_id": "breadth_n12_modern_film_studies",
+          "query": "modern film studies",
+          "outcome": "loss",
+          "method_composite": 0.635085295741922,
+          "calendar_composite": 0.692820322627551
+        }
+      ],
+      "keyword_overlap": [
+        {
+          "query_id": "breadth_n1_ethics_technology_society",
+          "query": "ethics of technology and engineering in society",
+          "outcome": "loss",
+          "method_composite": 0.549999999725,
+          "calendar_composite": 0.7999999996
+        },
+        {
+          "query_id": "breadth_n3_psychology_decision_human_factors",
+          "query": "psychology of decision making and human factors",
+          "outcome": "loss",
+          "method_composite": 0.44721359529995797,
+          "calendar_composite": 0.5366563143599496
+        },
+        {
+          "query_id": "breadth_n6_sustainability_policy_climate",
+          "query": "sustainability, environmental policy, and climate justice",
+          "outcome": "loss",
+          "method_composite": 0.44721359529995797,
+          "calendar_composite": 0.7602631120099286
+        },
+        {
+          "query_id": "breadth_n7_law_ip_technology",
+          "query": "law, regulation, and intellectual property for technology",
+          "outcome": "loss",
+          "method_composite": 0.44721359529995797,
+          "calendar_composite": 0.6260990334199412
+        },
+        {
+          "query_id": "breadth_n9_urban_planning_community",
+          "query": "urban planning and community studies",
+          "outcome": "loss",
+          "method_composite": 0.49999999975,
+          "calendar_composite": 0.5999999997
+        }
+      ]
+    }
+  }
+}

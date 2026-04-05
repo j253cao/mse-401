@@ -43,9 +43,14 @@ DEFAULT_SEARCH_WEIGHTS: Dict[str, Dict[str, float]] = {
         "rrf_k": 60.0,
         "rrf_weight_lexical": 1.0,
         "rrf_weight_dense": 1.0,
-        "retrieval_k": 250.0,
-        "cross_encoder_pool": 120.0,
-        "graph_rerank_pool": 100.0,
+        # Slightly deeper candidate pool so CE/graph shortlists see more recall.
+        "retrieval_k": 270.0,
+        "cross_encoder_pool": 128.0,
+        "graph_rerank_pool": 105.0,
+        # Fused CE reranker: weights on min-max-normalized CE, RRF, retrieval scores.
+        "ce_fusion_w_ce": 0.55,
+        "ce_fusion_w_rrf": 0.30,
+        "ce_fusion_w_retrieval": 0.15,
     },
 }
 

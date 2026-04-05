@@ -1,0 +1,4235 @@
+{
+  "version": 1,
+  "description": "Test Plan 402 query bank (STEM S1-S12, non-STEM N1-N12). include_other_depts=false (no exploration outside listed departments). Compare methods with baseline weights: python -m recommender.eval.run_weight_sweep --eval-set recommender/eval/test_plan_402.json --compare-methods --num-random 0",
+  "default_top_k": 15,
+  "evaluation_note": "run_weight_sweep merges default_search_weights with [{}] for --compare-methods. cosine/dense/hybrid_bm25_dense test base retrieval scores; cross_encoder_rerank and hybrid_rerank_graph add model-specific reranking or graph multipliers on top.",
+  "cases": [
+    {
+      "id": "tp402_S1_se_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S1",
+      "query": "machine learning",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SE",
+          "ECE",
+          "CS",
+          "SYDE",
+          "MSE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206",
+          "CS240",
+          "CS247",
+          "CS348",
+          "MATH239"
+        ]
+      },
+      "graded_relevance": {
+        "CS480": 3,
+        "CS486": 2,
+        "MSE446": 2,
+        "ECE457C": 2
+      },
+      "rationale": {
+        "prompt_intent": "S1: ML/AI courses whose catalog titles stress machine learning, AI, or advanced learning methods.",
+        "courses": {
+          "CS480": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "Introduction to modelling and algorithmic techniques for machines to learn concepts from data. Generalization: underfitting, overfitting, cross-validation. Tasks: classification, regression, clustering. Optimization-base",
+            "grade": 3,
+            "why": "Relevance grade 3. S1: ML/AI courses whose catalog titles stress machine learning, AI, or advanced learning methods. Course title/description in catalog supports match to query."
+          },
+          "CS486": {
+            "title": "Introduction to Artificial Intelligence",
+            "description_excerpt": "Goals and methods of artificial intelligence. Methods of general problem solving. Knowledge representation and reasoning. Planning. Reasoning about uncertainty. Machine learning. Multi-agent systems. Natural language pro",
+            "grade": 2,
+            "why": "Relevance grade 2. S1: ML/AI courses whose catalog titles stress machine learning, AI, or advanced learning methods. Course title/description in catalog supports match to query."
+          },
+          "MSE446": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "This course provides an introduction to machine learning, including supervised and unsupervised learning. Emphasis is placed on proper procedures for the training and testing of models. Topics covered may include data cl",
+            "grade": 2,
+            "why": "Relevance grade 2. S1: ML/AI courses whose catalog titles stress machine learning, AI, or advanced learning methods. Course title/description in catalog supports match to query."
+          },
+          "ECE457C": {
+            "title": "Reinforcement Learning",
+            "description_excerpt": "Introduction to reinforcement learning (RL) theory and algorithms for learning decision-making policies in situations with uncertainty and limited information. Topics include Markov decision processes, classic exact/appr",
+            "grade": 2,
+            "why": "Relevance grade 2. S1: ML/AI courses whose catalog titles stress machine learning, AI, or advanced learning methods. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S1_compe_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S1",
+      "query": "machine learning",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE",
+          "CS",
+          "SE",
+          "SYDE",
+          "MSE"
+        ],
+        "user_department": "COMPE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250",
+          "ECE203",
+          "ECE207",
+          "ECE208",
+          "ECE224",
+          "ECE252",
+          "ECE298",
+          "ECE318",
+          "ECE327",
+          "ECE350",
+          "ECE380"
+        ]
+      },
+      "graded_relevance": {
+        "CS480": 3,
+        "ECE457B": 3,
+        "ECE457C": 2,
+        "MSE446": 2
+      },
+      "rationale": {
+        "prompt_intent": "S1 (COMPE): computational intelligence + deep learning in ECE plus CS ML intro.",
+        "courses": {
+          "CS480": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "Introduction to modelling and algorithmic techniques for machines to learn concepts from data. Generalization: underfitting, overfitting, cross-validation. Tasks: classification, regression, clustering. Optimization-base",
+            "grade": 3,
+            "why": "Relevance grade 3. S1 (COMPE): computational intelligence + deep learning in ECE plus CS ML intro. Course title/description in catalog supports match to query."
+          },
+          "ECE457B": {
+            "title": "Fundamentals of Computational Intelligence",
+            "description_excerpt": "Fundamentals and recent advances in computational intelligence. Building accurate models with collected data or rules bases. Model-based prediction and classification. Concepts in machine learning, supervised and unsuper",
+            "grade": 3,
+            "why": "Relevance grade 3. S1 (COMPE): computational intelligence + deep learning in ECE plus CS ML intro. Course title/description in catalog supports match to query."
+          },
+          "ECE457C": {
+            "title": "Reinforcement Learning",
+            "description_excerpt": "Introduction to reinforcement learning (RL) theory and algorithms for learning decision-making policies in situations with uncertainty and limited information. Topics include Markov decision processes, classic exact/appr",
+            "grade": 2,
+            "why": "Relevance grade 2. S1 (COMPE): computational intelligence + deep learning in ECE plus CS ML intro. Course title/description in catalog supports match to query."
+          },
+          "MSE446": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "This course provides an introduction to machine learning, including supervised and unsupervised learning. Emphasis is placed on proper procedures for the training and testing of models. Topics covered may include data cl",
+            "grade": 2,
+            "why": "Relevance grade 2. S1 (COMPE): computational intelligence + deep learning in ECE plus CS ML intro. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S1_mgte_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S1",
+      "query": "machine learning",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MSE",
+          "CS",
+          "STAT",
+          "ECE"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115",
+          "MSE240",
+          "MSE251",
+          "MSE261",
+          "MSE271",
+          "MSE232",
+          "MSE245",
+          "MSE253",
+          "MSE263"
+        ]
+      },
+      "graded_relevance": {
+        "MSE446": 3,
+        "CS480": 3,
+        "STAT441": 2,
+        "CS486": 2
+      },
+      "rationale": {
+        "prompt_intent": "S1 (MGTE): program intro ML and statistical learning electives.",
+        "courses": {
+          "MSE446": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "This course provides an introduction to machine learning, including supervised and unsupervised learning. Emphasis is placed on proper procedures for the training and testing of models. Topics covered may include data cl",
+            "grade": 3,
+            "why": "Relevance grade 3. S1 (MGTE): program intro ML and statistical learning electives. Course title/description in catalog supports match to query."
+          },
+          "CS480": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "Introduction to modelling and algorithmic techniques for machines to learn concepts from data. Generalization: underfitting, overfitting, cross-validation. Tasks: classification, regression, clustering. Optimization-base",
+            "grade": 3,
+            "why": "Relevance grade 3. S1 (MGTE): program intro ML and statistical learning electives. Course title/description in catalog supports match to query."
+          },
+          "STAT441": {
+            "title": "Statistical Learning - Classification",
+            "description_excerpt": "Classification is the problem of predicting a discrete outcome from a set of explanatory variables. Main topics include logistic regression, neural networks, tree-based methods, support vector machines, and nearest neigh",
+            "grade": 2,
+            "why": "Relevance grade 2. S1 (MGTE): program intro ML and statistical learning electives. Course title/description in catalog supports match to query."
+          },
+          "CS486": {
+            "title": "Introduction to Artificial Intelligence",
+            "description_excerpt": "Goals and methods of artificial intelligence. Methods of general problem solving. Knowledge representation and reasoning. Planning. Reasoning about uncertainty. Machine learning. Multi-agent systems. Natural language pro",
+            "grade": 2,
+            "why": "Relevance grade 2. S1 (MGTE): program intro ML and statistical learning electives. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S2_me_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S2",
+      "query": "heat transfer and thermodynamics in mechanical systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ME",
+          "MTE",
+          "SYDE"
+        ],
+        "user_department": "ME",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269"
+        ]
+      },
+      "graded_relevance": {
+        "ME353": 3,
+        "ME354": 3,
+        "ME351": 2,
+        "SYDE381": 2
+      },
+      "rationale": {
+        "prompt_intent": "S2: ME heat transfer, thermodynamics, and fluids; SYDE thermodynamics where allowed.",
+        "courses": {
+          "ME353": {
+            "title": "Heat Transfer 1",
+            "description_excerpt": "Introduction to heat transfer mechanisms. The formulation and solution of steady and transient heat conduction. Radiant heat transfer including exchange laws and view factors. Introductory convective heat transfer.",
+            "grade": 3,
+            "why": "Relevance grade 3. S2: ME heat transfer, thermodynamics, and fluids; SYDE thermodynamics where allowed. Course title/description in catalog supports match to query."
+          },
+          "ME354": {
+            "title": "Thermodynamics 2",
+            "description_excerpt": "Emphasis on applications of thermodynamics to flow processes. Real fluids, evaluation of state functions of real fluids. Non-reacting mixtures, reacting mixtures, equilibrium considerations.",
+            "grade": 3,
+            "why": "Relevance grade 3. S2: ME heat transfer, thermodynamics, and fluids; SYDE thermodynamics where allowed. Course title/description in catalog supports match to query."
+          },
+          "ME351": {
+            "title": "Fluid Mechanics 1",
+            "description_excerpt": "Physical properties of fluids and fundamental concepts in fluid mechanics. Hydrostatics. Conservation laws for mass, momentum and energy. Flow similarity and dimensional analysis as applied to engineering problems in flu",
+            "grade": 2,
+            "why": "Relevance grade 2. S2: ME heat transfer, thermodynamics, and fluids; SYDE thermodynamics where allowed. Course title/description in catalog supports match to query."
+          },
+          "SYDE381": {
+            "title": "Thermodynamics",
+            "description_excerpt": "An introductory course in engineering thermodynamics structured for students in systems design. Classical thermodynamics is presented as the systematic study of energy; its use, degradation, and waste. Introduction to he",
+            "grade": 2,
+            "why": "Relevance grade 2. S2: ME heat transfer, thermodynamics, and fluids; SYDE thermodynamics where allowed. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S2_me_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S2",
+      "query": "heat transfer and thermodynamics in mechanical systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ME",
+          "MTE",
+          "SYDE"
+        ],
+        "user_department": "ME",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269",
+          "ME203",
+          "ME212",
+          "ME220",
+          "ME250",
+          "ME262"
+        ]
+      },
+      "graded_relevance": {
+        "ME456": 3,
+        "ME353": 3,
+        "ME354": 2,
+        "ME362": 2
+      },
+      "rationale": {
+        "prompt_intent": "S2 at 3A: second heat transfer and fluids depth in ME core.",
+        "courses": {
+          "ME456": {
+            "title": "Heat Transfer 2",
+            "description_excerpt": "Selected topics in heat transfer fundamentals and applications. Topics to be covered include the fundamentals of convection with analytical solutions to simple laminar flow problems and approximate solutions to turbulent",
+            "grade": 3,
+            "why": "Relevance grade 3. S2 at 3A: second heat transfer and fluids depth in ME core. Course title/description in catalog supports match to query."
+          },
+          "ME353": {
+            "title": "Heat Transfer 1",
+            "description_excerpt": "Introduction to heat transfer mechanisms. The formulation and solution of steady and transient heat conduction. Radiant heat transfer including exchange laws and view factors. Introductory convective heat transfer.",
+            "grade": 3,
+            "why": "Relevance grade 3. S2 at 3A: second heat transfer and fluids depth in ME core. Course title/description in catalog supports match to query."
+          },
+          "ME354": {
+            "title": "Thermodynamics 2",
+            "description_excerpt": "Emphasis on applications of thermodynamics to flow processes. Real fluids, evaluation of state functions of real fluids. Non-reacting mixtures, reacting mixtures, equilibrium considerations.",
+            "grade": 2,
+            "why": "Relevance grade 2. S2 at 3A: second heat transfer and fluids depth in ME core. Course title/description in catalog supports match to query."
+          },
+          "ME362": {
+            "title": "Fluid Mechanics 2",
+            "description_excerpt": "Basic equations of two-dimensional flow, potential flow, exact viscous solutions. Introduction to lubrication, boundary layers, turbulence, and compressible flow. Turbomachinery fundamentals and applications. Selected ad",
+            "grade": 2,
+            "why": "Relevance grade 2. S2 at 3A: second heat transfer and fluids depth in ME core. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S2_mte_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S2",
+      "query": "heat transfer and thermodynamics in mechanical systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MTE",
+          "ME",
+          "SYDE"
+        ],
+        "user_department": "MTE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MTE100",
+          "MTE121",
+          "MATH118",
+          "MTE111",
+          "MTE119",
+          "MTE120",
+          "MTE140",
+          "MTE182",
+          "MTE201",
+          "MTE202",
+          "MTE219",
+          "MTE262",
+          "MTE203",
+          "MTE204",
+          "MTE220",
+          "MTE241",
+          "MTE252"
+        ]
+      },
+      "graded_relevance": {
+        "MTE309": 3,
+        "ME353": 2,
+        "ME354": 2,
+        "SYDE381": 2
+      },
+      "rationale": {
+        "prompt_intent": "S2 (MTE): MTE309 Intro Thermodynamics and Heat Transfer title matches prompt.",
+        "courses": {
+          "MTE309": {
+            "title": "Introduction to Thermodynamics and Heat Transfer",
+            "description_excerpt": "Macroscopic approach to energy analysis. Energy transfer as work and heat, and the First Law of thermodynamics. Properties and states of simple substances. Control-mass and control-volume analysis. The essence of entropy",
+            "grade": 3,
+            "why": "Relevance grade 3. S2 (MTE): MTE309 Intro Thermodynamics and Heat Transfer title matches prompt. Course title/description in catalog supports match to query."
+          },
+          "ME353": {
+            "title": "Heat Transfer 1",
+            "description_excerpt": "Introduction to heat transfer mechanisms. The formulation and solution of steady and transient heat conduction. Radiant heat transfer including exchange laws and view factors. Introductory convective heat transfer.",
+            "grade": 2,
+            "why": "Relevance grade 2. S2 (MTE): MTE309 Intro Thermodynamics and Heat Transfer title matches prompt. Course title/description in catalog supports match to query."
+          },
+          "ME354": {
+            "title": "Thermodynamics 2",
+            "description_excerpt": "Emphasis on applications of thermodynamics to flow processes. Real fluids, evaluation of state functions of real fluids. Non-reacting mixtures, reacting mixtures, equilibrium considerations.",
+            "grade": 2,
+            "why": "Relevance grade 2. S2 (MTE): MTE309 Intro Thermodynamics and Heat Transfer title matches prompt. Course title/description in catalog supports match to query."
+          },
+          "SYDE381": {
+            "title": "Thermodynamics",
+            "description_excerpt": "An introductory course in engineering thermodynamics structured for students in systems design. Classical thermodynamics is presented as the systematic study of energy; its use, degradation, and waste. Introduction to he",
+            "grade": 2,
+            "why": "Relevance grade 2. S2 (MTE): MTE309 Intro Thermodynamics and Heat Transfer title matches prompt. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S3_compe_2a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S3",
+      "query": "digital logic design and computer architecture",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE",
+          "SE",
+          "CS",
+          "MTE"
+        ],
+        "user_department": "COMPE",
+        "incoming_level": "2A",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119"
+        ]
+      },
+      "graded_relevance": {
+        "ECE222": 3,
+        "ECE327": 3,
+        "ECE250": 2,
+        "MTE262": 2
+      },
+      "rationale": {
+        "prompt_intent": "S3: ECE222 Digital Computers; ECE327 Digital Hardware Systems; digital logic MTE262.",
+        "courses": {
+          "ECE222": {
+            "title": "Digital Computers",
+            "description_excerpt": "Computer organization. Memory units, control units, I/O operations. Assembly language programming, translation and loading. Arithmetic logic units. Computer case studies.",
+            "grade": 3,
+            "why": "Relevance grade 3. S3: ECE222 Digital Computers; ECE327 Digital Hardware Systems; digital logic MTE262. Course title/description in catalog supports match to query."
+          },
+          "ECE327": {
+            "title": "Digital Hardware Systems",
+            "description_excerpt": "Design and modelling of digital hardware systems using a hardware description language. Development process. Impact of implementation technologies. Performance analysis and optimization. Functional verification. Timing a",
+            "grade": 3,
+            "why": "Relevance grade 3. S3: ECE222 Digital Computers; ECE327 Digital Hardware Systems; digital logic MTE262. Course title/description in catalog supports match to query."
+          },
+          "ECE250": {
+            "title": "Algorithms and Data Structures",
+            "description_excerpt": "Data structures, abstract data types, recursive algorithms, algorithm analysis, sorting and searching, and problem-solving strategies.",
+            "grade": 2,
+            "why": "Relevance grade 2. S3: ECE222 Digital Computers; ECE327 Digital Hardware Systems; digital logic MTE262. Course title/description in catalog supports match to query."
+          },
+          "MTE262": {
+            "title": "Introduction to Digital Logic",
+            "description_excerpt": "Number systems, logic gates, Boolean algebra. Karnaugh maps, and combinational logic design. Implementation of combinational and sequential logic circuits on Field Programmable Gate Arrays (FPGA) boards. Sequential logic",
+            "grade": 2,
+            "why": "Relevance grade 2. S3: ECE222 Digital Computers; ECE327 Digital Hardware Systems; digital logic MTE262. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S3_se_2a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S3",
+      "query": "digital logic design and computer architecture",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SE",
+          "ECE",
+          "CS",
+          "MTE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "2A",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119"
+        ]
+      },
+      "graded_relevance": {
+        "SE212": 3,
+        "ECE222": 3,
+        "ECE327": 2,
+        "CS240": 2
+      },
+      "rationale": {
+        "prompt_intent": "S3 (SE): formal logic/discrete + CE hardware path.",
+        "courses": {
+          "SE212": {
+            "title": "Logic and Computation",
+            "description_excerpt": "Formal logic. Proof systems and styles. Rudimentary model theory. Formal models of computation. Logic-based specification. Correctness proofs. Applications in software engineering.",
+            "grade": 3,
+            "why": "Relevance grade 3. S3 (SE): formal logic/discrete + CE hardware path. Course title/description in catalog supports match to query."
+          },
+          "ECE222": {
+            "title": "Digital Computers",
+            "description_excerpt": "Computer organization. Memory units, control units, I/O operations. Assembly language programming, translation and loading. Arithmetic logic units. Computer case studies.",
+            "grade": 3,
+            "why": "Relevance grade 3. S3 (SE): formal logic/discrete + CE hardware path. Course title/description in catalog supports match to query."
+          },
+          "ECE327": {
+            "title": "Digital Hardware Systems",
+            "description_excerpt": "Design and modelling of digital hardware systems using a hardware description language. Development process. Impact of implementation technologies. Performance analysis and optimization. Functional verification. Timing a",
+            "grade": 2,
+            "why": "Relevance grade 2. S3 (SE): formal logic/discrete + CE hardware path. Course title/description in catalog supports match to query."
+          },
+          "CS240": {
+            "title": "Data Structures and Data Management",
+            "description_excerpt": "Introduction to widely used and effective methods of data organization, focusing on data structures, their algorithms, and the performance of these algorithms. Specific topics include priority queues, sorting, dictionari",
+            "grade": 2,
+            "why": "Relevance grade 2. S3 (SE): formal logic/discrete + CE hardware path. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S3_ele_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S3",
+      "query": "digital logic design and computer architecture",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE",
+          "MTE",
+          "NE"
+        ],
+        "user_department": "ELE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250"
+        ]
+      },
+      "graded_relevance": {
+        "ECE222": 3,
+        "ECE327": 3,
+        "ECE240": 2,
+        "NE344": 2
+      },
+      "rationale": {
+        "prompt_intent": "S3 (ELE): digital + hardware + circuits; NE electronic circuits for nanotech.",
+        "courses": {
+          "ECE222": {
+            "title": "Digital Computers",
+            "description_excerpt": "Computer organization. Memory units, control units, I/O operations. Assembly language programming, translation and loading. Arithmetic logic units. Computer case studies.",
+            "grade": 3,
+            "why": "Relevance grade 3. S3 (ELE): digital + hardware + circuits; NE electronic circuits for nanotech. Course title/description in catalog supports match to query."
+          },
+          "ECE327": {
+            "title": "Digital Hardware Systems",
+            "description_excerpt": "Design and modelling of digital hardware systems using a hardware description language. Development process. Impact of implementation technologies. Performance analysis and optimization. Functional verification. Timing a",
+            "grade": 3,
+            "why": "Relevance grade 3. S3 (ELE): digital + hardware + circuits; NE electronic circuits for nanotech. Course title/description in catalog supports match to query."
+          },
+          "ECE240": {
+            "title": "Electronic Circuits 1",
+            "description_excerpt": "Introduction to electronic signal processing; second-order circuits; operational amplifier circuits; diode device and circuits; metal-oxide-semiconductor (MOS) biasing networks; load-line analysis; diode and MOS small-si",
+            "grade": 2,
+            "why": "Relevance grade 2. S3 (ELE): digital + hardware + circuits; NE electronic circuits for nanotech. Course title/description in catalog supports match to query."
+          },
+          "NE344": {
+            "title": "Electronic Circuits",
+            "description_excerpt": "Metal-oxide-semiconductor field-effect transistor (MOSFET), circuit biasing and load-line analysis. Small-signal equivalent circuits and single stage amplifier configurations. Differential and multistage MOSFET amplifier",
+            "grade": 2,
+            "why": "Relevance grade 2. S3 (ELE): digital + hardware + circuits; NE electronic circuits for nanotech. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S4_che_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S4",
+      "query": "materials science",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "CHE",
+          "NE",
+          "ME"
+        ],
+        "user_department": "CHE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE100",
+          "CHE102",
+          "CHE120",
+          "CHE180",
+          "MATH115",
+          "MATH116",
+          "CHE101",
+          "CHE161",
+          "CHE181",
+          "MATH118",
+          "PHYS115",
+          "CHE200",
+          "CHE220",
+          "CHE230",
+          "CHE290",
+          "CHEM262",
+          "CHEM262L",
+          "MATH217",
+          "CHE211",
+          "CHE225",
+          "CHE231",
+          "CHE241",
+          "CHE291",
+          "MATH218",
+          "CHE312",
+          "CHE314",
+          "CHE322",
+          "CHE330",
+          "CHE390",
+          "MSE261"
+        ]
+      },
+      "graded_relevance": {
+        "CHE241": 3,
+        "CHE330": 2,
+        "NE332": 2,
+        "ME230": 2
+      },
+      "rationale": {
+        "prompt_intent": "S4: CHE241 Materials Science and Engineering; thermo/properties CHE330.",
+        "courses": {
+          "CHE241": {
+            "title": "Materials Science and Engineering",
+            "description_excerpt": "Fundamentals; atomic bonding, crystalline structure, crystal defects, non-crystalline materials; structure and properties of metals, ceramics, glasses, semi-conductors. Amorphous materials, polymers, composites. Processi",
+            "grade": 3,
+            "why": "Relevance grade 3. S4: CHE241 Materials Science and Engineering; thermo/properties CHE330. Course title/description in catalog supports match to query."
+          },
+          "CHE330": {
+            "title": "Chemical Engineering Thermodynamics",
+            "description_excerpt": "Review of fundamentals, including 2nd law and concepts of equilibrium, phase and reaction equilibria, fugacity, exergy. Thermodynamics applied to practical situations. Examples chosen from: fluid flow; power generation; ",
+            "grade": 2,
+            "why": "Relevance grade 2. S4: CHE241 Materials Science and Engineering; thermo/properties CHE330. Course title/description in catalog supports match to query."
+          },
+          "NE332": {
+            "title": "Quantum Mechanics",
+            "description_excerpt": "Historical background; the differential equation approach to quantum mechanics; treatments of solvable problems such as the particle-in-a-box, harmonic oscillator, rigid rotor, and the hydrogen atom; introduction to appr",
+            "grade": 2,
+            "why": "Relevance grade 2. S4: CHE241 Materials Science and Engineering; thermo/properties CHE330. Course title/description in catalog supports match to query."
+          },
+          "ME230": {
+            "title": "Control of Properties of Materials",
+            "description_excerpt": "Phase equilibria, non-equilibrium behaviour, heat treatment of metals, diffusion, strengthening processes. Alloying, composite materials, cold and hot working. Failure of engineering materials; creep, fatigue, corrosion ",
+            "grade": 2,
+            "why": "Relevance grade 2. S4: CHE241 Materials Science and Engineering; thermo/properties CHE330. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S4_ne_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S4",
+      "query": "materials science",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "NE",
+          "ECE",
+          "MSE"
+        ],
+        "user_department": "NE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "MATH117",
+          "NE100",
+          "NE109",
+          "NE111",
+          "NE112",
+          "NE121",
+          "MATH119",
+          "NE110",
+          "NE113",
+          "NE125",
+          "NE131",
+          "NE140",
+          "NE215",
+          "NE216",
+          "NE220L",
+          "NE222",
+          "NE241",
+          "NE217",
+          "NE225",
+          "NE226",
+          "NE226L",
+          "NE242",
+          "NE281"
+        ]
+      },
+      "graded_relevance": {
+        "NE343": 3,
+        "NE332": 2,
+        "NE345": 2,
+        "NE333": 2
+      },
+      "rationale": {
+        "prompt_intent": "S4 (NE): microfabrication, quantum mechanics, photonic materials in nano stream.",
+        "courses": {
+          "NE343": {
+            "title": "Microfabrication and Thin-Film Technology",
+            "description_excerpt": "Key processes for electronic device fabrication. Single crystal growth. Substrate preparation. Homoepitaxy, heteroepitaxy, and molecular-beam epitaxy. Ion implantation. Oxidation and diffusion. Physical and chemical vapo",
+            "grade": 3,
+            "why": "Relevance grade 3. S4 (NE): microfabrication, quantum mechanics, photonic materials in nano stream. Course title/description in catalog supports match to query."
+          },
+          "NE332": {
+            "title": "Quantum Mechanics",
+            "description_excerpt": "Historical background; the differential equation approach to quantum mechanics; treatments of solvable problems such as the particle-in-a-box, harmonic oscillator, rigid rotor, and the hydrogen atom; introduction to appr",
+            "grade": 2,
+            "why": "Relevance grade 2. S4 (NE): microfabrication, quantum mechanics, photonic materials in nano stream. Course title/description in catalog supports match to query."
+          },
+          "NE345": {
+            "title": "Photonic Materials and Devices",
+            "description_excerpt": "Wave nature of light, refractive index and dispersion, group velocity, irradiance and Poynting vector, Snell's law, Fresnel's Equation, antireflection coatings, absorption of light, temporal and spatial coherence, dielec",
+            "grade": 2,
+            "why": "Relevance grade 2. S4 (NE): microfabrication, quantum mechanics, photonic materials in nano stream. Course title/description in catalog supports match to query."
+          },
+          "NE333": {
+            "title": "Macromolecular Science",
+            "description_excerpt": "Basic definitions, polymer types and nomenclature, molecular weight averages and distributions, structure and properties. Chemical kinetics, step-growth and free-radical chain-growth polymerizations, polymer recycling an",
+            "grade": 2,
+            "why": "Relevance grade 2. S4 (NE): microfabrication, quantum mechanics, photonic materials in nano stream. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S4_me_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S4",
+      "query": "materials science",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ME",
+          "CHE",
+          "MTE"
+        ],
+        "user_department": "ME",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269",
+          "ME203",
+          "ME212",
+          "ME220",
+          "ME250",
+          "ME262"
+        ]
+      },
+      "graded_relevance": {
+        "ME230": 3,
+        "ME340": 3,
+        "CHE241": 2,
+        "ME235": 2
+      },
+      "rationale": {
+        "prompt_intent": "S4 (ME): materials/manufacturing and processing electives.",
+        "courses": {
+          "ME230": {
+            "title": "Control of Properties of Materials",
+            "description_excerpt": "Phase equilibria, non-equilibrium behaviour, heat treatment of metals, diffusion, strengthening processes. Alloying, composite materials, cold and hot working. Failure of engineering materials; creep, fatigue, corrosion ",
+            "grade": 3,
+            "why": "Relevance grade 3. S4 (ME): materials/manufacturing and processing electives. Course title/description in catalog supports match to query."
+          },
+          "ME340": {
+            "title": "Manufacturing Processes",
+            "description_excerpt": "The principles of manufacturing unit processes including casting, forming, machining and joining. Interactions between design, materials (metals, polymers, ceramics) and processes. Advantages and limitations, relative co",
+            "grade": 3,
+            "why": "Relevance grade 3. S4 (ME): materials/manufacturing and processing electives. Course title/description in catalog supports match to query."
+          },
+          "CHE241": {
+            "title": "Materials Science and Engineering",
+            "description_excerpt": "Fundamentals; atomic bonding, crystalline structure, crystal defects, non-crystalline materials; structure and properties of metals, ceramics, glasses, semi-conductors. Amorphous materials, polymers, composites. Processi",
+            "grade": 2,
+            "why": "Relevance grade 2. S4 (ME): materials/manufacturing and processing electives. Course title/description in catalog supports match to query."
+          },
+          "ME235": {
+            "title": "Materials Science and Engineering",
+            "description_excerpt": "The microstructure of crystalline and amorphous materials including metals, polymers and ceramics. Elastic and plastic deformation in metals, viscoelastic deformation of polymers and viscous deformation of ceramic glasse",
+            "grade": 2,
+            "why": "Relevance grade 2. S4 (ME): materials/manufacturing and processing electives. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S5_me_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S5",
+      "query": "fluid mechanics and aerodynamics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ME",
+          "MTE",
+          "SYDE",
+          "AE"
+        ],
+        "user_department": "ME",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269"
+        ]
+      },
+      "graded_relevance": {
+        "ME351": 3,
+        "ME353": 2,
+        "SYDE383": 2,
+        "ME564": 2
+      },
+      "rationale": {
+        "prompt_intent": "S5: ME351 Fluid Mechanics; ME564 Aerodynamics catalog title.",
+        "courses": {
+          "ME351": {
+            "title": "Fluid Mechanics 1",
+            "description_excerpt": "Physical properties of fluids and fundamental concepts in fluid mechanics. Hydrostatics. Conservation laws for mass, momentum and energy. Flow similarity and dimensional analysis as applied to engineering problems in flu",
+            "grade": 3,
+            "why": "Relevance grade 3. S5: ME351 Fluid Mechanics; ME564 Aerodynamics catalog title. Course title/description in catalog supports match to query."
+          },
+          "ME353": {
+            "title": "Heat Transfer 1",
+            "description_excerpt": "Introduction to heat transfer mechanisms. The formulation and solution of steady and transient heat conduction. Radiant heat transfer including exchange laws and view factors. Introductory convective heat transfer.",
+            "grade": 2,
+            "why": "Relevance grade 2. S5: ME351 Fluid Mechanics; ME564 Aerodynamics catalog title. Course title/description in catalog supports match to query."
+          },
+          "SYDE383": {
+            "title": "Fluid Mechanics",
+            "description_excerpt": "Fundamental concepts in systems involving fluid flow. Basic treatment of statics, kinematics and dynamics of fluids. Conservation of mass, momentum and energy for a control volume. Dimensional analysis and similarity. Fl",
+            "grade": 2,
+            "why": "Relevance grade 2. S5: ME351 Fluid Mechanics; ME564 Aerodynamics catalog title. Course title/description in catalog supports match to query."
+          },
+          "ME564": {
+            "title": "Aerodynamics",
+            "description_excerpt": "An introductory course in aerodynamics for engineers. Kinematics and dynamics of inviscid flow; airfoil dynamics including thin airfoil theory, finite wings, panel methods and airfoil parameters. Boundary layer theory an",
+            "grade": 2,
+            "why": "Relevance grade 2. S5: ME351 Fluid Mechanics; ME564 Aerodynamics catalog title. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S5_ae_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S5",
+      "query": "fluid mechanics and aerodynamics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "AE",
+          "ME",
+          "MTE"
+        ],
+        "user_department": "AE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "AE100",
+          "AE101",
+          "AE104",
+          "AE115",
+          "CHE102",
+          "MATH116",
+          "AE105",
+          "AE121",
+          "AE125",
+          "MATH118",
+          "AE200",
+          "AE204",
+          "AE221",
+          "AE224",
+          "AE280",
+          "AE205",
+          "AE223",
+          "AE225",
+          "AE265"
+        ]
+      },
+      "graded_relevance": {
+        "AE280": 3,
+        "ME351": 2,
+        "MTE352": 2,
+        "ME564": 1
+      },
+      "rationale": {
+        "prompt_intent": "S5 (AE): AE280 Fluid Mechanics and Thermal Sciences.",
+        "courses": {
+          "AE280": {
+            "title": "Fluid Mechanics and Thermal Sciences",
+            "description_excerpt": "An introduction to fluid mechanics and thermal sciences. Aspects of heat transfer via conduction, convection, and radiation. Fluid properties. Fluid statics. Bernoulli equation. The momentum equation and applications. La",
+            "grade": 3,
+            "why": "Relevance grade 3. S5 (AE): AE280 Fluid Mechanics and Thermal Sciences. Course title/description in catalog supports match to query."
+          },
+          "ME351": {
+            "title": "Fluid Mechanics 1",
+            "description_excerpt": "Physical properties of fluids and fundamental concepts in fluid mechanics. Hydrostatics. Conservation laws for mass, momentum and energy. Flow similarity and dimensional analysis as applied to engineering problems in flu",
+            "grade": 2,
+            "why": "Relevance grade 2. S5 (AE): AE280 Fluid Mechanics and Thermal Sciences. Course title/description in catalog supports match to query."
+          },
+          "MTE352": {
+            "title": "Fluid Mechanics 1",
+            "description_excerpt": "Physical properties of fluids and fundamental concepts in fluid mechanics. Hydrostatics. Conservation laws for mass, momentum, and energy. Flow similarity and dimensional analysis as applied to engineering problems in fl",
+            "grade": 2,
+            "why": "Relevance grade 2. S5 (AE): AE280 Fluid Mechanics and Thermal Sciences. Course title/description in catalog supports match to query."
+          },
+          "ME564": {
+            "title": "Aerodynamics",
+            "description_excerpt": "An introductory course in aerodynamics for engineers. Kinematics and dynamics of inviscid flow; airfoil dynamics including thin airfoil theory, finite wings, panel methods and airfoil parameters. Boundary layer theory an",
+            "grade": 1,
+            "why": "Relevance grade 1. S5 (AE): AE280 Fluid Mechanics and Thermal Sciences. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S5_mte_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S5",
+      "query": "fluid mechanics and aerodynamics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MTE",
+          "ME",
+          "SYDE"
+        ],
+        "user_department": "MTE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MTE100",
+          "MTE121",
+          "MATH118",
+          "MTE111",
+          "MTE119",
+          "MTE120",
+          "MTE140",
+          "MTE182",
+          "MTE201",
+          "MTE202",
+          "MTE219",
+          "MTE262",
+          "MTE203",
+          "MTE204",
+          "MTE220",
+          "MTE241",
+          "MTE252",
+          "MTE309",
+          "MTE320",
+          "MTE321",
+          "MTE325",
+          "MTE351"
+        ]
+      },
+      "graded_relevance": {
+        "MTE352": 3,
+        "ME351": 2,
+        "SYDE383": 2,
+        "ME353": 2
+      },
+      "rationale": {
+        "prompt_intent": "S5 (MTE): MTE352 Fluid Mechanics 1.",
+        "courses": {
+          "MTE352": {
+            "title": "Fluid Mechanics 1",
+            "description_excerpt": "Physical properties of fluids and fundamental concepts in fluid mechanics. Hydrostatics. Conservation laws for mass, momentum, and energy. Flow similarity and dimensional analysis as applied to engineering problems in fl",
+            "grade": 3,
+            "why": "Relevance grade 3. S5 (MTE): MTE352 Fluid Mechanics 1. Course title/description in catalog supports match to query."
+          },
+          "ME351": {
+            "title": "Fluid Mechanics 1",
+            "description_excerpt": "Physical properties of fluids and fundamental concepts in fluid mechanics. Hydrostatics. Conservation laws for mass, momentum and energy. Flow similarity and dimensional analysis as applied to engineering problems in flu",
+            "grade": 2,
+            "why": "Relevance grade 2. S5 (MTE): MTE352 Fluid Mechanics 1. Course title/description in catalog supports match to query."
+          },
+          "SYDE383": {
+            "title": "Fluid Mechanics",
+            "description_excerpt": "Fundamental concepts in systems involving fluid flow. Basic treatment of statics, kinematics and dynamics of fluids. Conservation of mass, momentum and energy for a control volume. Dimensional analysis and similarity. Fl",
+            "grade": 2,
+            "why": "Relevance grade 2. S5 (MTE): MTE352 Fluid Mechanics 1. Course title/description in catalog supports match to query."
+          },
+          "ME353": {
+            "title": "Heat Transfer 1",
+            "description_excerpt": "Introduction to heat transfer mechanisms. The formulation and solution of steady and transient heat conduction. Radiant heat transfer including exchange laws and view factors. Introductory convective heat transfer.",
+            "grade": 2,
+            "why": "Relevance grade 2. S5 (MTE): MTE352 Fluid Mechanics 1. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S6_ele_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S6",
+      "query": "signals and systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE"
+        ],
+        "user_department": "ELE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250",
+          "ECE203",
+          "ECE207",
+          "ECE231",
+          "ECE260",
+          "ECE298"
+        ]
+      },
+      "graded_relevance": {
+        "ECE207": 3,
+        "ECE318": 3,
+        "ECE375": 2
+      },
+      "rationale": {
+        "prompt_intent": "S6: ECE207 Signals and Systems; ECE318 Communication Systems.",
+        "courses": {
+          "ECE207": {
+            "title": "Signals and Systems",
+            "description_excerpt": "Discrete, continuous and periodic signals, time- and frequency-domain analysis of continuous- and discrete-time linear systems, periodic signals and Fourier series, non-periodic signals, and Fourier transforms.",
+            "grade": 3,
+            "why": "Relevance grade 3. S6: ECE207 Signals and Systems; ECE318 Communication Systems. Course title/description in catalog supports match to query."
+          },
+          "ECE318": {
+            "title": "Communication Systems",
+            "description_excerpt": "Introduction to random processes, power spectral density. Thermal noise and the white noise model. Amplitude and angle modulation, generation and detection schemes. Sampling and reconstruction, quantization. Digital base",
+            "grade": 3,
+            "why": "Relevance grade 3. S6: ECE207 Signals and Systems; ECE318 Communication Systems. Course title/description in catalog supports match to query."
+          },
+          "ECE375": {
+            "title": "Electromagnetic Fields and Waves",
+            "description_excerpt": "Maxwell's equations; plane waves; time-harmonic fields; waves at planar boundaries; boundary conditions; reflection and transmission; transmission lines; electric fields in matter; magnetic fields in matter.",
+            "grade": 2,
+            "why": "Relevance grade 2. S6: ECE207 Signals and Systems; ECE318 Communication Systems. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S6_mte_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S6",
+      "query": "signals and systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MTE",
+          "ECE",
+          "SYDE"
+        ],
+        "user_department": "MTE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MTE100",
+          "MTE121",
+          "MATH118",
+          "MTE111",
+          "MTE119",
+          "MTE120",
+          "MTE140",
+          "MTE182",
+          "MTE201",
+          "MTE202",
+          "MTE219",
+          "MTE262"
+        ]
+      },
+      "graded_relevance": {
+        "MTE252": 3,
+        "ECE207": 2,
+        "MTE241": 2
+      },
+      "rationale": {
+        "prompt_intent": "S6 (MTE): linear systems/signals + computer structures.",
+        "courses": {
+          "MTE252": {
+            "title": "Linear Systems and Signals",
+            "description_excerpt": "Models and analysis of linear systems. Discrete time systems, continuous time systems; difference and differential equations; impulse and frequency response. Complex frequency, functions of complex variable transform dom",
+            "grade": 3,
+            "why": "Relevance grade 3. S6 (MTE): linear systems/signals + computer structures. Course title/description in catalog supports match to query."
+          },
+          "ECE207": {
+            "title": "Signals and Systems",
+            "description_excerpt": "Discrete, continuous and periodic signals, time- and frequency-domain analysis of continuous- and discrete-time linear systems, periodic signals and Fourier series, non-periodic signals, and Fourier transforms.",
+            "grade": 2,
+            "why": "Relevance grade 2. S6 (MTE): linear systems/signals + computer structures. Course title/description in catalog supports match to query."
+          },
+          "MTE241": {
+            "title": "Introduction to Computer Structures and Real-Time Systems",
+            "description_excerpt": "Introduction to computer organization, basic real-time concepts, process management, interprocess communication and synchronization, memory management, resource management, interrupt handling, concurrent programming, fil",
+            "grade": 2,
+            "why": "Relevance grade 2. S6 (MTE): linear systems/signals + computer structures. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S6_syde_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S6",
+      "query": "signals and systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SYDE",
+          "ECE",
+          "MTE"
+        ],
+        "user_department": "SYDE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "SYDE101",
+          "SYDE101L",
+          "SYDE111",
+          "SYDE113",
+          "SYDE121",
+          "SYDE161",
+          "SYDE181",
+          "SYDE112",
+          "SYDE114",
+          "SYDE162",
+          "SYDE192",
+          "SYDE192L",
+          "SYDE223",
+          "SYDE182",
+          "SYDE211",
+          "SYDE261",
+          "SYDE263",
+          "SYDE283",
+          "SYDE285"
+        ]
+      },
+      "graded_relevance": {
+        "SYDE252": 2,
+        "ECE207": 3,
+        "MTE252": 2,
+        "SYDE283": 2
+      },
+      "rationale": {
+        "prompt_intent": "S6 (SYDE): systems/math + shared ECE signals foundation.",
+        "courses": {
+          "SYDE252": {
+            "title": "Linear Systems and Signals",
+            "description_excerpt": "Models and analysis of linear systems. Discrete time systems, continuous time systems; difference and differential equations; impulse and frequency response. Complex frequency, functions of complex variables, transform d",
+            "grade": 2,
+            "why": "Relevance grade 2. S6 (SYDE): systems/math + shared ECE signals foundation. Course title/description in catalog supports match to query."
+          },
+          "ECE207": {
+            "title": "Signals and Systems",
+            "description_excerpt": "Discrete, continuous and periodic signals, time- and frequency-domain analysis of continuous- and discrete-time linear systems, periodic signals and Fourier series, non-periodic signals, and Fourier transforms.",
+            "grade": 3,
+            "why": "Relevance grade 3. S6 (SYDE): systems/math + shared ECE signals foundation. Course title/description in catalog supports match to query."
+          },
+          "MTE252": {
+            "title": "Linear Systems and Signals",
+            "description_excerpt": "Models and analysis of linear systems. Discrete time systems, continuous time systems; difference and differential equations; impulse and frequency response. Complex frequency, functions of complex variable transform dom",
+            "grade": 2,
+            "why": "Relevance grade 2. S6 (SYDE): systems/math + shared ECE signals foundation. Course title/description in catalog supports match to query."
+          },
+          "SYDE283": {
+            "title": "Physics 3: Electricity, Magnetism and Optics",
+            "description_excerpt": "Introduction to the fundamental laws of electricity, magnetism, and optics; electric fields, voltage, resistance, current, properties of conductors and semiconductors, capacitance, properties of dielectrics, magnetic fie",
+            "grade": 2,
+            "why": "Relevance grade 2. S6 (SYDE): systems/math + shared ECE signals foundation. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S7_se_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S7",
+      "query": "neural networks",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SE",
+          "ECE",
+          "CS",
+          "SYDE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206",
+          "CS240",
+          "CS247",
+          "CS348",
+          "MATH239"
+        ]
+      },
+      "graded_relevance": {
+        "ECE457C": 3,
+        "CS486": 3,
+        "SYDE556": 2,
+        "CS480": 2
+      },
+      "rationale": {
+        "prompt_intent": "S7: reinforcement learning / AI / simulating neurobiological systems.",
+        "courses": {
+          "ECE457C": {
+            "title": "Reinforcement Learning",
+            "description_excerpt": "Introduction to reinforcement learning (RL) theory and algorithms for learning decision-making policies in situations with uncertainty and limited information. Topics include Markov decision processes, classic exact/appr",
+            "grade": 3,
+            "why": "Relevance grade 3. S7: reinforcement learning / AI / simulating neurobiological systems. Course title/description in catalog supports match to query."
+          },
+          "CS486": {
+            "title": "Introduction to Artificial Intelligence",
+            "description_excerpt": "Goals and methods of artificial intelligence. Methods of general problem solving. Knowledge representation and reasoning. Planning. Reasoning about uncertainty. Machine learning. Multi-agent systems. Natural language pro",
+            "grade": 3,
+            "why": "Relevance grade 3. S7: reinforcement learning / AI / simulating neurobiological systems. Course title/description in catalog supports match to query."
+          },
+          "SYDE556": {
+            "title": "Simulating Neurobiological Systems",
+            "description_excerpt": "This course develops and applies a general framework for understanding neural computation in the context of recent advances in theoretical and experimental neuroscience. Particular emphasis is placed on understanding rep",
+            "grade": 2,
+            "why": "Relevance grade 2. S7: reinforcement learning / AI / simulating neurobiological systems. Course title/description in catalog supports match to query."
+          },
+          "CS480": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "Introduction to modelling and algorithmic techniques for machines to learn concepts from data. Generalization: underfitting, overfitting, cross-validation. Tasks: classification, regression, clustering. Optimization-base",
+            "grade": 2,
+            "why": "Relevance grade 2. S7: reinforcement learning / AI / simulating neurobiological systems. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S7_syde_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S7",
+      "query": "neural networks",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SYDE",
+          "ECE",
+          "CS"
+        ],
+        "user_department": "SYDE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "SYDE101",
+          "SYDE101L",
+          "SYDE111",
+          "SYDE113",
+          "SYDE121",
+          "SYDE161",
+          "SYDE181",
+          "SYDE112",
+          "SYDE114",
+          "SYDE162",
+          "SYDE192",
+          "SYDE192L",
+          "SYDE223",
+          "SYDE182",
+          "SYDE211",
+          "SYDE261",
+          "SYDE263",
+          "SYDE283",
+          "SYDE285",
+          "SYDE212",
+          "SYDE252",
+          "SYDE262",
+          "SYDE286",
+          "SYDE292",
+          "SYDE292L"
+        ]
+      },
+      "graded_relevance": {
+        "SYDE522": 3,
+        "SYDE556": 3,
+        "ECE457B": 2,
+        "CS486": 2
+      },
+      "rationale": {
+        "prompt_intent": "S7 (SYDE): Foundations of AI + neuro simulation.",
+        "courses": {
+          "SYDE522": {
+            "title": "Foundations of Artificial Intelligence",
+            "description_excerpt": "The objective of this course is to introduce students to fundamental concepts of artificial intelligence. An overview of different learning schemes will be provided, including supervised and unsupervised algorithms. The ",
+            "grade": 3,
+            "why": "Relevance grade 3. S7 (SYDE): Foundations of AI + neuro simulation. Course title/description in catalog supports match to query."
+          },
+          "SYDE556": {
+            "title": "Simulating Neurobiological Systems",
+            "description_excerpt": "This course develops and applies a general framework for understanding neural computation in the context of recent advances in theoretical and experimental neuroscience. Particular emphasis is placed on understanding rep",
+            "grade": 3,
+            "why": "Relevance grade 3. S7 (SYDE): Foundations of AI + neuro simulation. Course title/description in catalog supports match to query."
+          },
+          "ECE457B": {
+            "title": "Fundamentals of Computational Intelligence",
+            "description_excerpt": "Fundamentals and recent advances in computational intelligence. Building accurate models with collected data or rules bases. Model-based prediction and classification. Concepts in machine learning, supervised and unsuper",
+            "grade": 2,
+            "why": "Relevance grade 2. S7 (SYDE): Foundations of AI + neuro simulation. Course title/description in catalog supports match to query."
+          },
+          "CS486": {
+            "title": "Introduction to Artificial Intelligence",
+            "description_excerpt": "Goals and methods of artificial intelligence. Methods of general problem solving. Knowledge representation and reasoning. Planning. Reasoning about uncertainty. Machine learning. Multi-agent systems. Natural language pro",
+            "grade": 2,
+            "why": "Relevance grade 2. S7 (SYDE): Foundations of AI + neuro simulation. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S7_compe_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S7",
+      "query": "neural networks",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE",
+          "CS",
+          "SE"
+        ],
+        "user_department": "COMPE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250",
+          "ECE203",
+          "ECE207",
+          "ECE208",
+          "ECE224",
+          "ECE252",
+          "ECE298",
+          "ECE318",
+          "ECE327",
+          "ECE350",
+          "ECE380"
+        ]
+      },
+      "graded_relevance": {
+        "ECE457B": 3,
+        "ECE457C": 3,
+        "CS486": 2,
+        "CS480": 2
+      },
+      "rationale": {
+        "prompt_intent": "S7 (COMPE): computational intelligence stack in ECE + CS AI.",
+        "courses": {
+          "ECE457B": {
+            "title": "Fundamentals of Computational Intelligence",
+            "description_excerpt": "Fundamentals and recent advances in computational intelligence. Building accurate models with collected data or rules bases. Model-based prediction and classification. Concepts in machine learning, supervised and unsuper",
+            "grade": 3,
+            "why": "Relevance grade 3. S7 (COMPE): computational intelligence stack in ECE + CS AI. Course title/description in catalog supports match to query."
+          },
+          "ECE457C": {
+            "title": "Reinforcement Learning",
+            "description_excerpt": "Introduction to reinforcement learning (RL) theory and algorithms for learning decision-making policies in situations with uncertainty and limited information. Topics include Markov decision processes, classic exact/appr",
+            "grade": 3,
+            "why": "Relevance grade 3. S7 (COMPE): computational intelligence stack in ECE + CS AI. Course title/description in catalog supports match to query."
+          },
+          "CS486": {
+            "title": "Introduction to Artificial Intelligence",
+            "description_excerpt": "Goals and methods of artificial intelligence. Methods of general problem solving. Knowledge representation and reasoning. Planning. Reasoning about uncertainty. Machine learning. Multi-agent systems. Natural language pro",
+            "grade": 2,
+            "why": "Relevance grade 2. S7 (COMPE): computational intelligence stack in ECE + CS AI. Course title/description in catalog supports match to query."
+          },
+          "CS480": {
+            "title": "Introduction to Machine Learning",
+            "description_excerpt": "Introduction to modelling and algorithmic techniques for machines to learn concepts from data. Generalization: underfitting, overfitting, cross-validation. Tasks: classification, regression, clustering. Optimization-base",
+            "grade": 2,
+            "why": "Relevance grade 2. S7 (COMPE): computational intelligence stack in ECE + CS AI. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S8_che_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S8",
+      "query": "chemistry of polymers and composite materials",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "CHE",
+          "NE",
+          "MSE"
+        ],
+        "user_department": "CHE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE100",
+          "CHE102",
+          "CHE120",
+          "CHE180",
+          "MATH115",
+          "MATH116",
+          "CHE101",
+          "CHE161",
+          "CHE181",
+          "MATH118",
+          "PHYS115",
+          "CHE200",
+          "CHE220",
+          "CHE230",
+          "CHE290",
+          "CHEM262",
+          "CHEM262L",
+          "MATH217",
+          "CHE211",
+          "CHE225",
+          "CHE231",
+          "CHE241",
+          "CHE291",
+          "MATH218",
+          "CHE312",
+          "CHE314",
+          "CHE322",
+          "CHE330",
+          "CHE390",
+          "MSE261"
+        ]
+      },
+      "graded_relevance": {
+        "CHE541": 3,
+        "CHE543": 3,
+        "CHE241": 2
+      },
+      "rationale": {
+        "prompt_intent": "S8: CHE541/543 titles and descriptions center on polymer science and reaction engineering.",
+        "courses": {
+          "CHE541": {
+            "title": "Introduction to Polymer Science and Properties",
+            "description_excerpt": "An introduction to principles governing polymerization reactions and the resultant physical properties of polymers. Molecular weight distribution. Crystallinity. Step-growth and chain-growth polymerization and copolymeri",
+            "grade": 3,
+            "why": "Relevance grade 3. S8: CHE541/543 titles and descriptions center on polymer science and reaction engineering. Course title/description in catalog supports match to query."
+          },
+          "CHE543": {
+            "title": "Polymer Production: Polymer Reaction Engineering",
+            "description_excerpt": "Overview of polymer production technology and polymer reaction engineering analysis tools. Examples from chain growth polymerization processes (free radical, ionic, living/controlled radical variants, metal co-ordination",
+            "grade": 3,
+            "why": "Relevance grade 3. S8: CHE541/543 titles and descriptions center on polymer science and reaction engineering. Course title/description in catalog supports match to query."
+          },
+          "CHE241": {
+            "title": "Materials Science and Engineering",
+            "description_excerpt": "Fundamentals; atomic bonding, crystalline structure, crystal defects, non-crystalline materials; structure and properties of metals, ceramics, glasses, semi-conductors. Amorphous materials, polymers, composites. Processi",
+            "grade": 2,
+            "why": "Relevance grade 2. S8: CHE541/543 titles and descriptions center on polymer science and reaction engineering. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S8_me_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S8",
+      "query": "chemistry of polymers and composite materials",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ME",
+          "CHE",
+          "NE"
+        ],
+        "user_department": "ME",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269",
+          "ME203",
+          "ME212",
+          "ME220",
+          "ME250",
+          "ME262",
+          "ME303",
+          "ME321",
+          "ME340",
+          "ME351",
+          "ME354"
+        ]
+      },
+      "graded_relevance": {
+        "ME435": 2,
+        "CHE541": 3,
+        "CHE241": 2,
+        "NE333": 2
+      },
+      "rationale": {
+        "prompt_intent": "S8 (ME): polymer CHE courses plus advanced materials electives.",
+        "courses": {
+          "ME435": {
+            "title": "Industrial Metallurgy",
+            "description_excerpt": "This course is intended for those students interested in acquiring a working knowledge of metallurgy. It covers: metals and alloy systems, iron-carbon alloys, heat treatment and the function of alloying elements in steel",
+            "grade": 2,
+            "why": "Relevance grade 2. S8 (ME): polymer CHE courses plus advanced materials electives. Course title/description in catalog supports match to query."
+          },
+          "CHE541": {
+            "title": "Introduction to Polymer Science and Properties",
+            "description_excerpt": "An introduction to principles governing polymerization reactions and the resultant physical properties of polymers. Molecular weight distribution. Crystallinity. Step-growth and chain-growth polymerization and copolymeri",
+            "grade": 3,
+            "why": "Relevance grade 3. S8 (ME): polymer CHE courses plus advanced materials electives. Course title/description in catalog supports match to query."
+          },
+          "CHE241": {
+            "title": "Materials Science and Engineering",
+            "description_excerpt": "Fundamentals; atomic bonding, crystalline structure, crystal defects, non-crystalline materials; structure and properties of metals, ceramics, glasses, semi-conductors. Amorphous materials, polymers, composites. Processi",
+            "grade": 2,
+            "why": "Relevance grade 2. S8 (ME): polymer CHE courses plus advanced materials electives. Course title/description in catalog supports match to query."
+          },
+          "NE333": {
+            "title": "Macromolecular Science",
+            "description_excerpt": "Basic definitions, polymer types and nomenclature, molecular weight averages and distributions, structure and properties. Chemical kinetics, step-growth and free-radical chain-growth polymerizations, polymer recycling an",
+            "grade": 2,
+            "why": "Relevance grade 2. S8 (ME): polymer CHE courses plus advanced materials electives. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S8_ne_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S8",
+      "query": "chemistry of polymers and composite materials",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "NE",
+          "CHE",
+          "MSE"
+        ],
+        "user_department": "NE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "MATH117",
+          "NE100",
+          "NE109",
+          "NE111",
+          "NE112",
+          "NE121",
+          "MATH119",
+          "NE110",
+          "NE113",
+          "NE125",
+          "NE131",
+          "NE140",
+          "NE215",
+          "NE216",
+          "NE220L",
+          "NE222",
+          "NE241",
+          "NE217",
+          "NE225",
+          "NE226",
+          "NE226L",
+          "NE242",
+          "NE281",
+          "MSE261",
+          "NE318",
+          "NE320L",
+          "NE332",
+          "NE333",
+          "NE343"
+        ]
+      },
+      "graded_relevance": {
+        "NE335": 3,
+        "CHE541": 3,
+        "NE343": 2
+      },
+      "rationale": {
+        "prompt_intent": "S8 (NE): soft nanomaterials with polymer engineering.",
+        "courses": {
+          "NE335": {
+            "title": "Soft Nanomaterials",
+            "description_excerpt": "Introduction to the applications of macromolecules in nanotechnology. Block copolymers and self-assembled polymerization. Micelles and colloids. Dendrimers and molecular brushes. Supramolecular polymers, polymeric blends",
+            "grade": 3,
+            "why": "Relevance grade 3. S8 (NE): soft nanomaterials with polymer engineering. Course title/description in catalog supports match to query."
+          },
+          "CHE541": {
+            "title": "Introduction to Polymer Science and Properties",
+            "description_excerpt": "An introduction to principles governing polymerization reactions and the resultant physical properties of polymers. Molecular weight distribution. Crystallinity. Step-growth and chain-growth polymerization and copolymeri",
+            "grade": 3,
+            "why": "Relevance grade 3. S8 (NE): soft nanomaterials with polymer engineering. Course title/description in catalog supports match to query."
+          },
+          "NE343": {
+            "title": "Microfabrication and Thin-Film Technology",
+            "description_excerpt": "Key processes for electronic device fabrication. Single crystal growth. Substrate preparation. Homoepitaxy, heteroepitaxy, and molecular-beam epitaxy. Ion implantation. Oxidation and diffusion. Physical and chemical vapo",
+            "grade": 2,
+            "why": "Relevance grade 2. S8 (NE): soft nanomaterials with polymer engineering. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S9_mgte_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S9",
+      "query": "probability and statistics for data-driven design",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MSE",
+          "STAT",
+          "CO",
+          "CS"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115",
+          "MSE240",
+          "MSE251",
+          "MSE261",
+          "MSE271"
+        ]
+      },
+      "graded_relevance": {
+        "MSE253": 3,
+        "MSE431": 2,
+        "STAT340": 2,
+        "STAT332": 2
+      },
+      "rationale": {
+        "prompt_intent": "S9 (MGTE): probability/stat + stochastic models + simulation.",
+        "courses": {
+          "MSE253": {
+            "title": "Probability and Statistics 2",
+            "description_excerpt": "The second of a two-course sequence that introduces probability and statistics. It covers quantitative information displays, conditional probability and Bayes' rule, transforms, joint distributions, special discrete and ",
+            "grade": 3,
+            "why": "Relevance grade 3. S9 (MGTE): probability/stat + stochastic models + simulation. Course title/description in catalog supports match to query."
+          },
+          "MSE431": {
+            "title": "Stochastic Models and Methods",
+            "description_excerpt": "Introduction to operations research models and methods for problems with random, stochastic, and probabilistic components. Topics include birth and death processes, branching processes, waiting line models, and Markov de",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (MGTE): probability/stat + stochastic models + simulation. Course title/description in catalog supports match to query."
+          },
+          "STAT340": {
+            "title": "Stochastic Simulation Methods",
+            "description_excerpt": "Random variate generation in the univariate and multivariate case, Monte Carlo integration, advanced computer implementation, variance reduction, statistical analysis of simulated data, extensions to challenging simulati",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (MGTE): probability/stat + stochastic models + simulation. Course title/description in catalog supports match to query."
+          },
+          "STAT332": {
+            "title": "Sampling and Experimental Design",
+            "description_excerpt": "Designing sample surveys. Probability sampling designs. Estimation with elementary designs. Observational and experimental studies. Blocking, randomization, factorial designs. Analysis of variance. Designing for comparis",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (MGTE): probability/stat + stochastic models + simulation. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S9_se_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S9",
+      "query": "probability and statistics for data-driven design",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SE",
+          "STAT",
+          "MATH",
+          "MSE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206"
+        ]
+      },
+      "graded_relevance": {
+        "STAT206": 3,
+        "MSE253": 2,
+        "STAT230": 2,
+        "STAT231": 2
+      },
+      "rationale": {
+        "prompt_intent": "S9 (SE): engineering statistics and probability offerings.",
+        "courses": {
+          "STAT206": {
+            "title": "Statistics for Software Engineering",
+            "description_excerpt": "Empirical problem solving with applications to software engineering. An introduction to probability theory. An introduction to distribution theory and to methods of statistical inference, including confidence intervals a",
+            "grade": 3,
+            "why": "Relevance grade 3. S9 (SE): engineering statistics and probability offerings. Course title/description in catalog supports match to query."
+          },
+          "MSE253": {
+            "title": "Probability and Statistics 2",
+            "description_excerpt": "The second of a two-course sequence that introduces probability and statistics. It covers quantitative information displays, conditional probability and Bayes' rule, transforms, joint distributions, special discrete and ",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (SE): engineering statistics and probability offerings. Course title/description in catalog supports match to query."
+          },
+          "STAT230": {
+            "title": "Probability",
+            "description_excerpt": "This course provides an introduction to probability models including sample spaces, mutually exclusive and independent events, conditional probability and Bayes' Theorem. The named distributions (Discrete Uniform, Hyperg",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (SE): engineering statistics and probability offerings. Course title/description in catalog supports match to query."
+          },
+          "STAT231": {
+            "title": "Statistics",
+            "description_excerpt": "This course provides a systematic approach to empirical problem solving which will enable students to critically assess the sampling protocol and conclusions of an empirical study including the possible sources of error ",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (SE): engineering statistics and probability offerings. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S9_compe_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S9",
+      "query": "probability and statistics for data-driven design",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE",
+          "STAT",
+          "MATH",
+          "MSE"
+        ],
+        "user_department": "COMPE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250"
+        ]
+      },
+      "graded_relevance": {
+        "STAT206": 3,
+        "STAT230": 2,
+        "STAT231": 2,
+        "MSE431": 1
+      },
+      "rationale": {
+        "prompt_intent": "S9 (COMPE): stats core for data-driven ECE work.",
+        "courses": {
+          "STAT206": {
+            "title": "Statistics for Software Engineering",
+            "description_excerpt": "Empirical problem solving with applications to software engineering. An introduction to probability theory. An introduction to distribution theory and to methods of statistical inference, including confidence intervals a",
+            "grade": 3,
+            "why": "Relevance grade 3. S9 (COMPE): stats core for data-driven ECE work. Course title/description in catalog supports match to query."
+          },
+          "STAT230": {
+            "title": "Probability",
+            "description_excerpt": "This course provides an introduction to probability models including sample spaces, mutually exclusive and independent events, conditional probability and Bayes' Theorem. The named distributions (Discrete Uniform, Hyperg",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (COMPE): stats core for data-driven ECE work. Course title/description in catalog supports match to query."
+          },
+          "STAT231": {
+            "title": "Statistics",
+            "description_excerpt": "This course provides a systematic approach to empirical problem solving which will enable students to critically assess the sampling protocol and conclusions of an empirical study including the possible sources of error ",
+            "grade": 2,
+            "why": "Relevance grade 2. S9 (COMPE): stats core for data-driven ECE work. Course title/description in catalog supports match to query."
+          },
+          "MSE431": {
+            "title": "Stochastic Models and Methods",
+            "description_excerpt": "Introduction to operations research models and methods for problems with random, stochastic, and probabilistic components. Topics include birth and death processes, branching processes, waiting line models, and Markov de",
+            "grade": 1,
+            "why": "Relevance grade 1. S9 (COMPE): stats core for data-driven ECE work. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S10_mte_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S10",
+      "query": "control systems and feedback for robotics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MTE",
+          "ECE",
+          "ME",
+          "SYDE"
+        ],
+        "user_department": "MTE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MTE100",
+          "MTE121",
+          "MATH118",
+          "MTE111",
+          "MTE119",
+          "MTE120",
+          "MTE140",
+          "MTE182",
+          "MTE201",
+          "MTE202",
+          "MTE219",
+          "MTE262",
+          "MTE203",
+          "MTE204",
+          "MTE220",
+          "MTE241",
+          "MTE252",
+          "MTE309",
+          "MTE320",
+          "MTE321",
+          "MTE325",
+          "MTE351"
+        ]
+      },
+      "graded_relevance": {
+        "MTE360": 3,
+        "ECE486": 3,
+        "MTE322": 2,
+        "MTE460": 2
+      },
+      "rationale": {
+        "prompt_intent": "S10 (MTE): automatic control + robot dynamics + integration workshop.",
+        "courses": {
+          "MTE360": {
+            "title": "Automatic Control Systems",
+            "description_excerpt": "Feedback control design and analysis for linear dynamic systems with emphasis on mechanical engineering applications; transient and frequency response; stability; system performance; control modes; state space techniques",
+            "grade": 3,
+            "why": "Relevance grade 3. S10 (MTE): automatic control + robot dynamics + integration workshop. Course title/description in catalog supports match to query."
+          },
+          "ECE486": {
+            "title": "Robot Dynamics and Control",
+            "description_excerpt": "Introduction to the study of robotics focusing on the mechanics and control of serial manipulators. Topics include rigid body motion, forward and inverse kinematics, differential kinematics, forward and inverse dynamics,",
+            "grade": 3,
+            "why": "Relevance grade 3. S10 (MTE): automatic control + robot dynamics + integration workshop. Course title/description in catalog supports match to query."
+          },
+          "MTE322": {
+            "title": "Electromechanical Machine Design",
+            "description_excerpt": "Integrated design of mechanical motion transmission systems: gearing, couplings, bearings, power screws, fasteners, and their integration; sensing and measurement of mechanical motion; specification and selection of moto",
+            "grade": 2,
+            "why": "Relevance grade 2. S10 (MTE): automatic control + robot dynamics + integration workshop. Course title/description in catalog supports match to query."
+          },
+          "MTE460": {
+            "title": "Mechatronic System Integration",
+            "description_excerpt": "Mechatronic system interfaces and architecture design. Sensing and actuation in industrial mechatronics systems. Motion control. Industrial computer vision. Networks and communication. PLC based and distributed control. ",
+            "grade": 2,
+            "why": "Relevance grade 2. S10 (MTE): automatic control + robot dynamics + integration workshop. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S10_me_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S10",
+      "query": "control systems and feedback for robotics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ME",
+          "MTE",
+          "ECE",
+          "SYDE"
+        ],
+        "user_department": "ME",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269",
+          "ME203",
+          "ME212",
+          "ME220",
+          "ME250",
+          "ME262"
+        ]
+      },
+      "graded_relevance": {
+        "ME360": 3,
+        "ME321": 3,
+        "ECE380": 2,
+        "MTE360": 2
+      },
+      "rationale": {
+        "prompt_intent": "S10 (ME): intro control + dynamics/vibrations.",
+        "courses": {
+          "ME360": {
+            "title": "Introduction to Control Systems",
+            "description_excerpt": "Open loop and feedback control. Laws governing mechanical, electrical, fluid and thermal control components. Analogies. Analysis of some engineering control systems using block diagram algebra, transient and steady-state",
+            "grade": 3,
+            "why": "Relevance grade 3. S10 (ME): intro control + dynamics/vibrations. Course title/description in catalog supports match to query."
+          },
+          "ME321": {
+            "title": "Dynamics of Machines and Mechanical Vibrations",
+            "description_excerpt": "Principles of the geometry of motion, uniform and non-uniform motion, linkages, gears, and analysis of mechanisms. Consideration of the static and dynamic forces in machines. Vibration analysis, response to shock, motion",
+            "grade": 3,
+            "why": "Relevance grade 3. S10 (ME): intro control + dynamics/vibrations. Course title/description in catalog supports match to query."
+          },
+          "ECE380": {
+            "title": "Analog Control Systems",
+            "description_excerpt": "Introduction to control systems. Advantages of closed-loop feedback systems. The role of the system mathematical model. Block diagrams and signal flow graphs. The basic control system design problem, stability in control",
+            "grade": 2,
+            "why": "Relevance grade 2. S10 (ME): intro control + dynamics/vibrations. Course title/description in catalog supports match to query."
+          },
+          "MTE360": {
+            "title": "Automatic Control Systems",
+            "description_excerpt": "Feedback control design and analysis for linear dynamic systems with emphasis on mechanical engineering applications; transient and frequency response; stability; system performance; control modes; state space techniques",
+            "grade": 2,
+            "why": "Relevance grade 2. S10 (ME): intro control + dynamics/vibrations. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S10_syde_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S10",
+      "query": "control systems and feedback for robotics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SYDE",
+          "ECE",
+          "ME",
+          "MTE"
+        ],
+        "user_department": "SYDE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "SYDE101",
+          "SYDE101L",
+          "SYDE111",
+          "SYDE113",
+          "SYDE121",
+          "SYDE161",
+          "SYDE181",
+          "SYDE112",
+          "SYDE114",
+          "SYDE162",
+          "SYDE192",
+          "SYDE192L",
+          "SYDE223",
+          "SYDE182",
+          "SYDE211",
+          "SYDE261",
+          "SYDE263",
+          "SYDE283",
+          "SYDE285"
+        ]
+      },
+      "graded_relevance": {
+        "SYDE352": 3,
+        "ECE380": 2,
+        "ME360": 2,
+        "MTE360": 2
+      },
+      "rationale": {
+        "prompt_intent": "S10 (SYDE): SYDE352 Introduction to Control Systems.",
+        "courses": {
+          "SYDE352": {
+            "title": "Introduction to Control Systems",
+            "description_excerpt": "Classical and state space representations of control systems. Stability, controllability, observability and sensitivity. Routh-Hurwitz and root-locus methods. Frequency domain behaviour, Bode plots, Nyquist stability cri",
+            "grade": 3,
+            "why": "Relevance grade 3. S10 (SYDE): SYDE352 Introduction to Control Systems. Course title/description in catalog supports match to query."
+          },
+          "ECE380": {
+            "title": "Analog Control Systems",
+            "description_excerpt": "Introduction to control systems. Advantages of closed-loop feedback systems. The role of the system mathematical model. Block diagrams and signal flow graphs. The basic control system design problem, stability in control",
+            "grade": 2,
+            "why": "Relevance grade 2. S10 (SYDE): SYDE352 Introduction to Control Systems. Course title/description in catalog supports match to query."
+          },
+          "ME360": {
+            "title": "Introduction to Control Systems",
+            "description_excerpt": "Open loop and feedback control. Laws governing mechanical, electrical, fluid and thermal control components. Analogies. Analysis of some engineering control systems using block diagram algebra, transient and steady-state",
+            "grade": 2,
+            "why": "Relevance grade 2. S10 (SYDE): SYDE352 Introduction to Control Systems. Course title/description in catalog supports match to query."
+          },
+          "MTE360": {
+            "title": "Automatic Control Systems",
+            "description_excerpt": "Feedback control design and analysis for linear dynamic systems with emphasis on mechanical engineering applications; transient and frequency response; stability; system performance; control modes; state space techniques",
+            "grade": 2,
+            "why": "Relevance grade 2. S10 (SYDE): SYDE352 Introduction to Control Systems. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S11_compe_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S11",
+      "query": "circuits electronics and embedded systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE",
+          "MTE",
+          "NE"
+        ],
+        "user_department": "COMPE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250",
+          "ECE203",
+          "ECE207",
+          "ECE208",
+          "ECE224",
+          "ECE252",
+          "ECE298",
+          "ECE318",
+          "ECE327",
+          "ECE350",
+          "ECE380"
+        ]
+      },
+      "graded_relevance": {
+        "ECE350": 3,
+        "ECE327": 3,
+        "MTE325": 2,
+        "ECE240": 2
+      },
+      "rationale": {
+        "prompt_intent": "S11: RTOS/microprocessors + digital hardware + circuits.",
+        "courses": {
+          "ECE350": {
+            "title": "Real-Time Operating Systems",
+            "description_excerpt": "Memory and virtual memory and caching; I/O devices, drivers, and permanent storage management; process scheduling; queue management in the kernel; real-time kernel development. Aspects of multi-core operating systems.",
+            "grade": 3,
+            "why": "Relevance grade 3. S11: RTOS/microprocessors + digital hardware + circuits. Course title/description in catalog supports match to query."
+          },
+          "ECE327": {
+            "title": "Digital Hardware Systems",
+            "description_excerpt": "Design and modelling of digital hardware systems using a hardware description language. Development process. Impact of implementation technologies. Performance analysis and optimization. Functional verification. Timing a",
+            "grade": 3,
+            "why": "Relevance grade 3. S11: RTOS/microprocessors + digital hardware + circuits. Course title/description in catalog supports match to query."
+          },
+          "MTE325": {
+            "title": "Microprocessor Systems and Interfacing for Mechatronics Engineering",
+            "description_excerpt": "Synchronization and data flow; interfacing to sensors and actuators; parallel, serial, and analog interfacing; buses; direct memory access (DMA); interfacing considerations; privacy and security considerations. [Offered:",
+            "grade": 2,
+            "why": "Relevance grade 2. S11: RTOS/microprocessors + digital hardware + circuits. Course title/description in catalog supports match to query."
+          },
+          "ECE240": {
+            "title": "Electronic Circuits 1",
+            "description_excerpt": "Introduction to electronic signal processing; second-order circuits; operational amplifier circuits; diode device and circuits; metal-oxide-semiconductor (MOS) biasing networks; load-line analysis; diode and MOS small-si",
+            "grade": 2,
+            "why": "Relevance grade 2. S11: RTOS/microprocessors + digital hardware + circuits. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S11_mte_3a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S11",
+      "query": "circuits electronics and embedded systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MTE",
+          "ECE",
+          "NE"
+        ],
+        "user_department": "MTE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MTE100",
+          "MTE121",
+          "MATH118",
+          "MTE111",
+          "MTE119",
+          "MTE120",
+          "MTE140",
+          "MTE182",
+          "MTE201",
+          "MTE202",
+          "MTE219",
+          "MTE262",
+          "MTE203",
+          "MTE204",
+          "MTE220",
+          "MTE241",
+          "MTE252"
+        ]
+      },
+      "graded_relevance": {
+        "MTE325": 3,
+        "MTE241": 3,
+        "ECE327": 2,
+        "ECE350": 2
+      },
+      "rationale": {
+        "prompt_intent": "S11 (MTE): microprocessor systems + computer structures.",
+        "courses": {
+          "MTE325": {
+            "title": "Microprocessor Systems and Interfacing for Mechatronics Engineering",
+            "description_excerpt": "Synchronization and data flow; interfacing to sensors and actuators; parallel, serial, and analog interfacing; buses; direct memory access (DMA); interfacing considerations; privacy and security considerations. [Offered:",
+            "grade": 3,
+            "why": "Relevance grade 3. S11 (MTE): microprocessor systems + computer structures. Course title/description in catalog supports match to query."
+          },
+          "MTE241": {
+            "title": "Introduction to Computer Structures and Real-Time Systems",
+            "description_excerpt": "Introduction to computer organization, basic real-time concepts, process management, interprocess communication and synchronization, memory management, resource management, interrupt handling, concurrent programming, fil",
+            "grade": 3,
+            "why": "Relevance grade 3. S11 (MTE): microprocessor systems + computer structures. Course title/description in catalog supports match to query."
+          },
+          "ECE327": {
+            "title": "Digital Hardware Systems",
+            "description_excerpt": "Design and modelling of digital hardware systems using a hardware description language. Development process. Impact of implementation technologies. Performance analysis and optimization. Functional verification. Timing a",
+            "grade": 2,
+            "why": "Relevance grade 2. S11 (MTE): microprocessor systems + computer structures. Course title/description in catalog supports match to query."
+          },
+          "ECE350": {
+            "title": "Real-Time Operating Systems",
+            "description_excerpt": "Memory and virtual memory and caching; I/O devices, drivers, and permanent storage management; process scheduling; queue management in the kernel; real-time kernel development. Aspects of multi-core operating systems.",
+            "grade": 2,
+            "why": "Relevance grade 2. S11 (MTE): microprocessor systems + computer structures. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S11_ele_2b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S11",
+      "query": "circuits electronics and embedded systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "ECE"
+        ],
+        "user_department": "ELE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250"
+        ]
+      },
+      "graded_relevance": {
+        "ECE240": 3,
+        "ECE222": 2,
+        "ECE208": 2,
+        "ECE250": 2
+      },
+      "rationale": {
+        "prompt_intent": "S11 (ELE): electronic circuits + digital + software systems design.",
+        "courses": {
+          "ECE240": {
+            "title": "Electronic Circuits 1",
+            "description_excerpt": "Introduction to electronic signal processing; second-order circuits; operational amplifier circuits; diode device and circuits; metal-oxide-semiconductor (MOS) biasing networks; load-line analysis; diode and MOS small-si",
+            "grade": 3,
+            "why": "Relevance grade 3. S11 (ELE): electronic circuits + digital + software systems design. Course title/description in catalog supports match to query."
+          },
+          "ECE222": {
+            "title": "Digital Computers",
+            "description_excerpt": "Computer organization. Memory units, control units, I/O operations. Assembly language programming, translation and loading. Arithmetic logic units. Computer case studies.",
+            "grade": 2,
+            "why": "Relevance grade 2. S11 (ELE): electronic circuits + digital + software systems design. Course title/description in catalog supports match to query."
+          },
+          "ECE208": {
+            "title": "Discrete Mathematics and Logic 2",
+            "description_excerpt": "Formal logics, methods, and associated tools, and their uses in specifying, synthesizing, and verifying computing systems. Predicate logic. Temporal logic. Relational logic. Set theory. Proof theory. Model theory. Graph ",
+            "grade": 2,
+            "why": "Relevance grade 2. S11 (ELE): electronic circuits + digital + software systems design. Course title/description in catalog supports match to query."
+          },
+          "ECE250": {
+            "title": "Algorithms and Data Structures",
+            "description_excerpt": "Data structures, abstract data types, recursive algorithms, algorithm analysis, sorting and searching, and problem-solving strategies.",
+            "grade": 2,
+            "why": "Relevance grade 2. S11 (ELE): electronic circuits + digital + software systems design. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S12_mgte_2a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S12",
+      "query": "optimization and operations research",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MSE",
+          "CO",
+          "CS"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "2A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115"
+        ]
+      },
+      "graded_relevance": {
+        "MSE331": 3,
+        "CO250": 3,
+        "MSE332": 2
+      },
+      "rationale": {
+        "prompt_intent": "S12 (MGTE): intro optimization + CO250 + deterministic models.",
+        "courses": {
+          "MSE331": {
+            "title": "Introduction to Optimization",
+            "description_excerpt": "This first course in optimization uses a quantitative approach to problem solving involving, mathematical modelling and formulations, solution methods, and output analysis. Students are introduced to a variety of practic",
+            "grade": 3,
+            "why": "Relevance grade 3. S12 (MGTE): intro optimization + CO250 + deterministic models. Course title/description in catalog supports match to query."
+          },
+          "CO250": {
+            "title": "Introduction to Optimization",
+            "description_excerpt": "A broad introduction to the field of optimization, discussing applications, and solution techniques. Mathematical models for real life applications; algorithms; aspects of computational complexity; geometry; linear progr",
+            "grade": 3,
+            "why": "Relevance grade 3. S12 (MGTE): intro optimization + CO250 + deterministic models. Course title/description in catalog supports match to query."
+          },
+          "MSE332": {
+            "title": "Deterministic Optimization Models and Methods",
+            "description_excerpt": "This course builds on the material presented in MSE331, and explores more advanced optimization techniques and applications. Methods, such as integer optimization, dynamic programming, and heuristics, are introduced and ",
+            "grade": 2,
+            "why": "Relevance grade 2. S12 (MGTE): intro optimization + CO250 + deterministic models. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S12_mgte_3b",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S12",
+      "query": "optimization and operations research",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "MSE",
+          "CO",
+          "STAT"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115",
+          "MSE240",
+          "MSE251",
+          "MSE261",
+          "MSE271",
+          "MSE232",
+          "MSE245",
+          "MSE253",
+          "MSE263",
+          "MSE211",
+          "MSE334",
+          "MSE342",
+          "MSE431",
+          "MSE446"
+        ]
+      },
+      "graded_relevance": {
+        "MSE332": 3,
+        "MSE435": 3,
+        "CO370": 2,
+        "CO351": 2
+      },
+      "rationale": {
+        "prompt_intent": "S12 upper OR: deterministic optimization + network flow.",
+        "courses": {
+          "MSE332": {
+            "title": "Deterministic Optimization Models and Methods",
+            "description_excerpt": "This course builds on the material presented in MSE331, and explores more advanced optimization techniques and applications. Methods, such as integer optimization, dynamic programming, and heuristics, are introduced and ",
+            "grade": 3,
+            "why": "Relevance grade 3. S12 upper OR: deterministic optimization + network flow. Course title/description in catalog supports match to query."
+          },
+          "MSE435": {
+            "title": "Advanced Optimization Techniques",
+            "description_excerpt": "This course covers more advanced topics in optimization that go beyond the contents of MSE232, MSE331, and MSE332. The course will cover topics such as constraint programming, stochastic programming, large scale optimiza",
+            "grade": 3,
+            "why": "Relevance grade 3. S12 upper OR: deterministic optimization + network flow. Course title/description in catalog supports match to query."
+          },
+          "CO370": {
+            "title": "Deterministic OR Models",
+            "description_excerpt": "An applications-oriented course that illustrates how various mathematical models and methods of optimization can be used to solve problems arising in business, industry, and science.",
+            "grade": 2,
+            "why": "Relevance grade 2. S12 upper OR: deterministic optimization + network flow. Course title/description in catalog supports match to query."
+          },
+          "CO351": {
+            "title": "Network Flow Theory",
+            "description_excerpt": "Review of linear programming. Shortest path problems. The max-flow min-cut theorem and applications. Minimum cost flow problems. Network simplex and primal-dual algorithms. Applications to problems of transportation, dis",
+            "grade": 2,
+            "why": "Relevance grade 2. S12 upper OR: deterministic optimization + network flow. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_S12_se_2a",
+      "segment": "test_plan_402_stem",
+      "test_plan_prompt": "S12",
+      "query": "optimization and operations research",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": false,
+        "department": [
+          "SE",
+          "CO",
+          "MSE",
+          "ECE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "2A",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119"
+        ]
+      },
+      "graded_relevance": {
+        "CO250": 3,
+        "ECE406": 2,
+        "MSE331": 2,
+        "CS341": 2
+      },
+      "rationale": {
+        "prompt_intent": "S12 (SE): discrete optimization + algorithm design + algorithms course.",
+        "courses": {
+          "CO250": {
+            "title": "Introduction to Optimization",
+            "description_excerpt": "A broad introduction to the field of optimization, discussing applications, and solution techniques. Mathematical models for real life applications; algorithms; aspects of computational complexity; geometry; linear progr",
+            "grade": 3,
+            "why": "Relevance grade 3. S12 (SE): discrete optimization + algorithm design + algorithms course. Course title/description in catalog supports match to query."
+          },
+          "ECE406": {
+            "title": "Algorithm Design and Analysis",
+            "description_excerpt": "Design and analysis of efficient, correct algorithms. Advanced data structures, divide-and-conquer algorithms, recurrences, greedy algorithms, dynamic programming, graph algorithms, search and backtrack, inherently hard ",
+            "grade": 2,
+            "why": "Relevance grade 2. S12 (SE): discrete optimization + algorithm design + algorithms course. Course title/description in catalog supports match to query."
+          },
+          "MSE331": {
+            "title": "Introduction to Optimization",
+            "description_excerpt": "This first course in optimization uses a quantitative approach to problem solving involving, mathematical modelling and formulations, solution methods, and output analysis. Students are introduced to a variety of practic",
+            "grade": 2,
+            "why": "Relevance grade 2. S12 (SE): discrete optimization + algorithm design + algorithms course. Course title/description in catalog supports match to query."
+          },
+          "CS341": {
+            "title": "Algorithms",
+            "description_excerpt": "The study of efficient algorithms and effective algorithm design techniques. Program design with emphasis on pragmatic and mathematical aspects of program efficiency. Topics include divide and conquer algorithms, recurre",
+            "grade": 2,
+            "why": "Relevance grade 2. S12 (SE): discrete optimization + algorithm design + algorithms course. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N1_se_3a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N1",
+      "query": "ethics of technology and engineering in society",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PHIL",
+          "GENE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206",
+          "CS240",
+          "CS247",
+          "CS348",
+          "MATH239"
+        ]
+      },
+      "graded_relevance": {
+        "PHIL315": 3,
+        "PHIL226": 2
+      },
+      "rationale": {
+        "prompt_intent": "N1: PHIL315 Ethics and the Engineering Profession.",
+        "courses": {
+          "PHIL315": {
+            "title": "Ethics and the Engineering Profession",
+            "description_excerpt": "An analysis from the standpoint of philosophical ethics of moral issues arising in professional engineering practice. Issues include the social responsibility of engineers, conflict of interest and obligation, morally ac",
+            "grade": 3,
+            "why": "Relevance grade 3. N1: PHIL315 Ethics and the Engineering Profession. Course title/description in catalog supports match to query."
+          },
+          "PHIL226": {
+            "title": "Biomedical Ethics",
+            "description_excerpt": "An examination of ethical issues in the health sciences, such as the patient-doctor relationship, reproductive rights and technologies, genetic testing, allocation of medical resources, and end-of-life decisions.",
+            "grade": 2,
+            "why": "Relevance grade 2. N1: PHIL315 Ethics and the Engineering Profession. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N1_mgte_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N1",
+      "query": "ethics of technology and engineering in society",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PHIL",
+          "SCI"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115",
+          "MSE240",
+          "MSE251",
+          "MSE261",
+          "MSE271",
+          "MSE232",
+          "MSE245",
+          "MSE253",
+          "MSE263",
+          "MSE211",
+          "MSE334",
+          "MSE342",
+          "MSE431",
+          "MSE446"
+        ]
+      },
+      "graded_relevance": {
+        "PHIL315": 3,
+        "PHIL226": 2
+      },
+      "rationale": {
+        "prompt_intent": "N1: same ethics courses; include_other_depts on so non-ENG breadth outside the PHIL/SCI list can surface.",
+        "courses": {
+          "PHIL315": {
+            "title": "Ethics and the Engineering Profession",
+            "description_excerpt": "An analysis from the standpoint of philosophical ethics of moral issues arising in professional engineering practice. Issues include the social responsibility of engineers, conflict of interest and obligation, morally ac",
+            "grade": 3,
+            "why": "Relevance grade 3. N1: same ethics courses; include_other_depts on so non-ENG breadth outside the PHIL/SCI list can surface. Course title/description in catalog supports match to query."
+          },
+          "PHIL226": {
+            "title": "Biomedical Ethics",
+            "description_excerpt": "An examination of ethical issues in the health sciences, such as the patient-doctor relationship, reproductive rights and technologies, genetic testing, allocation of medical resources, and end-of-life decisions.",
+            "grade": 2,
+            "why": "Relevance grade 2. N1: same ethics courses; include_other_depts on so non-ENG breadth outside the PHIL/SCI list can surface. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N2_compe_2b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N2",
+      "query": "professional communication and technical writing for engineers",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "ENGL",
+          "COMMST"
+        ],
+        "user_department": "COMPE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250"
+        ]
+      },
+      "graded_relevance": {
+        "ENGL210E": 3,
+        "ENGL472": 2,
+        "COMMST111": 2
+      },
+      "rationale": {
+        "prompt_intent": "N2: technical communication + leadership/communication.",
+        "courses": {
+          "ENGL210E": {
+            "title": "Genres of Technical Communication",
+            "description_excerpt": "This course explores writing, presentation, and design across various genres of technical communication, with a primary focus on printed and/or online computer documentation. Other assignments might include white papers,",
+            "grade": 3,
+            "why": "Relevance grade 3. N2: technical communication + leadership/communication. Course title/description in catalog supports match to query."
+          },
+          "ENGL472": {
+            "title": "Research Methods in Technical Communication",
+            "description_excerpt": "This course teaches students the practice and theory of research methods in the field of technical and professional communication. Topics may include resource validity and renewal cycles, data-gathering techniques and an",
+            "grade": 2,
+            "why": "Relevance grade 2. N2: technical communication + leadership/communication. Course title/description in catalog supports match to query."
+          },
+          "COMMST111": {
+            "title": "Leadership, Communication, and Collaboration",
+            "description_excerpt": "This course focuses on developing the qualities and transferable skills necessary for integration, continuous learning, and professional development. This course establishes a common baseline of leadership, communication",
+            "grade": 2,
+            "why": "Relevance grade 2. N2: technical communication + leadership/communication. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N2_syde_2a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N2",
+      "query": "professional communication and technical writing for engineers",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "SYDE",
+          "ENGL"
+        ],
+        "user_department": "SYDE",
+        "incoming_level": "2A",
+        "completed_courses": [
+          "SYDE101",
+          "SYDE101L",
+          "SYDE111",
+          "SYDE113",
+          "SYDE121",
+          "SYDE161",
+          "SYDE181",
+          "SYDE112",
+          "SYDE114",
+          "SYDE162",
+          "SYDE192",
+          "SYDE192L",
+          "SYDE223"
+        ]
+      },
+      "graded_relevance": {
+        "SYDE101": 3,
+        "ENGL210E": 2
+      },
+      "rationale": {
+        "prompt_intent": "N2: SYDE communications core + ENGL technical communication.",
+        "courses": {
+          "SYDE101": {
+            "title": "Communications in Systems Design Engineering-Written and Oral",
+            "description_excerpt": "This course introduces first-year students to systems design engineering with a focus on the engineering profession, and technical communication skills. Through in-class and independent activities leading to formative an",
+            "grade": 3,
+            "why": "Relevance grade 3. N2: SYDE communications core + ENGL technical communication. Course title/description in catalog supports match to query."
+          },
+          "ENGL210E": {
+            "title": "Genres of Technical Communication",
+            "description_excerpt": "This course explores writing, presentation, and design across various genres of technical communication, with a primary focus on printed and/or online computer documentation. Other assignments might include white papers,",
+            "grade": 2,
+            "why": "Relevance grade 2. N2: SYDE communications core + ENGL technical communication. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N3_se_3a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N3",
+      "query": "psychology of decision making and human factors",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PSYCH",
+          "SYDE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206",
+          "CS240",
+          "CS247",
+          "CS348",
+          "MATH239"
+        ]
+      },
+      "graded_relevance": {
+        "PSYCH342": 3,
+        "PSYCH439": 2,
+        "SYDE543": 3
+      },
+      "rationale": {
+        "prompt_intent": "N3: teams/negotiation psych + SYDE cognitive ergonomics title.",
+        "courses": {
+          "PSYCH342": {
+            "title": "The Psychology of Groups and Teams",
+            "description_excerpt": "The psychology of groups and teams will address psychological processes particular to any social group situation, for example creative design teams, decision making groups, sports teams, group counselling, university clu",
+            "grade": 3,
+            "why": "Relevance grade 3. N3: teams/negotiation psych + SYDE cognitive ergonomics title. Course title/description in catalog supports match to query."
+          },
+          "PSYCH439": {
+            "title": "Negotiation in the Workplace: Theory and Practice",
+            "description_excerpt": "This course addresses planning, motivation, communication, information exchange, influence, relationships, emotion, and reaching objectives in a diverse array of interdependent decision making contexts. Topics include di",
+            "grade": 2,
+            "why": "Relevance grade 2. N3: teams/negotiation psych + SYDE cognitive ergonomics title. Course title/description in catalog supports match to query."
+          },
+          "SYDE543": {
+            "title": "Cognitive Ergonomics",
+            "description_excerpt": "This course focuses on the role engineering psychology research plays in design of the information displays and devices associated with simple and complex cognitive tasks. Main topics include signal detection and target ",
+            "grade": 3,
+            "why": "Relevance grade 3. N3: teams/negotiation psych + SYDE cognitive ergonomics title. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N3_mte_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N3",
+      "query": "psychology of decision making and human factors",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PSYCH",
+          "COMMST"
+        ],
+        "user_department": "MTE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MTE100",
+          "MTE121",
+          "MATH118",
+          "MTE111",
+          "MTE119",
+          "MTE120",
+          "MTE140",
+          "MTE182",
+          "MTE201",
+          "MTE202",
+          "MTE219",
+          "MTE262",
+          "MTE203",
+          "MTE204",
+          "MTE220",
+          "MTE241",
+          "MTE252",
+          "MTE309",
+          "MTE320",
+          "MTE321",
+          "MTE325",
+          "MTE351"
+        ]
+      },
+      "graded_relevance": {
+        "PSYCH342": 3,
+        "PSYCH230": 2,
+        "COMMST100": 2
+      },
+      "rationale": {
+        "prompt_intent": "N3: psychology + interpersonal communication.",
+        "courses": {
+          "PSYCH342": {
+            "title": "The Psychology of Groups and Teams",
+            "description_excerpt": "The psychology of groups and teams will address psychological processes particular to any social group situation, for example creative design teams, decision making groups, sports teams, group counselling, university clu",
+            "grade": 3,
+            "why": "Relevance grade 3. N3: psychology + interpersonal communication. Course title/description in catalog supports match to query."
+          },
+          "PSYCH230": {
+            "title": "Psychology and Law",
+            "description_excerpt": "Psychological principles drawn from a variety of subdisciplines (e.g., social, clinical, cognitive) will be surveyed in terms of their relevance and application to the legal system. Topics may include jury selection and ",
+            "grade": 2,
+            "why": "Relevance grade 2. N3: psychology + interpersonal communication. Course title/description in catalog supports match to query."
+          },
+          "COMMST100": {
+            "title": "Interpersonal Communication",
+            "description_excerpt": "Focuses on one-to-one, face-to-face communication in both the personal and professional realms. Such topics as verbal and non-verbal interactions, listening, and the better management of interpersonal communication will ",
+            "grade": 2,
+            "why": "Relevance grade 2. N3: psychology + interpersonal communication. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N4_mgte_3a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N4",
+      "query": "economics of innovation",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "ECON",
+          "MSE",
+          "BET"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115",
+          "MSE240",
+          "MSE251",
+          "MSE261",
+          "MSE271",
+          "MSE232",
+          "MSE245",
+          "MSE253",
+          "MSE263"
+        ]
+      },
+      "graded_relevance": {
+        "MSE422": 3,
+        "ECON310EW": 3,
+        "BET320": 2,
+        "MSE263": 2
+      },
+      "rationale": {
+        "prompt_intent": "N4: entrepreneurship/tech change + econ of innovation + strategy.",
+        "courses": {
+          "MSE422": {
+            "title": "Economic Impact of Technological Change and Entrepreneurship",
+            "description_excerpt": "This course is designed to analyze the impact of technological change and entrepreneurship at a firm and societal level, primarily in terms of the economic antecedents and consequences of new technology. The scope of the",
+            "grade": 3,
+            "why": "Relevance grade 3. N4: entrepreneurship/tech change + econ of innovation + strategy. Course title/description in catalog supports match to query."
+          },
+          "ECON310EW": {
+            "title": "Econ, Tech and Innovation (WLU)",
+            "description_excerpt": "",
+            "grade": 3,
+            "why": "Relevance grade 3. N4: entrepreneurship/tech change + econ of innovation + strategy. Course title/description in catalog supports match to query."
+          },
+          "BET320": {
+            "title": "Entrepreneurial Strategy",
+            "description_excerpt": "Once your \"big idea\" has been formulated, what is the best way to realize its potential? With whom should you partner? How do you protect your intellectual property? What is the optimal business model? The objective of t",
+            "grade": 2,
+            "why": "Relevance grade 2. N4: entrepreneurship/tech change + econ of innovation + strategy. Course title/description in catalog supports match to query."
+          },
+          "MSE263": {
+            "title": "Managerial Economics",
+            "description_excerpt": "This course introduces students to key concepts in microeconomics, with an emphasis on applications to managerial decision-making. Topics include basic analysis of supply and demand, demand functions and the theory of co",
+            "grade": 2,
+            "why": "Relevance grade 2. N4: entrepreneurship/tech change + econ of innovation + strategy. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N4_che_2b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N4",
+      "query": "economics of innovation",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "ECON",
+          "CHE",
+          "MSE"
+        ],
+        "user_department": "CHE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE100",
+          "CHE102",
+          "CHE120",
+          "CHE180",
+          "MATH115",
+          "MATH116",
+          "CHE101",
+          "CHE161",
+          "CHE181",
+          "MATH118",
+          "PHYS115",
+          "CHE200",
+          "CHE220",
+          "CHE230",
+          "CHE290",
+          "CHEM262",
+          "CHEM262L",
+          "MATH217"
+        ]
+      },
+      "graded_relevance": {
+        "ECON310EW": 3,
+        "MSE422": 2
+      },
+      "rationale": {
+        "prompt_intent": "N4 (CHE): innovation economics + technology entrepreneurship electives.",
+        "courses": {
+          "ECON310EW": {
+            "title": "Econ, Tech and Innovation (WLU)",
+            "description_excerpt": "",
+            "grade": 3,
+            "why": "Relevance grade 3. N4 (CHE): innovation economics + technology entrepreneurship electives. Course title/description in catalog supports match to query."
+          },
+          "MSE422": {
+            "title": "Economic Impact of Technological Change and Entrepreneurship",
+            "description_excerpt": "This course is designed to analyze the impact of technological change and entrepreneurship at a firm and societal level, primarily in terms of the economic antecedents and consequences of new technology. The scope of the",
+            "grade": 2,
+            "why": "Relevance grade 2. N4 (CHE): innovation economics + technology entrepreneurship electives. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N5_se_2b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N5",
+      "query": "history of science",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "HIST",
+          "SCI"
+        ],
+        "user_department": "SE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206"
+        ]
+      },
+      "graded_relevance": {
+        "HIST112": 3
+      },
+      "rationale": {
+        "prompt_intent": "N5: global history of science and technology.",
+        "courses": {
+          "HIST112": {
+            "title": "Science and Technology in Global History",
+            "description_excerpt": "This course introduces students to the history of science and technology in a global perspective from the ancient period through the twenty-first century, with an emphasis on the creation and exchange of major ideas, dev",
+            "grade": 3,
+            "why": "Relevance grade 3. N5: global history of science and technology. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N5_cive_3a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N5",
+      "query": "history of science",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "HIST",
+          "ERS"
+        ],
+        "user_department": "CIVE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "CIVE100",
+          "CIVE104",
+          "MATH116",
+          "CIVE105",
+          "MATH118",
+          "CIVE204",
+          "CIVE224",
+          "CIVE241",
+          "CIVE265",
+          "CIVE205",
+          "CIVE222",
+          "CIVE230",
+          "CIVE280"
+        ]
+      },
+      "graded_relevance": {
+        "HIST112": 3,
+        "ERS101": 2
+      },
+      "rationale": {
+        "prompt_intent": "N5: history of S&T plus environment/resources survey.",
+        "courses": {
+          "HIST112": {
+            "title": "Science and Technology in Global History",
+            "description_excerpt": "This course introduces students to the history of science and technology in a global perspective from the ancient period through the twenty-first century, with an emphasis on the creation and exchange of major ideas, dev",
+            "grade": 3,
+            "why": "Relevance grade 3. N5: history of S&T plus environment/resources survey. Course title/description in catalog supports match to query."
+          },
+          "ERS101": {
+            "title": "Approaches: Environment, Resources and Sustainability",
+            "description_excerpt": "This course is one of 'solutions-based education' designed to use environmental case studies from local, provincial, national and international communities. We will analyze historical and contemporary cases and consider ",
+            "grade": 2,
+            "why": "Relevance grade 2. N5: history of S&T plus environment/resources survey. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N6_me_2b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N6",
+      "query": "sustainability environmental policy and climate justice",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "ERS",
+          "PLAN",
+          "ENVE"
+        ],
+        "user_department": "ME",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269"
+        ]
+      },
+      "graded_relevance": {
+        "PLAN348": 3,
+        "ERS101": 2,
+        "ENVE279": 2,
+        "PLAN419": 2
+      },
+      "rationale": {
+        "prompt_intent": "N6: climate planning courses + ERS/ENVE environment titles.",
+        "courses": {
+          "PLAN348": {
+            "title": "Planning to Confront Climate Change",
+            "description_excerpt": "This course uses a problem-based approach to advance students' knowledge of climate change with an emphasis on the role of planners and public policy in addressing this crisis through both adaptation and mitigation. Stud",
+            "grade": 3,
+            "why": "Relevance grade 3. N6: climate planning courses + ERS/ENVE environment titles. Course title/description in catalog supports match to query."
+          },
+          "ERS101": {
+            "title": "Approaches: Environment, Resources and Sustainability",
+            "description_excerpt": "This course is one of 'solutions-based education' designed to use environmental case studies from local, provincial, national and international communities. We will analyze historical and contemporary cases and consider ",
+            "grade": 2,
+            "why": "Relevance grade 2. N6: climate planning courses + ERS/ENVE environment titles. Course title/description in catalog supports match to query."
+          },
+          "ENVE279": {
+            "title": "Energy and the Environment",
+            "description_excerpt": "Conservation of energy, energy balances on closed systems. Steady-state and transient heat transfer via convection, radiation, and conduction. Mechanical and electrical work. Internal energy, enthalpy, and specific heats",
+            "grade": 2,
+            "why": "Relevance grade 2. N6: climate planning courses + ERS/ENVE environment titles. Course title/description in catalog supports match to query."
+          },
+          "PLAN419": {
+            "title": "Planning Climate Change and Community",
+            "description_excerpt": "This course will focus on strategies that planners use to reduce greenhouse gas emissions, adapt to climate change, and build resilience to current and future climate. Students will learn about key opportunities and chal",
+            "grade": 2,
+            "why": "Relevance grade 2. N6: climate planning courses + ERS/ENVE environment titles. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N6_syde_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N6",
+      "query": "sustainability environmental policy and climate justice",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "ERS",
+          "ENVE",
+          "PLAN"
+        ],
+        "user_department": "SYDE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "SYDE101",
+          "SYDE101L",
+          "SYDE111",
+          "SYDE113",
+          "SYDE121",
+          "SYDE161",
+          "SYDE181",
+          "SYDE112",
+          "SYDE114",
+          "SYDE162",
+          "SYDE192",
+          "SYDE192L",
+          "SYDE223",
+          "SYDE182",
+          "SYDE211",
+          "SYDE261",
+          "SYDE263",
+          "SYDE283",
+          "SYDE285",
+          "SYDE212",
+          "SYDE252",
+          "SYDE262",
+          "SYDE286",
+          "SYDE292",
+          "SYDE292L",
+          "SYDE312",
+          "SYDE351",
+          "SYDE361",
+          "SYDE381",
+          "SYDE383"
+        ]
+      },
+      "graded_relevance": {
+        "PLAN419": 3,
+        "PLAN348": 2,
+        "ERS221": 2
+      },
+      "rationale": {
+        "prompt_intent": "N6 alternate cohort: community climate planning + oceans sustainability.",
+        "courses": {
+          "PLAN419": {
+            "title": "Planning Climate Change and Community",
+            "description_excerpt": "This course will focus on strategies that planners use to reduce greenhouse gas emissions, adapt to climate change, and build resilience to current and future climate. Students will learn about key opportunities and chal",
+            "grade": 3,
+            "why": "Relevance grade 3. N6 alternate cohort: community climate planning + oceans sustainability. Course title/description in catalog supports match to query."
+          },
+          "PLAN348": {
+            "title": "Planning to Confront Climate Change",
+            "description_excerpt": "This course uses a problem-based approach to advance students' knowledge of climate change with an emphasis on the role of planners and public policy in addressing this crisis through both adaptation and mitigation. Stud",
+            "grade": 2,
+            "why": "Relevance grade 2. N6 alternate cohort: community climate planning + oceans sustainability. Course title/description in catalog supports match to query."
+          },
+          "ERS221": {
+            "title": "Oceans Sustainability",
+            "description_excerpt": "Designed to introduce students to a wide range of ocean sustainability issues at a general level, this course starts with the how oceans work - tides, currents, waves, chemistry - and the life forms that live there - fis",
+            "grade": 2,
+            "why": "Relevance grade 2. N6 alternate cohort: community climate planning + oceans sustainability. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N7_se_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N7",
+      "query": "law regulation and intellectual property for technology",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "CIVE",
+          "AE",
+          "GENE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206",
+          "CS240",
+          "CS247",
+          "CS348",
+          "MATH239",
+          "CS341",
+          "MATH213",
+          "SE350",
+          "SE464",
+          "SE465"
+        ]
+      },
+      "graded_relevance": {
+        "CIVE491": 3,
+        "AE491": 2
+      },
+      "rationale": {
+        "prompt_intent": "N7: Engineering Law and Ethics course titles in CIVE/AE.",
+        "courses": {
+          "CIVE491": {
+            "title": "Engineering Law and Ethics",
+            "description_excerpt": "Background (Charter of Rights and Freedoms), contracts, torts (negligent malpractice), forms of carrying on business, professional practice (professional engineers act, joint practice rules, professional misconduct and s",
+            "grade": 3,
+            "why": "Relevance grade 3. N7: Engineering Law and Ethics course titles in CIVE/AE. Course title/description in catalog supports match to query."
+          },
+          "AE491": {
+            "title": "Engineering Law and Ethics",
+            "description_excerpt": "Background (Charter of Rights and Freedoms), contracts, torts (negligent malpractice), forms of carrying on business, professional practice (Professional Engineers Act, joint practice rules, professional misconduct and s",
+            "grade": 2,
+            "why": "Relevance grade 2. N7: Engineering Law and Ethics course titles in CIVE/AE. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N7_me_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N7",
+      "query": "law regulation and intellectual property for technology",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "CIVE",
+          "ME"
+        ],
+        "user_department": "ME",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269",
+          "ME203",
+          "ME212",
+          "ME220",
+          "ME250",
+          "ME262",
+          "ME303",
+          "ME321",
+          "ME340",
+          "ME351",
+          "ME354"
+        ]
+      },
+      "graded_relevance": {
+        "CIVE491": 3
+      },
+      "rationale": {
+        "prompt_intent": "N7 (ME): civil engineering law/ethics elective exposure.",
+        "courses": {
+          "CIVE491": {
+            "title": "Engineering Law and Ethics",
+            "description_excerpt": "Background (Charter of Rights and Freedoms), contracts, torts (negligent malpractice), forms of carrying on business, professional practice (professional engineers act, joint practice rules, professional misconduct and s",
+            "grade": 3,
+            "why": "Relevance grade 3. N7 (ME): civil engineering law/ethics elective exposure. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N8_mgte_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N8",
+      "query": "leadership teamwork and project management in organizations",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "MSE",
+          "BET"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115",
+          "MSE240",
+          "MSE251",
+          "MSE261",
+          "MSE271",
+          "MSE232",
+          "MSE245",
+          "MSE253",
+          "MSE263",
+          "MSE211",
+          "MSE334",
+          "MSE342",
+          "MSE431",
+          "MSE446"
+        ]
+      },
+      "graded_relevance": {
+        "MSE411": 3,
+        "BET450": 3,
+        "BET405": 2,
+        "MSE211": 2
+      },
+      "rationale": {
+        "prompt_intent": "N8: leadership and organizational behaviour course titles.",
+        "courses": {
+          "MSE411": {
+            "title": "Leadership and Influence",
+            "description_excerpt": "This course will provide students with an overview of how management, psychology, marketing, and related fields have approached the topics of leadership, influence, and power. The first section of the course will address",
+            "grade": 3,
+            "why": "Relevance grade 3. N8: leadership and organizational behaviour course titles. Course title/description in catalog supports match to query."
+          },
+          "BET450": {
+            "title": "Leadership",
+            "description_excerpt": "Leaders make things happen. Leaders make things possible. This course explores the relevant concepts, theories, and skills needed to lead successfully in any environment, from new ventures to change management in large c",
+            "grade": 3,
+            "why": "Relevance grade 3. N8: leadership and organizational behaviour course titles. Course title/description in catalog supports match to query."
+          },
+          "BET405": {
+            "title": "Digital Leadership and Transformation",
+            "description_excerpt": "Firms must continuously evolve and adapt in rapidly changing competitive environments. While investments in new technology are important, this is not the only aspect of successful digital transformation. It requires an u",
+            "grade": 2,
+            "why": "Relevance grade 2. N8: leadership and organizational behaviour course titles. Course title/description in catalog supports match to query."
+          },
+          "MSE211": {
+            "title": "Organizational Behaviour",
+            "description_excerpt": "Introduction to the concepts of learning, person perception, attitudes, and motivation in an organization. Consideration of communication, roles, norms, and decision making within a group. Discussion of power, control, l",
+            "grade": 2,
+            "why": "Relevance grade 2. N8: leadership and organizational behaviour course titles. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N8_se_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N8",
+      "query": "leadership teamwork and project management in organizations",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "MSE",
+          "BET",
+          "SE"
+        ],
+        "user_department": "SE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206",
+          "CS240",
+          "CS247",
+          "CS348",
+          "MATH239",
+          "CS341",
+          "MATH213",
+          "SE350",
+          "SE464",
+          "SE465"
+        ]
+      },
+      "graded_relevance": {
+        "SE463": 3,
+        "MSE411": 2,
+        "BET450": 2
+      },
+      "rationale": {
+        "prompt_intent": "N8 (SE): software project management + leadership electives.",
+        "courses": {
+          "SE463": {
+            "title": "Software Project Management, Requirements, and Analysis",
+            "description_excerpt": "Introduces students to the requirements definition phase of software development; models, notations, and processes for software requirements, identification, representation, analysis, and validation. Cost estimation from",
+            "grade": 3,
+            "why": "Relevance grade 3. N8 (SE): software project management + leadership electives. Course title/description in catalog supports match to query."
+          },
+          "MSE411": {
+            "title": "Leadership and Influence",
+            "description_excerpt": "This course will provide students with an overview of how management, psychology, marketing, and related fields have approached the topics of leadership, influence, and power. The first section of the course will address",
+            "grade": 2,
+            "why": "Relevance grade 2. N8 (SE): software project management + leadership electives. Course title/description in catalog supports match to query."
+          },
+          "BET450": {
+            "title": "Leadership",
+            "description_excerpt": "Leaders make things happen. Leaders make things possible. This course explores the relevant concepts, theories, and skills needed to lead successfully in any environment, from new ventures to change management in large c",
+            "grade": 2,
+            "why": "Relevance grade 2. N8 (SE): software project management + leadership electives. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N9_cive_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N9",
+      "query": "urban planning and community studies",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PLAN",
+          "GEOG",
+          "ERS"
+        ],
+        "user_department": "CIVE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "CIVE100",
+          "CIVE104",
+          "MATH116",
+          "CIVE105",
+          "MATH118",
+          "CIVE204",
+          "CIVE224",
+          "CIVE241",
+          "CIVE265",
+          "CIVE205",
+          "CIVE222",
+          "CIVE230",
+          "CIVE280",
+          "CIVE303",
+          "CIVE332",
+          "CIVE341"
+        ]
+      },
+      "graded_relevance": {
+        "PLAN440": 3,
+        "PLAN476": 2,
+        "PLAN432": 2
+      },
+      "rationale": {
+        "prompt_intent": "N9: urban services, mobility, built environment health.",
+        "courses": {
+          "PLAN440": {
+            "title": "Urban Services",
+            "description_excerpt": "This course will use a complex systems lens to explore how to plan for and build more resilient and equitable urban service systems. Students will gain an appreciation of how waste, water, sanitation, transportation, ene",
+            "grade": 3,
+            "why": "Relevance grade 3. N9: urban services, mobility, built environment health. Course title/description in catalog supports match to query."
+          },
+          "PLAN476": {
+            "title": "Moving Beyond the Car",
+            "description_excerpt": "This course will focus on walking and cycling and the role that planning plays in enhancing active transportation. Students will learn about how automobile dependence shapes patterns, and experiences of mobility beyond t",
+            "grade": 2,
+            "why": "Relevance grade 2. N9: urban services, mobility, built environment health. Course title/description in catalog supports match to query."
+          },
+          "PLAN432": {
+            "title": "Health and the Built Environment",
+            "description_excerpt": "This course will focus on current issues at the intersection of health, planning, and the built and natural environments. Students will learn the history and evolution of both public health and urban planning professions",
+            "grade": 2,
+            "why": "Relevance grade 2. N9: urban services, mobility, built environment health. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N9_syde_4a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N9",
+      "query": "urban planning and community studies",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PLAN",
+          "ERS"
+        ],
+        "user_department": "SYDE",
+        "incoming_level": "4A",
+        "completed_courses": [
+          "SYDE101",
+          "SYDE101L",
+          "SYDE111",
+          "SYDE113",
+          "SYDE121",
+          "SYDE161",
+          "SYDE181",
+          "SYDE112",
+          "SYDE114",
+          "SYDE162",
+          "SYDE192",
+          "SYDE192L",
+          "SYDE223",
+          "SYDE182",
+          "SYDE211",
+          "SYDE261",
+          "SYDE263",
+          "SYDE283",
+          "SYDE285",
+          "SYDE212",
+          "SYDE252",
+          "SYDE262",
+          "SYDE286",
+          "SYDE292",
+          "SYDE292L",
+          "SYDE312",
+          "SYDE351",
+          "SYDE361",
+          "SYDE381",
+          "SYDE383",
+          "SYDE300",
+          "SYDE352",
+          "SYDE352L",
+          "SYDE362",
+          "SYDE411"
+        ]
+      },
+      "graded_relevance": {
+        "PLAN453": 3,
+        "PLAN414": 2,
+        "PLAN476": 2,
+        "PLAN380": 2
+      },
+      "rationale": {
+        "prompt_intent": "N9 (SYDE 4A): urban stormwater, heritage, crime and city electives.",
+        "courses": {
+          "PLAN453": {
+            "title": "Urban Stormwater Management",
+            "description_excerpt": "Urban stormwater runoff affects the water quality, water quantity, habitat and biological resources, public health and aesthetic appearance of urban waterways. This course reviews the physical and chemical processes, env",
+            "grade": 3,
+            "why": "Relevance grade 3. N9 (SYDE 4A): urban stormwater, heritage, crime and city electives. Course title/description in catalog supports match to query."
+          },
+          "PLAN414": {
+            "title": "Heritage Conservation Planning",
+            "description_excerpt": "This course will examine the role of cultural heritage resources in urban and regional planning. Students will discuss different types of cultural heritage resources, including their identification, evaluation, promotion",
+            "grade": 2,
+            "why": "Relevance grade 2. N9 (SYDE 4A): urban stormwater, heritage, crime and city electives. Course title/description in catalog supports match to query."
+          },
+          "PLAN476": {
+            "title": "Moving Beyond the Car",
+            "description_excerpt": "This course will focus on walking and cycling and the role that planning plays in enhancing active transportation. Students will learn about how automobile dependence shapes patterns, and experiences of mobility beyond t",
+            "grade": 2,
+            "why": "Relevance grade 2. N9 (SYDE 4A): urban stormwater, heritage, crime and city electives. Course title/description in catalog supports match to query."
+          },
+          "PLAN380": {
+            "title": "Crime and the City",
+            "description_excerpt": "This course explores the role of planning community safety through an examination of the intersection between physical and social environments and crime. Students will explore place-based determinants of deviant and anti",
+            "grade": 2,
+            "why": "Relevance grade 2. N9 (SYDE 4A): urban stormwater, heritage, crime and city electives. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N10_compe_3a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N10",
+      "query": "philosophy of mind and logic",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PHIL",
+          "CO"
+        ],
+        "user_department": "COMPE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "ECE105",
+          "ECE150",
+          "ECE190",
+          "ECE198",
+          "MATH115",
+          "MATH117",
+          "ECE106",
+          "ECE108",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "ECE109",
+          "ECE204",
+          "ECE222",
+          "ECE240",
+          "ECE250",
+          "ECE203",
+          "ECE207",
+          "ECE208",
+          "ECE224",
+          "ECE252",
+          "ECE298"
+        ]
+      },
+      "graded_relevance": {
+        "PHIL255": 3,
+        "PHIL240": 2
+      },
+      "rationale": {
+        "prompt_intent": "N10: PHIL255 Philosophy of Mind + PHIL240 Introduction to Formal Logic.",
+        "courses": {
+          "PHIL255": {
+            "title": "Philosophy of Mind",
+            "description_excerpt": "This course will discuss fundamental questions concerning the nature of mind, including the relation between mind and body, the plausibility of commonsense views of the mind, and knowledge of other minds.",
+            "grade": 3,
+            "why": "Relevance grade 3. N10: PHIL255 Philosophy of Mind + PHIL240 Introduction to Formal Logic. Course title/description in catalog supports match to query."
+          },
+          "PHIL240": {
+            "title": "Introduction to Formal Logic",
+            "description_excerpt": "An examination of classical propositional logic, covering proof methods, expressive completeness, soundness, and completeness. Also an introduction to quantificational logic.",
+            "grade": 2,
+            "why": "Relevance grade 2. N10: PHIL255 Philosophy of Mind + PHIL240 Introduction to Formal Logic. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N10_bme_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N10",
+      "query": "philosophy of mind and logic",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "PHIL",
+          "PSYCH"
+        ],
+        "user_department": "BME",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "BME101",
+          "BME101L",
+          "BME121",
+          "BME161",
+          "BME181",
+          "SYDE111",
+          "SYDE113",
+          "BME122",
+          "BME162",
+          "BME186",
+          "SYDE112",
+          "SYDE114",
+          "BME182",
+          "BME281",
+          "BME281L",
+          "BME282",
+          "BME285",
+          "BME285L",
+          "SYDE211",
+          "BME213",
+          "BME252",
+          "BME261",
+          "BME284",
+          "BME284L",
+          "BME294",
+          "BME294L",
+          "BME355",
+          "BME361",
+          "BME381",
+          "BME393",
+          "BME393L"
+        ]
+      },
+      "graded_relevance": {
+        "PHIL255": 3,
+        "PSYCH207": 2
+      },
+      "rationale": {
+        "prompt_intent": "N10: philosophy of mind + cognitive processes.",
+        "courses": {
+          "PHIL255": {
+            "title": "Philosophy of Mind",
+            "description_excerpt": "This course will discuss fundamental questions concerning the nature of mind, including the relation between mind and body, the plausibility of commonsense views of the mind, and knowledge of other minds.",
+            "grade": 3,
+            "why": "Relevance grade 3. N10: philosophy of mind + cognitive processes. Course title/description in catalog supports match to query."
+          },
+          "PSYCH207": {
+            "title": "Cognitive Processes",
+            "description_excerpt": "An examination and evaluation of selected topics dealing with human information processing such as attention, memory, pattern recognition, consciousness, language, dyslexia, decision making, and problem solving.",
+            "grade": 2,
+            "why": "Relevance grade 2. N10: philosophy of mind + cognitive processes. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N11_se_3b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N11",
+      "query": "creative writing",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "ENGL"
+        ],
+        "user_department": "SE",
+        "incoming_level": "3B",
+        "completed_courses": [
+          "CHE102",
+          "CS137",
+          "MATH115",
+          "MATH117",
+          "MATH135",
+          "SE101",
+          "CS138",
+          "ECE124",
+          "ECE140",
+          "ECE192",
+          "MATH119",
+          "CS241",
+          "ECE222",
+          "SE212",
+          "STAT206",
+          "CS240",
+          "CS247",
+          "CS348",
+          "MATH239",
+          "CS341",
+          "MATH213",
+          "SE350",
+          "SE464",
+          "SE465"
+        ]
+      },
+      "graded_relevance": {
+        "ENGL335": 3,
+        "ENGL336": 2,
+        "ENGL210C": 2
+      },
+      "rationale": {
+        "prompt_intent": "N11: creative writing sequence titles.",
+        "courses": {
+          "ENGL335": {
+            "title": "Creative Writing 1",
+            "description_excerpt": "Designed to assist students with an interest in developing their creative writing skills in various genres, this course consists of supervised practice, discussions of craft, and peer critiques.",
+            "grade": 3,
+            "why": "Relevance grade 3. N11: creative writing sequence titles. Course title/description in catalog supports match to query."
+          },
+          "ENGL336": {
+            "title": "Creative Writing 2",
+            "description_excerpt": "This course is designed to assist advanced creative writers in developing a body of work in one or more genres by means of supervised practice, discussions of craft, and peer critiques.",
+            "grade": 2,
+            "why": "Relevance grade 2. N11: creative writing sequence titles. Course title/description in catalog supports match to query."
+          },
+          "ENGL210C": {
+            "title": "Genres of Creative Writing",
+            "description_excerpt": "This course introduces students to both contemporary and historical forms of creative writing. Students will explore genres of poetry, prose, and/or drama through their own writing. Students will also investigate the cul",
+            "grade": 2,
+            "why": "Relevance grade 2. N11: creative writing sequence titles. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N11_mgte_2b",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N11",
+      "query": "creative writing",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "ENGL",
+          "ARTS"
+        ],
+        "user_department": "MGTE",
+        "incoming_level": "2B",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "MSE100",
+          "MSE121",
+          "GENE123",
+          "MATH118",
+          "MSE131",
+          "PHYS115",
+          "MSE240",
+          "MSE251",
+          "MSE261",
+          "MSE271"
+        ]
+      },
+      "graded_relevance": {
+        "ENGL335": 3,
+        "ENGL210C": 2
+      },
+      "rationale": {
+        "prompt_intent": "N11: MGTE breadth creative writing.",
+        "courses": {
+          "ENGL335": {
+            "title": "Creative Writing 1",
+            "description_excerpt": "Designed to assist students with an interest in developing their creative writing skills in various genres, this course consists of supervised practice, discussions of craft, and peer critiques.",
+            "grade": 3,
+            "why": "Relevance grade 3. N11: MGTE breadth creative writing. Course title/description in catalog supports match to query."
+          },
+          "ENGL210C": {
+            "title": "Genres of Creative Writing",
+            "description_excerpt": "This course introduces students to both contemporary and historical forms of creative writing. Students will explore genres of poetry, prose, and/or drama through their own writing. Students will also investigate the cul",
+            "grade": 2,
+            "why": "Relevance grade 2. N11: MGTE breadth creative writing. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N12_me_3a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N12",
+      "query": "modern film studies",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "FILM"
+        ],
+        "user_department": "ME",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "CHE102",
+          "MATH115",
+          "MATH116",
+          "ME100",
+          "PHYS115",
+          "MATH118",
+          "ME101",
+          "ME115",
+          "ME123",
+          "ME201",
+          "ME202",
+          "ME219",
+          "ME230",
+          "ME269",
+          "ME203",
+          "ME212",
+          "ME220",
+          "ME250",
+          "ME262"
+        ]
+      },
+      "graded_relevance": {
+        "FILM101W": 3,
+        "FILM240W": 2
+      },
+      "rationale": {
+        "prompt_intent": "N12: film & narrative + film history (WLU) per catalog.",
+        "courses": {
+          "FILM101W": {
+            "title": "Film & Narrative (WLU)",
+            "description_excerpt": "Taught at Wilfrid Laurier University. Refer to WLU calendar for details.",
+            "grade": 3,
+            "why": "Relevance grade 3. N12: film & narrative + film history (WLU) per catalog. Course title/description in catalog supports match to query."
+          },
+          "FILM240W": {
+            "title": "Film History to 1950 (WLU)",
+            "description_excerpt": "Taught at Wilfrid Laurier University. Refer to WLU calendar for details.",
+            "grade": 2,
+            "why": "Relevance grade 2. N12: film & narrative + film history (WLU) per catalog. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    },
+    {
+      "id": "tp402_N12_syde_3a",
+      "segment": "test_plan_402_nonstem",
+      "test_plan_prompt": "N12",
+      "query": "modern film studies",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": false,
+        "include_other_depts": true,
+        "department": [
+          "FILM",
+          "VCULT"
+        ],
+        "user_department": "SYDE",
+        "incoming_level": "3A",
+        "completed_courses": [
+          "SYDE101",
+          "SYDE101L",
+          "SYDE111",
+          "SYDE113",
+          "SYDE121",
+          "SYDE161",
+          "SYDE181",
+          "SYDE112",
+          "SYDE114",
+          "SYDE162",
+          "SYDE192",
+          "SYDE192L",
+          "SYDE223",
+          "SYDE182",
+          "SYDE211",
+          "SYDE261",
+          "SYDE263",
+          "SYDE283",
+          "SYDE285",
+          "SYDE212",
+          "SYDE252",
+          "SYDE262",
+          "SYDE286",
+          "SYDE292",
+          "SYDE292L"
+        ]
+      },
+      "graded_relevance": {
+        "FILM101W": 3,
+        "FILM252W": 2
+      },
+      "rationale": {
+        "prompt_intent": "N12: intro film + film noir topics.",
+        "courses": {
+          "FILM101W": {
+            "title": "Film & Narrative (WLU)",
+            "description_excerpt": "Taught at Wilfrid Laurier University. Refer to WLU calendar for details.",
+            "grade": 3,
+            "why": "Relevance grade 3. N12: intro film + film noir topics. Course title/description in catalog supports match to query."
+          },
+          "FILM252W": {
+            "title": "Film Noir (WLU)",
+            "description_excerpt": "Taught at Wilfrid Laurier University. Refer to WLU Undergraduate Calendar for course description.",
+            "grade": 2,
+            "why": "Relevance grade 2. N12: intro film + film noir topics. Course title/description in catalog supports match to query."
+          }
+        }
+      }
+    }
+  ]
+}

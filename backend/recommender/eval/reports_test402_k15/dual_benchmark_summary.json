@@ -1,0 +1,233 @@
+{
+  "top_k": 15,
+  "methods": [
+    "cosine",
+    "dense",
+    "hybrid_bm25_dense",
+    "cross_encoder_rerank",
+    "hybrid_rerank_graph"
+  ],
+  "tracks": {
+    "skip_internal": false,
+    "skip_calendar": true
+  },
+  "weights": {
+    "w_overlap": 2.0,
+    "w_mror": 1.0,
+    "w_lex": 1.0,
+    "composite_epsilon": 1e-06,
+    "non_stem_query_weight": 1.5
+  },
+  "gates": {
+    "internal_baseline": "cosine",
+    "internal_tolerance": 0.0,
+    "threshold_non_stem_win_rate": 0.55,
+    "threshold_overall_win_rate": 0.5,
+    "per_method": {
+      "cosine": {
+        "internal": {
+          "pass_internal": true,
+          "is_baseline": true,
+          "pass_ndcg": true,
+          "pass_mrr": true,
+          "pass_non_stem_ndcg": true
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "skipped_track_b": true,
+          "win_rate": null,
+          "non_stem_win_rate": null
+        }
+      },
+      "dense": {
+        "internal": {
+          "pass_internal": true,
+          "pass_ndcg_vs_baseline": true,
+          "pass_mrr_vs_baseline": true,
+          "pass_non_stem_ndcg_vs_baseline": true,
+          "is_baseline": false
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "skipped_track_b": true,
+          "win_rate": null,
+          "non_stem_win_rate": null
+        }
+      },
+      "hybrid_bm25_dense": {
+        "internal": {
+          "pass_internal": true,
+          "pass_ndcg_vs_baseline": true,
+          "pass_mrr_vs_baseline": true,
+          "pass_non_stem_ndcg_vs_baseline": true,
+          "is_baseline": false
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "skipped_track_b": true,
+          "win_rate": null,
+          "non_stem_win_rate": null
+        }
+      },
+      "cross_encoder_rerank": {
+        "internal": {
+          "pass_internal": true,
+          "pass_ndcg_vs_baseline": true,
+          "pass_mrr_vs_baseline": true,
+          "pass_non_stem_ndcg_vs_baseline": true,
+          "is_baseline": false
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "skipped_track_b": true,
+          "win_rate": null,
+          "non_stem_win_rate": null
+        }
+      },
+      "hybrid_rerank_graph": {
+        "internal": {
+          "pass_internal": true,
+          "pass_ndcg_vs_baseline": true,
+          "pass_mrr_vs_baseline": true,
+          "pass_non_stem_ndcg_vs_baseline": true,
+          "is_baseline": false
+        },
+        "calendar": {
+          "pass_overall_calendar": true,
+          "pass_non_stem_calendar": true,
+          "skipped_track_b": true,
+          "win_rate": null,
+          "non_stem_win_rate": null
+        }
+      }
+    }
+  },
+  "recommended_winner": "cross_encoder_rerank",
+  "internal_track": {
+    "eval_set": "recommender\\eval\\test_plan_402.json",
+    "graded_case_count": 60,
+    "per_method_macro": {
+      "cosine": {
+        "ndcg_at_k": 0.26261472765615695,
+        "recall_at_k": 0.26944444444444443,
+        "mrr": 0.41690536315536314
+      },
+      "dense": {
+        "ndcg_at_k": 0.2813573961507745,
+        "recall_at_k": 0.27638888888888885,
+        "mrr": 0.44670708116360286
+      },
+      "hybrid_bm25_dense": {
+        "ndcg_at_k": 0.29486183732318755,
+        "recall_at_k": 0.32083333333333325,
+        "mrr": 0.44670504616156786
+      },
+      "cross_encoder_rerank": {
+        "ndcg_at_k": 0.31939778425192,
+        "recall_at_k": 0.3152777777777777,
+        "mrr": 0.5268913871216502
+      },
+      "hybrid_rerank_graph": {
+        "ndcg_at_k": 0.2956250115583636,
+        "recall_at_k": 0.28611111111111104,
+        "mrr": 0.49335581870651796
+      }
+    },
+    "per_method_non_stem_labeled": {
+      "cosine": {
+        "ndcg_at_k": 0.17194598671449793,
+        "recall_at_k": 0.2569444444444444,
+        "mrr": 0.2130967412217412
+      },
+      "dense": {
+        "ndcg_at_k": 0.19017270804309364,
+        "recall_at_k": 0.2534722222222222,
+        "mrr": 0.26144362883493316
+      },
+      "hybrid_bm25_dense": {
+        "ndcg_at_k": 0.20124429329971946,
+        "recall_at_k": 0.3645833333333333,
+        "mrr": 0.1931515042928086
+      },
+      "cross_encoder_rerank": {
+        "ndcg_at_k": 0.2778184650403284,
+        "recall_at_k": 0.3506944444444444,
+        "mrr": 0.3887562455819034
+      },
+      "hybrid_rerank_graph": {
+        "ndcg_at_k": 0.28172777750150607,
+        "recall_at_k": 0.3194444444444444,
+        "mrr": 0.40701037468278844
+      }
+    },
+    "per_method_segments": {
+      "cosine": {
+        "test_plan_402_stem": {
+          "ndcg_at_k": 0.3230605549505963,
+          "recall_at_k": 0.27777777777777773,
+          "mrr": 0.5527777777777777
+        },
+        "test_plan_402_nonstem": {
+          "ndcg_at_k": 0.17194598671449793,
+          "recall_at_k": 0.2569444444444444,
+          "mrr": 0.2130967412217412
+        }
+      },
+      "dense": {
+        "test_plan_402_stem": {
+          "ndcg_at_k": 0.3421471882225617,
+          "recall_at_k": 0.29166666666666663,
+          "mrr": 0.570216049382716
+        },
+        "test_plan_402_nonstem": {
+          "ndcg_at_k": 0.19017270804309364,
+          "recall_at_k": 0.2534722222222222,
+          "mrr": 0.26144362883493316
+        }
+      },
+      "hybrid_bm25_dense": {
+        "test_plan_402_stem": {
+          "ndcg_at_k": 0.35727353333883294,
+          "recall_at_k": 0.29166666666666663,
+          "mrr": 0.6157407407407408
+        },
+        "test_plan_402_nonstem": {
+          "ndcg_at_k": 0.20124429329971946,
+          "recall_at_k": 0.3645833333333333,
+          "mrr": 0.1931515042928086
+        }
+      },
+      "cross_encoder_rerank": {
+        "test_plan_402_stem": {
+          "ndcg_at_k": 0.3471173303929812,
+          "recall_at_k": 0.29166666666666663,
+          "mrr": 0.6189814814814815
+        },
+        "test_plan_402_nonstem": {
+          "ndcg_at_k": 0.2778184650403284,
+          "recall_at_k": 0.3506944444444444,
+          "mrr": 0.3887562455819034
+        }
+      },
+      "hybrid_rerank_graph": {
+        "test_plan_402_stem": {
+          "ndcg_at_k": 0.3048898342629355,
+          "recall_at_k": 0.26388888888888884,
+          "mrr": 0.550919448055671
+        },
+        "test_plan_402_nonstem": {
+          "ndcg_at_k": 0.28172777750150607,
+          "recall_at_k": 0.3194444444444444,
+          "mrr": 0.40701037468278844
+        }
+      }
+    }
+  },
+  "calendar_track": {
+    "skipped": true
+  }
+}

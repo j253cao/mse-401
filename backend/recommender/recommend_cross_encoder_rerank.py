@@ -11,7 +11,7 @@ from rank_bm25 import BM25Okapi
 
 from .embedding_generators import build_multifield_course_texts
 from .hybrid_retrieval_common import hybrid_retrieval_candidates
-from .recommenders import MIN_SIMILARITY_CUTOFF
+from .recommenders import MIN_SIMILARITY_CUTOFF, dense_semantic_plus_title_boost
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
 
 
@@ -46,6 +46,12 @@ def recommend_cross_encoder_rerank(
     )
     q_norm = np.asarray(q_emb[0], dtype=np.float32)
 
+    dense_semantic_gate = np.dot(dense_emb_norm, q_norm.astype(np.float64))
+    dense_semantic_gate = np.nan_to_num(dense_semantic_gate, nan=0.0, posinf=0.0, neginf=0.0)
+    retrieval_sim = dense_semantic_plus_title_boost(
+        query, df, dense_semantic_gate, ranking_weights=ranking_weights
+    )
+
     candidate_idxs, _rrf_full, dense_semantic = hybrid_retrieval_candidates(
         query,
         q_norm,
@@ -55,6 +61,7 @@ def recommend_cross_encoder_rerank(
         filters,
         hw,
         min_similarity_dense=min_similarity,
+        retrieval_similarity=retrieval_sim,
     )
 
     if len(candidate_idxs) == 0:
@@ -80,7 +87,7 @@ def recommend_cross_encoder_rerank(
     ce_top = ce_scores[:k_final]
 
     result = df.iloc[idxs][["courseCode", "title", "description"]].copy()
-    result["similarity_raw"] = dense_semantic[idxs].astype(np.float64)
+    result["similarity_raw"] = retrieval_sim[idxs].astype(np.float64)
     result["similarity"] = ce_top
     result["similarity"] = np.nan_to_num(result["similarity"], nan=0.0, posinf=0.0, neginf=0.0)
     result["score_semantic"] = dense_semantic[idxs].astype(np.float64)

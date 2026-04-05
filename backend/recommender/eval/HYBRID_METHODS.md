@@ -8,6 +8,8 @@ Three search backends live in standalone modules and are registered in `recommen
 | `cross_encoder_rerank`     | `recommend_cross_encoder_rerank.py` | RRF retrieval pool, MS MARCO MiniLM cross-encoder rerank (no graph multipliers). |
 | `hybrid_rerank_graph`      | `recommend_hybrid_rerank_graph.py` | Cross-encoder scores, then same global/dept/option fusion as cosine/dense. |
 
+**Retrieval gate:** Hybrid candidate filtering uses **dense cosine + the same title boosts as `dense`** (`dense_semantic_plus_title_boost` in `recommenders.py`), not raw dense cosine alone, so `min_similarity_cutoff` behaves consistently with the `dense` method and avoids empty shortlists on keyword-heavy/niche queries.
+
 Tunables are under `DEFAULT_SEARCH_WEIGHTS["hybrid"]` in `recommender/search_weight_config.py` (`rrf_k`, retrieval sizes, etc.).
 
 ## Commands

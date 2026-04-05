@@ -1,0 +1,6 @@
+method,internal_ndcg,internal_recall,internal_mrr,internal_nonstem_ndcg,pass_gate_internal,calendar_win_rate,calendar_weighted_win_rate,calendar_non_stem_win_rate,pass_gate_overall_calendar,pass_gate_non_stem_calendar
+cosine,0.262615,0.269444,0.416905,0.171946,True,,,,True,True
+dense,0.281357,0.276389,0.446707,0.190173,True,,,,True,True
+hybrid_bm25_dense,0.294862,0.320833,0.446705,0.201244,True,,,,True,True
+cross_encoder_rerank,0.319398,0.315278,0.526891,0.277818,True,,,,True,True
+hybrid_rerank_graph,0.295625,0.286111,0.493356,0.281728,True,,,,True,True

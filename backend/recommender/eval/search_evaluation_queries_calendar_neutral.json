@@ -1,0 +1,704 @@
+{
+  "version": 1,
+  "description": "Neutral calendar-style filters derived from search_evaluation_queries.json: no user_department, incoming_level, or completed_courses; prereqs ignored. Same query IDs and department breadth as each row.",
+  "default_top_k": 10,
+  "source_file": "search_evaluation_queries.json",
+  "cases": [
+    {
+      "id": "stem_s1_machine_learning",
+      "segment": "stem",
+      "query": "machine learning",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s2_heat_transfer_thermodynamics",
+      "segment": "stem",
+      "query": "heat transfer and thermodynamics in mechanical systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s3_digital_logic_architecture",
+      "segment": "stem",
+      "query": "digital logic design and computer architecture",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s4_materials_science",
+      "segment": "stem",
+      "query": "materials science",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s5_fluid_mechanics_aerodynamics",
+      "segment": "stem",
+      "query": "fluid mechanics and aerodynamics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s6_signals_systems",
+      "segment": "stem",
+      "query": "signals and systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s7_neural_networks",
+      "segment": "stem",
+      "query": "neural networks",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s8_polymers_composites",
+      "segment": "stem",
+      "query": "chemistry of polymers and composite materials",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s9_probability_statistics",
+      "segment": "stem",
+      "query": "probability and statistics for data-driven design",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s10_control_robotics",
+      "segment": "stem",
+      "query": "control systems and feedback for robotics",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s11_circuits_embedded",
+      "segment": "stem",
+      "query": "circuits, electronics, and embedded systems",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "stem_s12_optimization_or",
+      "segment": "stem",
+      "query": "optimization and operations research",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": false,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n1_ethics_technology_society",
+      "segment": "non_stem",
+      "query": "ethics of technology and engineering in society",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n2_professional_communication",
+      "segment": "non_stem",
+      "query": "professional communication and technical writing for engineers",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n3_psychology_decision_human_factors",
+      "segment": "non_stem",
+      "query": "psychology of decision making and human factors",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n4_economics_innovation",
+      "segment": "non_stem",
+      "query": "economics of innovation",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n5_history_of_science",
+      "segment": "non_stem",
+      "query": "history of science",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n6_sustainability_policy_climate",
+      "segment": "non_stem",
+      "query": "sustainability, environmental policy, and climate justice",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n7_law_ip_technology",
+      "segment": "non_stem",
+      "query": "law, regulation, and intellectual property for technology",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n8_leadership_teamwork_pm",
+      "segment": "non_stem",
+      "query": "leadership, teamwork, and project management in organizations",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n9_urban_planning_community",
+      "segment": "non_stem",
+      "query": "urban planning and community studies",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n10_philosophy_mind_logic",
+      "segment": "non_stem",
+      "query": "philosophy of mind and logic",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n11_creative_writing",
+      "segment": "non_stem",
+      "query": "creative writing",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    },
+    {
+      "id": "breadth_n12_modern_film_studies",
+      "segment": "non_stem",
+      "query": "modern film studies",
+      "filters": {
+        "include_undergrad": true,
+        "include_grad": true,
+        "department": [
+          "AE",
+          "BME",
+          "CHE",
+          "CIVE",
+          "ECE",
+          "ENVE",
+          "GENE",
+          "GEOE",
+          "ME",
+          "MTE",
+          "MSE",
+          "NE",
+          "SE",
+          "SYDE"
+        ],
+        "include_other_depts": true,
+        "ignore_dependencies": true,
+        "completed_courses": []
+      },
+      "graded_relevance": {}
+    }
+  ]
+}

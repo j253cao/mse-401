@@ -16,6 +16,8 @@ import time
 import json
 import os
 import re
+from typing import Dict, Optional
+
 from .data_loader import load_undergrad_courses, load_grad_courses, find_project_root
 from .weights import load_course_to_programs
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
@@ -105,6 +107,54 @@ def _query_phrases(query: str) -> list:
     if current:
         phrases.append(' '.join(current))
     return phrases
+
+
+def dense_semantic_plus_title_boost(
+    query: str,
+    df: pd.DataFrame,
+    dense_semantic: np.ndarray,
+    ranking_weights: Optional[Dict[str, float]] = None,
+) -> np.ndarray:
+    """Match ``recommend`` dense retrieval scoring: dense cosine + lexical title boosts.
+
+    Used by hybrid BM25+dense paths so min-similarity gating aligns with the
+    non-hybrid ``dense`` method (raw dense cosine alone was too strict).
+    """
+    ranking_weights = ranking_weights or {}
+    default_ranking = DEFAULT_SEARCH_WEIGHTS["ranking"]
+    full_query_title_boost = ranking_weights.get(
+        "full_query_title_boost", default_ranking["full_query_title_boost"]
+    )
+    phrase_title_boost = ranking_weights.get(
+        "phrase_title_boost", default_ranking["phrase_title_boost"]
+    )
+    title_word_boost_per_overlap = ranking_weights.get(
+        "title_word_boost_per_overlap",
+        default_ranking["title_word_boost_per_overlap"],
+    )
+    title_word_boost_cap = ranking_weights.get(
+        "title_word_boost_cap", default_ranking["title_word_boost_cap"]
+    )
+
+    title_lower = df["title"].str.lower()
+    query_lower = query.lower().strip()
+    title_boost = np.zeros(len(df), dtype=float)
+    if query_lower:
+        phrase_mask = title_lower.str.contains(query_lower, regex=False)
+        title_boost = title_boost + full_query_title_boost * phrase_mask.astype(float)
+    for phrase in _query_phrases(query):
+        if len(phrase) > 1:
+            title_boost = title_boost + phrase_title_boost * title_lower.str.contains(
+                phrase, regex=False
+            ).astype(float)
+    title_boost = title_boost + _title_word_boost(
+        query,
+        df["title"],
+        per_overlap=title_word_boost_per_overlap,
+        cap=title_word_boost_cap,
+    )
+    title_boost = np.nan_to_num(title_boost, nan=0.0, posinf=0.0, neginf=0.0)
+    return np.asarray(dense_semantic, dtype=np.float64) + title_boost
 
 
 def _title_word_boost(

@@ -5,7 +5,10 @@ undergrad Academic Calendar SPA.
 
 API (example):
   https://uwaterloocm.kuali.co/api/v1/catalog/search/67e557ed6ed2fe2bd3a38956
-    ?q=modern%20film&limit=10&skip=0&itemTypes=courses
+    ?q=modern%20film&limit=50&skip=0&itemTypes=courses
+
+When the API returns fewer rows than requested in one call, we paginate with
+skip= until we reach ``--limit`` or the result set is exhausted.
 
 itemTypes=courses matches the calendar UI course-only search; without it the API
 returns mixed hits (often programs first).
@@ -77,21 +80,22 @@ def build_course_href(pid: str, query: str, limit: int, skip: int) -> str:
     return f"{CATALOG_BASE}#/courses/{pid}{tail}"
 
 
-def fetch_search_results(
+def _fetch_one_page(
     api_search_base: str,
     catalog_id: str,
     query: str,
     *,
-    limit: int,
+    page_limit: int,
     skip: int,
     timeout_s: float,
     item_types: str,
-) -> List[Dict[str, str]]:
+) -> List[Dict[str, Any]]:
+    """Return raw course-shaped dicts from one API page (type=courses only)."""
     url = build_api_url(
         api_search_base,
         catalog_id,
         query,
-        limit=limit,
+        limit=page_limit,
         skip=skip,
         item_types=item_types,
     )
@@ -109,10 +113,8 @@ def fetch_search_results(
     if not isinstance(data, list):
         raise ValueError(f"Expected JSON list from API, got {type(data).__name__}")
 
-    out: List[Dict[str, str]] = []
+    page: List[Dict[str, Any]] = []
     for item in data:
-        if len(out) >= limit:
-            break
         if not isinstance(item, dict):
             continue
         item_type = str(item.get("type") or "courses").lower()
@@ -130,17 +132,63 @@ def fetch_search_results(
 
         title = str(item.get("title") or "").strip()
         pid = str(item.get("pid") or "").strip()
-        href = build_course_href(pid, query, limit, skip) if pid else ""
+        page.append({"course_code": code, "title": title, "pid": pid})
+        if len(page) >= page_limit:
+            break
+    return page
 
-        out.append(
-            {
-                "rank": str(len(out) + 1),
-                "course_code": code,
-                "title": title,
-                "href": href,
-            }
+
+def fetch_search_results(
+    api_search_base: str,
+    catalog_id: str,
+    query: str,
+    *,
+    limit: int,
+    skip: int,
+    timeout_s: float,
+    item_types: str,
+    page_chunk: int = 50,
+) -> List[Dict[str, str]]:
+    """Fetch up to ``limit`` course rows, paginating if the API returns short pages."""
+    if limit <= 0:
+        return []
+    out_rows: List[Dict[str, str]] = []
+    cursor = int(skip)
+    target = int(limit)
+
+    while len(out_rows) < target:
+        need = target - len(out_rows)
+        req_limit = min(max(page_chunk, 1), need)
+        page = _fetch_one_page(
+            api_search_base,
+            catalog_id,
+            query,
+            page_limit=req_limit,
+            skip=cursor,
+            timeout_s=timeout_s,
+            item_types=item_types,
         )
-    return out
+        if not page:
+            break
+        for raw in page:
+            if len(out_rows) >= target:
+                break
+            pid = str(raw.get("pid") or "").strip()
+            code = str(raw.get("course_code") or "").strip()
+            title = str(raw.get("title") or "").strip()
+            href = build_course_href(pid, query, target, 0) if pid else ""
+            out_rows.append(
+                {
+                    "rank": str(len(out_rows) + 1),
+                    "course_code": code,
+                    "title": title,
+                    "href": href,
+                }
+            )
+        cursor += len(page)
+        if len(page) < req_limit:
+            break
+    return out_rows
 
 
 def load_cases(path: Path) -> List[Dict[str, Any]]:
@@ -167,7 +215,18 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Comma-separated case ids to run (default: all)",
     )
-    p.add_argument("--limit", type=int, default=10, help="Max results per query (API limit=)")
+    p.add_argument(
+        "--limit",
+        type=int,
+        default=50,
+        help="Max course results per query (total across paginated API calls; default 50).",
+    )
+    p.add_argument(
+        "--page-chunk",
+        type=int,
+        default=50,
+        help="Per-request API limit= (smaller if the server caps page size).",
+    )
     p.add_argument("--skip", type=int, default=0, help="API skip= offset")
     p.add_argument("--delay-ms", type=int, default=400, help="Pause between API calls")
     p.add_argument(
@@ -235,6 +294,7 @@ def main() -> None:
                 skip=args.skip,
                 timeout_s=args.timeout,
                 item_types=(args.item_types or "").strip(),
+                page_chunk=args.page_chunk,
             )
         except urllib.error.HTTPError as exc:
             rows.append(

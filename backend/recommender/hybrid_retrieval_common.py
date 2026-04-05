@@ -212,6 +212,7 @@ def hybrid_retrieval_candidates(
     hybrid_weights: Dict[str, float],
     *,
     min_similarity_dense: float,
+    retrieval_similarity: Optional[np.ndarray] = None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Returns:
@@ -242,8 +243,14 @@ def hybrid_retrieval_candidates(
     mask[elig] = True
     rrf_masked = np.where(mask, rrf_full, -1.0)
 
-    # Dense relevance gate (same spirit as cosine/dense min_similarity)
-    rrf_masked = np.where(dense_semantic >= min_similarity_dense, rrf_masked, -1.0)
+    # Min-similarity gate: use dense+title if provided (matches recommend_dense), else raw dense.
+    gate = (
+        np.asarray(retrieval_similarity, dtype=np.float64)
+        if retrieval_similarity is not None
+        else dense_semantic
+    )
+    gate = np.nan_to_num(gate, nan=0.0, posinf=0.0, neginf=0.0)
+    rrf_masked = np.where(gate >= float(min_similarity_dense), rrf_masked, -1.0)
 
     retrieval_k = int(hybrid_weights.get("retrieval_k", 250))
     candidate_pool = np.where(rrf_masked >= 0)[0]

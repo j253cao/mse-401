@@ -22,6 +22,7 @@ from .recommenders import (
 from .recommend_bm25_dense_rrf import recommend_hybrid_bm25_dense
 from .recommend_cross_encoder_rerank import recommend_cross_encoder_rerank
 from .recommend_hybrid_rerank_graph import recommend_hybrid_rerank_graph
+from .recommend_hybrid_ce_rrf_fused import recommend_hybrid_ce_rrf_fused
 from .utils import export_results_to_excel
 from .weights import (
     build_dependency_graph,
@@ -405,6 +406,21 @@ def get_recommendations(
         (
             "cross_encoder_rerank",
             lambda q: recommend_cross_encoder_rerank(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                _get_cross_encoder(),
+                effective_df,
+                multifield_texts=hybrid_multifield_texts,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+            ),
+        ),
+        (
+            "hybrid_ce_rrf_fused",
+            lambda q: recommend_hybrid_ce_rrf_fused(
                 q,
                 _get_dense_sentence_model(),
                 dense_emb_norm,

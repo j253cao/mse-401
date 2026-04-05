@@ -13,7 +13,7 @@ from .hybrid_retrieval_common import (
     apply_global_dept_option_multipliers,
     hybrid_retrieval_candidates,
 )
-from .recommenders import MIN_SIMILARITY_CUTOFF
+from .recommenders import MIN_SIMILARITY_CUTOFF, dense_semantic_plus_title_boost
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
 
 
@@ -46,6 +46,12 @@ def recommend_hybrid_bm25_dense(
     )
     q_norm = np.asarray(q_emb[0], dtype=np.float32)
 
+    dense_semantic_gate = np.dot(dense_emb_norm, q_norm.astype(np.float64))
+    dense_semantic_gate = np.nan_to_num(dense_semantic_gate, nan=0.0, posinf=0.0, neginf=0.0)
+    retrieval_sim = dense_semantic_plus_title_boost(
+        query, df, dense_semantic_gate, ranking_weights=ranking_weights
+    )
+
     candidate_idxs, rrf_full, dense_semantic = hybrid_retrieval_candidates(
         query,
         q_norm,
@@ -55,6 +61,7 @@ def recommend_hybrid_bm25_dense(
         filters,
         hw,
         min_similarity_dense=min_similarity,
+        retrieval_similarity=retrieval_sim,
     )
 
     if len(candidate_idxs) == 0:
@@ -85,7 +92,7 @@ def recommend_hybrid_bm25_dense(
     base_k = base[:top_k]
 
     result = df.iloc[idxs][["courseCode", "title", "description"]].copy()
-    result["similarity_raw"] = dense_semantic[idxs].astype(np.float64)
+    result["similarity_raw"] = retrieval_sim[idxs].astype(np.float64)
     result["similarity"] = final_scores
     result["similarity"] = np.nan_to_num(result["similarity"], nan=0.0, posinf=0.0, neginf=0.0)
     result["score_semantic"] = dense_semantic[idxs].astype(np.float64)

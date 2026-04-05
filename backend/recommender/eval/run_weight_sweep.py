@@ -4,8 +4,10 @@
 Usage examples:
   python recommender/eval/run_weight_sweep.py
   python recommender/eval/run_weight_sweep.py --candidates recommender/eval/candidates.json
-  python recommender/eval/run_weight_sweep.py --method dense
+  python recommender/eval/run_weight_sweep.py --method hybrid_bm25_dense
   python recommender/eval/run_weight_sweep.py --compare-methods --num-random 0
+  python recommender/eval/run_weight_sweep.py --eval-set recommender/eval/test_plan_402.json --compare-methods --num-random 0
+  python recommender/eval/run_weight_sweep.py --method hybrid_bm25_dense --append-method-candidates --num-random 12
 """
 
 from __future__ import annotations
@@ -26,7 +28,33 @@ if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
 
 from recommender.main import get_recommendations  # noqa: E402
+from recommender.eval.eval_filter_validation import validate_eval_cases_filter_policy  # noqa: E402
 from recommender.search_weight_config import default_search_weights  # noqa: E402
+
+# All backends accepted by get_recommendations(..., method=...) (keep in sync with scripts/run_search_evaluation_queries.py).
+EVAL_BACKEND_METHODS: Tuple[str, ...] = (
+    "cosine",
+    "dense",
+    "hybrid_bm25_dense",
+    "cross_encoder_rerank",
+    "hybrid_ce_rrf_fused",
+    "hybrid_rerank_graph",
+    "faiss",
+    "mmr",
+    "graph",
+    "fuzzy_multi",
+    "keyword_overlap",
+)
+
+# Primary methods for graded score tuning / regression (subset of EVAL_BACKEND_METHODS).
+PRIMARY_GRADED_METHODS: Tuple[str, ...] = (
+    "cosine",
+    "dense",
+    "hybrid_bm25_dense",
+    "cross_encoder_rerank",
+    "hybrid_ce_rrf_fused",
+    "hybrid_rerank_graph",
+)
 
 
 def normalize_code(code: str) -> str:
@@ -39,7 +67,10 @@ def deep_merge(base: Dict[str, Dict[str, float]], delta: Dict[str, Dict[str, flo
         if section not in out or not isinstance(values, dict):
             continue
         for key, value in values.items():
-            if key not in out[section]:
+            # Allow adding keys that exist in the current production default template
+            # (forward-compatible sweeps for new hybrid knobs).
+            template = default_search_weights().get(section) or {}
+            if key not in out[section] and key not in template:
                 continue
             out[section][key] = float(value)
     return out
@@ -48,10 +79,21 @@ def deep_merge(base: Dict[str, Dict[str, float]], delta: Dict[str, Dict[str, flo
 def make_candidate_id(weights: Dict[str, Dict[str, float]]) -> str:
     ranking = weights["ranking"]
     global_weight = weights["global_weight"]
-    return (
+    base = (
         f"a{ranking['alpha']:.2f}_dept{ranking['same_department_boost']:.2f}"
         f"_g{global_weight['gamma_prereq']:.2f}-{global_weight['gamma_depth']:.2f}-{global_weight['gamma_minor']:.2f}"
     )
+    hyb = weights.get("hybrid") or {}
+    hyb_default = default_search_weights()["hybrid"]
+    hy_parts: List[str] = []
+    for key in sorted(hyb.keys()):
+        if key not in hyb_default:
+            continue
+        if abs(float(hyb[key]) - float(hyb_default[key])) > 1e-9:
+            hy_parts.append(f"{key[:4]}{float(hyb[key]):g}".replace(".", "p"))
+    if hy_parts:
+        base = base + "_H" + "-".join(hy_parts[:8])
+    return base
 
 
 def _ranking_grid() -> Dict[str, List[float]]:
@@ -84,6 +126,91 @@ def _option_triplets() -> List[Tuple[float, float, float]]:
     ]
 
 
+def _hybrid_grid() -> Dict[str, List[float]]:
+    return {
+        "rrf_k": [40.0, 50.0, 60.0, 70.0, 80.0],
+        "rrf_weight_lexical": [0.75, 0.9, 1.0, 1.1, 1.25],
+        "rrf_weight_dense": [0.75, 0.9, 1.0, 1.1, 1.25],
+        "retrieval_k": [180.0, 220.0, 250.0, 280.0, 300.0, 320.0],
+        "cross_encoder_pool": [80.0, 100.0, 120.0, 140.0, 150.0],
+        "graph_rerank_pool": [70.0, 85.0, 100.0, 110.0, 120.0],
+        "ce_fusion_w_ce": [0.45, 0.55, 0.65],
+        "ce_fusion_w_rrf": [0.22, 0.30, 0.38],
+        "ce_fusion_w_retrieval": [0.10, 0.15, 0.22],
+    }
+
+
+def method_conditional_candidate_overrides(method: str) -> List[Dict[str, Dict[str, float]]]:
+    """Extra sweep candidates tailored to a retrieval backend family (use with --append-method-candidates)."""
+    m = (method or "").strip()
+    if m in ("cosine", "dense"):
+        return [
+            {"ranking": {"min_similarity_cutoff": 0.20, "full_query_title_boost": 0.65}},
+            {"ranking": {"phrase_title_boost": 0.45, "title_word_boost_per_overlap": 0.36}},
+            {"ranking": {"alpha": 0.30, "same_department_boost": 0.40}},
+            {"global_weight": {"gamma_prereq": 0.9, "gamma_depth": 0.25, "gamma_minor": 0.45}},
+        ]
+    if m == "hybrid_bm25_dense":
+        return [
+            {"hybrid": {"retrieval_k": 300.0, "rrf_weight_lexical": 1.15, "rrf_weight_dense": 0.90}},
+            {"hybrid": {"rrf_k": 50.0, "retrieval_k": 280.0}},
+            {"hybrid": {"rrf_k": 55.0, "rrf_weight_lexical": 1.10, "rrf_weight_dense": 0.95}},
+            {"ranking": {"min_similarity_cutoff": 0.22}},
+        ]
+    if m in ("cross_encoder_rerank", "hybrid_ce_rrf_fused"):
+        return [
+            {"hybrid": {"cross_encoder_pool": 140.0, "retrieval_k": 300.0}},
+            {"hybrid": {"cross_encoder_pool": 150.0, "rrf_weight_lexical": 1.10}},
+            {"hybrid": {"rrf_k": 50.0, "cross_encoder_pool": 130.0}},
+            {
+                "hybrid": {
+                    "ce_fusion_w_ce": 0.50,
+                    "ce_fusion_w_rrf": 0.35,
+                    "ce_fusion_w_retrieval": 0.15,
+                }
+            },
+        ]
+    if m == "hybrid_rerank_graph":
+        return [
+            {"hybrid": {"graph_rerank_pool": 120.0, "cross_encoder_pool": 130.0}},
+            {"hybrid": {"graph_rerank_pool": 110.0, "retrieval_k": 290.0}},
+            {"ranking": {"alpha": 0.35, "same_department_boost": 0.50}},
+        ]
+    return []
+
+
+def local_search_jitter(
+    base_overrides: List[Dict[str, Dict[str, float]]],
+    seed: int,
+    replicas: int = 8,
+) -> List[Dict[str, Dict[str, float]]]:
+    """Small random perturbations around hybrid knobs for local refinement."""
+    rng = random.Random(seed)
+    hy_keys = (
+        "rrf_k",
+        "rrf_weight_lexical",
+        "rrf_weight_dense",
+        "retrieval_k",
+        "cross_encoder_pool",
+        "graph_rerank_pool",
+    )
+    out: List[Dict[str, Dict[str, float]]] = []
+    for tpl in base_overrides:
+        if "hybrid" not in tpl:
+            continue
+        for _ in range(replicas):
+            hybrid = dict(tpl["hybrid"])
+            # jitter 1–2 keys
+            for _j in range(rng.randint(1, 2)):
+                k = rng.choice(hy_keys)
+                if k not in hybrid:
+                    continue
+                delta = rng.choice([-5.0, -2.0, 2.0, 5.0, 8.0])
+                hybrid[k] = max(10.0, float(hybrid[k]) + delta)
+            out.append({"hybrid": hybrid})
+    return out
+
+
 def _dedupe_overrides(
     overrides: List[Dict[str, Dict[str, float]]],
 ) -> List[Dict[str, Dict[str, float]]]:
@@ -102,26 +229,24 @@ def _sample_random_overrides(num_random: int, seed: int) -> List[Dict[str, Dict[
     rng = random.Random(seed)
     ranking_grid = _ranking_grid()
     global_grid = _global_grid()
+    hybrid_grid = _hybrid_grid()
     option_sets = _option_triplets()
     out: List[Dict[str, Dict[str, float]]] = []
 
     for _ in range(max(0, num_random)):
         tier1, tier2, tier3 = rng.choice(option_sets)
-        out.append(
-            {
-                "ranking": {
-                    k: rng.choice(v) for k, v in ranking_grid.items()
-                },
-                "global_weight": {
-                    k: rng.choice(v) for k, v in global_grid.items()
-                },
-                "option_boost": {
-                    "tier1": tier1,
-                    "tier2": tier2,
-                    "tier3": tier3,
-                },
-            }
-        )
+        cand: Dict[str, Dict[str, float]] = {
+            "ranking": {k: rng.choice(v) for k, v in ranking_grid.items()},
+            "global_weight": {k: rng.choice(v) for k, v in global_grid.items()},
+            "option_boost": {
+                "tier1": tier1,
+                "tier2": tier2,
+                "tier3": tier3,
+            },
+        }
+        if rng.random() < 0.45:
+            cand["hybrid"] = {k: rng.choice(v) for k, v in hybrid_grid.items()}
+        out.append(cand)
     return out
 
 
@@ -131,6 +256,7 @@ def default_candidate_overrides(seed: int = 42, num_random: int = 48) -> List[Di
     ranking_base = baseline["ranking"]
     global_base = baseline["global_weight"]
     option_base = baseline["option_boost"]
+    hybrid_base = baseline["hybrid"]
 
     candidates: List[Dict[str, Dict[str, float]]] = [{}]
 
@@ -164,6 +290,12 @@ def default_candidate_overrides(seed: int = 42, num_random: int = 48) -> List[Di
             }
         )
 
+    for key, values in _hybrid_grid().items():
+        for value in values:
+            if abs(value - hybrid_base[key]) < 1e-12:
+                continue
+            candidates.append({"hybrid": {key: value}})
+
     # Coupled interaction candidates and random mixes.
     candidates.extend(
         [
@@ -173,6 +305,9 @@ def default_candidate_overrides(seed: int = 42, num_random: int = 48) -> List[Di
             {"ranking": {"title_word_boost_per_overlap": 0.36, "title_word_boost_cap": 0.9}},
             {"global_weight": {"gamma_prereq": 1.2, "gamma_depth": 0.15, "gamma_minor": 0.65}},
             {"global_weight": {"gamma_prereq": 0.8, "gamma_depth": 0.45, "gamma_minor": 0.35}},
+            {"hybrid": {"rrf_weight_lexical": 1.15, "rrf_weight_dense": 0.9}},
+            {"hybrid": {"retrieval_k": 300.0, "cross_encoder_pool": 140.0}},
+            {"hybrid": {"rrf_k": 50.0, "graph_rerank_pool": 110.0}},
         ]
     )
     candidates.extend(_sample_random_overrides(num_random=num_random, seed=seed))
@@ -358,13 +493,32 @@ def parse_args() -> argparse.Namespace:
         "--method",
         type=str,
         default="cosine",
-        choices=["cosine", "dense"],
+        choices=list(EVAL_BACKEND_METHODS),
         help="Retrieval backend to evaluate (default: cosine).",
     )
     parser.add_argument(
         "--compare-methods",
         action="store_true",
-        help="Print NDCG/Recall/MRR for cosine vs dense with baseline weights only (use e.g. --num-random 0).",
+        help=(
+            "Print NDCG/Recall/MRR for every backend in EVAL_BACKEND_METHODS with baseline weights only "
+            "(use e.g. --num-random 0)."
+        ),
+    )
+    parser.add_argument(
+        "--skip-filter-validation",
+        action="store_true",
+        help="Skip breadth/non-STEM include_other_depts policy checks on the eval set.",
+    )
+    parser.add_argument(
+        "--append-method-candidates",
+        action="store_true",
+        help="Append method-family override pack for the selected --method (see method_conditional_candidate_overrides).",
+    )
+    parser.add_argument(
+        "--local-search-replicas",
+        type=int,
+        default=0,
+        help="Add N jitters around a few hybrid-only candidates (0 disables).",
     )
     return parser.parse_args()
 
@@ -378,12 +532,36 @@ def main() -> None:
     if not cases:
         raise ValueError("Evaluation set has no cases.")
 
+    if not args.skip_filter_validation:
+        policy_errors = validate_eval_cases_filter_policy(cases)
+        if policy_errors:
+            raise ValueError(
+                "Eval set failed filter policy validation:\n"
+                + "\n".join(policy_errors[:25])
+                + (f"\n... and {len(policy_errors) - 25} more" if len(policy_errors) > 25 else "")
+            )
+
     if args.candidates:
         candidate_overrides = read_json(args.candidates)
         if not isinstance(candidate_overrides, list):
             raise ValueError("Candidates file must be a JSON list of override objects.")
     else:
         candidate_overrides = default_candidate_overrides(seed=args.seed, num_random=args.num_random)
+
+    if args.append_method_candidates:
+        candidate_overrides = _dedupe_overrides(
+            candidate_overrides + method_conditional_candidate_overrides(args.method)
+        )
+    if args.local_search_replicas > 0:
+        hybrid_pick = [c for c in candidate_overrides if c.get("hybrid")][:6]
+        candidate_overrides = _dedupe_overrides(
+            candidate_overrides
+            + local_search_jitter(
+                hybrid_pick,
+                seed=args.seed + 777,
+                replicas=args.local_search_replicas,
+            )
+        )
 
     results = run_sweep(
         cases,
@@ -430,13 +608,7 @@ def main() -> None:
 
     if args.compare_methods:
         print("Method comparison (baseline weights, top candidate each):")
-        for m in (
-            "cosine",
-            "dense",
-            "hybrid_bm25_dense",
-            "cross_encoder_rerank",
-            "hybrid_rerank_graph",
-        ):
+        for m in EVAL_BACKEND_METHODS:
             baseline_rows = run_sweep(cases, args.top_k, [{}], method=m)
             row0 = baseline_rows[0]
             print(

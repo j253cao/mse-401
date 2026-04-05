@@ -2,16 +2,20 @@
 """
 Run queries from tasks/search-evaluation-queries.txt against each recommender method.
 
-Uses get_recommendations(..., method=...) from the backend (same as the API pipeline,
-but the live /recommend endpoint only accepts cosine/dense; this script exercises all
-implemented methods: cosine, dense, faiss, mmr, graph, fuzzy_multi, keyword_overlap).
+Uses get_recommendations(..., method=...) from the backend (same core pipeline as the app).
+POST /recommend exposes a subset of methods; this script can run every KNOWN_METHODS entry.
 
-Requires optional packages for full coverage: faiss-cpu (faiss), networkx (graph).
+Requires optional packages for full coverage:
+  sentence-transformers + rank-bm25 (dense, hybrid_bm25_dense, cross_encoder_rerank, hybrid_rerank_graph)
+  faiss-cpu (faiss), networkx (graph).
 
 Usage (from repo root):
   python scripts/run_search_evaluation_queries.py
+  python scripts/run_search_evaluation_queries.py --top-k 10 --output eval_results_all_methods.csv --summary
   python scripts/run_search_evaluation_queries.py --methods cosine,dense,keyword_overlap --top-k 10
   python scripts/run_search_evaluation_queries.py --output eval_results.csv --include-other-depts
+
+See tasks/METHOD_TESTING.md for the full comparison workflow.
 """
 
 from __future__ import annotations
@@ -21,6 +25,7 @@ import csv
 import re
 import sys
 from pathlib import Path
+from collections import defaultdict
 from typing import Iterable, List, Tuple
 
 # Repo layout: scripts/ -> project root -> backend/
@@ -54,6 +59,7 @@ KNOWN_METHODS = (
     "dense",
     "hybrid_bm25_dense",
     "cross_encoder_rerank",
+    "hybrid_ce_rrf_fused",
     "hybrid_rerank_graph",
     "faiss",
     "mmr",
@@ -176,6 +182,38 @@ def write_csv(path: Path, rows: List[dict]) -> None:
         w.writerows(rows)
 
 
+def print_run_summary(rows: List[dict], methods: List[str]) -> None:
+    """Per-method success vs failure counts over query_id (stderr, easy copy-paste)."""
+    if not rows:
+        print("No rows to summarize.", file=sys.stderr)
+        return
+    qids = sorted({str(r["query_id"]) for r in rows})
+    by_pair: dict[Tuple[str, str], list] = defaultdict(list)
+    for r in rows:
+        by_pair[(str(r["query_id"]), r["method"])].append(r)
+
+    print("\n=== Run summary (per query x method) ===", file=sys.stderr)
+    line = f"{'method':<24} {'ok':>5} {'fail':>5} {'queries':>8}"
+    print(line, file=sys.stderr)
+    print("-" * len(line), file=sys.stderr)
+    for m in methods:
+        ok = nfail = 0
+        for q in qids:
+            rs = by_pair.get((q, m), [])
+            errs = [(x.get("error") or "").strip() for x in rs if (x.get("error") or "").strip()]
+            if errs:
+                nfail += 1
+            elif rs and any(
+                (x.get("course_code") or "").strip() and x.get("rank") not in ("", None)
+                for x in rs
+            ):
+                ok += 1
+            else:
+                nfail += 1
+        print(f"{m:<24} {ok:>5} {nfail:>5} {len(qids):>8}", file=sys.stderr)
+    print("", file=sys.stderr)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Run search-evaluation queries across recommender methods."
@@ -209,6 +247,11 @@ def main() -> None:
         action="store_true",
         help="Include non-engineering departments (mirrors API include_other_depts)",
     )
+    parser.add_argument(
+        "--summary",
+        action="store_true",
+        help="Print per-method ok/fail counts over queries (stderr).",
+    )
     args = parser.parse_args()
 
     queries_path: Path = args.queries_file
@@ -222,6 +265,9 @@ def main() -> None:
     methods = parse_methods_arg(args.methods)
     filters = build_filters(include_other_depts=args.include_other_depts)
     rows = run_rows(queries, methods, filters, args.data_file, args.top_k)
+
+    if args.summary:
+        print_run_summary(rows, methods)
 
     if args.output:
         write_csv(args.output, rows)

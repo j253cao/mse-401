@@ -280,6 +280,16 @@ def _bucket_normalize_series(
     return pd.Series(normed, index=s.index)
 
 
+def _numeric_series_column(df: pd.DataFrame, col: str) -> pd.Series:
+    """Return a single numeric Series for ``col``, tolerating duplicate column names."""
+    if col not in df.columns:
+        raise KeyError(col)
+    s = df[col]
+    if isinstance(s, pd.DataFrame):
+        s = s.iloc[:, 0]
+    return pd.to_numeric(s, errors="coerce")
+
+
 def apply_bucket_normalization(
     df: pd.DataFrame,
     bucket_col: str = "subjectCode",
@@ -294,10 +304,12 @@ def apply_bucket_normalization(
       - f_minor_norm:  z-score of minor_count
     """
     df = df.copy()
-    # Prepare raw features with safe defaults
-    df["prereq_outdegree"] = df.get("prereq_outdegree", 0).fillna(0).astype(int)
-    df["depth"] = df.get("depth", 0).fillna(0).astype(int)
-    df["minor_count"] = df.get("minor_count", 0).fillna(0).astype(int)
+    # Prepare raw features with safe defaults (avoid DataFrame.get, which can confuse dtypes)
+    for _feat_col, _default in (("prereq_outdegree", 0), ("depth", 0), ("minor_count", 0)):
+        if _feat_col in df.columns:
+            df[_feat_col] = _numeric_series_column(df, _feat_col).fillna(_default).astype(int)
+        else:
+            df[_feat_col] = _default
 
     log_prereq = df["prereq_outdegree"].apply(lambda x: math.log1p(max(int(x), 0)))
     depth = df["depth"].astype(float)
@@ -518,9 +530,15 @@ def compute_global_weight(
 
     The result is loosely in a bounded range because we clip z-scores.
     """
-    prereq = df.get("prereq_score_norm", 0.0).astype(float)
-    depth = df.get("depth_score_norm", 0.0).astype(float)
-    minor = df.get("minor_score_norm", 0.0).astype(float)
+    def _feat(name: str) -> pd.Series:
+        if name not in df.columns:
+            return pd.Series(0.0, index=df.index, dtype=float)
+        s = _numeric_series_column(df, name).astype(float)
+        return s.fillna(0.0)
+
+    prereq = _feat("prereq_score_norm")
+    depth = _feat("depth_score_norm")
+    minor = _feat("minor_score_norm")
     weights = (
         gamma_prereq * prereq
         + gamma_depth * depth

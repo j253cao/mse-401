@@ -40,6 +40,15 @@ pip install ollama
   and `backend/scrapers/` that aren't imported by the API were moved into
   `backend/scripts/parsers/` and `backend/scripts/scrapers/`.
 
+### Search embedding maintenance
+
+- **`regenerate_tfidf_svd_embeddings.py`** — Rebuilds `data/embeddings/tfidf_vectorizer.pkl`,
+  `svd_model.pkl`, and `course_embeddings.{pkl,npy}` with your installed **scikit-learn**
+  version so cosine search avoids unpickle version warnings and metric drift. Run from
+  `backend/`: `python scripts/regenerate_tfidf_svd_embeddings.py`. Afterward, delete
+  `data/embeddings/dense_embeddings.npy` if you need dense vectors regenerated to match
+  the updated course row order.
+
 ### Guidelines
 
 - The deployed backend only relies on `backend/api/`, `backend/recommender/`,
