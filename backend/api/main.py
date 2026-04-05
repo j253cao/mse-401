@@ -39,6 +39,9 @@ ENGINEERING_DEPARTMENTS = (
     "ME", "MTE", "MSE", "NE", "SE", "SYDE",
 )
 
+# Default semantic search backend for /recommend and /resume-recommend
+DEFAULT_RECOMMEND_METHOD = "hybrid_ce_rrf_fused"
+
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
 from recommender.weights import load_course_to_programs, compute_options_progress, get_option_boost_multipliers
 from recommender.search_weight_config import DEFAULT_SEARCH_WEIGHTS
@@ -462,11 +465,11 @@ class QueryRequest(BaseModel):
     queries: List[str]
     filters: Optional[Dict[str, Any]] = None
     method: Optional[str] = Field(
-        default="cosine",
+        default=DEFAULT_RECOMMEND_METHOD,
         description=(
-            "Search backend: 'cosine', 'dense', 'hybrid_bm25_dense' (BM25+dense RRF), "
-            "'cross_encoder_rerank', 'hybrid_ce_rrf_fused' (CE + RRF + retrieval fusion), "
-            "or 'hybrid_rerank_graph' (cross-encoder + graph boosts)."
+            "Search backend: 'hybrid_ce_rrf_fused' (default; CE + RRF + retrieval fusion), "
+            "'cosine', 'dense', 'hybrid_bm25_dense' (BM25+dense RRF), "
+            "'cross_encoder_rerank', or 'hybrid_rerank_graph' (cross-encoder + graph boosts)."
         ),
     )
 
@@ -612,7 +615,7 @@ def recommend(request: QueryRequest):
             "hybrid_ce_rrf_fused",
             "hybrid_rerank_graph",
         )
-        search_method = (request.method or "cosine").strip().lower()
+        search_method = (request.method or DEFAULT_RECOMMEND_METHOD).strip().lower()
         if search_method not in _semantic_methods:
             raise HTTPException(
                 status_code=400,
@@ -689,13 +692,13 @@ def resume_recommend(
         recommendations = get_recommendations(
             [query],
             data_file='course-api-new-data.json',
-            method='cosine',
+            method=DEFAULT_RECOMMEND_METHOD,
             filters=res_filters
         )
         
         formatted = []
         for r in recommendations[0]:
-            if r["method"] != "cosine":
+            if r["method"] != DEFAULT_RECOMMEND_METHOD:
                 continue
             dep_info = deps_lookup.get(str(r["course_code"]).upper(), {})
             base_course = {
