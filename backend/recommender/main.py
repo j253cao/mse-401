@@ -34,10 +34,14 @@ from .weights import (
 )
 from .data_loader import load_undergrad_courses
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS, merge_weight_overrides
-
-# Sentence-transformer model for dense retrieval (must match dense_model_name.txt when cached)
-DEFAULT_DENSE_MODEL_NAME = "all-MiniLM-L6-v2"
-DEFAULT_CROSS_ENCODER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+from .model_names import (
+    DEFAULT_CROSS_ENCODER_MODEL,
+    DEFAULT_DENSE_MODEL_NAME,
+    dense_embedding_file_slug,
+    get_effective_cross_encoder_model_name,
+    get_effective_dense_model_name,
+    set_runtime_model_overrides,
+)
 
 
 def get_abs_path(*parts):
@@ -64,12 +68,28 @@ _cached = {
 _options_data_cache = None
 
 
+def set_recommender_model_overrides(
+    dense: Optional[str] = None,
+    cross_encoder: Optional[str] = None,
+) -> None:
+    """Switch dense/CrossEncoder models at runtime (e.g. benchmarks). Clears caches."""
+    set_runtime_model_overrides(dense=dense, cross_encoder=cross_encoder)
+    _cached["dense_sentence_model"] = None
+    _cached["dense_embeddings"] = None
+    _cached["dense_emb_norm"] = None
+    _cached["cross_encoder"] = None
+    _cached["hybrid_bundle"] = None
+    _cached["hybrid_bundle_key"] = None
+
+
 def _get_dense_sentence_model():
     """Lazy-load ST model (only needed for ``dense`` search)."""
     if _cached["dense_sentence_model"] is None:
         from sentence_transformers import SentenceTransformer
 
-        _cached["dense_sentence_model"] = SentenceTransformer(DEFAULT_DENSE_MODEL_NAME)
+        _cached["dense_sentence_model"] = SentenceTransformer(
+            get_effective_dense_model_name()
+        )
     return _cached["dense_sentence_model"]
 
 
@@ -78,7 +98,9 @@ def _get_cross_encoder():
     if _cached["cross_encoder"] is None:
         from sentence_transformers import CrossEncoder
 
-        _cached["cross_encoder"] = CrossEncoder(DEFAULT_CROSS_ENCODER_MODEL)
+        _cached["cross_encoder"] = CrossEncoder(
+            get_effective_cross_encoder_model_name()
+        )
     return _cached["cross_encoder"]
 
 
@@ -204,14 +226,21 @@ def _load_all(data_file):
 
     # Dense (sentence-transformer) embeddings: multifield text; invalidate on shape/model mismatch
     if _cached["dense_emb_norm"] is None:
-        dense_npy = get_abs_path("data", "embeddings", "dense_embeddings.npy")
-        dense_meta = get_abs_path("data", "embeddings", "dense_model_name.txt")
+        eff_dense = get_effective_dense_model_name()
+        if eff_dense == DEFAULT_DENSE_MODEL_NAME:
+            dense_npy = get_abs_path("data", "embeddings", "dense_embeddings.npy")
+            dense_meta = get_abs_path("data", "embeddings", "dense_model_name.txt")
+        else:
+            slug = dense_embedding_file_slug(eff_dense)
+            ddir = get_abs_path("data", "embeddings", "dense_by_model")
+            dense_npy = os.path.join(ddir, f"{slug}.npy")
+            dense_meta = os.path.join(ddir, f"{slug}.txt")
         n_courses = len(_cached["df"])
         need_regen = True
         if os.path.exists(dense_npy) and os.path.exists(dense_meta):
             with open(dense_meta, "r", encoding="utf-8") as f:
                 stored = f.read().strip()
-            if stored == DEFAULT_DENSE_MODEL_NAME:
+            if stored == eff_dense:
                 arr = np.load(dense_npy)
                 if arr.shape[0] == n_courses:
                     _cached["dense_embeddings"] = arr.astype(np.float32)
@@ -222,7 +251,7 @@ def _load_all(data_file):
             texts = build_multifield_course_texts(_cached["df"])
             _model, emb = generate_dense_embeddings(
                 texts,
-                model_name=DEFAULT_DENSE_MODEL_NAME,
+                model_name=eff_dense,
                 show_progress_bar=True,
             )
             del _model
@@ -230,7 +259,7 @@ def _load_all(data_file):
             os.makedirs(os.path.dirname(dense_npy), exist_ok=True)
             np.save(dense_npy, emb)
             with open(dense_meta, "w", encoding="utf-8") as f:
-                f.write(DEFAULT_DENSE_MODEL_NAME)
+                f.write(eff_dense)
             _cached["dense_embeddings"] = emb
         dnorms = np.linalg.norm(_cached["dense_embeddings"], axis=1, keepdims=True)
         dnorms[dnorms == 0] = 1
@@ -295,6 +324,7 @@ def get_recommendations(
     option_weights = resolved_weights["option_boost"]
 
     df, embeddings, emb_norm, tfidf, svd, dense_emb_norm = _load_all(data_file)
+    dense_model_name = get_effective_dense_model_name()
     effective_df = df
 
     # Recompute global_weight only when non-default gamma values are requested.
@@ -383,6 +413,7 @@ def get_recommendations(
                 effective_df,
                 filters=effective_filters,
                 ranking_weights=ranking_weights,
+                dense_model_name=dense_model_name,
             ),
         ),
         ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, effective_df)),
@@ -401,6 +432,7 @@ def get_recommendations(
                 filters=effective_filters,
                 ranking_weights=ranking_weights,
                 hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
             ),
         ),
         (
@@ -416,6 +448,7 @@ def get_recommendations(
                 filters=effective_filters,
                 ranking_weights=ranking_weights,
                 hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
             ),
         ),
         (
@@ -431,6 +464,7 @@ def get_recommendations(
                 filters=effective_filters,
                 ranking_weights=ranking_weights,
                 hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
             ),
         ),
         (
@@ -446,6 +480,7 @@ def get_recommendations(
                 filters=effective_filters,
                 ranking_weights=ranking_weights,
                 hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
             ),
         ),
     ]

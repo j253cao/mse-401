@@ -19,6 +19,38 @@ def generate_tfidf_svd_embeddings(descriptions, max_features=5000, n_components=
     return tfidf, svd, embeddings
 
 
+def format_dense_query_text(model_name: str, query: str) -> str:
+    """Model-specific query wording for bi-encoder retrieval (e5 / bge-style)."""
+    m = (model_name or "").lower()
+    q = (query or "").strip()
+    if "e5-base" in m or "e5-large" in m or "e5-small" in m or "/e5-" in m or "intfloat/e5" in m:
+        return f"query: {q}"
+    if "bge-base-en" in m or "bge-large-en" in m or "bge-small-en" in m:
+        return f"Represent this sentence for searching relevant passages: {q}"
+    return q
+
+
+def format_dense_passage_text(model_name: str, text: str) -> str:
+    m = (model_name or "").lower()
+    t = (text or "").strip()
+    if not t:
+        return t
+    if "e5-base" in m or "e5-large" in m or "e5-small" in m or "/e5-" in m or "intfloat/e5" in m:
+        return f"passage: {t}"
+    return t
+
+
+def encode_dense_query_normalized(model_name: str, dense_model, query: str):
+    """Encode one search query with L2 normalization (matches prior encode flags)."""
+    wrapped = format_dense_query_text(model_name, query)
+    q_emb = dense_model.encode(
+        [wrapped],
+        convert_to_numpy=True,
+        normalize_embeddings=True,
+    )
+    return q_emb[0]
+
+
 def build_multifield_course_texts(df: pd.DataFrame) -> List[str]:
     """Single string per course: code + title + description for dense embedding.
 
@@ -46,8 +78,9 @@ def generate_dense_embeddings(
     from sentence_transformers import SentenceTransformer
 
     model = SentenceTransformer(model_name)
+    formatted = [format_dense_passage_text(model_name, t) for t in texts]
     embeddings = model.encode(
-        texts,
+        formatted,
         batch_size=batch_size,
         show_progress_bar=show_progress_bar,
         convert_to_numpy=True,

@@ -5,7 +5,7 @@ undergrad Academic Calendar SPA.
 
 API (example):
   https://uwaterloocm.kuali.co/api/v1/catalog/search/67e557ed6ed2fe2bd3a38956
-    ?q=modern%20film&limit=50&skip=0&itemTypes=courses
+    ?q=modern%20film&limit=8&skip=0&itemTypes=courses
 
 When the API returns fewer rows than requested in one call, we paginate with
 skip= until we reach ``--limit`` or the result set is exhausted.
@@ -147,7 +147,7 @@ def fetch_search_results(
     skip: int,
     timeout_s: float,
     item_types: str,
-    page_chunk: int = 50,
+    page_chunk: int = 8,
 ) -> List[Dict[str, str]]:
     """Fetch up to ``limit`` course rows, paginating if the API returns short pages."""
     if limit <= 0:
@@ -218,14 +218,14 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--limit",
         type=int,
-        default=50,
-        help="Max course results per query (total across paginated API calls; default 50).",
+        default=8,
+        help="Max course results per query (total across paginated API calls; default 8).",
     )
     p.add_argument(
         "--page-chunk",
         type=int,
-        default=50,
-        help="Per-request API limit= (smaller if the server caps page size).",
+        default=8,
+        help="Per-request API limit= (default 8).",
     )
     p.add_argument("--skip", type=int, default=0, help="API skip= offset")
     p.add_argument("--delay-ms", type=int, default=400, help="Pause between API calls")

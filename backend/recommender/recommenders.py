@@ -564,6 +564,7 @@ def recommend_dense(
     top_k=30,
     min_similarity=None,
     ranking_weights=None,
+    dense_model_name=None,
 ):
     """Course search using sentence-transformer cosine similarity + same re-ranking as ``recommend_cosine``."""
     ranking_weights = ranking_weights or {}
@@ -588,12 +589,11 @@ def recommend_dense(
     filters_applied = _apply_course_filters(filters, df)
 
     t0 = time.time()
-    q_emb = dense_model.encode(
-        [query],
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-    )
-    q_norm = q_emb[0]
+    from .embedding_generators import encode_dense_query_normalized
+    from .model_names import get_effective_dense_model_name
+
+    dname = dense_model_name or get_effective_dense_model_name()
+    q_norm = encode_dense_query_normalized(dname, dense_model, query)
     t1 = time.time()
     semantic = np.dot(dense_emb_norm, q_norm)
     semantic = np.nan_to_num(semantic, nan=0.0, posinf=0.0, neginf=0.0)

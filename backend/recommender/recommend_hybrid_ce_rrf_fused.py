@@ -39,6 +39,7 @@ def recommend_hybrid_ce_rrf_fused(
     top_k: int = 30,
     ranking_weights: Optional[Dict[str, float]] = None,
     hybrid_weights: Optional[Dict[str, float]] = None,
+    dense_model_name: Optional[str] = None,
 ) -> pd.DataFrame:
     ranking_weights = ranking_weights or {}
     hw = dict(DEFAULT_SEARCH_WEIGHTS.get("hybrid", {}))
@@ -49,12 +50,14 @@ def recommend_hybrid_ce_rrf_fused(
         ranking_weights.get("min_similarity_cutoff", MIN_SIMILARITY_CUTOFF)
     )
 
-    q_emb = dense_model.encode(
-        [query],
-        convert_to_numpy=True,
-        normalize_embeddings=True,
+    from .embedding_generators import encode_dense_query_normalized
+    from .model_names import get_effective_dense_model_name
+
+    dname = dense_model_name or get_effective_dense_model_name()
+    q_norm = np.asarray(
+        encode_dense_query_normalized(dname, dense_model, query),
+        dtype=np.float32,
     )
-    q_norm = np.asarray(q_emb[0], dtype=np.float32)
 
     dense_semantic_gate = np.dot(dense_emb_norm, q_norm.astype(np.float64))
     dense_semantic_gate = np.nan_to_num(

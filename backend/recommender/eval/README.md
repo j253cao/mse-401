@@ -104,3 +104,26 @@ no-regression gate (vs `--internal-baseline`), **and** both calendar gates
 (overall + non‑STEM win rates). Among those, macro **NDCG@k** on Track A breaks
 ties; if every method fails a gate, the script still picks a fallback by NDCG
 (see `recommended_winner` and per-method flags in the JSON).
+
+## Dense + cross-encoder model sweep (`hybrid_ce_rrf_fused`)
+
+Sweep pilot (and optional phase-2) dense/CE pairings with **fixed**
+`min_similarity_cutoff=0.25`, graded metrics on `queries.json` +
+`test_plan_402.json`, calendar diagnostics, and per-query latency on
+`search_evaluation_queries.json`.
+
+From `backend/`:
+
+```bash
+# Pilot + auto mixed row; optional --phase2 for expanded pairings
+python recommender/eval/model_sweep_benchmark.py
+python recommender/eval/model_sweep_benchmark.py --phase2
+```
+
+Outputs: `recommender/eval/reports_model_sweep/model_sweep_leaderboard.csv` and
+`model_sweep_summary.json`. Overrides are cleared at exit.
+
+Runtime overrides are also available via `get_recommendations` / recommender
+internals (`set_recommender_model_overrides` in `backend/recommender/main.py`);
+see [`docs/model_sweep_recommendation.md`](../../../docs/model_sweep_recommendation.md) for the latest
+interpretation and production default suggestion.
