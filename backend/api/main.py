@@ -42,6 +42,9 @@ ENGINEERING_DEPARTMENTS = (
 # Default semantic search backend for /recommend and /resume-recommend
 DEFAULT_RECOMMEND_METHOD = "hybrid_ce_rrf_fused"
 
+# When search UI sends exploration_mode=true, scale global_weight gammas (Table 3) for /recommend only.
+_EXPLORE_GLOBAL_WEIGHT_SCALE = 0.33
+
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
 from recommender.weights import load_course_to_programs, compute_options_progress, get_option_boost_multipliers
 from recommender.search_weight_config import DEFAULT_SEARCH_WEIGHTS
@@ -546,10 +549,23 @@ def recommend(request: QueryRequest):
     """
     filters = dict(request.filters) if request.filters else {}
     include_other = filters.pop("include_other_depts", False)
+    exploration_mode = bool(filters.pop("exploration_mode", False))
     if not filters.get("department"):
         filters["department"] = list(ENGINEERING_DEPARTMENTS)
     if include_other:
         filters["include_other_depts"] = True
+
+    gw = DEFAULT_SEARCH_WEIGHTS["global_weight"]
+    weight_overrides: Optional[Dict[str, Dict[str, float]]] = None
+    if exploration_mode:
+        s = _EXPLORE_GLOBAL_WEIGHT_SCALE
+        weight_overrides = {
+            "global_weight": {
+                "gamma_prereq": float(gw["gamma_prereq"]) * s,
+                "gamma_depth": float(gw["gamma_depth"]) * s,
+                "gamma_minor": float(gw["gamma_minor"]) * s,
+            }
+        }
 
     # Option-completion boost: tiered by option + list progress (for ranking)
     options_data = _load_options_data()
@@ -626,6 +642,7 @@ def recommend(request: QueryRequest):
             data_file="course-api-new-data.json",
             method=search_method,
             filters=filters,
+            weight_overrides=weight_overrides,
         )
 
         for q, q_results in zip(queries_for_semantic, results):

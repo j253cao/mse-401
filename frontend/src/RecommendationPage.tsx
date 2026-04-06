@@ -254,6 +254,7 @@ export default function RecommendationPage() {
         include_other_depts: includeOtherDepts,
         completed_courses: completedCourses,
         ignore_dependencies: explorationMode,
+        exploration_mode: explorationMode,
         ...(opts.length > 0 && { options: opts }),
         ...(incomingLevel && { incoming_level: incomingLevel }),
         ...(programCode && incomingLevel && { user_department: programCode }),

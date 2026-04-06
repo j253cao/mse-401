@@ -36,10 +36,13 @@ export interface RecommendFilters {
   include_undergrad?: boolean;
   include_grad?: boolean;
   department?: string[];
+  include_other_depts?: boolean;
   /** User's major/department from profile (e.g. SE, ME) for same-department boost; not the search page department filter */
   user_department?: string;
   completed_courses?: string[];
   ignore_dependencies?: boolean;
+  /** When true, backend scales down global_weight gammas for /recommend only */
+  exploration_mode?: boolean;
   options?: string[];
   incoming_level?: string;
 }
