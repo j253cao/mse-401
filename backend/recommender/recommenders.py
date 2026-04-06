@@ -168,17 +168,25 @@ def _title_word_boost(
     Filler words (e.g. and, the, of) are ignored: we only require non-stop words
     to appear in the title for this boost. Full-query and phrase-in-title boosts
     are applied separately and do consider the full query/phrases.
+
+    For multi-word queries, boost is scaled by the fraction of query content words
+    that match (``overlap / n``), so a title that only shares a generic token like
+    "learning" with "machine learning" gets much less additive score than before.
     """
     query_words = _content_words_only(query)
     if not query_words:
         return np.zeros(len(titles), dtype=float)
+    n = float(len(query_words))
+
     def overlap_count(title):
         if not isinstance(title, str):
             return 0
         title_words = set(re.findall(r'\w+', title.lower()))
         return len(query_words & title_words)
+
     overlaps = titles.apply(overlap_count).to_numpy(dtype=float)
-    boosts = np.minimum(overlaps * per_overlap, cap)
+    ratio = overlaps / n
+    boosts = np.minimum(overlaps * per_overlap * ratio, cap)
     return boosts
 
 
