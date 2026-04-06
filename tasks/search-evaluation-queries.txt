@@ -1,0 +1,44 @@
+Search evaluation query bank and test plan
+
+Keep S*/N* query text in sync with backend/recommender/eval/search_evaluation_queries.json.
+
+STEM-oriented queries (technical / engineering)
+
+S1   machine learning
+S2   heat transfer and thermodynamics in mechanical systems
+S3   digital logic design and computer architecture
+S4   materials science
+S5   fluid mechanics and aerodynamics
+S6   signals and systems
+S7   neural networks 
+S8   chemistry of polymers and composite materials
+S9   probability and statistics for data-driven design
+S10  control systems and feedback for robotics
+S11  circuits, electronics, and embedded systems
+S12  optimization and operations research
+
+
+Non-STEM-oriented queries (arts, society, breadth)
+
+N1   ethics of technology and engineering in society
+N2   professional communication and technical writing for engineers
+N3   psychology of decision making and human factors
+N4   economics of innovation
+N5   history of science 
+N6   sustainability, environmental policy, and climate justice
+N7   law, regulation, and intellectual property for technology
+N8   leadership, teamwork, and project management in organizations
+N9   urban planning and community studies
+N10  philosophy of mind and logic
+N11  creative writing
+N12  modern film studies 
+
+Score subjectively e.g. 1–5.
+
+1. Top-5 relevance: Are the top five results clearly related to what you meant?
+2. False positives: Any highly ranked course that feels clearly off? Note the course code.
+3. Coverage: Did something you know exists at UW for this topic fail to appear in the top ~15?
+4. Title vs description: Does ranking seem driven by buzzwords in the title vs actual syllabus fit?
+5. Filters interaction: If you turn exploration / department filters on or off, does ranking stay sensible?
+
+Test between: UW calendar vs our algorithms with different raw scoring (cosine, BM25, word embeddings (eg. BERT))

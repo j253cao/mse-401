@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from enum import Enum
 import json
@@ -38,6 +38,9 @@ ENGINEERING_DEPARTMENTS = (
     "AE", "BME", "CHE", "CIVE", "ECE", "ENVE", "GENE", "GEOE",
     "ME", "MTE", "MSE", "NE", "SE", "SYDE",
 )
+
+# Default semantic search backend for /recommend and /resume-recommend
+DEFAULT_RECOMMEND_METHOD = "hybrid_ce_rrf_fused"
 
 from recommender.main import get_recommendations, get_high_value_courses, get_similar_courses, get_abs_path, get_filtered_courses
 from recommender.weights import load_course_to_programs, compute_options_progress, get_option_boost_multipliers
@@ -90,6 +93,8 @@ def _enrich_results_with_deps(results: List[Dict[str, Any]], deps_lookup: Dict) 
             "coreqs": dep_info.get("coreqs"),
             "antireqs": dep_info.get("antireqs"),
         }
+        if r.get("score_breakdown") is not None:
+            base_course["score_breakdown"] = r["score_breakdown"]
         enriched.append(_enrich_course_with_programs(base_course))
     return enriched
 
@@ -459,6 +464,14 @@ class CourseLevel(str, Enum):
 class QueryRequest(BaseModel):
     queries: List[str]
     filters: Optional[Dict[str, Any]] = None
+    method: Optional[str] = Field(
+        default=DEFAULT_RECOMMEND_METHOD,
+        description=(
+            "Search backend: 'hybrid_ce_rrf_fused' (default; CE + RRF + retrieval fusion), "
+            "'cosine', 'dense', 'hybrid_bm25_dense' (BM25+dense RRF), "
+            "'cross_encoder_rerank', or 'hybrid_rerank_graph' (cross-encoder + graph boosts)."
+        ),
+    )
 
 
 @app.get("/health")
@@ -594,16 +607,30 @@ def recommend(request: QueryRequest):
 
     # Semantic search for remaining queries
     if queries_for_semantic:
+        _semantic_methods = (
+            "cosine",
+            "dense",
+            "hybrid_bm25_dense",
+            "cross_encoder_rerank",
+            "hybrid_ce_rrf_fused",
+            "hybrid_rerank_graph",
+        )
+        search_method = (request.method or DEFAULT_RECOMMEND_METHOD).strip().lower()
+        if search_method not in _semantic_methods:
+            raise HTTPException(
+                status_code=400,
+                detail=f"method must be one of: {', '.join(_semantic_methods)}",
+            )
         results = get_recommendations(
             queries_for_semantic,
             data_file="course-api-new-data.json",
-            method="cosine",
+            method=search_method,
             filters=filters,
         )
 
         for q, q_results in zip(queries_for_semantic, results):
-            cosine_results = [r for r in q_results if r["method"] == "cosine"]
-            formatted[q] = _enrich_results_with_deps(cosine_results, deps_lookup)
+            method_results = [r for r in q_results if r["method"] == search_method]
+            formatted[q] = _enrich_results_with_deps(method_results, deps_lookup)
 
     return {"results": formatted}
 
@@ -665,13 +692,13 @@ def resume_recommend(
         recommendations = get_recommendations(
             [query],
             data_file='course-api-new-data.json',
-            method='cosine',
+            method=DEFAULT_RECOMMEND_METHOD,
             filters=res_filters
         )
         
         formatted = []
         for r in recommendations[0]:
-            if r["method"] != "cosine":
+            if r["method"] != DEFAULT_RECOMMEND_METHOD:
                 continue
             dep_info = deps_lookup.get(str(r["course_code"]).upper(), {})
             base_course = {
@@ -684,8 +711,10 @@ def resume_recommend(
                 "coreqs": dep_info.get("coreqs"),
                 "antireqs": dep_info.get("antireqs"),
             }
+            if r.get("score_breakdown") is not None:
+                base_course["score_breakdown"] = r["score_breakdown"]
             formatted.append(_enrich_course_with_programs(base_course))
-        
+
         return formatted
     finally:
         os.remove(tmp_path)

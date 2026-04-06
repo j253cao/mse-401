@@ -10,10 +10,19 @@ from typing import List, Dict, Any, Optional
 from .data_loader import load_course_data, save_embeddings, load_embeddings
 from .embedding_generators import generate_tfidf_svd_embeddings
 from .recommenders import (
-    recommend_cosine, recommend_faiss, recommend_mmr, recommend_graph,
-    recommend_fuzzy_multi, recommend_keyword_overlap, recommend_bert, recommend_hybrid_ensemble,
-    recommend_filter_only
+    recommend_cosine,
+    recommend_dense,
+    recommend_faiss,
+    recommend_mmr,
+    recommend_graph,
+    recommend_fuzzy_multi,
+    recommend_keyword_overlap,
+    recommend_filter_only,
 )
+from .recommend_bm25_dense_rrf import recommend_hybrid_bm25_dense
+from .recommend_cross_encoder_rerank import recommend_cross_encoder_rerank
+from .recommend_hybrid_rerank_graph import recommend_hybrid_rerank_graph
+from .recommend_hybrid_ce_rrf_fused import recommend_hybrid_ce_rrf_fused
 from .utils import export_results_to_excel
 from .weights import (
     build_dependency_graph,
@@ -25,6 +34,14 @@ from .weights import (
 )
 from .data_loader import load_undergrad_courses
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS, merge_weight_overrides
+from .model_names import (
+    DEFAULT_CROSS_ENCODER_MODEL,
+    DEFAULT_DENSE_MODEL_NAME,
+    dense_embedding_file_slug,
+    get_effective_cross_encoder_model_name,
+    get_effective_dense_model_name,
+    set_runtime_model_overrides,
+)
 
 
 def get_abs_path(*parts):
@@ -35,26 +52,91 @@ def get_abs_path(*parts):
 
 # Module-level cache
 _cached = {
-    'df': None,
-    'embeddings': None,
-    'emb_norm': None,
-    'tfidf': None,
-    'svd': None,
-    'data_file': None
+    "df": None,
+    "embeddings": None,
+    "emb_norm": None,
+    "tfidf": None,
+    "svd": None,
+    "data_file": None,
+    "dense_embeddings": None,
+    "dense_emb_norm": None,
+    "dense_sentence_model": None,
+    "hybrid_bundle": None,
+    "hybrid_bundle_key": None,
+    "cross_encoder": None,
 }
 _options_data_cache = None
+
+
+def set_recommender_model_overrides(
+    dense: Optional[str] = None,
+    cross_encoder: Optional[str] = None,
+) -> None:
+    """Switch dense/CrossEncoder models at runtime (e.g. benchmarks). Clears caches."""
+    set_runtime_model_overrides(dense=dense, cross_encoder=cross_encoder)
+    _cached["dense_sentence_model"] = None
+    _cached["dense_embeddings"] = None
+    _cached["dense_emb_norm"] = None
+    _cached["cross_encoder"] = None
+    _cached["hybrid_bundle"] = None
+    _cached["hybrid_bundle_key"] = None
+
+
+def _get_dense_sentence_model():
+    """Lazy-load ST model (only needed for ``dense`` search)."""
+    if _cached["dense_sentence_model"] is None:
+        from sentence_transformers import SentenceTransformer
+
+        _cached["dense_sentence_model"] = SentenceTransformer(
+            get_effective_dense_model_name()
+        )
+    return _cached["dense_sentence_model"]
+
+
+def _get_cross_encoder():
+    """Lazy-load cross-encoder for ``cross_encoder_rerank`` / ``hybrid_rerank_graph``."""
+    if _cached["cross_encoder"] is None:
+        from sentence_transformers import CrossEncoder
+
+        _cached["cross_encoder"] = CrossEncoder(
+            get_effective_cross_encoder_model_name()
+        )
+    return _cached["cross_encoder"]
+
+
+def _get_hybrid_bundle(data_file: str) -> Dict[str, Any]:
+    """BM25 index + multifield texts; rebuild when catalog instance changes."""
+    from .hybrid_retrieval_common import load_prereq_snippet_map, build_bm25_index
+    from .embedding_generators import build_multifield_course_texts
+
+    df, *_ = _load_all(data_file)
+    key = (data_file, len(df))
+    if _cached.get("hybrid_bundle_key") == key and _cached.get("hybrid_bundle"):
+        return _cached["hybrid_bundle"]
+    deps_path = get_abs_path("data", "dependencies", "course_dependencies_llm.json")
+    snippets = load_prereq_snippet_map(deps_path)
+    bm25 = build_bm25_index(df, snippets)
+    texts = build_multifield_course_texts(df)
+    bundle = {"bm25": bm25, "multifield_texts": texts}
+    _cached["hybrid_bundle"] = bundle
+    _cached["hybrid_bundle_key"] = key
+    return bundle
 
 
 def _load_all(data_file):
     """Load all required data and models."""
     # Only reload if data_file changes
-    if _cached['data_file'] != data_file:
-        _cached['df'] = None
-        _cached['embeddings'] = None
-        _cached['emb_norm'] = None
-        _cached['tfidf'] = None
-        _cached['svd'] = None
-        _cached['data_file'] = data_file
+    if _cached["data_file"] != data_file:
+        _cached["df"] = None
+        _cached["embeddings"] = None
+        _cached["emb_norm"] = None
+        _cached["tfidf"] = None
+        _cached["svd"] = None
+        _cached["dense_embeddings"] = None
+        _cached["dense_emb_norm"] = None
+        _cached["hybrid_bundle"] = None
+        _cached["hybrid_bundle_key"] = None
+        _cached["data_file"] = data_file
     
     data_json = get_abs_path('data', 'courses', data_file)
     tfidf_pkl = get_abs_path('data', 'embeddings', 'tfidf_vectorizer.pkl')
@@ -134,21 +216,71 @@ def _load_all(data_file):
 
         _cached['df'] = df
         _cached['embeddings'] = embeddings
+        _cached["hybrid_bundle"] = None
+        _cached["hybrid_bundle_key"] = None
 
         # Pre-compute row-normalized embeddings (used by cosine similarity paths)
         norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
         norms[norms == 0] = 1
-        _cached['emb_norm'] = embeddings / norms
-    
+        _cached["emb_norm"] = embeddings / norms
+
+    # Dense (sentence-transformer) embeddings: multifield text; invalidate on shape/model mismatch
+    if _cached["dense_emb_norm"] is None:
+        eff_dense = get_effective_dense_model_name()
+        if eff_dense == DEFAULT_DENSE_MODEL_NAME:
+            dense_npy = get_abs_path("data", "embeddings", "dense_embeddings.npy")
+            dense_meta = get_abs_path("data", "embeddings", "dense_model_name.txt")
+        else:
+            slug = dense_embedding_file_slug(eff_dense)
+            ddir = get_abs_path("data", "embeddings", "dense_by_model")
+            dense_npy = os.path.join(ddir, f"{slug}.npy")
+            dense_meta = os.path.join(ddir, f"{slug}.txt")
+        n_courses = len(_cached["df"])
+        need_regen = True
+        if os.path.exists(dense_npy) and os.path.exists(dense_meta):
+            with open(dense_meta, "r", encoding="utf-8") as f:
+                stored = f.read().strip()
+            if stored == eff_dense:
+                arr = np.load(dense_npy)
+                if arr.shape[0] == n_courses:
+                    _cached["dense_embeddings"] = arr.astype(np.float32)
+                    need_regen = False
+        if need_regen:
+            from .embedding_generators import build_multifield_course_texts, generate_dense_embeddings
+
+            texts = build_multifield_course_texts(_cached["df"])
+            _model, emb = generate_dense_embeddings(
+                texts,
+                model_name=eff_dense,
+                show_progress_bar=True,
+            )
+            del _model
+            emb = emb.astype(np.float32)
+            os.makedirs(os.path.dirname(dense_npy), exist_ok=True)
+            np.save(dense_npy, emb)
+            with open(dense_meta, "w", encoding="utf-8") as f:
+                f.write(eff_dense)
+            _cached["dense_embeddings"] = emb
+        dnorms = np.linalg.norm(_cached["dense_embeddings"], axis=1, keepdims=True)
+        dnorms[dnorms == 0] = 1
+        _cached["dense_emb_norm"] = _cached["dense_embeddings"] / dnorms
+
     # TFIDF and SVD
-    if _cached['tfidf'] is None:
-        with open(tfidf_pkl, 'rb') as f:
-            _cached['tfidf'] = pickle.load(f)
-    if _cached['svd'] is None:
-        with open(svd_pkl, 'rb') as f:
-            _cached['svd'] = pickle.load(f)
-    
-    return _cached['df'], _cached['embeddings'], _cached['emb_norm'], _cached['tfidf'], _cached['svd']
+    if _cached["tfidf"] is None:
+        with open(tfidf_pkl, "rb") as f:
+            _cached["tfidf"] = pickle.load(f)
+    if _cached["svd"] is None:
+        with open(svd_pkl, "rb") as f:
+            _cached["svd"] = pickle.load(f)
+
+    return (
+        _cached["df"],
+        _cached["embeddings"],
+        _cached["emb_norm"],
+        _cached["tfidf"],
+        _cached["svd"],
+        _cached["dense_emb_norm"],
+    )
 
 
 def _load_options_data_cached():
@@ -191,7 +323,8 @@ def get_recommendations(
     global_weights = resolved_weights["global_weight"]
     option_weights = resolved_weights["option_boost"]
 
-    df, embeddings, emb_norm, tfidf, svd = _load_all(data_file)
+    df, embeddings, emb_norm, tfidf, svd, dense_emb_norm = _load_all(data_file)
+    dense_model_name = get_effective_dense_model_name()
     effective_df = df
 
     # Recompute global_weight only when non-default gamma values are requested.
@@ -220,6 +353,43 @@ def get_recommendations(
             tier3=option_weights["tier3"],
         )
 
+    hybrid_bundle = _get_hybrid_bundle(data_file)
+    bm25_index = hybrid_bundle["bm25"]
+    hybrid_multifield_texts = hybrid_bundle["multifield_texts"]
+    hybrid_cfg = resolved_weights["hybrid"]
+
+    _score_detail_cols = frozenset(
+        {
+            "score_semantic",
+            "score_title_boost",
+            "score_global_mult",
+            "score_dept_mult",
+            "score_option_mult",
+            "score_rrf",
+            "score_cross_encoder",
+            "similarity_raw",
+        }
+    )
+
+    def _score_breakdown_from_row(row) -> Optional[Dict[str, float]]:
+        if "score_semantic" not in row.index:
+            return None
+        try:
+            bd: Dict[str, float] = {
+                "semantic": float(row["score_semantic"]),
+                "title_boost": float(row["score_title_boost"]),
+                "global_weight_mult": float(row["score_global_mult"]),
+                "dept_boost_mult": float(row["score_dept_mult"]),
+                "option_boost_mult": float(row["score_option_mult"]),
+            }
+            if "score_rrf" in row.index:
+                bd["rrf"] = float(row["score_rrf"])
+            if "score_cross_encoder" in row.index:
+                bd["cross_encoder"] = float(row["score_cross_encoder"])
+            return bd
+        except (TypeError, ValueError, KeyError):
+            return None
+
     all_methods = [
         (
             "cosine",
@@ -234,11 +404,85 @@ def get_recommendations(
                 ranking_weights=ranking_weights,
             ),
         ),
+        (
+            "dense",
+            lambda q: recommend_dense(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                effective_df,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                dense_model_name=dense_model_name,
+            ),
+        ),
         ("faiss", lambda q: recommend_faiss(q, tfidf, svd, embeddings, effective_df)),
         ("mmr", lambda q: recommend_mmr(q, tfidf, svd, embeddings, effective_df)),
         ("graph", lambda q: recommend_graph(q, tfidf, svd, embeddings, effective_df)),
         ("fuzzy_multi", lambda q: recommend_fuzzy_multi(q, effective_df)),
         ("keyword_overlap", lambda q: recommend_keyword_overlap(q, effective_df)),
+        (
+            "hybrid_bm25_dense",
+            lambda q: recommend_hybrid_bm25_dense(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                effective_df,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
+            ),
+        ),
+        (
+            "cross_encoder_rerank",
+            lambda q: recommend_cross_encoder_rerank(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                _get_cross_encoder(),
+                effective_df,
+                multifield_texts=hybrid_multifield_texts,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
+            ),
+        ),
+        (
+            "hybrid_ce_rrf_fused",
+            lambda q: recommend_hybrid_ce_rrf_fused(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                _get_cross_encoder(),
+                effective_df,
+                multifield_texts=hybrid_multifield_texts,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
+            ),
+        ),
+        (
+            "hybrid_rerank_graph",
+            lambda q: recommend_hybrid_rerank_graph(
+                q,
+                _get_dense_sentence_model(),
+                dense_emb_norm,
+                bm25_index,
+                _get_cross_encoder(),
+                effective_df,
+                multifield_texts=hybrid_multifield_texts,
+                filters=effective_filters,
+                ranking_weights=ranking_weights,
+                hybrid_weights=hybrid_cfg,
+                dense_model_name=dense_model_name,
+            ),
+        ),
     ]
     
     if method is not None:
@@ -268,17 +512,20 @@ def get_recommendations(
                         "search_query": search_query,
                         "method": method_name,
                         "rank": rank,
-                        "course_code": row['courseCode'],
-                        "title": row['title'],
-                        "description": row['description'],
-                        "score": row[score_col] if score_col else 0
+                        "course_code": row["courseCode"],
+                        "title": row["title"],
+                        "description": row["description"],
+                        "score": row[score_col] if score_col else 0,
                     }
-                    
-                    # Add any additional fields from the DataFrame that might be needed for filtering
+
+                    _skip_cols = _score_detail_cols | {"similarity", "fuzzy_score", "keyword_score", "score"}
                     for col in row.index:
-                        if col not in result and col not in ['similarity', 'fuzzy_score', 'keyword_score', 'score']:
+                        if col not in result and col not in _skip_cols:
                             result[col] = row[col]
-                    
+                    _bd = _score_breakdown_from_row(row)
+                    if _bd is not None:
+                        result["score_breakdown"] = _bd
+
                     query_results.append(result)
                     
             except Exception as e:
@@ -299,7 +546,7 @@ def get_filtered_courses(
 
     Used when an empty query is submitted with active filters (e.g. option/minor selected).
     """
-    df, *_ = _load_all(data_file)
+    df, *_rest = _load_all(data_file)
     results = recommend_filter_only(df, filters=filters, top_k=top_k)
 
     course_list = []
@@ -368,7 +615,7 @@ def get_high_value_courses(
     if temperature is None:
         temperature = DEFAULT_SEARCH_WEIGHTS["explore"]["temperature"]
 
-    df, _, _, _, _ = _load_all(data_file)
+    df, _, _, _, _, _ = _load_all(data_file)
     undergrad = load_undergrad_courses()
 
     # Filter: engineering depts (subjectCode or courseCode prefix), undergrad only
@@ -458,7 +705,7 @@ def get_similar_courses(
 
     Returns a list of dicts: [{course_code, title, description, score}, ...]
     """
-    df, _embeddings, emb_norm, _, _ = _load_all(data_file)
+    df, _embeddings, emb_norm, _, _, _ = _load_all(data_file)
 
     code_upper = _normalize_course_code(course_code)
     matches = df.index[df['courseCode'].apply(_normalize_course_code) == code_upper]

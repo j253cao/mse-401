@@ -1,0 +1,289 @@
+{
+  "top_k": 10,
+  "methods": [
+    "cosine"
+  ],
+  "tracks": {
+    "skip_internal": false,
+    "skip_calendar": false
+  },
+  "weights": {
+    "w_overlap": 2.0,
+    "w_mror": 1.0,
+    "w_lex": 1.0,
+    "composite_epsilon": 1e-06,
+    "non_stem_query_weight": 1.5
+  },
+  "gates": {
+    "internal_baseline": "cosine",
+    "internal_tolerance": 0.0,
+    "threshold_non_stem_win_rate": 0.55,
+    "threshold_overall_win_rate": 0.5,
+    "per_method": {
+      "cosine": {
+        "internal": {
+          "pass_internal": true,
+          "is_baseline": true,
+          "pass_ndcg": true,
+          "pass_mrr": true,
+          "pass_non_stem_ndcg": true
+        },
+        "calendar": {
+          "pass_overall_calendar": false,
+          "pass_non_stem_calendar": false,
+          "win_rate": 0.0,
+          "non_stem_win_rate": 0.0
+        }
+      }
+    }
+  },
+  "recommended_winner": "cosine",
+  "internal_track": {
+    "eval_set": "C:\\Users\\Abhishek\\Documents\\Coding\\402\\mse-401\\backend\\recommender\\eval\\queries.json",
+    "graded_case_count": 157,
+    "per_method_macro": {
+      "cosine": {
+        "ndcg_at_k": 0.30390307884516576,
+        "recall_at_k": 0.2952229299363058,
+        "mrr": 0.48610853760535294
+      }
+    },
+    "per_method_non_stem_labeled": {
+      "cosine": {
+        "ndcg_at_k": 0.14044828580272617,
+        "recall_at_k": 0.16666666666666666,
+        "mrr": 0.1894193255304366
+      }
+    },
+    "per_method_segments": {
+      "cosine": {
+        "se_early": {
+          "ndcg_at_k": 0.5009745980304876,
+          "recall_at_k": 0.35,
+          "mrr": 1.0
+        },
+        "se_mid": {
+          "ndcg_at_k": 0.5203184695695025,
+          "recall_at_k": 0.5222222222222223,
+          "mrr": 0.8333333333333334
+        },
+        "se_upper": {
+          "ndcg_at_k": 0.4928888788869366,
+          "recall_at_k": 0.38888888888888884,
+          "mrr": 0.6666666666666666
+        },
+        "ece_early": {
+          "ndcg_at_k": 0.5931026945849874,
+          "recall_at_k": 0.2833333333333334,
+          "mrr": 1.0
+        },
+        "ece_mid": {
+          "ndcg_at_k": 0.6179927251177363,
+          "recall_at_k": 0.4000000000000001,
+          "mrr": 1.0
+        },
+        "ece_upper": {
+          "ndcg_at_k": 0.3483201337177856,
+          "recall_at_k": 0.5,
+          "mrr": 0.6666666666666666
+        },
+        "mgte_early": {
+          "ndcg_at_k": 0.6206607242315743,
+          "recall_at_k": 0.5,
+          "mrr": 0.75
+        },
+        "mgte_mid": {
+          "ndcg_at_k": 0.5909028137928727,
+          "recall_at_k": 0.2833333333333333,
+          "mrr": 1.0
+        },
+        "mgte_upper": {
+          "ndcg_at_k": 0.5420913796933888,
+          "recall_at_k": 0.3333333333333333,
+          "mrr": 0.6666666666666666
+        },
+        "syde_early": {
+          "ndcg_at_k": 0.4386075387706657,
+          "recall_at_k": 0.30000000000000004,
+          "mrr": 1.0
+        },
+        "syde_mid": {
+          "ndcg_at_k": 0.2892866447692377,
+          "recall_at_k": 0.35555555555555557,
+          "mrr": 0.7142857142857143
+        },
+        "syde_upper": {
+          "ndcg_at_k": 0.642366835841574,
+          "recall_at_k": 0.8,
+          "mrr": 1.0
+        },
+        "mte_early": {
+          "ndcg_at_k": 0.2042858574462085,
+          "recall_at_k": 0.325,
+          "mrr": 0.6666666666666666
+        },
+        "mte_mid": {
+          "ndcg_at_k": 0.12799152516177276,
+          "recall_at_k": 0.30000000000000004,
+          "mrr": 0.25
+        },
+        "mte_upper": {
+          "ndcg_at_k": 0.5538411448985919,
+          "recall_at_k": 0.43333333333333335,
+          "mrr": 0.6666666666666666
+        },
+        "me_early": {
+          "ndcg_at_k": 0.20268413411211966,
+          "recall_at_k": 0.2,
+          "mrr": 0.25
+        },
+        "me_mid": {
+          "ndcg_at_k": 0.6145536921366268,
+          "recall_at_k": 0.575,
+          "mrr": 1.0
+        },
+        "me_upper": {
+          "ndcg_at_k": 0.45262992841622973,
+          "recall_at_k": 0.25,
+          "mrr": 0.52
+        },
+        "cross_dept": {
+          "ndcg_at_k": 0.27450902312935355,
+          "recall_at_k": 0.19166666666666665,
+          "mrr": 0.3888888888888889
+        },
+        "cold_start": {
+          "ndcg_at_k": 0.19631231786211176,
+          "recall_at_k": 0.25,
+          "mrr": 0.16666666666666666
+        },
+        "breadth": {
+          "ndcg_at_k": 0.0,
+          "recall_at_k": 0.0,
+          "mrr": 0.0
+        },
+        "adversarial": {
+          "ndcg_at_k": 0.08751266761527034,
+          "recall_at_k": 0.14444444444444446,
+          "mrr": 0.13055555555555556
+        },
+        "option_alignment": {
+          "ndcg_at_k": 0.5885609109428244,
+          "recall_at_k": 0.6166666666666667,
+          "mrr": 1.0
+        },
+        "rich_transcript": {
+          "ndcg_at_k": 0.27899565401388776,
+          "recall_at_k": 0.26666666666666666,
+          "mrr": 0.4166666666666667
+        },
+        "filter_behavior": {
+          "ndcg_at_k": 0.28331408666149366,
+          "recall_at_k": 0.3333333333333333,
+          "mrr": 0.5
+        },
+        "career_driven": {
+          "ndcg_at_k": 0.2537139104530409,
+          "recall_at_k": 0.26,
+          "mrr": 0.4248484848484848
+        },
+        "test_plan_402_stem": {
+          "ndcg_at_k": 0.3229263993824418,
+          "recall_at_k": 0.27777777777777773,
+          "mrr": 0.5527777777777777
+        },
+        "test_plan_402_nonstem": {
+          "ndcg_at_k": 0.15800432152806693,
+          "recall_at_k": 0.1875,
+          "mrr": 0.2130967412217412
+        },
+        "coverage_expanded": {
+          "ndcg_at_k": 0.2225898647466027,
+          "recall_at_k": 0.33666666666666656,
+          "mrr": 0.34523809523809523
+        }
+      }
+    }
+  },
+  "calendar_track": {
+    "search_eval_set": "C:\\Users\\Abhishek\\Documents\\Coding\\402\\mse-401\\backend\\recommender\\eval\\search_evaluation_queries.json",
+    "calendar_csv": "C:\\Users\\Abhishek\\Documents\\Coding\\402\\mse-401\\backend\\recommender\\eval\\uw_calendar_top10.csv",
+    "per_method": {
+      "cosine": {
+        "queries_compared": 20,
+        "win_rate": 0.0,
+        "weighted_win_rate": 0.0,
+        "non_stem_queries": 9,
+        "non_stem_win_rate": 0.0,
+        "non_stem_weighted_win_rate": 0.0
+      }
+    },
+    "non_stem_losses_by_method": {
+      "cosine": [
+        {
+          "query_id": "breadth_n1_ethics_technology_society",
+          "query": "ethics of technology and engineering in society",
+          "outcome": "loss",
+          "method_composite": 0.749999999625,
+          "calendar_composite": 8.520833333333334
+        },
+        {
+          "query_id": "breadth_n2_professional_communication",
+          "query": "professional communication and technical writing for engineers",
+          "outcome": "loss",
+          "method_composite": 0.8049844715399243,
+          "calendar_composite": 4.75
+        },
+        {
+          "query_id": "breadth_n3_psychology_decision_human_factors",
+          "query": "psychology of decision making and human factors",
+          "outcome": "loss",
+          "method_composite": 0.6260990334199411,
+          "calendar_composite": 8.520833333333334
+        },
+        {
+          "query_id": "breadth_n4_economics_innovation",
+          "query": "economics of innovation",
+          "outcome": "loss",
+          "method_composite": 0.6363961026178927,
+          "calendar_composite": 4.75
+        },
+        {
+          "query_id": "breadth_n7_law_ip_technology",
+          "query": "law, regulation, and intellectual property for technology",
+          "outcome": "loss",
+          "method_composite": 0.8049844715399243,
+          "calendar_composite": 8.520833333333334
+        },
+        {
+          "query_id": "breadth_n8_leadership_teamwork_pm",
+          "query": "leadership, teamwork, and project management in organizations",
+          "outcome": "loss",
+          "method_composite": 1.0733126287198993,
+          "calendar_composite": 4.75
+        },
+        {
+          "query_id": "breadth_n9_urban_planning_community",
+          "query": "urban planning and community studies",
+          "outcome": "loss",
+          "method_composite": 0.9999999995,
+          "calendar_composite": 8.520833333333334
+        },
+        {
+          "query_id": "breadth_n10_philosophy_mind_logic",
+          "query": "philosophy of mind and logic",
+          "outcome": "loss",
+          "method_composite": 0.6350852957419219,
+          "calendar_composite": 3.0
+        },
+        {
+          "query_id": "breadth_n11_creative_writing",
+          "query": "creative writing",
+          "outcome": "loss",
+          "method_composite": 3.132806635818309,
+          "calendar_composite": 7.082515631568809
+        }
+      ]
+    }
+  }
+}
