@@ -4,6 +4,7 @@ import json
 import os
 import pickle
 import re
+import warnings
 import numpy as np
 import pandas as pd
 from typing import List, Dict, Any, Optional
@@ -35,9 +36,9 @@ from .weights import (
 from .data_loader import load_undergrad_courses
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS, merge_weight_overrides
 from .model_names import (
-    DEFAULT_CROSS_ENCODER_MODEL,
     DEFAULT_DENSE_MODEL_NAME,
     dense_embedding_file_slug,
+    get_effective_model_cache_dir,
     get_effective_cross_encoder_model_name,
     get_effective_dense_model_name,
     set_runtime_model_overrides,
@@ -87,8 +88,17 @@ def _get_dense_sentence_model():
     if _cached["dense_sentence_model"] is None:
         from sentence_transformers import SentenceTransformer
 
+        cache_dir = get_effective_model_cache_dir()
+        common_kwargs = {}
+        if cache_dir:
+            common_kwargs = {
+                "model_kwargs": {"cache_dir": cache_dir},
+                "processor_kwargs": {"cache_dir": cache_dir},
+                "config_kwargs": {"cache_dir": cache_dir},
+            }
         _cached["dense_sentence_model"] = SentenceTransformer(
-            get_effective_dense_model_name()
+            get_effective_dense_model_name(),
+            **common_kwargs,
         )
     return _cached["dense_sentence_model"]
 
@@ -98,9 +108,14 @@ def _get_cross_encoder():
     if _cached["cross_encoder"] is None:
         from sentence_transformers import CrossEncoder
 
-        _cached["cross_encoder"] = CrossEncoder(
-            get_effective_cross_encoder_model_name()
-        )
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "ignore",
+                message=r"The Transformer `cache_dir` argument is deprecated\..*",
+            )
+            _cached["cross_encoder"] = CrossEncoder(
+                get_effective_cross_encoder_model_name(),
+            )
     return _cached["cross_encoder"]
 
 

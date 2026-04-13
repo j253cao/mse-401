@@ -1,0 +1,1 @@
+When moving shared scoring logic into a helper module, move the dependent imports too and run one real hybrid query path afterward to catch missing runtime symbols like `dense_semantic_plus_title_boost`.

@@ -15,6 +15,7 @@ from .recommenders import (
     _apply_course_filters,
     _get_course_dept,
     _subject_prefixes_for_same_dept_search_boost,
+    dense_semantic_plus_title_boost,
 )
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
 

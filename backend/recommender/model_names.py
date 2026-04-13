@@ -30,6 +30,14 @@ def get_effective_cross_encoder_model_name() -> str:
     )
 
 
+def get_effective_model_cache_dir() -> Optional[str]:
+    return (
+        os.environ.get("HF_HOME", "").strip()
+        or os.environ.get("SENTENCE_TRANSFORMERS_HOME", "").strip()
+        or None
+    )
+
+
 def set_runtime_model_overrides(
     dense: Optional[str] = None,
     cross_encoder: Optional[str] = None,

@@ -12,7 +12,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     HF_HOME=/app/.cache/huggingface \
-    TRANSFORMERS_CACHE=/app/.cache/huggingface/transformers \
     SENTENCE_TRANSFORMERS_HOME=/app/.cache/sentence_transformers \
     OMP_NUM_THREADS=1 \
     OPENBLAS_NUM_THREADS=1 \
@@ -38,8 +37,8 @@ COPY backend/ /app/backend/
 
 # Bake the default dense and cross-encoder models into the image to avoid
 # cold-start downloads on first request.
-RUN python -c "from pathlib import Path; [Path(p).mkdir(parents=True, exist_ok=True) for p in ('$HF_HOME', '$TRANSFORMERS_CACHE', '$SENTENCE_TRANSFORMERS_HOME')]" && \
-    PYTHONPATH=/app/backend python -c "from recommender.model_names import DEFAULT_CROSS_ENCODER_MODEL, DEFAULT_DENSE_MODEL_NAME; from sentence_transformers import CrossEncoder, SentenceTransformer; SentenceTransformer(DEFAULT_DENSE_MODEL_NAME); CrossEncoder(DEFAULT_CROSS_ENCODER_MODEL)"
+RUN python -c "from pathlib import Path; [Path(p).mkdir(parents=True, exist_ok=True) for p in ('$HF_HOME', '$SENTENCE_TRANSFORMERS_HOME')]" && \
+    PYTHONPATH=/app/backend python -c "from recommender.main import _get_cross_encoder, _get_dense_sentence_model; _get_dense_sentence_model(); _get_cross_encoder()"
 
 # Copy only runtime data assets needed by the deployed API.
 COPY data/courses/course-api-new-data.json /app/data/courses/course-api-new-data.json
