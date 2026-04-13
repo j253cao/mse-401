@@ -10,6 +10,7 @@ FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
     OMP_NUM_THREADS=1 \
     OPENBLAS_NUM_THREADS=1 \
     MKL_NUM_THREADS=1
@@ -18,13 +19,24 @@ WORKDIR /app
 
 # Install backend dependencies
 COPY backend/requirements.txt /app/backend/requirements.txt
-RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+RUN python -m pip install --upgrade pip && \
+    pip install --no-cache-dir \
+      --index-url https://download.pytorch.org/whl/cpu \
+      --extra-index-url https://pypi.org/simple \
+      -r /app/backend/requirements.txt && \
+    python -c "from pathlib import Path; import shutil, site; \
+[shutil.rmtree(path, ignore_errors=True) \
+ for root in (Path(p) for p in site.getsitepackages()) if root.exists() \
+ for pattern in ('**/__pycache__', '**/tests', '**/test') \
+ for path in root.glob(pattern) if path.is_dir()]"
 
 # Copy backend source
 COPY backend/ /app/backend/
 
 # Copy only runtime data assets needed by the deployed API.
-COPY data/courses/ /app/data/courses/
+COPY data/courses/course-api-new-data.json /app/data/courses/course-api-new-data.json
+COPY data/courses/undergrad-courses.json /app/data/courses/undergrad-courses.json
+COPY data/courses/grad-courses.json /app/data/courses/grad-courses.json
 COPY data/programs/ /app/data/programs/
 COPY data/degree_requirements/program_core_courses.json /app/data/degree_requirements/program_core_courses.json
 COPY data/dependencies/course_dependencies_llm.json /app/data/dependencies/course_dependencies_llm.json

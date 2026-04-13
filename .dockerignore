@@ -34,6 +34,11 @@ data/dependencies/*.backup
 # Large raw scraped text (not needed at runtime)
 data/programs/raw_scraped_text/
 
+# Unused course catalogs for deployed runtime
+data/courses/course-api-data.json
+data/courses/raw-course-data.json
+data/courses/waterloo-open-api-data.json
+
 # Large embedding/model artifacts not used by deployed runtime
 data/embeddings/dense_by_model/
 data/embeddings/course_bert_embeddings.npy
