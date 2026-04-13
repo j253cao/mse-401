@@ -202,6 +202,75 @@ def apply_global_dept_option_multipliers(
     return weighted, global_mult, dept_mult, option_mult
 
 
+def prepare_hybrid_query(
+    query: str,
+    dense_model,
+    dense_emb_norm: np.ndarray,
+    df: pd.DataFrame,
+    ranking_weights: Optional[Dict[str, float]],
+    dense_model_name: Optional[str] = None,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Encode one query and reuse dense/title scores across hybrid methods."""
+    from .embedding_generators import encode_dense_query_normalized
+    from .model_names import get_effective_dense_model_name
+
+    dname = dense_model_name or get_effective_dense_model_name()
+    q_norm = np.asarray(
+        encode_dense_query_normalized(dname, dense_model, query),
+        dtype=np.float32,
+    )
+    dense_semantic = np.asarray(np.dot(dense_emb_norm, q_norm), dtype=np.float32)
+    dense_semantic = np.nan_to_num(
+        dense_semantic,
+        nan=0.0,
+        posinf=0.0,
+        neginf=0.0,
+    ).astype(np.float32, copy=False)
+    retrieval_similarity = np.asarray(
+        dense_semantic_plus_title_boost(
+            query,
+            df,
+            dense_semantic,
+            ranking_weights=ranking_weights,
+        ),
+        dtype=np.float32,
+    )
+    retrieval_similarity = np.nan_to_num(
+        retrieval_similarity,
+        nan=0.0,
+        posinf=0.0,
+        neginf=0.0,
+    ).astype(np.float32, copy=False)
+    return q_norm, dense_semantic, retrieval_similarity
+
+
+def predict_cross_encoder_scores(
+    cross_encoder,
+    query: str,
+    multifield_texts: Sequence[str],
+    shortlist: Sequence[int],
+    *,
+    batch_size: int,
+) -> np.ndarray:
+    """Score shortlist in small batches to keep peak allocations down."""
+    idxs = np.asarray(shortlist, dtype=np.int64)
+    if len(idxs) == 0:
+        return np.array([], dtype=np.float32)
+
+    batch_size = max(int(batch_size), 1)
+    score_batches: List[np.ndarray] = []
+    for start in range(0, len(idxs), batch_size):
+        batch = idxs[start : start + batch_size]
+        pairs = [[query, multifield_texts[i]] for i in batch]
+        batch_scores = cross_encoder.predict(
+            pairs,
+            show_progress_bar=False,
+            batch_size=batch_size,
+        )
+        score_batches.append(np.asarray(batch_scores, dtype=np.float32))
+    return np.concatenate(score_batches)
+
+
 def hybrid_retrieval_candidates(
     query: str,
     q_dense: np.ndarray,
@@ -213,6 +282,7 @@ def hybrid_retrieval_candidates(
     *,
     min_similarity_dense: float,
     retrieval_similarity: Optional[np.ndarray] = None,
+    dense_semantic: Optional[np.ndarray] = None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Returns:
@@ -224,8 +294,16 @@ def hybrid_retrieval_candidates(
     filters_applied = _apply_course_filters(filters, df)
     elig = eligible_indices(filters_applied, df)
 
-    dense_semantic = np.dot(dense_emb_norm, q_dense.astype(np.float64))
-    dense_semantic = np.nan_to_num(dense_semantic, nan=0.0, posinf=0.0, neginf=0.0)
+    if dense_semantic is None:
+        dense_semantic = np.asarray(np.dot(dense_emb_norm, q_dense), dtype=np.float32)
+    else:
+        dense_semantic = np.asarray(dense_semantic, dtype=np.float32)
+    dense_semantic = np.nan_to_num(
+        dense_semantic,
+        nan=0.0,
+        posinf=0.0,
+        neginf=0.0,
+    ).astype(np.float32, copy=False)
 
     q_tokens = tokenize(query)
     bm25_s = bm25_rank_scores(bm25, q_tokens)

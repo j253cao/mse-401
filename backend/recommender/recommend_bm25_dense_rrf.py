@@ -12,6 +12,7 @@ from rank_bm25 import BM25Okapi
 from .hybrid_retrieval_common import (
     apply_global_dept_option_multipliers,
     hybrid_retrieval_candidates,
+    prepare_hybrid_query,
 )
 from .recommenders import MIN_SIMILARITY_CUTOFF, dense_semantic_plus_title_boost
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
@@ -40,19 +41,13 @@ def recommend_hybrid_bm25_dense(
         ranking_weights.get("min_similarity_cutoff", MIN_SIMILARITY_CUTOFF)
     )
 
-    from .embedding_generators import encode_dense_query_normalized
-    from .model_names import get_effective_dense_model_name
-
-    dname = dense_model_name or get_effective_dense_model_name()
-    q_norm = np.asarray(
-        encode_dense_query_normalized(dname, dense_model, query),
-        dtype=np.float32,
-    )
-
-    dense_semantic_gate = np.dot(dense_emb_norm, q_norm.astype(np.float64))
-    dense_semantic_gate = np.nan_to_num(dense_semantic_gate, nan=0.0, posinf=0.0, neginf=0.0)
-    retrieval_sim = dense_semantic_plus_title_boost(
-        query, df, dense_semantic_gate, ranking_weights=ranking_weights
+    q_norm, dense_semantic, retrieval_sim = prepare_hybrid_query(
+        query,
+        dense_model,
+        dense_emb_norm,
+        df,
+        ranking_weights,
+        dense_model_name=dense_model_name,
     )
 
     candidate_idxs, rrf_full, dense_semantic = hybrid_retrieval_candidates(
@@ -65,6 +60,7 @@ def recommend_hybrid_bm25_dense(
         hw,
         min_similarity_dense=min_similarity,
         retrieval_similarity=retrieval_sim,
+        dense_semantic=dense_semantic,
     )
 
     if len(candidate_idxs) == 0:

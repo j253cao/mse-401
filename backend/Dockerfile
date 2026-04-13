@@ -23,8 +23,17 @@ RUN pip install --no-cache-dir -r /app/backend/requirements.txt
 # Copy backend source
 COPY backend/ /app/backend/
 
-# Copy runtime data assets (kept at repo root `/data`)
-COPY data/ /app/data/
+# Copy only runtime data assets needed by the deployed API.
+COPY data/courses/ /app/data/courses/
+COPY data/programs/ /app/data/programs/
+COPY data/degree_requirements/program_core_courses.json /app/data/degree_requirements/program_core_courses.json
+COPY data/dependencies/course_dependencies_llm.json /app/data/dependencies/course_dependencies_llm.json
+COPY data/embeddings/course_embeddings.pkl /app/data/embeddings/course_embeddings.pkl
+COPY data/embeddings/course_embeddings.npy /app/data/embeddings/course_embeddings.npy
+COPY data/embeddings/dense_embeddings.npy /app/data/embeddings/dense_embeddings.npy
+COPY data/embeddings/dense_model_name.txt /app/data/embeddings/dense_model_name.txt
+COPY data/embeddings/svd_model.pkl /app/data/embeddings/svd_model.pkl
+COPY data/embeddings/tfidf_vectorizer.pkl /app/data/embeddings/tfidf_vectorizer.pkl
 
 # Copy frontend build output
 COPY --from=build-frontend /build/dist /app/frontend-dist/

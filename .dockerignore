@@ -9,13 +9,20 @@
 # Frontend build artifacts (source is needed for Docker build stage)
 frontend/node_modules/
 frontend/dist/
+frontend/.vite/
 
 # Git / IDE
 .git/
 .cursor/
+.venv/
+venv/
+backend/venv/
+backend/.venv/
 
 # Non-runtime backend scripts
 backend/scripts/
+backend/tests/
+backend/recommender/eval/
 
 # Non-runtime data artifacts (debug/checkpoints/backups)
 data/non_runtime/
@@ -26,4 +33,13 @@ data/dependencies/*.backup
 
 # Large raw scraped text (not needed at runtime)
 data/programs/raw_scraped_text/
+
+# Large embedding/model artifacts not used by deployed runtime
+data/embeddings/dense_by_model/
+data/embeddings/course_bert_embeddings.npy
+
+# Workspace-only content
+notebooks/
+tasks/
+scripts/
 

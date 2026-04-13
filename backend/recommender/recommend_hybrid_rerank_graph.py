@@ -10,8 +10,13 @@ import pandas as pd
 from rank_bm25 import BM25Okapi
 
 from .embedding_generators import build_multifield_course_texts
-from .hybrid_retrieval_common import apply_global_dept_option_multipliers, hybrid_retrieval_candidates
-from .recommenders import MIN_SIMILARITY_CUTOFF, dense_semantic_plus_title_boost
+from .hybrid_retrieval_common import (
+    apply_global_dept_option_multipliers,
+    hybrid_retrieval_candidates,
+    predict_cross_encoder_scores,
+    prepare_hybrid_query,
+)
+from .recommenders import MIN_SIMILARITY_CUTOFF
 from .search_weight_config import DEFAULT_SEARCH_WEIGHTS
 
 
@@ -40,19 +45,13 @@ def recommend_hybrid_rerank_graph(
         ranking_weights.get("min_similarity_cutoff", MIN_SIMILARITY_CUTOFF)
     )
 
-    from .embedding_generators import encode_dense_query_normalized
-    from .model_names import get_effective_dense_model_name
-
-    dname = dense_model_name or get_effective_dense_model_name()
-    q_norm = np.asarray(
-        encode_dense_query_normalized(dname, dense_model, query),
-        dtype=np.float32,
-    )
-
-    dense_semantic_gate = np.dot(dense_emb_norm, q_norm.astype(np.float64))
-    dense_semantic_gate = np.nan_to_num(dense_semantic_gate, nan=0.0, posinf=0.0, neginf=0.0)
-    retrieval_sim = dense_semantic_plus_title_boost(
-        query, df, dense_semantic_gate, ranking_weights=ranking_weights
+    q_norm, dense_semantic, retrieval_sim = prepare_hybrid_query(
+        query,
+        dense_model,
+        dense_emb_norm,
+        df,
+        ranking_weights,
+        dense_model_name=dense_model_name,
     )
 
     candidate_idxs, _rrf_full, dense_semantic = hybrid_retrieval_candidates(
@@ -65,6 +64,7 @@ def recommend_hybrid_rerank_graph(
         hw,
         min_similarity_dense=min_similarity,
         retrieval_similarity=retrieval_sim,
+        dense_semantic=dense_semantic,
     )
 
     if len(candidate_idxs) == 0:
@@ -77,9 +77,13 @@ def recommend_hybrid_rerank_graph(
     if multifield_texts is None:
         multifield_texts = build_multifield_course_texts(df)
 
-    pairs = [[query, multifield_texts[i]] for i in shortlist]
-    ce_scores = cross_encoder.predict(pairs, show_progress_bar=False, batch_size=16)
-    ce_scores = np.asarray(ce_scores, dtype=np.float64)
+    ce_scores = predict_cross_encoder_scores(
+        cross_encoder,
+        query,
+        multifield_texts,
+        shortlist,
+        batch_size=int(hw.get("cross_encoder_batch_size", 8)),
+    )
 
     order = np.argsort(-ce_scores)
     shortlist = shortlist[order]
@@ -110,15 +114,15 @@ def recommend_hybrid_rerank_graph(
     idxs = shortlist[:k_final]
 
     result = df.iloc[idxs][["courseCode", "title", "description"]].copy()
-    result["similarity_raw"] = retrieval_sim[idxs].astype(np.float64)
+    result["similarity_raw"] = retrieval_sim[idxs].astype(np.float32)
     result["similarity"] = weighted[:k_final]
     result["similarity"] = np.nan_to_num(result["similarity"], nan=0.0, posinf=0.0, neginf=0.0)
-    result["score_semantic"] = dense_semantic[idxs].astype(np.float64)
-    result["score_cross_encoder"] = ce_scores[:k_final].astype(np.float64)
-    result["score_title_boost"] = np.zeros(len(idxs), dtype=np.float64)
-    result["score_global_mult"] = g_mult[:k_final].astype(np.float64)
-    result["score_dept_mult"] = d_mult[:k_final].astype(np.float64)
-    result["score_option_mult"] = o_mult[:k_final].astype(np.float64)
+    result["score_semantic"] = dense_semantic[idxs].astype(np.float32)
+    result["score_cross_encoder"] = ce_scores[:k_final].astype(np.float32)
+    result["score_title_boost"] = np.zeros(len(idxs), dtype=np.float32)
+    result["score_global_mult"] = g_mult[:k_final].astype(np.float32)
+    result["score_dept_mult"] = d_mult[:k_final].astype(np.float32)
+    result["score_option_mult"] = o_mult[:k_final].astype(np.float32)
 
     result = result[result["similarity_raw"] >= min_similarity]
     print(f"[recommend_hybrid_rerank_graph] returned {len(result)} rows")
